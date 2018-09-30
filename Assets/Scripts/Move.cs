@@ -47,10 +47,12 @@ public class Move : ActorTemplate
 
             case "down":
                 moveY = -1;
+
                 break;
 
             case "up":
                 moveY = 1;
+
                 break;
         }
 
