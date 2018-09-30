@@ -2,8 +2,9 @@
 
 public class Move : ActorTemplate
 {
-    private int moveX;
-    private int moveY;
+    private float moveStep = 0.5f;
+    private float moveX;
+    private float moveY;
     private string newDirection;
     private bool repoted;
 
@@ -38,19 +39,19 @@ public class Move : ActorTemplate
         switch (newDirection)
         {
             case "left":
-                moveX = -1;
+                moveX = -moveStep;
                 break;
 
             case "right":
-                moveX = 1;
+                moveX = moveStep;
                 break;
 
             case "down":
-                moveY = -1;
+                moveY = -moveStep;
                 break;
 
             case "up":
-                moveY = 1;
+                moveY = moveStep;
                 break;
         }
 
