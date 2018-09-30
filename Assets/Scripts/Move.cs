@@ -2,22 +2,64 @@
 
 public class Move : ActorTemplate
 {
-    private int moveStep;
-    private float moveX;
-    private float moveY;
+    private int moveX;
+    private int moveY;
+    private string newDirection;
     private bool repoted;
+
+    private string GetMoveKey()
+    {
+        if (Input.GetKeyDown("left") || Input.GetKeyDown("h"))
+        {
+            return "left";
+        }
+        else if (Input.GetKeyDown("right") || Input.GetKeyDown("l"))
+        {
+            return "right";
+        }
+        else if (Input.GetKeyDown("down") || Input.GetKeyDown("j"))
+        {
+            return "down";
+        }
+        else if (Input.GetKeyDown("up") || Input.GetKeyDown("k"))
+        {
+            return "up";
+        }
+
+        return "wait";
+    }
 
     private void MoveAround()
     {
-        moveX = Input.GetAxis("Horizontal") * moveStep;
-        moveY = Input.GetAxis("Vertical") * moveStep;
+        moveX = 0;
+        moveY = 0;
+        newDirection = GetMoveKey();
+
+        switch (newDirection)
+        {
+            case "left":
+                moveX = -1;
+                break;
+
+            case "right":
+                moveX = 1;
+                break;
+
+            case "down":
+                moveY = -1;
+                break;
+
+            case "up":
+                moveY = 1;
+                break;
+        }
+
         transform.position += new Vector3(moveX, moveY);
     }
 
     // Use this for initialization
     private void Start()
     {
-        moveStep = 1;
         repoted = false;
 
         //transform.position = new Vector3(0f, 0f);
