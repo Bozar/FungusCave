@@ -10,6 +10,7 @@ public class Move : ActorTemplate
     private string newDirection;
     private bool repoted;
     private WaitForSeconds wait5Seconds;
+    private GameObject wallTile;
 
     private string GetMoveKey()
     {
@@ -88,8 +89,15 @@ public class Move : ActorTemplate
         repoted = false;
         wait5Seconds = new WaitForSeconds(5.0f);
         countStep = 0;
+        wallTile = Resources.Load("Prefabs/Wall") as GameObject;
 
         StartCoroutine(moveAndWait());
+
+        for (int i = 0; i < 5; i++)
+        {
+            Instantiate(wallTile, new Vector3(i * moveStep, 1),
+                Quaternion.identity);
+        }
     }
 
     private void Update()
