@@ -75,8 +75,12 @@ public class Move : ActorTemplate
                 break;
         }
 
-        transform.position += new Vector3(moveX, moveY);
-        countStep++;
+        if (newDirection != "wait")
+        //if (!string.IsNullOrEmpty(newDirection))
+        {
+            transform.position += new Vector3(moveX, moveY);
+            countStep++;
+        }
     }
 
     private void Start()
