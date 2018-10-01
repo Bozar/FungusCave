@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Move : ActorTemplate
 {
+    private int countStep;
     private float moveStep = 0.5f;
     private float moveX;
     private float moveY;
     private string newDirection;
     private bool repoted;
+    private WaitForSeconds wait5Seconds;
 
     private string GetMoveKey()
     {
@@ -28,6 +31,23 @@ public class Move : ActorTemplate
         }
 
         return "wait";
+    }
+
+    private IEnumerator moveAndWait()
+    {
+        while (true)
+        {
+            yield return wait5Seconds;
+
+            if (countStep % 5 == 0)
+            {
+                Debug.Log("This step: " + countStep);
+            }
+            else
+            {
+                Debug.Log("Current step: " + countStep);
+            }
+        }
     }
 
     private void MoveAround()
@@ -56,15 +76,16 @@ public class Move : ActorTemplate
         }
 
         transform.position += new Vector3(moveX, moveY);
+        countStep++;
     }
 
-    // Use this for initialization
     private void Start()
     {
         repoted = false;
+        wait5Seconds = new WaitForSeconds(5.0f);
+        countStep = 0;
 
-        //transform.position = new Vector3(0f, 0f);
-        //pcPosition = transform.position;
+        StartCoroutine(moveAndWait());
     }
 
     private void Update()
