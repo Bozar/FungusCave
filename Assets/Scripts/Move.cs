@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Move : ActorTemplate
 {
+    private int[] buildWalls = { 1, 1, 0, 1, 1 };
     private int countStep;
     private float moveStep = 0.5f;
     private float moveX;
@@ -34,6 +35,43 @@ public class Move : ActorTemplate
         return "wait";
     }
 
+    private bool IsWalkable(string direction)
+    {
+        float x = transform.position.x;
+        float y = transform.position.y;
+
+        switch (direction)
+        {
+            case "left":
+                x -= moveStep;
+                break;
+
+            case "right":
+                x += moveStep;
+                break;
+
+            case "up":
+                y += moveStep;
+                break;
+
+            case "down":
+                y -= moveStep;
+                break;
+        }
+
+        if (y == 1.0f)
+        {
+            int xIndex = (int)(x * 2);
+
+            if (xIndex < buildWalls.Length && xIndex > -1)
+            {
+                return buildWalls[xIndex] == 0;
+            }
+        }
+
+        return true;
+    }
+
     private IEnumerator moveAndWait()
     {
         while (true)
@@ -56,6 +94,12 @@ public class Move : ActorTemplate
         moveX = 0;
         moveY = 0;
         newDirection = GetMoveKey();
+
+        if (!IsWalkable(newDirection))
+        {
+            Debug.Log("You are blocked.");
+            return;
+        }
 
         switch (newDirection)
         {
@@ -93,10 +137,13 @@ public class Move : ActorTemplate
 
         StartCoroutine(moveAndWait());
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < buildWalls.Length; i++)
         {
-            Instantiate(wallTile, new Vector3(i * moveStep, 1),
-                Quaternion.identity);
+            if (buildWalls[i] == 1)
+            {
+                Instantiate(wallTile, new Vector3(i * moveStep, 1),
+                    Quaternion.identity);
+            }
         }
     }
 
