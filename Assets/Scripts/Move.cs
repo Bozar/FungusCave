@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Move : ActorTemplate
 {
@@ -9,6 +10,7 @@ public class Move : ActorTemplate
     //private int[] buildWalls = { 1, 1, 0, 1, 1 };
     private int countStep;
 
+    private Text message;
     private float moveX;
     private float moveY;
     private string newDirection;
@@ -61,7 +63,7 @@ public class Move : ActorTemplate
                 break;
         }
 
-        if (y == 1.0f)
+        if (y == 5.0f)
         {
             int xIndex = (int)(x * 2);
 
@@ -100,6 +102,7 @@ public class Move : ActorTemplate
         if (!IsWalkable(newDirection))
         {
             Debug.Log("You are blocked.");
+            message.text = "You are blocked";
             return;
         }
 
@@ -125,6 +128,8 @@ public class Move : ActorTemplate
         if (newDirection != "wait")
         //if (!string.IsNullOrEmpty(newDirection))
         {
+            message.text = "Hello World\n2\n3\n4\n5";
+
             transform.position += new Vector3(moveX, moveY);
             countStep++;
         }
@@ -134,6 +139,9 @@ public class Move : ActorTemplate
     {
         repoted = false;
         wait5Seconds = new WaitForSeconds(5.0f);
+        message = GameObject.FindGameObjectWithTag("Message")
+            .GetComponent<Text>();
+
         countStep = 0;
 
         StartCoroutine(MoveAndWait());

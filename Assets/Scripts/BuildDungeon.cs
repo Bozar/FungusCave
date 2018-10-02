@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildDungeon : MonoBehaviour
 {
     public static readonly int[] buildWalls = { 1, 1, 0, 1, 1 };
 
+    private Text message;
     private float moveStep;
     private GameObject newPC;
     private GameObject newWall;
@@ -11,7 +13,7 @@ public class BuildDungeon : MonoBehaviour
     private Transform relativePosition;
     private GameObject wallTile;
 
-    private void Awake()
+    private void Start()
     {
         wallTile = Resources.Load("Prefabs/Wall") as GameObject;
         pcTile = Resources.Load("Prefabs/PC") as GameObject;
@@ -21,7 +23,7 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.SetParent(relativePosition);
-        newPC.transform.localPosition = new Vector3(0, 0);
+        newPC.transform.localPosition = new Vector3(0, 4);
         moveStep = newPC.GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
@@ -30,8 +32,11 @@ public class BuildDungeon : MonoBehaviour
             {
                 newWall = Instantiate(wallTile);
                 newWall.transform.SetParent(relativePosition);
-                newWall.transform.localPosition = new Vector3(i * moveStep, 1);
+                newWall.transform.localPosition = new Vector3(i * moveStep, 5);
             }
         }
+
+        message = GameObject.FindGameObjectWithTag("Message").GetComponent<Text>();
+        message.text = "Hello World\nThis is a test\n3\n4\n5";
     }
 }
