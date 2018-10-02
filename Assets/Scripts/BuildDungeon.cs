@@ -23,7 +23,7 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.SetParent(relativePosition);
-        newPC.transform.localPosition = new Vector3(0, 4);
+        newPC.transform.localPosition = new Vector3(0, 0);
         moveStep = newPC.GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
@@ -32,7 +32,7 @@ public class BuildDungeon : MonoBehaviour
             {
                 newWall = Instantiate(wallTile);
                 newWall.transform.SetParent(relativePosition);
-                newWall.transform.localPosition = new Vector3(i * moveStep, 5);
+                newWall.transform.localPosition = new Vector3(i * moveStep, 1.5f);
             }
         }
 

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Move : ActorTemplate
 {
+    //public readonly float moveStep = 1.0f;
+
     public readonly float moveStep = 0.5f;
     private int[] buildWalls = BuildDungeon.buildWalls;
 
@@ -63,7 +65,7 @@ public class Move : ActorTemplate
                 break;
         }
 
-        if (y == 5.0f)
+        if (y == 1.5f)
         {
             int xIndex = (int)(x * 2);
 
