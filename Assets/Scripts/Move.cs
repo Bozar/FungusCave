@@ -43,8 +43,8 @@ public class Move : ActorTemplate
 
     private bool IsWalkable(string direction)
     {
-        float x = transform.localPosition.x;
-        float y = transform.localPosition.y;
+        float x = transform.position.x;
+        float y = transform.position.y;
 
         switch (direction)
         {
@@ -65,7 +65,7 @@ public class Move : ActorTemplate
                 break;
         }
 
-        if (y == 1.5f)
+        if (Mathf.Round(y * 2) == 3)
         {
             int xIndex = (int)(x * 2);
 
@@ -73,6 +73,10 @@ public class Move : ActorTemplate
             {
                 return buildWalls[xIndex] == 0;
             }
+        }
+        else if (x < 0 || y < 0)
+        {
+            return false;
         }
 
         return true;

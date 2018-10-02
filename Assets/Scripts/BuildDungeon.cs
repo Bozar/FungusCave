@@ -10,7 +10,6 @@ public class BuildDungeon : MonoBehaviour
     private GameObject newPC;
     private GameObject newWall;
     private GameObject pcTile;
-    private Transform relativePosition;
     private GameObject wallTile;
 
     private void Start()
@@ -18,12 +17,8 @@ public class BuildDungeon : MonoBehaviour
         wallTile = Resources.Load("Prefabs/Wall") as GameObject;
         pcTile = Resources.Load("Prefabs/PC") as GameObject;
 
-        relativePosition
-            = GameObject.FindGameObjectWithTag("GameManager").transform;
-
         newPC = Instantiate(pcTile);
-        newPC.transform.SetParent(relativePosition);
-        newPC.transform.localPosition = new Vector3(0, 0);
+        newPC.transform.position = new Vector3(0, 0);
         moveStep = newPC.GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
@@ -31,12 +26,12 @@ public class BuildDungeon : MonoBehaviour
             if (buildWalls[i] == 1)
             {
                 newWall = Instantiate(wallTile);
-                newWall.transform.SetParent(relativePosition);
-                newWall.transform.localPosition = new Vector3(i * moveStep, 1.5f);
+                newWall.transform.position = new Vector3(i * moveStep, 1.5f);
             }
         }
 
-        message = GameObject.FindGameObjectWithTag("Message").GetComponent<Text>();
+        message = GameObject.FindGameObjectWithTag("Message")
+            .GetComponent<Text>();
         message.text = "Hello World\nThis is a test\n3\n4\n5";
     }
 }
