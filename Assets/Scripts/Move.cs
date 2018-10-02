@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class Move : ActorTemplate
 {
-    private int[] buildWalls = { 1, 1, 0, 1, 1 };
+    public readonly float moveStep = 0.5f;
+    private int[] buildWalls = BuildDungeon.buildWalls;
+
+    //private int[] buildWalls = { 1, 1, 0, 1, 1 };
     private int countStep;
-    private float moveStep = 0.5f;
+
     private float moveX;
     private float moveY;
     private string newDirection;
     private bool repoted;
     private WaitForSeconds wait5Seconds;
-    private GameObject wallTile;
 
     private string GetMoveKey()
     {
@@ -37,8 +39,8 @@ public class Move : ActorTemplate
 
     private bool IsWalkable(string direction)
     {
-        float x = transform.position.x;
-        float y = transform.position.y;
+        float x = transform.localPosition.x;
+        float y = transform.localPosition.y;
 
         switch (direction)
         {
@@ -72,7 +74,7 @@ public class Move : ActorTemplate
         return true;
     }
 
-    private IEnumerator moveAndWait()
+    private IEnumerator MoveAndWait()
     {
         while (true)
         {
@@ -133,18 +135,8 @@ public class Move : ActorTemplate
         repoted = false;
         wait5Seconds = new WaitForSeconds(5.0f);
         countStep = 0;
-        wallTile = Resources.Load("Prefabs/Wall") as GameObject;
 
-        StartCoroutine(moveAndWait());
-
-        for (int i = 0; i < buildWalls.Length; i++)
-        {
-            if (buildWalls[i] == 1)
-            {
-                Instantiate(wallTile, new Vector3(i * moveStep, 1),
-                    Quaternion.identity);
-            }
-        }
+        StartCoroutine(MoveAndWait());
     }
 
     private void Update()
