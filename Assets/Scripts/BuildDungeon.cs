@@ -3,7 +3,7 @@
 public class BuildDungeon : MonoBehaviour
 {
     public static readonly int[] buildWalls = { 1, 1, 0, 1, 1 };
-    private GameObject anchor;
+
     private float moveStep;
     private GameObject newPC;
     private GameObject newWall;
@@ -16,8 +16,8 @@ public class BuildDungeon : MonoBehaviour
         wallTile = Resources.Load("Prefabs/Wall") as GameObject;
         pcTile = Resources.Load("Prefabs/PC") as GameObject;
 
-        anchor = Resources.Load("Prefabs/Anchor") as GameObject;
-        relativePosition = Instantiate(anchor).transform;
+        relativePosition
+            = GameObject.FindGameObjectWithTag("GameManager").transform;
 
         newPC = Instantiate(pcTile);
         newPC.transform.SetParent(relativePosition);
