@@ -5,10 +5,6 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
-# The Compiled game & design notes
-[Bb]in/
-DesignNote
-
 # Vim swap files
 *.swp
 
