@@ -71,14 +71,29 @@ public class Move : ActorTemplate
 
             if (xIndex < buildWalls.Length && xIndex > -1)
             {
-                return buildWalls[xIndex] == 0;
+                GameObject.FindGameObjectWithTag("Wall")
+                    .GetComponent<Renderer>().enabled
+                    = (buildWalls[xIndex] == 0);
+
+                if (buildWalls[xIndex] != 0)
+                {
+                    Debug.Log("Pass through walls.");
+                    message.text = "Pass through walls.";
+                }
+
+                return true;
+                //return buildWalls[xIndex] == 0;
             }
         }
         else if (x < 0 || y < 0)
         {
+            GameObject.FindGameObjectWithTag("Wall")
+                    .GetComponent<Renderer>().enabled = true;
             return false;
         }
 
+        GameObject.FindGameObjectWithTag("Wall")
+                    .GetComponent<Renderer>().enabled = true;
         return true;
     }
 
