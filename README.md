@@ -1,6 +1,6 @@
 # FungusCave
 
-Fungus Cave is a Roguelike game which is made in Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino from the [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0) community.
+Fungus Cave is a Roguelike game which is made in Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino from the [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0) community. The color theme, `One Dark Pro`, is created by binaryify from [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
 
 Explore the cave, fight enemies, and find Encyclopedia of Yendor to cure your infections.
 
