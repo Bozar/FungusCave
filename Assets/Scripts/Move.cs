@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    //public readonly float moveStep = 1.0f;
-
+    public static Move Instance;
     public readonly float moveStep = 0.5f;
     private int[] buildWalls = BuildDungeon.buildWalls;
 
@@ -16,8 +15,49 @@ public class Move : MonoBehaviour
     private float moveX;
     private float moveY;
     private string newDirection;
-    private bool repoted;
     private WaitForSeconds wait5Seconds;
+
+    public void MoveAround(Transform actor)
+    {
+        moveX = 0;
+        moveY = 0;
+        newDirection = GetMoveKey();
+
+        if (!IsWalkable(newDirection, actor))
+        {
+            Debug.Log("You are blocked.");
+            message.text = "You are blocked";
+            return;
+        }
+
+        switch (newDirection)
+        {
+            case "left":
+                moveX = -moveStep;
+                break;
+
+            case "right":
+                moveX = moveStep;
+                break;
+
+            case "down":
+                moveY = -moveStep;
+                break;
+
+            case "up":
+                moveY = moveStep;
+                break;
+        }
+
+        if (newDirection != "wait")
+        //if (!string.IsNullOrEmpty(newDirection))
+        {
+            message.text = "Hello World\n2\n3\n4\n5";
+
+            actor.position += new Vector3(moveX, moveY);
+            countStep++;
+        }
+    }
 
     private string GetMoveKey()
     {
@@ -41,10 +81,10 @@ public class Move : MonoBehaviour
         return "wait";
     }
 
-    private bool IsWalkable(string direction)
+    private bool IsWalkable(string direction, Transform actor)
     {
-        float x = transform.position.x;
-        float y = transform.position.y;
+        float x = actor.position.x;
+        float y = actor.position.y;
 
         switch (direction)
         {
@@ -114,51 +154,17 @@ public class Move : MonoBehaviour
         }
     }
 
-    private void MoveAround()
+    private void Start()
     {
-        moveX = 0;
-        moveY = 0;
-        newDirection = GetMoveKey();
-
-        if (!IsWalkable(newDirection))
+        if (Instance == null)
         {
-            Debug.Log("You are blocked.");
-            message.text = "You are blocked";
+            Instance = this;
+        }
+        else
+        {
             return;
         }
 
-        switch (newDirection)
-        {
-            case "left":
-                moveX = -moveStep;
-                break;
-
-            case "right":
-                moveX = moveStep;
-                break;
-
-            case "down":
-                moveY = -moveStep;
-                break;
-
-            case "up":
-                moveY = moveStep;
-                break;
-        }
-
-        if (newDirection != "wait")
-        //if (!string.IsNullOrEmpty(newDirection))
-        {
-            message.text = "Hello World\n2\n3\n4\n5";
-
-            transform.position += new Vector3(moveX, moveY);
-            countStep++;
-        }
-    }
-
-    private void Start()
-    {
-        repoted = false;
         wait5Seconds = new WaitForSeconds(5.0f);
         message = GameObject.FindGameObjectWithTag("Message")
             .GetComponent<Text>();
@@ -166,17 +172,5 @@ public class Move : MonoBehaviour
         countStep = 0;
 
         StartCoroutine(MoveAndWait());
-    }
-
-    private void Update()
-    {
-        MoveAround();
-
-        if (repoted)
-        {
-            return;
-        }
-
-        repoted = true;
     }
 }
