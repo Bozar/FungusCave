@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Move : ActorTemplate
+public class Move : MonoBehaviour
 {
     //public readonly float moveStep = 1.0f;
 
@@ -175,16 +175,6 @@ public class Move : ActorTemplate
         if (repoted)
         {
             return;
-        }
-
-        //if (GetComponentInParent<PCInfo>().ActorName == "Player")
-        if (GetComponentInParent<PCInfo>().ActorName == "Player Character")
-        {
-            Debug.Log("This is player");
-        }
-        else
-        {
-            Debug.Log("This is stranger");
         }
 
         repoted = true;
