@@ -19,7 +19,8 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
-        moveStep = Move.Instance.moveStep;
+        moveStep = GameObject.FindGameObjectWithTag("Interaction")
+            .GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
         {

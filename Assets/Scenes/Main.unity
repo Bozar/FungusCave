@@ -638,6 +638,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1049989621655344, guid: 2281cfea23ca15442b2dfb30ab89fab9, type: 2}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2281cfea23ca15442b2dfb30ab89fab9, type: 2}
   m_IsPrefabAsset: 0

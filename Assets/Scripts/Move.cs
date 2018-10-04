@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    public static Move Instance;
+    //public static Move Instance;
     public readonly float moveStep = 0.5f;
+
+    private static bool Instance;
     private int[] buildWalls = BuildDungeon.buildWalls;
 
     //private int[] buildWalls = { 1, 1, 0, 1, 1 };
@@ -111,29 +113,14 @@ public class Move : MonoBehaviour
 
             if (xIndex < buildWalls.Length && xIndex > -1)
             {
-                GameObject.FindGameObjectWithTag("Wall")
-                    .GetComponent<Renderer>().enabled
-                    = (buildWalls[xIndex] == 0);
-
-                if (buildWalls[xIndex] != 0)
-                {
-                    Debug.Log("Pass through walls.");
-                    message.text = "Pass through walls.";
-                }
-
-                return true;
-                //return buildWalls[xIndex] == 0;
+                return buildWalls[xIndex] == 0;
             }
         }
         else if (x < 0 || y < 0)
         {
-            GameObject.FindGameObjectWithTag("Wall")
-                    .GetComponent<Renderer>().enabled = true;
             return false;
         }
 
-        GameObject.FindGameObjectWithTag("Wall")
-                    .GetComponent<Renderer>().enabled = true;
         return true;
     }
 
@@ -156,14 +143,13 @@ public class Move : MonoBehaviour
 
     private void Start()
     {
-        if (Instance == null)
+        if (Instance)
         {
-            Instance = this;
-        }
-        else
-        {
+            Debug.Log("Move already exists.");
             return;
         }
+
+        Instance = true;
 
         wait5Seconds = new WaitForSeconds(5.0f);
         message = GameObject.FindGameObjectWithTag("Message")
