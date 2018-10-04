@@ -13,6 +13,7 @@ public class Move : MonoBehaviour
     //private int[] buildWalls = { 1, 1, 0, 1, 1 };
     private int countStep;
 
+    private GameObject[] mainUI;
     private Text message;
     private float moveX;
     private float moveY;
@@ -152,8 +153,16 @@ public class Move : MonoBehaviour
         Instance = true;
 
         wait5Seconds = new WaitForSeconds(5.0f);
-        message = GameObject.FindGameObjectWithTag("Message")
-            .GetComponent<Text>();
+        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
+
+        for (int i = 0; i < mainUI.Length; i++)
+        {
+            if (mainUI[i].name == "Message")
+            {
+                message = mainUI[i].GetComponent<Text>();
+                break;
+            }
+        }
 
         countStep = 0;
 

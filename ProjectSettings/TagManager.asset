@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
-  - Message
   - Wall
   - Interaction
+  - MainUI
   layers:
   - Default
   - TransparentFX

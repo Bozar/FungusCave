@@ -6,8 +6,7 @@ public class PCMove : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(Resources.Load("Prefabs/Interaction"));
-        //instance = Instantiate(Resources.Load("Prefabs/Interaction")) as GameObject;
+        Instantiate(Resources.Load("Interaction"));
     }
 
     private void Update()

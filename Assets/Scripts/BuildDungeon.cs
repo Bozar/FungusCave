@@ -5,6 +5,7 @@ public class BuildDungeon : MonoBehaviour
 {
     public static readonly int[] buildWalls = { 1, 1, 0, 1, 1 };
 
+    private GameObject[] mainUI;
     private Text message;
     private float moveStep;
     private GameObject newPC;
@@ -14,8 +15,8 @@ public class BuildDungeon : MonoBehaviour
 
     private void Start()
     {
-        wallTile = Resources.Load("Prefabs/Wall") as GameObject;
-        pcTile = Resources.Load("Prefabs/PC") as GameObject;
+        wallTile = Resources.Load("Wall") as GameObject;
+        pcTile = Resources.Load("PC") as GameObject;
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
@@ -31,8 +32,17 @@ public class BuildDungeon : MonoBehaviour
             }
         }
 
-        message = GameObject.FindGameObjectWithTag("Message")
-            .GetComponent<Text>();
+        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
+
+        for (int i = 0; i < mainUI.Length; i++)
+        {
+            if (mainUI[i].name == "Message")
+            {
+                message = mainUI[i].GetComponent<Text>();
+                break;
+            }
+        }
+
         message.text = "Hello World\nThis is a test\n3\n4\n5";
     }
 }
