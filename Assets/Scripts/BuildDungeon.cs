@@ -8,7 +8,6 @@ public class BuildDungeon : MonoBehaviour
     private GameObject[] mainUI;
     private Text message;
     private float moveStep;
-    private UserInput myInput;
     private GameObject newPC;
     private GameObject newWall;
     private GameObject pcTile;
