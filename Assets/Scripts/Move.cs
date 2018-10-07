@@ -17,14 +17,14 @@ public class Move : MonoBehaviour
     private Text message;
     private float moveX;
     private float moveY;
-    private string newDirection;
+    private int newDirection;
     private WaitForSeconds wait5Seconds;
 
     public void MoveAround(Transform actor)
     {
         moveX = 0;
         moveY = 0;
-        newDirection = GetMoveKey();
+        newDirection = gameObject.GetComponent<UserInput>().OutputCommand();
 
         if (!IsWalkable(newDirection, actor))
         {
@@ -35,24 +35,24 @@ public class Move : MonoBehaviour
 
         switch (newDirection)
         {
-            case "left":
+            case (int)UserInput.Command.Left:
                 moveX = -moveStep;
                 break;
 
-            case "right":
+            case (int)UserInput.Command.Right:
                 moveX = moveStep;
                 break;
 
-            case "down":
+            case (int)UserInput.Command.Down:
                 moveY = -moveStep;
                 break;
 
-            case "up":
+            case (int)UserInput.Command.Up:
                 moveY = moveStep;
                 break;
         }
 
-        if (newDirection != "wait")
+        if (newDirection != (int)UserInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text = "Hello World\n2\n3\n4\n5";
@@ -62,53 +62,26 @@ public class Move : MonoBehaviour
         }
     }
 
-    private string GetMoveKey()
-    {
-        if (Input.GetKeyDown("left") || Input.GetKeyDown("h"))
-        {
-            return "left";
-        }
-        else if (Input.GetKeyDown("right") || Input.GetKeyDown("l"))
-        {
-            return "right";
-        }
-        else if (Input.GetKeyDown("down") || Input.GetKeyDown("j"))
-        {
-            return "down";
-        }
-        else if (Input.GetKeyDown("up") || Input.GetKeyDown("k"))
-        {
-            return "up";
-        }
-        else if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("ctrl+f");
-            return "up";
-        }
-
-        return "wait";
-    }
-
-    private bool IsWalkable(string direction, Transform actor)
+    private bool IsWalkable(int direction, Transform actor)
     {
         float x = actor.position.x;
         float y = actor.position.y;
 
         switch (direction)
         {
-            case "left":
+            case (int)UserInput.Command.Left:
                 x -= moveStep;
                 break;
 
-            case "right":
+            case (int)UserInput.Command.Right:
                 x += moveStep;
                 break;
 
-            case "up":
+            case (int)UserInput.Command.Up:
                 y += moveStep;
                 break;
 
-            case "down":
+            case (int)UserInput.Command.Down:
                 y -= moveStep;
                 break;
         }

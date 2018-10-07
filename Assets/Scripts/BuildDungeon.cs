@@ -8,6 +8,7 @@ public class BuildDungeon : MonoBehaviour
     private GameObject[] mainUI;
     private Text message;
     private float moveStep;
+    private UserInput myInput;
     private GameObject newPC;
     private GameObject newWall;
     private GameObject pcTile;
@@ -20,7 +21,7 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
-        moveStep = GameObject.FindGameObjectWithTag("Interaction")
+        moveStep = GameObject.FindGameObjectWithTag("GameLogic")
             .GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
