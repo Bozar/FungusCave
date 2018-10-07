@@ -465,11 +465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530575789}
-  - component: {fileID: 530575788}
-  - component: {fileID: 530575787}
   - component: {fileID: 530575786}
-  - component: {fileID: 530575790}
-  - component: {fileID: 530575791}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: GameLogic
@@ -485,29 +481,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 530575785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743b7f675b6de7e4da32f14db7b680f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &530575787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530575785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b83813fe08587c4382986c303111a92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &530575788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530575785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2384ea1e7462ca441a8ec2408230631e, type: 3}
+  m_Script: {fileID: 11500000, guid: 377bb327e1214354497e8ef5dc8a8070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &530575789
@@ -523,28 +497,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &530575790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530575785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 237033ff9117b49458ae5f185c95ae74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &530575791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530575785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b10f031f0fd5f047b7fb47766843380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &573057329
 Prefab:
   m_ObjectHideFlags: 0
