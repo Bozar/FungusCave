@@ -132,7 +132,7 @@ public class Move : MonoBehaviour
         Instance = true;
 
         wait5Seconds = new WaitForSeconds(5.0f);
-        mainUI = FindObjects.MainUIList;
+        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
 
         for (int i = 0; i < mainUI.Length; i++)
         {

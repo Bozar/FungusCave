@@ -20,7 +20,7 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
-        moveStep = FindObjects.GameLogic.GetComponent<Move>().moveStep;
+        moveStep = gameObject.GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
         {
@@ -31,7 +31,7 @@ public class BuildDungeon : MonoBehaviour
             }
         }
 
-        mainUI = FindObjects.MainUIList;
+        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
 
         for (int i = 0; i < mainUI.Length; i++)
         {
