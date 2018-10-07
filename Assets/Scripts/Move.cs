@@ -24,7 +24,8 @@ public class Move : MonoBehaviour
     {
         moveX = 0;
         moveY = 0;
-        newDirection = gameObject.GetComponent<UserInput>().OutputCommand();
+        newDirection = FindObjects.GameLogic.GetComponent<UserInput>().
+            OutputCommand();
 
         if (!IsWalkable(newDirection, actor))
         {
@@ -131,7 +132,7 @@ public class Move : MonoBehaviour
         Instance = true;
 
         wait5Seconds = new WaitForSeconds(5.0f);
-        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
+        mainUI = FindObjects.MainUIList;
 
         for (int i = 0; i < mainUI.Length; i++)
         {
