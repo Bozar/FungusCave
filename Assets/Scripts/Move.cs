@@ -80,6 +80,11 @@ public class Move : MonoBehaviour
         {
             return "up";
         }
+        else if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("ctrl+f");
+            return "up";
+        }
 
         return "wait";
     }
