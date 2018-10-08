@@ -4,26 +4,21 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    //public static Move Instance;
-    public readonly float moveStep = 0.5f;
-
     private static bool Instance;
     private int[] buildWalls = BuildDungeon.buildWalls;
 
-    //private int[] buildWalls = { 1, 1, 0, 1, 1 };
     private int countStep;
 
     private GameObject[] mainUI;
     private Text message;
-    private float moveX;
-    private float moveY;
+    private Vector3 moveHere;
+
     private int newDirection;
+
     private WaitForSeconds wait5Seconds;
 
     public void MoveAround(Transform actor)
     {
-        moveX = 0;
-        moveY = 0;
         newDirection = FindObjects.GameLogic.GetComponent<UserInput>().
             OutputCommand();
 
@@ -37,70 +32,77 @@ public class Move : MonoBehaviour
         switch (newDirection)
         {
             case (int)UserInput.Command.Left:
-                moveX = -moveStep;
+                moveHere
+                    = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                    .Convert(-1, 0);
                 break;
 
             case (int)UserInput.Command.Right:
-                moveX = moveStep;
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(1, 0);
                 break;
 
             case (int)UserInput.Command.Down:
-                moveY = -moveStep;
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(0, -1);
                 break;
 
             case (int)UserInput.Command.Up:
-                moveY = moveStep;
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(0, 1);
                 break;
         }
 
         if (newDirection != (int)UserInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
-            message.text = "Hello World\n2\n3\n4\n5";
+            message.text = "Hello World\n2\n3\n4\n5\n6";
 
-            actor.position += new Vector3(moveX, moveY);
+            actor.position += moveHere;
             countStep++;
         }
     }
 
     private bool IsWalkable(int direction, Transform actor)
     {
-        float x = actor.position.x;
-        float y = actor.position.y;
+        int x = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+            .Convert(actor.position.x);
+        int y = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+            .Convert(actor.position.y);
 
         switch (direction)
         {
             case (int)UserInput.Command.Left:
-                x -= moveStep;
+                x -= 1;
                 break;
 
             case (int)UserInput.Command.Right:
-                x += moveStep;
+                x += 1;
                 break;
 
             case (int)UserInput.Command.Up:
-                y += moveStep;
+                y += 1;
                 break;
 
             case (int)UserInput.Command.Down:
-                y -= moveStep;
+                y -= 1;
                 break;
         }
 
-        int xIndex = (int)(x * 2);
-        int yIndex = (int)(y * 2);
-
-        if (yIndex == 3)
-        {
-            if (xIndex < buildWalls.Length && xIndex > -1)
-            {
-                return buildWalls[xIndex] == 0;
-            }
-        }
-        else if (xIndex < 0 || yIndex < 0 ||
-            xIndex >= BuildDungeon.width || yIndex >= BuildDungeon.height)
+        if (x < 0 || y < 0 ||
+           x >= BuildDungeon.width || y >= BuildDungeon.height)
         {
             return false;
+        }
+        else if (y == 3)
+        {
+            if (x < buildWalls.Length && x > -1)
+            {
+                return buildWalls[x] == 0;
+            }
         }
 
         return true;

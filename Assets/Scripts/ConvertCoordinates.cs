@@ -7,8 +7,8 @@ public class ConvertCoordinates : MonoBehaviour
 
     private int[] arrayPosition;
     private int indexX;
+    private int indexXorY;
     private int indexY;
-
     private Vector3 vectorPosition;
     private float vectorX;
     private float vectorY;
@@ -41,6 +41,13 @@ public class ConvertCoordinates : MonoBehaviour
         arrayPosition = new int[] { indexX, indexY };
 
         return arrayPosition;
+    }
+
+    public int Convert(float vectorXorY)
+    {
+        indexXorY = (int)Mathf.Floor(vectorXorY * vector2Index);
+
+        return indexXorY;
     }
 
     public void Test()

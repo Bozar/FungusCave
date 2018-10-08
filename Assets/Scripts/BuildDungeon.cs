@@ -9,8 +9,9 @@ public class BuildDungeon : MonoBehaviour
     public static readonly int width = 24;
     private GameObject[] mainUI;
     private Text message;
-    private float moveStep;
+
     private GameObject newPC;
+
     private GameObject newWall;
     private GameObject pcTile;
     private GameObject wallTile;
@@ -22,14 +23,15 @@ public class BuildDungeon : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
-        moveStep = gameObject.GetComponent<Move>().moveStep;
 
         for (int i = 0; i < buildWalls.Length; i++)
         {
             if (buildWalls[i] == 1)
             {
                 newWall = Instantiate(wallTile);
-                newWall.transform.position = new Vector3(i * moveStep, 1.5f);
+                newWall.transform.position
+                    = gameObject.GetComponent<ConvertCoordinates>()
+                    .Convert(i, 3);
             }
         }
 
@@ -44,7 +46,7 @@ public class BuildDungeon : MonoBehaviour
             }
         }
 
-        message.text = "Hello World\nThis is a test\n3\n4\n5";
+        message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
 
         //Test ConvertCoordinates.
         FindObjects.GameLogic.GetComponent<ConvertCoordinates>().Test();
