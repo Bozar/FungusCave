@@ -5,6 +5,8 @@ public class BuildDungeon : MonoBehaviour
 {
     public static readonly int[] buildWalls = { 1, 1, 0, 1, 1 };
 
+    public static readonly int height = 17;
+    public static readonly int width = 24;
     private GameObject[] mainUI;
     private Text message;
     private float moveStep;

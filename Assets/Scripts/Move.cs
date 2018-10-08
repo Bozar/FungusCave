@@ -87,16 +87,18 @@ public class Move : MonoBehaviour
                 break;
         }
 
-        if (Mathf.Round(y * 2) == 3)
-        {
-            int xIndex = (int)(x * 2);
+        int xIndex = (int)(x * 2);
+        int yIndex = (int)(y * 2);
 
+        if (yIndex == 3)
+        {
             if (xIndex < buildWalls.Length && xIndex > -1)
             {
                 return buildWalls[xIndex] == 0;
             }
         }
-        else if (x < 0 || y < 0)
+        else if (xIndex < 0 || yIndex < 0 ||
+            xIndex >= BuildDungeon.width || yIndex >= BuildDungeon.height)
         {
             return false;
         }
