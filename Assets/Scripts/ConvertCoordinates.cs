@@ -5,12 +5,16 @@ public class ConvertCoordinates : MonoBehaviour
     private readonly float index2Vector = 0.5f;
     private readonly float vector2Index = 2.0f;
 
+    private int[] arrayPosition;
+    private int indexX;
+    private int indexY;
+
+    private Vector3 vectorPosition;
+    private float vectorX;
+    private float vectorY;
+
     public Vector3 Convert(int indexX, int indexY)
     {
-        float vectorX;
-        float vectorY;
-        Vector3 vectorPosition;
-
         vectorX = indexX * index2Vector;
         vectorY = indexY * index2Vector;
 
@@ -21,10 +25,6 @@ public class ConvertCoordinates : MonoBehaviour
 
     public Vector3 Convert(int[] arrayPosition)
     {
-        float vectorX;
-        float vectorY;
-        Vector3 vectorPosition;
-
         vectorX = arrayPosition[0] * index2Vector;
         vectorY = arrayPosition[1] * index2Vector;
 
@@ -35,10 +35,6 @@ public class ConvertCoordinates : MonoBehaviour
 
     public int[] Convert(Vector3 vectorPosition)
     {
-        int indexX;
-        int indexY;
-        int[] arrayPosition;
-
         indexX = (int)Mathf.Floor(vectorPosition.x * vector2Index);
         indexY = (int)Mathf.Floor(vectorPosition.y * vector2Index);
 
