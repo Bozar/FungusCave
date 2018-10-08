@@ -45,5 +45,8 @@ public class BuildDungeon : MonoBehaviour
         }
 
         message.text = "Hello World\nThis is a test\n3\n4\n5";
+
+        //Test ConvertCoordinates.
+        FindObjects.GameLogic.GetComponent<ConvertCoordinates>().Test();
     }
 }

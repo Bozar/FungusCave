@@ -2,38 +2,10 @@
 
 public class ConvertCoordinates : MonoBehaviour
 {
-    private static readonly float index2Vector = 0.5f;
-    private static readonly float vector2Index = 1 / index2Vector;
+    private readonly float index2Vector = 0.5f;
+    private readonly float vector2Index = 2.0f;
 
-    public static int[] Convert(Vector3 vectorPosition)
-    {
-        int indexX;
-        int indexY;
-        int[] arrayPosition;
-
-        indexX = (int)Mathf.Floor(vectorPosition.x * vector2Index);
-        indexY = (int)Mathf.Floor(vectorPosition.y * vector2Index);
-
-        arrayPosition = new int[] { indexX, indexY };
-
-        return arrayPosition;
-    }
-
-    public static Vector3 Convert(int[] arrayPosition)
-    {
-        float vectorX;
-        float vectorY;
-        Vector3 vectorPosition;
-
-        vectorX = arrayPosition[0] * index2Vector;
-        vectorY = arrayPosition[1] * index2Vector;
-
-        vectorPosition = new Vector3(vectorX, vectorY);
-
-        return vectorPosition;
-    }
-
-    public static Vector3 Convert(int indexX, int indexY)
+    public Vector3 Convert(int indexX, int indexY)
     {
         float vectorX;
         float vectorY;
@@ -47,8 +19,35 @@ public class ConvertCoordinates : MonoBehaviour
         return vectorPosition;
     }
 
-    //Test methods.
-    private void Start()
+    public Vector3 Convert(int[] arrayPosition)
+    {
+        float vectorX;
+        float vectorY;
+        Vector3 vectorPosition;
+
+        vectorX = arrayPosition[0] * index2Vector;
+        vectorY = arrayPosition[1] * index2Vector;
+
+        vectorPosition = new Vector3(vectorX, vectorY);
+
+        return vectorPosition;
+    }
+
+    public int[] Convert(Vector3 vectorPosition)
+    {
+        int indexX;
+        int indexY;
+        int[] arrayPosition;
+
+        indexX = (int)Mathf.Floor(vectorPosition.x * vector2Index);
+        indexY = (int)Mathf.Floor(vectorPosition.y * vector2Index);
+
+        arrayPosition = new int[] { indexX, indexY };
+
+        return arrayPosition;
+    }
+
+    public void Test()
     {
         int[] inputArray = new int[] { 2, 3 };
         Vector3 inputVector = new Vector3(1.2f, 3.6f);
