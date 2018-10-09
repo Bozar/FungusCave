@@ -46,6 +46,8 @@ public class BuildDungeon : MonoBehaviour
             }
         }
 
+        gameObject.GetComponent<SchedulingSystem>().AddActor(newWall);
+
         for (int i = 0; i < 2; i++)
         {
             newDummy = Instantiate(dummyTile);

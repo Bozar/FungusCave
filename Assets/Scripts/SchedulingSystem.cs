@@ -15,14 +15,19 @@ public class SchedulingSystem : MonoBehaviour
 
     public bool AddActor(GameObject actor)
     {
-        if (Enum.IsDefined(typeof(ValidTags), actor.tag))
+        if (!Enum.IsDefined(typeof(ValidTags), actor.tag))
         {
-            schedule.AddLast(actor);
-            return true;
+            Debug.Log("Invalid actor tag: " + actor.tag);
+            return false;
+        }
+        else if (schedule.Contains(actor))
+        {
+            Debug.Log("Actor already exists in the schedule: " + actor.name);
+            return false;
         }
 
-        Debug.Log("Invalid actor tag: " + actor.tag);
-        return false;
+        schedule.AddLast(actor);
+        return true;
     }
 
     public void PrintSchedule()
