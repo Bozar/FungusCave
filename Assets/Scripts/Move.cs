@@ -54,6 +54,30 @@ public class Move : MonoBehaviour
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, 1);
                 break;
+
+            case (int)UserInput.Command.UpLeft:
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(-1, 1);
+                break;
+
+            case (int)UserInput.Command.UpRight:
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(1, 1);
+                break;
+
+            case (int)UserInput.Command.DownLeft:
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(-1, -1);
+                break;
+
+            case (int)UserInput.Command.DownRight:
+                moveHere
+                  = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                  .Convert(1, -1);
+                break;
         }
 
         if (newDirection != (int)UserInput.Command.Invalid)
@@ -88,6 +112,26 @@ public class Move : MonoBehaviour
                 break;
 
             case (int)UserInput.Command.Down:
+                y -= 1;
+                break;
+
+            case (int)UserInput.Command.UpLeft:
+                x -= 1;
+                y += 1;
+                break;
+
+            case (int)UserInput.Command.UpRight:
+                x += 1;
+                y += 1;
+                break;
+
+            case (int)UserInput.Command.DownLeft:
+                x -= 1;
+                y -= 1;
+                break;
+
+            case (int)UserInput.Command.DownRight:
+                x += 1;
                 y -= 1;
                 break;
         }
