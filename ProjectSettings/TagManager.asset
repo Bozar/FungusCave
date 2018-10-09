@@ -8,6 +8,7 @@ TagManager:
   - MainUI
   - GameLogic
   - NPC
+  - PC
   layers:
   - Default
   - TransparentFX

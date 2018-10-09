@@ -6,7 +6,12 @@ public class SchedulingSystem : MonoBehaviour
 {
     private LinkedList<GameObject> schedule = new LinkedList<GameObject>();
 
-    private enum ValidTags { Player, NPC };
+    private enum ValidTags
+    {
+        PC,
+        Wall,
+        NPC
+    };
 
     public bool AddActor(GameObject actor)
     {
@@ -34,6 +39,11 @@ public class SchedulingSystem : MonoBehaviour
         }
 
         Debug.Log("==========");
+    }
+
+    public bool RemoveActor(GameObject actor)
+    {
+        return schedule.Remove(actor);
     }
 
     public void Test()

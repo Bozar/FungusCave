@@ -15,6 +15,7 @@ public class BuildDungeon : MonoBehaviour
     private GameObject newPC;
     private GameObject newWall;
     private GameObject pcTile;
+    private GameObject removeActor;
     private GameObject wallTile;
 
     private void Start()
@@ -34,6 +35,14 @@ public class BuildDungeon : MonoBehaviour
                 newWall.transform.position
                     = gameObject.GetComponent<ConvertCoordinates>()
                     .Convert(i, 3);
+                newWall.name = "Wall" + i;
+
+                if (i == 1)
+                {
+                    removeActor = newWall;
+                }
+
+                gameObject.GetComponent<SchedulingSystem>().AddActor(newWall);
             }
         }
 
@@ -58,6 +67,8 @@ public class BuildDungeon : MonoBehaviour
 
         message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
 
-        gameObject.GetComponent<SchedulingSystem>().Test();
+        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
+        gameObject.GetComponent<SchedulingSystem>().RemoveActor(removeActor);
+        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
     }
 }
