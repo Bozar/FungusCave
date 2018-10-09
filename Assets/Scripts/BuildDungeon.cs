@@ -7,11 +7,12 @@ public class BuildDungeon : MonoBehaviour
 
     public static readonly int height = 17;
     public static readonly int width = 24;
+    private GameObject dummyTile;
     private GameObject[] mainUI;
     private Text message;
 
+    private GameObject newDummy;
     private GameObject newPC;
-
     private GameObject newWall;
     private GameObject pcTile;
     private GameObject wallTile;
@@ -20,6 +21,7 @@ public class BuildDungeon : MonoBehaviour
     {
         wallTile = Resources.Load("Wall") as GameObject;
         pcTile = Resources.Load("PC") as GameObject;
+        dummyTile = Resources.Load("Dummy") as GameObject;
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
@@ -33,6 +35,14 @@ public class BuildDungeon : MonoBehaviour
                     = gameObject.GetComponent<ConvertCoordinates>()
                     .Convert(i, 3);
             }
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            newDummy = Instantiate(dummyTile);
+            newDummy.transform.position
+                   = gameObject.GetComponent<ConvertCoordinates>()
+                   .Convert(i * 2, i + 1);
         }
 
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");

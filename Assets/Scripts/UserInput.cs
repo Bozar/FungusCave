@@ -19,8 +19,8 @@ public class UserInput : MonoBehaviour
             return (int)Command.Left;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow)
-           || Input.GetKeyDown(KeyCode.J)
-           || Input.GetKeyDown(KeyCode.Keypad2))
+            || Input.GetKeyDown(KeyCode.J)
+            || Input.GetKeyDown(KeyCode.Keypad2))
         {
             return (int)Command.Down;
         }
@@ -57,8 +57,7 @@ public class UserInput : MonoBehaviour
             return (int)Command.DownRight;
         }
         //Test key combinations.
-        else if (
-            Input.GetKey(KeyCode.LeftControl)
+        else if (Input.GetKey(KeyCode.LeftControl)
             && Input.GetKeyDown(KeyCode.F))
         {
             return (int)Command.Up;
