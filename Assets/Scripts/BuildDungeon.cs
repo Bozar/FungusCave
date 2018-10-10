@@ -15,7 +15,6 @@ public class BuildDungeon : MonoBehaviour
     private GameObject newPC;
     private GameObject newWall;
     private GameObject pcTile;
-    private GameObject removeActor;
     private GameObject wallTile;
 
     private void Start()
@@ -27,6 +26,8 @@ public class BuildDungeon : MonoBehaviour
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
 
+        gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
+
         for (int i = 0; i < buildWalls.Length; i++)
         {
             if (buildWalls[i] == 1)
@@ -36,17 +37,8 @@ public class BuildDungeon : MonoBehaviour
                     = gameObject.GetComponent<ConvertCoordinates>()
                     .Convert(i, 3);
                 newWall.name = "Wall" + i;
-
-                if (i == 1)
-                {
-                    removeActor = newWall;
-                }
-
-                gameObject.GetComponent<SchedulingSystem>().AddActor(newWall);
             }
         }
-
-        gameObject.GetComponent<SchedulingSystem>().AddActor(newWall);
 
         for (int i = 0; i < 2; i++)
         {
@@ -54,6 +46,8 @@ public class BuildDungeon : MonoBehaviour
             newDummy.transform.position
                    = gameObject.GetComponent<ConvertCoordinates>()
                    .Convert(i * 2, i + 1);
+
+            gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }
 
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");
@@ -68,13 +62,5 @@ public class BuildDungeon : MonoBehaviour
         }
 
         message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
-
-        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
-        gameObject.GetComponent<SchedulingSystem>().GotoNextActor();
-        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
-
-        Debug.Log("Removed: " +
-             gameObject.GetComponent<SchedulingSystem>().RemoveActor(removeActor));
-        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
     }
 }

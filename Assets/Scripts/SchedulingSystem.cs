@@ -10,7 +10,7 @@ public class SchedulingSystem : MonoBehaviour
     private LinkedList<GameObject> schedule = new LinkedList<GameObject>();
 
     //TODO: Remove the wall tag.
-    private enum ValidTags { PC, Wall, NPC };
+    private enum ValidTags { PC, NPC };
 
     public GameObject CurrentActor
     {
@@ -46,6 +46,13 @@ public class SchedulingSystem : MonoBehaviour
         nextNode = currentNode.Next;
 
         GotoNextNode();
+    }
+
+    public bool IsCurrentActor(GameObject actor)
+    {
+        bool verify = actor == CurrentActor;
+
+        return verify;
     }
 
     public void PrintSchedule()

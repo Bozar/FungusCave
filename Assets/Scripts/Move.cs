@@ -80,7 +80,16 @@ public class Move : MonoBehaviour
                 break;
         }
 
-        if (newDirection != (int)UserInput.Command.Invalid)
+        if (newDirection == (int)UserInput.Command.EndTurn)
+        {
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
+                .GetComponent<PCMove>().enabled = false;
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>()
+                .GotoNextActor();
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
+                .GetComponent<PCMove>().enabled = true;
+        }
+        else if (newDirection != (int)UserInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text = "Hello World\n2\n3\n4\n5\n6";

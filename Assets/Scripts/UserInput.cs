@@ -7,6 +7,10 @@ public class UserInput : MonoBehaviour
         Left, Right, Up, Down,
         UpLeft, UpRight, DownLeft, DownRight,
         Wait,
+
+        //Debug commands:
+        EndTurn,
+
         Confirm, Cancel, Invalid
     };
 
@@ -61,6 +65,10 @@ public class UserInput : MonoBehaviour
             && Input.GetKeyDown(KeyCode.F))
         {
             return (int)Command.Up;
+        }
+        else if (Input.GetKeyDown(KeyCode.End))
+        {
+            return (int)Command.EndTurn;
         }
 
         return (int)Command.Invalid;
