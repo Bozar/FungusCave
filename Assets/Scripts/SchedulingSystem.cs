@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class SchedulingSystem : MonoBehaviour
 {
+    private LinkedListNode<GameObject> currentNode;
+    private LinkedListNode<GameObject> firstNode;
+    private LinkedListNode<GameObject> nextNode;
     private LinkedList<GameObject> schedule = new LinkedList<GameObject>();
 
-    private enum ValidTags
+    //TODO: Remove the wall tag.
+    private enum ValidTags { PC, Wall, NPC };
+
+    public GameObject CurrentActor
     {
-        PC,
-        Wall,
-        NPC
-    };
+        get { return currentNode.Value; }
+    }
 
     public bool AddActor(GameObject actor)
     {
@@ -27,7 +31,21 @@ public class SchedulingSystem : MonoBehaviour
         }
 
         schedule.AddLast(actor);
+
+        if (schedule.Count == 1)
+        {
+            currentNode = schedule.First;
+        }
+
         return true;
+    }
+
+    public void GotoNextActor()
+    {
+        firstNode = schedule.First;
+        nextNode = currentNode.Next;
+
+        GotoNextNode();
     }
 
     public void PrintSchedule()
@@ -36,6 +54,7 @@ public class SchedulingSystem : MonoBehaviour
 
         Debug.Log("==========");
         Debug.Log("Total actors: " + schedule.Count);
+        Debug.Log("Current actor: " + CurrentActor.name);
 
         foreach (var actor in schedule)
         {
@@ -48,18 +67,32 @@ public class SchedulingSystem : MonoBehaviour
 
     public bool RemoveActor(GameObject actor)
     {
-        return schedule.Remove(actor);
+        bool removed;
+        bool currentNodeIsRemoved;
+
+        firstNode = schedule.First;
+        nextNode = currentNode.Next;
+
+        currentNodeIsRemoved = currentNode.Value == actor;
+        removed = schedule.Remove(actor);
+
+        if (removed && currentNodeIsRemoved)
+        {
+            GotoNextNode();
+        }
+
+        return removed;
     }
 
-    public void Test()
+    private void GotoNextNode()
     {
-        GameObject newPC = Instantiate(Resources.Load("PC") as GameObject);
-        GameObject newWall = Instantiate(Resources.Load("Wall") as GameObject);
-        GameObject newDummy = Instantiate(Resources.Load("Dummy") as GameObject);
-
-        gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
-        gameObject.GetComponent<SchedulingSystem>().AddActor(newWall);
-        gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
-        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
+        if (nextNode != null)
+        {
+            currentNode = nextNode;
+        }
+        else
+        {
+            currentNode = firstNode;
+        }
     }
 }

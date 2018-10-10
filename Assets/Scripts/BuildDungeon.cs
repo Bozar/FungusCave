@@ -70,7 +70,11 @@ public class BuildDungeon : MonoBehaviour
         message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
 
         gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
-        gameObject.GetComponent<SchedulingSystem>().RemoveActor(removeActor);
+        gameObject.GetComponent<SchedulingSystem>().GotoNextActor();
+        gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
+
+        Debug.Log("Removed: " +
+             gameObject.GetComponent<SchedulingSystem>().RemoveActor(removeActor));
         gameObject.GetComponent<SchedulingSystem>().PrintSchedule();
     }
 }
