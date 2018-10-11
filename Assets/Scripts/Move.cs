@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class Move : MonoBehaviour
 {
     private static bool Instance;
-    private int[] buildWalls = BuildDungeon.buildWalls;
 
     private int countStep;
 
@@ -145,20 +144,8 @@ public class Move : MonoBehaviour
                 break;
         }
 
-        if (x < 0 || y < 0 ||
-           x >= Test.width || y >= Test.height)
-        {
-            return false;
-        }
-        else if (y == 3)
-        {
-            if (x < buildWalls.Length && x > -1)
-            {
-                return buildWalls[x] == 0;
-            }
-        }
-
-        return true;
+        return FindObjects.GameLogic.GetComponent<BuildDungeon>()
+            .CheckTerrain(BuildDungeon.DungeonBlock.Floor, x, y);
     }
 
     private IEnumerator MoveAndWait()

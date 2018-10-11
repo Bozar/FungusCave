@@ -1,66 +1,91 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class BuildDungeon : MonoBehaviour
 {
-    public static readonly int[] buildWalls = { 1, 1, 0, 1, 1 };
+    private readonly int dungeonHeight = 17;
+    private readonly int dungeonWidth = 24;
+    private DungeonBlock[,] board;
 
-    public static readonly int height = 17;
-    public static readonly int width = 24;
-    private GameObject dummyTile;
-    private GameObject[] mainUI;
-    private Text message;
+    public enum DungeonBlock { Floor, Wall, Pool };
 
-    private GameObject newDummy;
-    private GameObject newPC;
-    private GameObject newWall;
-    private GameObject pcTile;
-    private GameObject wallTile;
+    public bool CheckTerrain(DungeonBlock block, int x, int y)
+    {
+        if (IndexOutOfRange(x, y))
+        {
+            return false;
+        }
+
+        return board[x, y] == block;
+    }
+
+    private void Awake()
+    {
+        board = new DungeonBlock[dungeonWidth, dungeonHeight];
+    }
+
+    private bool ChangeBlock(DungeonBlock block, int x, int y)
+    {
+        if (IndexOutOfRange(x, y))
+        {
+            return false;
+        }
+
+        board[x, y] = block;
+        return true;
+    }
+
+    private void CreateDungeonObjects()
+    {
+        GameObject wallTile = Resources.Load("Wall") as GameObject;
+        GameObject newObject;
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                switch (board[x, y])
+                {
+                    case DungeonBlock.Wall:
+                        newObject = Instantiate(wallTile);
+                        newObject.transform.position = gameObject.
+                            GetComponent<ConvertCoordinates>().Convert(x, y);
+                        break;
+
+                    case DungeonBlock.Pool:
+                        break;
+
+                    case DungeonBlock.Floor:
+                        break;
+                }
+            }
+        }
+    }
+
+    private bool IndexOutOfRange(int x, int y)
+    {
+        bool checkWidth;
+        bool checkHeight;
+
+        checkWidth = x < board.GetLowerBound(0) || x > board.GetUpperBound(0);
+        checkHeight = y < board.GetLowerBound(1) || y > board.GetUpperBound(1);
+
+        return checkWidth || checkHeight;
+    }
+
+    private void PlaceWallsManually()
+    {
+        ChangeBlock(DungeonBlock.Wall, 4, 4);
+        ChangeBlock(DungeonBlock.Wall, 5, 5);
+        ChangeBlock(DungeonBlock.Wall, 6, 6);
+        ChangeBlock(DungeonBlock.Wall, dungeonWidth - 1, dungeonHeight - 1);
+        ChangeBlock(DungeonBlock.Wall, dungeonWidth, dungeonHeight - 1);
+
+        CreateDungeonObjects();
+    }
 
     private void Start()
     {
-        wallTile = Resources.Load("Wall") as GameObject;
-        pcTile = Resources.Load("PC") as GameObject;
-        dummyTile = Resources.Load("Dummy") as GameObject;
-
-        newPC = Instantiate(pcTile);
-        newPC.transform.position = new Vector3(0, 0);
-
-        gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
-
-        for (int i = 0; i < buildWalls.Length; i++)
-        {
-            if (buildWalls[i] == 1)
-            {
-                newWall = Instantiate(wallTile);
-                newWall.transform.position
-                    = gameObject.GetComponent<ConvertCoordinates>()
-                    .Convert(i, 3);
-                newWall.name = "Wall" + i;
-            }
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            newDummy = Instantiate(dummyTile);
-            newDummy.transform.position
-                   = gameObject.GetComponent<ConvertCoordinates>()
-                   .Convert(i * 2, i + 1);
-
-            gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
-        }
-
-        mainUI = GameObject.FindGameObjectsWithTag("MainUI");
-
-        for (int i = 0; i < mainUI.Length; i++)
-        {
-            if (mainUI[i].name == "Message")
-            {
-                message = mainUI[i].GetComponent<Text>();
-                break;
-            }
-        }
-
-        message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
+        PlaceWallsManually();
+        CreateDungeonObjects();
     }
 }

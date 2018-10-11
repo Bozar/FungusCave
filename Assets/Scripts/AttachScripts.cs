@@ -9,8 +9,9 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<UserInput>();
         gameObject.AddComponent<ConvertCoordinates>();
         gameObject.AddComponent<SchedulingSystem>();
-
         gameObject.AddComponent<BuildDungeon>();
+
+        gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();
     }
 }
