@@ -8,69 +8,69 @@ public class UserInput : MonoBehaviour
         UpLeft, UpRight, DownLeft, DownRight,
         Wait,
 
-        //Debug commands:
+        // Debug commands:
         EndTurn,
 
         Confirm, Cancel, Invalid
     };
 
-    public int OutputCommand()
+    public Command OutputCommand()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow)
             || Input.GetKeyDown(KeyCode.H)
             || Input.GetKeyDown(KeyCode.Keypad4))
         {
-            return (int)Command.Left;
+            return Command.Left;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow)
             || Input.GetKeyDown(KeyCode.J)
             || Input.GetKeyDown(KeyCode.Keypad2))
         {
-            return (int)Command.Down;
+            return Command.Down;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow)
             || Input.GetKeyDown(KeyCode.K)
             || Input.GetKeyDown(KeyCode.Keypad8))
         {
-            return (int)Command.Up;
+            return Command.Up;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow)
             || Input.GetKeyDown(KeyCode.L)
             || Input.GetKeyDown(KeyCode.Keypad6))
         {
-            return (int)Command.Right;
+            return Command.Right;
         }
         else if (Input.GetKeyDown(KeyCode.Y)
             || Input.GetKeyDown(KeyCode.Keypad7))
         {
-            return (int)Command.UpLeft;
+            return Command.UpLeft;
         }
         else if (Input.GetKeyDown(KeyCode.U)
             || Input.GetKeyDown(KeyCode.Keypad9))
         {
-            return (int)Command.UpRight;
+            return Command.UpRight;
         }
         else if (Input.GetKeyDown(KeyCode.B)
             || Input.GetKeyDown(KeyCode.Keypad1))
         {
-            return (int)Command.DownLeft;
+            return Command.DownLeft;
         }
         else if (Input.GetKeyDown(KeyCode.N)
             || Input.GetKeyDown(KeyCode.Keypad3))
         {
-            return (int)Command.DownRight;
+            return Command.DownRight;
         }
-        //Test key combinations.
+        // Test key combinations.
         else if (Input.GetKey(KeyCode.LeftControl)
             && Input.GetKeyDown(KeyCode.F))
         {
-            return (int)Command.Up;
+            return Command.Up;
         }
         else if (Input.GetKeyDown(KeyCode.End))
         {
-            return (int)Command.EndTurn;
+            return Command.EndTurn;
         }
 
-        return (int)Command.Invalid;
+        return Command.Invalid;
     }
 }

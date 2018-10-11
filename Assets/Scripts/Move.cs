@@ -13,7 +13,7 @@ public class Move : MonoBehaviour
     private Text message;
     private Vector3 moveHere;
 
-    private int newDirection;
+    private UserInput.Command newDirection;
 
     private WaitForSeconds wait5Seconds;
 
@@ -31,56 +31,56 @@ public class Move : MonoBehaviour
 
         switch (newDirection)
         {
-            case (int)UserInput.Command.Left:
+            case UserInput.Command.Left:
                 moveHere
                     = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                     .Convert(-1, 0);
                 break;
 
-            case (int)UserInput.Command.Right:
+            case UserInput.Command.Right:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 0);
                 break;
 
-            case (int)UserInput.Command.Down:
+            case UserInput.Command.Down:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, -1);
                 break;
 
-            case (int)UserInput.Command.Up:
+            case UserInput.Command.Up:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, 1);
                 break;
 
-            case (int)UserInput.Command.UpLeft:
+            case UserInput.Command.UpLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, 1);
                 break;
 
-            case (int)UserInput.Command.UpRight:
+            case UserInput.Command.UpRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 1);
                 break;
 
-            case (int)UserInput.Command.DownLeft:
+            case UserInput.Command.DownLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, -1);
                 break;
 
-            case (int)UserInput.Command.DownRight:
+            case UserInput.Command.DownRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, -1);
                 break;
         }
 
-        if (newDirection == (int)UserInput.Command.EndTurn)
+        if (newDirection == UserInput.Command.EndTurn)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<PCMove>().enabled = false;
@@ -89,7 +89,7 @@ public class Move : MonoBehaviour
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<PCMove>().enabled = true;
         }
-        else if (newDirection != (int)UserInput.Command.Invalid)
+        else if (newDirection != UserInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text = "Hello World\n2\n3\n4\n5\n6";
@@ -99,7 +99,7 @@ public class Move : MonoBehaviour
         }
     }
 
-    private bool IsWalkable(int direction, Transform actor)
+    private bool IsWalkable(UserInput.Command direction, Transform actor)
     {
         int x = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .Convert(actor.position.x);
@@ -108,45 +108,45 @@ public class Move : MonoBehaviour
 
         switch (direction)
         {
-            case (int)UserInput.Command.Left:
+            case UserInput.Command.Left:
                 x -= 1;
                 break;
 
-            case (int)UserInput.Command.Right:
+            case UserInput.Command.Right:
                 x += 1;
                 break;
 
-            case (int)UserInput.Command.Up:
+            case UserInput.Command.Up:
                 y += 1;
                 break;
 
-            case (int)UserInput.Command.Down:
+            case UserInput.Command.Down:
                 y -= 1;
                 break;
 
-            case (int)UserInput.Command.UpLeft:
+            case UserInput.Command.UpLeft:
                 x -= 1;
                 y += 1;
                 break;
 
-            case (int)UserInput.Command.UpRight:
+            case UserInput.Command.UpRight:
                 x += 1;
                 y += 1;
                 break;
 
-            case (int)UserInput.Command.DownLeft:
+            case UserInput.Command.DownLeft:
                 x -= 1;
                 y -= 1;
                 break;
 
-            case (int)UserInput.Command.DownRight:
+            case UserInput.Command.DownRight:
                 x += 1;
                 y -= 1;
                 break;
         }
 
         if (x < 0 || y < 0 ||
-           x >= BuildDungeon.width || y >= BuildDungeon.height)
+           x >= Test.width || y >= Test.height)
         {
             return false;
         }
