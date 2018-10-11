@@ -9,7 +9,6 @@ public class SchedulingSystem : MonoBehaviour
     private LinkedListNode<GameObject> nextNode;
     private LinkedList<GameObject> schedule = new LinkedList<GameObject>();
 
-    //TODO: Remove the wall tag.
     private enum ValidTags { PC, NPC };
 
     public GameObject CurrentActor

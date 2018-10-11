@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//This script is only attached to GameLogic.
+// This script is only attached to GameLogic.
 public class Singleton : MonoBehaviour
 {
     private static bool instance;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//A helper class that stores references to other game objects.
+// A helper class that stores references to other game objects.
 public class FindObjects : MonoBehaviour
 {
     public static GameObject GameLogic { get; private set; }
@@ -8,10 +8,10 @@ public class FindObjects : MonoBehaviour
 
     private void Start()
     {
-        //Object.
+        // Object.
         GameLogic = GameObject.FindGameObjectWithTag("GameLogic");
 
-        //ObjectS.
+        // ObjectS.
         MainUIList = GameObject.FindGameObjectsWithTag("MainUI");
     }
 }
