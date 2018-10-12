@@ -145,7 +145,9 @@ public class Move : MonoBehaviour
         }
 
         return FindObjects.GameLogic.GetComponent<BuildDungeon>()
-            .CheckTerrain(BuildDungeon.DungeonBlock.Floor, x, y);
+            .CheckTerrain(BuildDungeon.DungeonBlock.Floor, x, y)
+            || FindObjects.GameLogic.GetComponent<BuildDungeon>()
+            .CheckTerrain(BuildDungeon.DungeonBlock.Pool, x, y);
     }
 
     private IEnumerator MoveAndWait()

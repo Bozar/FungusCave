@@ -9,6 +9,7 @@ TagManager:
   - GameLogic
   - NPC
   - PC
+  - Pool
   layers:
   - Default
   - TransparentFX

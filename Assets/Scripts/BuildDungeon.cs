@@ -37,6 +37,7 @@ public class BuildDungeon : MonoBehaviour
     private void CreateDungeonObjects()
     {
         GameObject wallTile = Resources.Load("Wall") as GameObject;
+        GameObject poolTile = Resources.Load("Pool") as GameObject;
         GameObject newObject;
 
         for (int x = 0; x < dungeonWidth; x++)
@@ -47,15 +48,22 @@ public class BuildDungeon : MonoBehaviour
                 {
                     case DungeonBlock.Wall:
                         newObject = Instantiate(wallTile);
-                        newObject.transform.position = gameObject.
-                            GetComponent<ConvertCoordinates>().Convert(x, y);
                         break;
 
                     case DungeonBlock.Pool:
+                        newObject = Instantiate(poolTile);
                         break;
 
                     case DungeonBlock.Floor:
+                    default:
+                        newObject = null;
                         break;
+                }
+
+                if (newObject != null)
+                {
+                    newObject.transform.position = gameObject.
+                           GetComponent<ConvertCoordinates>().Convert(x, y);
                 }
             }
         }
@@ -79,6 +87,9 @@ public class BuildDungeon : MonoBehaviour
         ChangeBlock(DungeonBlock.Wall, 6, 6);
         ChangeBlock(DungeonBlock.Wall, dungeonWidth - 1, dungeonHeight - 1);
         ChangeBlock(DungeonBlock.Wall, dungeonWidth, dungeonHeight - 1);
+        ChangeBlock(DungeonBlock.Pool, 8, 8);
+        ChangeBlock(DungeonBlock.Pool, 8, 9);
+        ChangeBlock(DungeonBlock.Pool, 9, 9);
 
         CreateDungeonObjects();
     }
