@@ -29,6 +29,20 @@ public class BuildDungeon : MonoBehaviour
         return CheckTerrain(block, index[0], index[1]);
     }
 
+    public GameObject GetBlock(Vector3 position)
+    {
+        int[] index = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+            .Convert(position);
+        string dictKey = index[0] + "," + index[1];
+        GameObject block;
+
+        if (poolBlocks.TryGetValue(dictKey, out block))
+        {
+            return block;
+        }
+        return null;
+    }
+
     private void Awake()
     {
         board = new DungeonBlock[dungeonWidth, dungeonHeight];
@@ -62,12 +76,12 @@ public class BuildDungeon : MonoBehaviour
                 switch (board[x, y])
                 {
                     case DungeonBlock.Wall:
-                        newTile = Instantiate(wallTile);
+                        newTile = wallTile;
                         blockDict = wallBlocks;
                         break;
 
                     case DungeonBlock.Pool:
-                        newTile = Instantiate(poolTile);
+                        newTile = poolTile;
                         blockDict = poolBlocks;
                         break;
 
@@ -77,18 +91,17 @@ public class BuildDungeon : MonoBehaviour
                         break;
                 }
 
-                if (newTile != null && blockDict != null)
-                {
-                    blockKey = x.ToString() + ',' + y.ToString();
+                blockKey = x.ToString() + ',' + y.ToString();
 
+                if (newTile != null && blockDict != null
+                    && !blockDict.ContainsKey(blockKey))
+                {
+                    newTile = Instantiate(newTile);
                     newTile.transform.position
                             = gameObject.GetComponent<ConvertCoordinates>()
                             .Convert(x, y);
 
-                    if (!blockDict.ContainsKey(blockKey))
-                    {
-                        blockDict.Add(blockKey, newTile);
-                    }
+                    blockDict.Add(blockKey, newTile);
                 }
             }
         }
@@ -117,25 +130,9 @@ public class BuildDungeon : MonoBehaviour
         ChangeBlock(DungeonBlock.Pool, 9, 9);
     }
 
-    private void PrintDictionary()
-    {
-        foreach (var block in wallBlocks)
-        {
-            Debug.Log(block.Key + ": " + block.Value.name);
-        }
-
-        foreach (var block in poolBlocks)
-        {
-            Debug.Log(block.Key + ": " + block.Value.name);
-        }
-
-        Debug.Log(poolBlocks["8,9"].transform.position);
-    }
-
     private void Start()
     {
         PlaceWallsManually();
         CreateDungeonObjects();
-        PrintDictionary();
     }
 }
