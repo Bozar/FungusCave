@@ -6,6 +6,7 @@ public class BuildDungeon : MonoBehaviour
     private readonly int dungeonHeight = 17;
     private readonly int dungeonWidth = 24;
     private DungeonBlock[,] board;
+    private ConvertCoordinates convertCoordinates;
     private Dictionary<string, GameObject> poolBlocks;
     private Dictionary<string, GameObject> wallBlocks;
 
@@ -23,16 +24,14 @@ public class BuildDungeon : MonoBehaviour
 
     public bool CheckTerrain(DungeonBlock block, Vector3 position)
     {
-        int[] index = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .Convert(position);
+        int[] index = convertCoordinates.Convert(position);
 
         return CheckTerrain(block, index[0], index[1]);
     }
 
     public GameObject GetBlock(Vector3 position)
     {
-        int[] index = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .Convert(position);
+        int[] index = convertCoordinates.Convert(position);
         string dictKey = index[0] + "," + index[1];
         GameObject block;
 
@@ -98,8 +97,7 @@ public class BuildDungeon : MonoBehaviour
                 {
                     newTile = Instantiate(newTile);
                     newTile.transform.position
-                            = gameObject.GetComponent<ConvertCoordinates>()
-                            .Convert(x, y);
+                        = convertCoordinates.Convert(x, y);
 
                     blockDict.Add(blockKey, newTile);
                 }
@@ -132,6 +130,9 @@ public class BuildDungeon : MonoBehaviour
 
     private void Start()
     {
+        convertCoordinates = FindObjects.GameLogic.
+            GetComponent<ConvertCoordinates>();
+
         PlaceWallsManually();
         CreateDungeonObjects();
     }
