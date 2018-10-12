@@ -10,6 +10,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<ConvertCoordinates>();
         gameObject.AddComponent<SchedulingSystem>();
         gameObject.AddComponent<BuildDungeon>();
+        gameObject.AddComponent<TileOverlay>();
 
         gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();
