@@ -2,13 +2,31 @@
 
 public class RandomNumber : MonoBehaviour
 {
-    private int seed;
-
     public System.Random RNG { get; private set; }
+
+    public int Seed { get; private set; }
 
     private void Awake()
     {
-        seed = 12345;
-        RNG = new System.Random(seed);
+        //Seed = 12345;
+        if (Seed == 0)
+        {
+            RandomSeed();
+        }
+
+        RNG = new System.Random(Seed);
+    }
+
+    private void RandomSeed()
+    {
+        System.Random tempRNG = new System.Random();
+        double tempSeed = 0;
+
+        while (tempSeed < 0.1)
+        {
+            tempSeed = tempRNG.NextDouble();
+        }
+
+        Seed = (int)(tempSeed * Mathf.Pow(10, 9));
     }
 }

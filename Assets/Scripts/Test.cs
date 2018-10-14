@@ -50,6 +50,9 @@ public class Test : MonoBehaviour
         //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
         //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
         //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
+
+        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().Seed);
+
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
