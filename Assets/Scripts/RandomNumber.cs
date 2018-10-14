@@ -4,11 +4,10 @@ public class RandomNumber : MonoBehaviour
 {
     public System.Random RNG { get; private set; }
 
-    public int Seed { get; private set; }
+    public int Seed { get; set; }
 
-    private void Awake()
+    public void InitializeSeed()
     {
-        //Seed = 12345;
         if (Seed == 0)
         {
             RandomSeed();
