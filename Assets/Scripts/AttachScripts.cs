@@ -12,6 +12,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<BuildDungeon>();
         gameObject.AddComponent<TileOverlay>();
         gameObject.AddComponent<RandomNumber>();
+        gameObject.AddComponent<SaveLoad>();
 
         gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();
