@@ -88,10 +88,16 @@ public class Move : MonoBehaviour
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<PCMove>().enabled = true;
         }
+        else if (newDirection == UserInput.Command.Initialize)
+        {
+            FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
+        }
         else if (newDirection != UserInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
-            message.text = "Hello World\n2\n3\n4\n5\n6";
+            message.text =
+                FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
+                "\n2\n3\n4\n5\n6";
 
             FindObjects.GameLogic.GetComponent<TileOverlay>()
                 .CoverTile(false, actor.position);

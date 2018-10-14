@@ -13,6 +13,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<TileOverlay>();
         gameObject.AddComponent<RandomNumber>();
         gameObject.AddComponent<SaveLoad>();
+        gameObject.AddComponent<Initialize>();
 
         gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();

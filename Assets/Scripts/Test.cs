@@ -46,18 +46,7 @@ public class Test : MonoBehaviour
         }
 
         message.text =
-            FindObjects.GameLogic.GetComponent<SaveLoad>().mySeed +
+            FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
             "\nThis is a test\n3\n4\n5\n6";
-        //message.text = "Hello World\nThis is a test\n3\n4\n5\n6";
-
-        //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
-        //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
-        //Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.Next(1, 11));
-
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().Seed);
-
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
     }
 }

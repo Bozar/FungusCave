@@ -9,7 +9,7 @@ public class UserInput : MonoBehaviour
         Wait,
 
         // Debug commands:
-        EndTurn,
+        EndTurn, Initialize,
 
         Confirm, Cancel, Invalid
     };
@@ -69,6 +69,10 @@ public class UserInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.End))
         {
             return Command.EndTurn;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return Command.Initialize;
         }
 
         return Command.Invalid;
