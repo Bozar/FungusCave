@@ -9,11 +9,13 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<UserInput>();
         gameObject.AddComponent<ConvertCoordinates>();
         gameObject.AddComponent<SchedulingSystem>();
-        gameObject.AddComponent<BuildDungeon>();
+        gameObject.AddComponent<DungeonBoard>();
         gameObject.AddComponent<TileOverlay>();
         gameObject.AddComponent<RandomNumber>();
         gameObject.AddComponent<SaveLoad>();
         gameObject.AddComponent<Initialize>();
+        gameObject.AddComponent<DungeonBlueprint>();
+        gameObject.AddComponent<DungeonObjects>();
 
         gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();

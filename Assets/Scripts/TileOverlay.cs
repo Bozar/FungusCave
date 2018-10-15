@@ -2,7 +2,7 @@
 
 public class TileOverlay : MonoBehaviour
 {
-    private BuildDungeon dungeon;
+    private DungeonBoard dungeon;
 
     public void CoverTile(Vector3 position)
     {
@@ -11,7 +11,7 @@ public class TileOverlay : MonoBehaviour
 
     public void CoverTile(bool cover, Vector3 position)
     {
-        if (dungeon.CheckTerrain(BuildDungeon.DungeonBlock.Pool, position))
+        if (dungeon.CheckTerrain(DungeonBoard.DungeonBlock.Pool, position))
         {
             dungeon.GetBlock(position).GetComponent<Renderer>().enabled
                 = !cover;
@@ -20,6 +20,6 @@ public class TileOverlay : MonoBehaviour
 
     private void Start()
     {
-        dungeon = FindObjects.GameLogic.GetComponent<BuildDungeon>();
+        dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
     }
 }
