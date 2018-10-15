@@ -4,12 +4,13 @@ using UnityEngine;
 // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/
 public class SaveLoad : MonoBehaviour
 {
-    public GameData saveFile;
     private string altPath;
     private StreamReader file;
     private string fileName;
     private string path;
     private StreamWriter wfile;
+
+    public GameData SaveFile { get; private set; }
 
     private void Awake()
     {
@@ -24,16 +25,8 @@ public class SaveLoad : MonoBehaviour
         {
             WriteXML();
         }
-    }
 
-    private void LoadGame()
-    {
-        if (saveFile == null)
-        {
-            return;
-        }
-
-        FindObjects.GameLogic.GetComponent<RandomNumber>().Seed = saveFile.seed;
+        ReadXML();
     }
 
     private void ReadXML()
@@ -54,19 +47,13 @@ public class SaveLoad : MonoBehaviour
             return;
         }
 
-        saveFile = (GameData)reader.Deserialize(file);
+        SaveFile = (GameData)reader.Deserialize(file);
         file.Close();
-    }
-
-    private void Start()
-    {
-        ReadXML();
-        LoadGame();
     }
 
     private void WriteXML()
     {
-        var data = new GameData { seed = 0 };
+        var data = new GameData { Seed = 0 };
         var writer
             = new System.Xml.Serialization.XmlSerializer(typeof(GameData));
         wfile = new StreamWriter(path);
@@ -77,6 +64,6 @@ public class SaveLoad : MonoBehaviour
 
     public class GameData
     {
-        public int seed;
+        public int Seed;
     }
 }

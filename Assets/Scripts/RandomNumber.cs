@@ -4,10 +4,12 @@ public class RandomNumber : MonoBehaviour
 {
     public System.Random RNG { get; private set; }
 
-    public int Seed { get; set; }
+    public int Seed { get; private set; }
 
     public void InitializeSeed()
     {
+        Seed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
+
         if (Seed == 0)
         {
             RandomSeed();
