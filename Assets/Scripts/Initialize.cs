@@ -21,7 +21,7 @@ public class Initialize : MonoBehaviour
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
 
         FindObjects.GameLogic.GetComponent<DungeonBlueprint>()
-           .PlaceWallsManually();
+           .DrawRandomly();
         FindObjects.GameLogic.GetComponent<DungeonObjects>().CreateBuildings();
     }
 }
