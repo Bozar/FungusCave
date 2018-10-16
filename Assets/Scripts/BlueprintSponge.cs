@@ -36,6 +36,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         checkX = x >= 0 && x + width <= board.Width;
         checkY = y >= 0 && y + height <= board.Height;
 
+        // Do not generate a looooog bar.
         checkSize = System.Math.Min(width - 2, height - 2) * 3
             > System.Math.Max(width - 2, height - 2);
 
@@ -135,10 +136,11 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             width = random.RNG.Next(minWidth, maxWidth + 1);
             height = random.RNG.Next(minHeight, maxHeight + 1);
 
+            // If a block is of maxWidth & maxHeight, it looks too big.
             maxSize = width == maxWidth && height == maxHeight;
         } while (
         !IsEmptyArea(startX, startY, width, height)
-        && maxSize);
+        || maxSize);
 
         // Shrink the solid wall block by 1 grid so that you can always walk
         // around it.
