@@ -35,8 +35,8 @@ public class ConvertCoordinates : MonoBehaviour
 
     public int[] Convert(Vector3 position)
     {
-        indexX = (int)Mathf.Floor(position.x * vector2Index);
-        indexY = (int)Mathf.Floor(position.y * vector2Index);
+        indexX = (int)System.Math.Floor(position.x * vector2Index);
+        indexY = (int)System.Math.Floor(position.y * vector2Index);
 
         arrayPosition = new int[] { indexX, indexY };
 
@@ -45,7 +45,7 @@ public class ConvertCoordinates : MonoBehaviour
 
     public int Convert(float position)
     {
-        indexXorY = (int)Mathf.Floor(position * vector2Index);
+        indexXorY = (int)System.Math.Floor(position * vector2Index);
 
         return indexXorY;
     }

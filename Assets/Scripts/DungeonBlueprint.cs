@@ -6,6 +6,11 @@ public class DungeonBlueprint : MonoBehaviour
     protected DungeonBoard board;
     protected RandomNumber random;
 
+    public interface IIsEmptyArea
+    {
+        bool IsEmptyArea(int x, int y, int width, int height);
+    }
+
     public void DrawManually()
     {
         board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, 4, 4);
@@ -42,34 +47,6 @@ public class DungeonBlueprint : MonoBehaviour
                 count++;
             }
         }
-    }
-
-    protected bool IsEmptyArea(int x, int y, int width, int height)
-    {
-        bool checkX;
-        bool checkY;
-        bool checkSize;
-        bool checkFloor = true;
-
-        for (int i = x; i < x + width; i++)
-        {
-            for (int j = y; j < y + height; j++)
-            {
-                if (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor, i, j))
-                {
-                    checkFloor = false;
-                    break;
-                }
-            }
-        }
-
-        checkX = x >= 0 && x + width <= board.Width;
-        checkY = y >= 0 && y + height <= board.Height;
-
-        checkSize = Mathf.Min(width - 2, height - 2) * 3
-            > Mathf.Max(width - 2, height - 2);
-
-        return checkX && checkY && checkFloor && checkSize;
     }
 
     protected int[] RandomIndex()

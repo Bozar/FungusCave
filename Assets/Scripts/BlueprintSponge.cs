@@ -1,6 +1,4 @@
-﻿//using UnityEngine;
-
-public class BlueprintSponge : DungeonBlueprint
+﻿public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
 {
     private int height;
@@ -12,6 +10,34 @@ public class BlueprintSponge : DungeonBlueprint
     private int width;
     private int x;
     private int y;
+
+    public bool IsEmptyArea(int x, int y, int width, int height)
+    {
+        bool checkX;
+        bool checkY;
+        bool checkSize;
+        bool checkFloor = true;
+
+        for (int i = x; i < x + width; i++)
+        {
+            for (int j = y; j < y + height; j++)
+            {
+                if (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor, i, j))
+                {
+                    checkFloor = false;
+                    break;
+                }
+            }
+        }
+
+        checkX = x >= 0 && x + width <= board.Width;
+        checkY = y >= 0 && y + height <= board.Height;
+
+        checkSize = System.Math.Min(width - 2, height - 2) * 3
+            > System.Math.Max(width - 2, height - 2);
+
+        return checkX && checkY && checkFloor && checkSize;
+    }
 
     public void Test()
     {

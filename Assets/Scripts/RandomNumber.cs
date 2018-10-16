@@ -28,6 +28,6 @@ public class RandomNumber : MonoBehaviour
             tempSeed = tempRNG.NextDouble();
         }
 
-        Seed = (int)(tempSeed * Mathf.Pow(10, 9));
+        Seed = (int)(tempSeed * System.Math.Pow(10, 9));
     }
 }
