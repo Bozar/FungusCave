@@ -3,8 +3,8 @@
 // Change the 2D array's content, which is defined in DungeonBoard.
 public class DungeonBlueprint : MonoBehaviour
 {
-    private DungeonBoard board;
-    private RandomNumber random;
+    protected DungeonBoard board;
+    protected RandomNumber random;
 
     public void DrawManually()
     {
@@ -44,15 +44,43 @@ public class DungeonBlueprint : MonoBehaviour
         }
     }
 
-    private int[] RandomIndex()
+    protected bool IsEmptyArea(int x, int y, int width, int height)
+    {
+        bool checkX;
+        bool checkY;
+        bool checkSize;
+        bool checkFloor = true;
+
+        for (int i = x; i < x + width; i++)
+        {
+            for (int j = y; j < y + height; j++)
+            {
+                if (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor, i, j))
+                {
+                    checkFloor = false;
+                    break;
+                }
+            }
+        }
+
+        checkX = x >= 0 && x + width <= board.Width;
+        checkY = y >= 0 && y + height <= board.Height;
+
+        checkSize = Mathf.Min(width - 2, height - 2) * 3
+            > Mathf.Max(width - 2, height - 2);
+
+        return checkX && checkY && checkFloor && checkSize;
+    }
+
+    protected int[] RandomIndex()
     {
         int[] index;
         int x;
         int y;
 
-        x = (int)(board.Width * random.RNG.NextDouble());
-        y = (int)(board.Height * random.RNG.NextDouble());
-        index = new[] { x, y };
+        x = random.RNG.Next(0, board.Width);
+        y = random.RNG.Next(0, board.Height);
+        index = new int[] { x, y };
 
         return index;
     }

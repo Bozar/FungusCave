@@ -20,8 +20,8 @@ public class Initialize : MonoBehaviour
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
 
-        FindObjects.GameLogic.GetComponent<DungeonBlueprint>()
-           .DrawRandomly();
+        FindObjects.GameLogic.GetComponent<BlueprintSponge>()
+           .Test();
         FindObjects.GameLogic.GetComponent<DungeonObjects>().CreateBuildings();
     }
 }
