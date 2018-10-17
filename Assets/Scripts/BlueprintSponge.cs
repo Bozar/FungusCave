@@ -18,14 +18,25 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
     {
         for (int i = 0; i < 999; i++)
         {
+            // Build a block of solid walls.
             if (SolidWall())
             {
-                DigTunnel();
-                DigCorner();
+                // Do not dig through a 2*2 block.
+                if (System.Math.Max(width, height) > 2)
+                {
+                    DigTunnel();
+                }
 
+                // Dig another tunnel through a big block.
                 if (System.Math.Max(width, height) == maxSize - 2)
                 {
                     DigTunnel();
+                }
+
+                // Dig one or more corners of a "thick" block.
+                if (System.Math.Min(width, height) > 2)
+                {
+                    DigCorner();
                 }
             }
         }
