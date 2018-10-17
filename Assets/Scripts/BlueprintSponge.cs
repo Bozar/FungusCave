@@ -8,13 +8,31 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
     private int digY;
     private int height;
     private int[] index;
-    private int maxHeight;
-    private int maxWidth;
-    private int minHeight;
-    private int minWidth;
+    private int maxSize;
+    private int minSize;
     private int startX;
     private int startY;
     private int width;
+
+    public void DrawBlueprint()
+    {
+        for (int i = 0; i < 999; i++)
+        {
+            if (SolidWall())
+            {
+                DigTunnel();
+                DigCorner();
+
+                if (System.Math.Max(width, height) == maxSize - 2)
+                {
+                    DigTunnel();
+                }
+            }
+        }
+
+        Debug.Log("Wall / Area: "
+            + (int)((float)countWalls / (board.Width * board.Height) * 100));
+    }
 
     public bool IsEmptyArea(int x, int y, int width, int height)
     {
@@ -46,28 +64,31 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         return checkX && checkY && checkFloor && checkSize;
     }
 
-    public void Test()
-    {
-        for (int i = 0; i < 999; i++)
-        {
-            if (SolidWall())
-            {
-                DigTunnel();
-            }
-        }
-
-        Debug.Log("Wall / Area: "
-            + (int)((float)countWalls / (board.Width * board.Height) * 100));
-    }
-
     private void Awake()
     {
-        minWidth = 4;
-        minHeight = 4;
-        maxWidth = 7;
-        maxHeight = 7;
+        minSize = 4;
+        maxSize = 7;
         countWalls = 0;
         index = new int[2];
+    }
+
+    private void DigCorner()
+    {
+        int[] sw = new int[] { startX, startY };
+        int[] se = new int[] { startX + width - 1, startY };
+        int[] nw = new int[] { startX, startY + height - 1 };
+        int[] ne = new int[] { startX + width - 1, startY + height - 1 };
+        int[][] cornerIndex = new int[][] { sw, se, nw, ne };
+
+        foreach (var index in cornerIndex)
+        {
+            if (random.RNG.Next(0, 3) < 2)
+            {
+                board.ChangeBlock(DungeonBoard.DungeonBlock.Floor,
+                    index[0], index[1]);
+                countWalls--;
+            }
+        }
     }
 
     private void DigTunnel()
@@ -156,19 +177,19 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
     private bool SolidWall()
     {
-        bool maxSize;
+        bool tooBig;
 
         index = RandomIndex();
         startX = index[0];
         startY = index[1];
 
-        width = random.RNG.Next(minWidth, maxWidth + 1);
-        height = random.RNG.Next(minHeight, maxHeight + 1);
+        width = random.RNG.Next(minSize, maxSize + 1);
+        height = random.RNG.Next(minSize, maxSize + 1);
 
         // If a block is of maxWidth & maxHeight, it looks too big.
-        maxSize = width == maxWidth && height == maxHeight;
+        tooBig = System.Math.Min(width, height) == maxSize;
 
-        if (maxSize || !IsEmptyArea(startX, startY, width, height))
+        if (tooBig || !IsEmptyArea(startX, startY, width, height))
         {
             return false;
         }
