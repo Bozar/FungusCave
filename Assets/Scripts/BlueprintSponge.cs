@@ -36,7 +36,8 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         checkX = x >= 0 && x + width <= board.Width;
         checkY = y >= 0 && y + height <= board.Height;
 
-        // Do not generate a looooog bar.
+        // Do not generate a looong bar. Also note that the acutal wall block is
+        // shrinked by 1 gird in four directions.
         checkSize = System.Math.Min(width - 2, height - 2) * 3
             > System.Math.Max(width - 2, height - 2);
 
@@ -60,10 +61,13 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
     private void DigTunnel()
     {
-        // From bottom to top.
-        if (width >= height)
+        // Dig from bottom to top. If the block is a square, dig a tunnel from
+        // left to right because the dungeon screen is a horizontal rectangle.
+        if (width > height)
         {
             digX = random.RNG.Next(startX, startX + width);
+            // Try to move starting point away from corner.
+            digX = NextStep(digX, startX, startX + width - 1);
             digY = startY;
 
             while (digX > -1 && digY > -1)
@@ -74,11 +78,12 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
                 digY = NextStep(digY, startY, startY + height - 1, 1);
             }
         }
-        // From left to right.
+        // Dig from left to right.
         else
         {
             digX = startX;
             digY = random.RNG.Next(startY, startY + height);
+            digY = NextStep(digY, startY, startY + height - 1);
 
             while (digX > -1 && digY > -1)
             {
@@ -105,6 +110,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
     {
         int next;
         int stepIndex;
+        int retry = 0;
         List<int> step = new List<int> { -1, 0, 1 };
 
         while (step.Count > 0)
@@ -112,12 +118,24 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             stepIndex = random.RNG.Next(0, step.Count);
             next = current + step[stepIndex];
 
-            if (next >= min && next <= max)
+            if (next > min && next < max)
             {
                 return next;
             }
-
-            step.RemoveAt(stepIndex);
+            else if (next < min || next > max)
+            {
+                step.RemoveAt(stepIndex);
+            }
+            // The next grid touches the border: (next == min || next == max).
+            // Try to find another grid that is inside the block if possible.
+            else
+            {
+                if (retry > 5)
+                {
+                    return next;
+                }
+                retry++;
+            }
         }
 
         return -1;
