@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 {
+    private int countWalls;
     private int digX;
     private int digY;
     private int height;
@@ -46,8 +48,16 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
     public void Test()
     {
-        SolidWall();
-        DigTunnel();
+        for (int i = 0; i < 999; i++)
+        {
+            if (SolidWall())
+            {
+                DigTunnel();
+            }
+        }
+
+        Debug.Log("Wall / Area: "
+            + (int)((float)countWalls / (board.Width * board.Height) * 100));
     }
 
     private void Awake()
@@ -56,6 +66,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         minHeight = 4;
         maxWidth = 7;
         maxHeight = 7;
+        countWalls = 0;
         index = new int[2];
     }
 
@@ -73,6 +84,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             while (digX > -1 && digY > -1)
             {
                 board.ChangeBlock(DungeonBoard.DungeonBlock.Floor, digX, digY);
+                countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1);
                 digY = NextStep(digY, startY, startY + height - 1, 1);
@@ -88,6 +100,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             while (digX > -1 && digY > -1)
             {
                 board.ChangeBlock(DungeonBoard.DungeonBlock.Floor, digX, digY);
+                countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1, 1);
                 digY = NextStep(digY, startY, startY + height - 1);
@@ -141,24 +154,24 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         return -1;
     }
 
-    private void SolidWall()
+    private bool SolidWall()
     {
         bool maxSize;
 
-        do
+        index = RandomIndex();
+        startX = index[0];
+        startY = index[1];
+
+        width = random.RNG.Next(minWidth, maxWidth + 1);
+        height = random.RNG.Next(minHeight, maxHeight + 1);
+
+        // If a block is of maxWidth & maxHeight, it looks too big.
+        maxSize = width == maxWidth && height == maxHeight;
+
+        if (maxSize || !IsEmptyArea(startX, startY, width, height))
         {
-            index = RandomIndex();
-            startX = index[0];
-            startY = index[1];
-
-            width = random.RNG.Next(minWidth, maxWidth + 1);
-            height = random.RNG.Next(minHeight, maxHeight + 1);
-
-            // If a block is of maxWidth & maxHeight, it looks too big.
-            maxSize = width == maxWidth && height == maxHeight;
-        } while (
-        !IsEmptyArea(startX, startY, width, height)
-        || maxSize);
+            return false;
+        }
 
         // Shrink the solid wall block by 1 grid so that you can always walk
         // around it.
@@ -172,7 +185,10 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             for (int j = startY; j < startY + height; j++)
             {
                 board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, i, j);
+                countWalls++;
             }
         }
+
+        return true;
     }
 }
