@@ -4,7 +4,7 @@ public class AttachScripts : MonoBehaviour
 {
     private void Awake()
     {
-        gameObject.AddComponent<Singleton>();
+        //gameObject.AddComponent<Singleton>();
         gameObject.AddComponent<FindObjects>();
         gameObject.AddComponent<UserInput>();
         gameObject.AddComponent<ConvertCoordinates>();

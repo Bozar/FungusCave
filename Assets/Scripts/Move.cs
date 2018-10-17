@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    private static bool Instance;
+    //private static bool Instance;
 
     private int countStep;
 
@@ -181,13 +181,13 @@ public class Move : MonoBehaviour
 
     private void Start()
     {
-        if (Instance)
-        {
-            Debug.Log("Move already exists.");
-            return;
-        }
+        //if (Instance)
+        //{
+        //    Debug.Log("Move already exists.");
+        //    return;
+        //}
 
-        Instance = true;
+        //Instance = true;
 
         wait5Seconds = new WaitForSeconds(5.0f);
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");

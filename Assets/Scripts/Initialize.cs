@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Initialize : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Initialize : MonoBehaviour
     {
         if (initialized)
         {
+            SceneManager.LoadSceneAsync(0);
+            SceneManager.UnloadSceneAsync(0);
             return;
         }
 
