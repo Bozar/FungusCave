@@ -21,7 +21,7 @@ public class BlueprintPool : DungeonBlueprint
     {
         countPools = random.RNG.Next(minPool, maxPool + 1);
 
-        for (int i = 0; i < countPools; i++)
+        while (countPools > 0)
         {
             range = random.RNG.Next(minRange, maxRange + 1);
             WaterSource();
@@ -34,8 +34,8 @@ public class BlueprintPool : DungeonBlueprint
         submergeGrid = new Stack();
         minRange = 1;
         maxRange = 3;
-        minPool = 6;
-        maxPool = 10;
+        minPool = 90;
+        maxPool = 110;
     }
 
     private void WaterFlow()
@@ -57,6 +57,7 @@ public class BlueprintPool : DungeonBlueprint
         };
 
         board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, nextX, nextY);
+        countPools--;
 
         foreach (var grid in surround)
         {

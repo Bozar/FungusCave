@@ -36,9 +36,7 @@
 
     private void ConvertWall2Fungus()
     {
-        int retry = 0;
-
-        if ((countFungus < 1) || retry > 999)
+        if (countFungus < 1)
         {
             return;
         }
@@ -53,8 +51,6 @@
             board.ChangeBlock(DungeonBoard.DungeonBlock.Fungus, x, y);
             countFungus--;
         }
-
-        retry++;
 
         ConvertWall2Fungus();
     }
