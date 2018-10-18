@@ -6,11 +6,12 @@ public class DungeonBoard : MonoBehaviour
 {
     private ConvertCoordinates coordinate;
 
-    public enum DungeonBlock { Floor, Wall, Pool };
+    public enum DungeonBlock { Floor, Wall, Pool, Fungus };
 
-    public enum RangeType { Rhombus };
+    public enum FOVShape { Rhombus };
 
     public DungeonBlock[,] Board { get; private set; }
+    public Dictionary<string, GameObject> FungusBlocks { get; private set; }
     public int Height { get; private set; }
     public Dictionary<string, GameObject> PoolBlocks { get; private set; }
     public Dictionary<string, GameObject> WallBlocks { get; private set; }
@@ -57,14 +58,14 @@ public class DungeonBoard : MonoBehaviour
         return null;
     }
 
-    public bool InsideRange(RangeType shape, int maxRange,
+    public bool IsInsideFOV(FOVShape shape, int maxRange,
         int[] source, int[] target)
     {
         bool check;
 
         switch (shape)
         {
-            case RangeType.Rhombus:
+            case FOVShape.Rhombus:
                 check = System.Math.Abs(target[0] - source[0])
                     + System.Math.Abs(target[1] - source[1])
                     <= maxRange;
@@ -85,6 +86,7 @@ public class DungeonBoard : MonoBehaviour
         Board = new DungeonBlock[Width, Height];
         PoolBlocks = new Dictionary<string, GameObject>();
         WallBlocks = new Dictionary<string, GameObject>();
+        FungusBlocks = new Dictionary<string, GameObject>();
     }
 
     private bool IndexOutOfRange(int x, int y)

@@ -25,6 +25,7 @@ public class Initialize : MonoBehaviour
 
         FindObjects.GameLogic.GetComponent<BlueprintSponge>().DrawBlueprint();
         FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();
+        FindObjects.GameLogic.GetComponent<BlueprintFungus>().DrawBlueprint();
         FindObjects.GameLogic.GetComponent<DungeonObjects>().CreateBuildings();
     }
 }

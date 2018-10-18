@@ -8,6 +8,7 @@ public class DungeonObjects : MonoBehaviour
     private string blockKey;
     private DungeonBoard board;
     private ConvertCoordinates coordinate;
+    private GameObject fungusTile;
     private GameObject newTile;
     private GameObject poolTile;
     private GameObject wallTile;
@@ -28,6 +29,11 @@ public class DungeonObjects : MonoBehaviour
                     case DungeonBoard.DungeonBlock.Pool:
                         newTile = poolTile;
                         blockDict = board.PoolBlocks;
+                        break;
+
+                    case DungeonBoard.DungeonBlock.Fungus:
+                        newTile = fungusTile;
+                        blockDict = board.FungusBlocks;
                         break;
 
                     default:
@@ -55,6 +61,7 @@ public class DungeonObjects : MonoBehaviour
     {
         wallTile = Resources.Load("Wall") as GameObject;
         poolTile = Resources.Load("Pool") as GameObject;
+        fungusTile = Resources.Load("Fungus") as GameObject;
     }
 
     private void Start()

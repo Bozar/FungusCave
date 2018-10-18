@@ -62,7 +62,7 @@ public class BlueprintPool : DungeonBlueprint
         {
             if (board.CheckTerrain(DungeonBoard.DungeonBlock.Floor,
                 grid[0], grid[1])
-                && board.InsideRange(DungeonBoard.RangeType.Rhombus, range,
+                && board.IsInsideFOV(DungeonBoard.FOVShape.Rhombus, range,
                 startIndex, grid))
             {
                 submergeGrid.Push(grid);
