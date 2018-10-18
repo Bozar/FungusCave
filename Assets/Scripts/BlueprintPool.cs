@@ -2,10 +2,16 @@
 
 public class BlueprintPool : DungeonBlueprint
 {
+    private int countPool;
     private int[] index;
+    private int maxPool;
     private int maxRange;
+    private int minPool;
+    private int minRange;
     private int nextX;
     private int nextY;
+    private int range;
+    private int[] startIndex;
     private int startX;
     private int startY;
     private Stack submergeGrid;
@@ -13,22 +19,23 @@ public class BlueprintPool : DungeonBlueprint
 
     public void DrawBlueprint()
     {
-        maxRange = 3;
-        WaterSource();
-        WaterFlow();
+        countPool = random.RNG.Next(minPool, maxPool + 1);
+
+        for (int i = 0; i < countPool; i++)
+        {
+            range = random.RNG.Next(minRange, maxRange + 1);
+            WaterSource();
+            WaterFlow();
+        }
     }
 
     private void Awake()
     {
         submergeGrid = new Stack();
-    }
-
-    private bool InsideRange(int x, int y)
-    {
-        bool check = System.Math.Abs(x - startX) + System.Math.Abs(y - startY)
-            <= maxRange;
-
-        return check;
+        minRange = 1;
+        maxRange = 3;
+        minPool = 6;
+        maxPool = 10;
     }
 
     private void WaterFlow()
@@ -55,7 +62,8 @@ public class BlueprintPool : DungeonBlueprint
         {
             if (board.CheckTerrain(DungeonBoard.DungeonBlock.Floor,
                 grid[0], grid[1])
-                && InsideRange(grid[0], grid[1]))
+                && board.InsideRange(DungeonBoard.RangeType.Rhombus, range,
+                startIndex, grid))
             {
                 submergeGrid.Push(grid);
             }
@@ -74,6 +82,7 @@ public class BlueprintPool : DungeonBlueprint
         } while (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor,
         startX, startY));
 
+        startIndex = index;
         submergeGrid.Push(index);
     }
 }

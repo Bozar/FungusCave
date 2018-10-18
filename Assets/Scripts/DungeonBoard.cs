@@ -8,6 +8,8 @@ public class DungeonBoard : MonoBehaviour
 
     public enum DungeonBlock { Floor, Wall, Pool };
 
+    public enum RangeType { Rhombus };
+
     public DungeonBlock[,] Board { get; private set; }
     public int Height { get; private set; }
     public Dictionary<string, GameObject> PoolBlocks { get; private set; }
@@ -53,6 +55,26 @@ public class DungeonBoard : MonoBehaviour
             return block;
         }
         return null;
+    }
+
+    public bool InsideRange(RangeType shape, int maxRange,
+        int[] source, int[] target)
+    {
+        bool check;
+
+        switch (shape)
+        {
+            case RangeType.Rhombus:
+                check = System.Math.Abs(target[0] - source[0])
+                    + System.Math.Abs(target[1] - source[1])
+                    <= maxRange;
+                break;
+
+            default:
+                check = false;
+                break;
+        }
+        return check;
     }
 
     private void Awake()
