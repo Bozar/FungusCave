@@ -6,18 +6,30 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
     private int countWalls;
     private int digX;
     private int digY;
+    private int finalWall;
     private int height;
     private int[] index;
     private int maxSize;
+    private int maxWall;
     private int minSize;
+    private int minWall;
     private int startX;
     private int startY;
     private int width;
 
     public void DrawBlueprint()
     {
-        for (int i = 0; i < 999; i++)
+        finalWall = random.RNG.Next(minWall, maxWall + 1);
+
+        Debug.Log("Final: " + finalWall);
+
+        for (int i = 0; i < 9999; i++)
         {
+            if (countWalls > finalWall)
+            {
+                break;
+            }
+
             // Build a block of solid walls.
             if (SolidWall())
             {
@@ -41,8 +53,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             }
         }
 
-        Debug.Log("Wall / Area: "
-            + (int)((float)countWalls / (board.Width * board.Height) * 100));
+        Debug.Log("Wall: " + countWalls);
     }
 
     public bool IsEmptyArea(int x, int y, int width, int height)
@@ -77,8 +88,10 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
     private void Awake()
     {
-        minSize = 4;
+        minSize = 3;
         maxSize = 7;
+        minWall = 85;
+        maxWall = 95;
         countWalls = 0;
         index = new int[2];
     }

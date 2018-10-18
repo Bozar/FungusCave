@@ -4,6 +4,7 @@
     private int[] index;
     private int maxFungus;
     private int minFungus;
+    private int retry;
     private int x;
     private int y;
 
@@ -30,13 +31,14 @@
 
     private void Awake()
     {
+        retry = 0;
         minFungus = 5;
         maxFungus = 10;
     }
 
     private void ConvertWall2Fungus()
     {
-        if (countFungus < 1)
+        if ((countFungus < 1) || (retry > 999))
         {
             return;
         }
@@ -51,6 +53,8 @@
             board.ChangeBlock(DungeonBoard.DungeonBlock.Fungus, x, y);
             countFungus--;
         }
+
+        retry++;
 
         ConvertWall2Fungus();
     }
