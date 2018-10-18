@@ -2,7 +2,7 @@
 
 public class BlueprintPool : DungeonBlueprint
 {
-    private int countPool;
+    private int countPools;
     private int[] index;
     private int maxPool;
     private int maxRange;
@@ -19,9 +19,9 @@ public class BlueprintPool : DungeonBlueprint
 
     public void DrawBlueprint()
     {
-        countPool = random.RNG.Next(minPool, maxPool + 1);
+        countPools = random.RNG.Next(minPool, maxPool + 1);
 
-        for (int i = 0; i < countPool; i++)
+        for (int i = 0; i < countPools; i++)
         {
             range = random.RNG.Next(minRange, maxRange + 1);
             WaterSource();
