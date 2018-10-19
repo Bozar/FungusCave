@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class UserInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     public enum Command
     {

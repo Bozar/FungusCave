@@ -12,13 +12,13 @@ public class Move : MonoBehaviour
     private Text message;
     private Vector3 moveHere;
 
-    private UserInput.Command newDirection;
+    private PlayerInput.Command newDirection;
 
     private WaitForSeconds wait5Seconds;
 
     public void MoveAround(Transform actor)
     {
-        newDirection = FindObjects.GameLogic.GetComponent<UserInput>().
+        newDirection = FindObjects.GameLogic.GetComponent<PlayerInput>().
             OutputCommand();
 
         if (!IsWalkable(newDirection, actor))
@@ -30,56 +30,56 @@ public class Move : MonoBehaviour
 
         switch (newDirection)
         {
-            case UserInput.Command.Left:
+            case PlayerInput.Command.Left:
                 moveHere
                     = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                     .Convert(-1, 0);
                 break;
 
-            case UserInput.Command.Right:
+            case PlayerInput.Command.Right:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 0);
                 break;
 
-            case UserInput.Command.Down:
+            case PlayerInput.Command.Down:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, -1);
                 break;
 
-            case UserInput.Command.Up:
+            case PlayerInput.Command.Up:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, 1);
                 break;
 
-            case UserInput.Command.UpLeft:
+            case PlayerInput.Command.UpLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, 1);
                 break;
 
-            case UserInput.Command.UpRight:
+            case PlayerInput.Command.UpRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 1);
                 break;
 
-            case UserInput.Command.DownLeft:
+            case PlayerInput.Command.DownLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, -1);
                 break;
 
-            case UserInput.Command.DownRight:
+            case PlayerInput.Command.DownRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, -1);
                 break;
         }
 
-        if (newDirection == UserInput.Command.EndTurn)
+        if (newDirection == PlayerInput.Command.EndTurn)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<PCMove>().enabled = false;
@@ -88,11 +88,11 @@ public class Move : MonoBehaviour
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<PCMove>().enabled = true;
         }
-        else if (newDirection == UserInput.Command.Initialize)
+        else if (newDirection == PlayerInput.Command.Initialize)
         {
             FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
         }
-        else if (newDirection != UserInput.Command.Invalid)
+        else if (newDirection != PlayerInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text =
@@ -110,7 +110,7 @@ public class Move : MonoBehaviour
         }
     }
 
-    private bool IsWalkable(UserInput.Command direction, Transform actor)
+    private bool IsWalkable(PlayerInput.Command direction, Transform actor)
     {
         int x = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .Convert(actor.position.x);
@@ -119,38 +119,38 @@ public class Move : MonoBehaviour
 
         switch (direction)
         {
-            case UserInput.Command.Left:
+            case PlayerInput.Command.Left:
                 x -= 1;
                 break;
 
-            case UserInput.Command.Right:
+            case PlayerInput.Command.Right:
                 x += 1;
                 break;
 
-            case UserInput.Command.Up:
+            case PlayerInput.Command.Up:
                 y += 1;
                 break;
 
-            case UserInput.Command.Down:
+            case PlayerInput.Command.Down:
                 y -= 1;
                 break;
 
-            case UserInput.Command.UpLeft:
+            case PlayerInput.Command.UpLeft:
                 x -= 1;
                 y += 1;
                 break;
 
-            case UserInput.Command.UpRight:
+            case PlayerInput.Command.UpRight:
                 x += 1;
                 y += 1;
                 break;
 
-            case UserInput.Command.DownLeft:
+            case PlayerInput.Command.DownLeft:
                 x -= 1;
                 y -= 1;
                 break;
 
-            case UserInput.Command.DownRight:
+            case PlayerInput.Command.DownRight:
                 x += 1;
                 y -= 1;
                 break;

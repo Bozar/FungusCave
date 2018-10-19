@@ -5,20 +5,24 @@ public class AttachScripts : MonoBehaviour
     private void Awake()
     {
         //gameObject.AddComponent<Singleton>();
+        gameObject.AddComponent<PlayerInput>();
+        gameObject.AddComponent<SaveLoad>();
+
         gameObject.AddComponent<FindObjects>();
-        gameObject.AddComponent<UserInput>();
+        gameObject.AddComponent<UserInterface>();
+        gameObject.AddComponent<Initialize>();
+        gameObject.AddComponent<RandomNumber>();
+
         gameObject.AddComponent<ConvertCoordinates>();
         gameObject.AddComponent<SchedulingSystem>();
-        gameObject.AddComponent<DungeonBoard>();
         gameObject.AddComponent<TileOverlay>();
-        gameObject.AddComponent<RandomNumber>();
-        gameObject.AddComponent<SaveLoad>();
-        gameObject.AddComponent<Initialize>();
+
+        gameObject.AddComponent<DungeonBoard>();
         gameObject.AddComponent<DungeonBlueprint>();
-        gameObject.AddComponent<DungeonObjects>();
         gameObject.AddComponent<BlueprintSponge>();
         gameObject.AddComponent<BlueprintPool>();
         gameObject.AddComponent<BlueprintFungus>();
+        gameObject.AddComponent<DungeonObjects>();
 
         gameObject.AddComponent<Test>();
         gameObject.AddComponent<Move>();
