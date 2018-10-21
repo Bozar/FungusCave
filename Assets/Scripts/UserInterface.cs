@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class UserInterface : MonoBehaviour
 {
+    private string printText;
+
     private void Update()
     {
         UpdateSeed();
@@ -10,7 +12,16 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateSeed()
     {
+        printText = FindObjects.GameLogic.GetComponent<RandomNumber>()
+            .Seed.ToString();
+        int textLength = printText.Length;
+
+        for (int i = 1; textLength > i * 3; i++)
+        {
+            printText = printText.Insert(i * 4 - 1, "-");
+        }
+
         FindObjects.MainUIDict[(int)FindObjects.UITags.Seed].
-            GetComponent<Text>().text = "54321";
+            GetComponent<Text>().text = printText;
     }
 }
