@@ -13,6 +13,8 @@ public class ConvertCoordinates : MonoBehaviour
     private float vectorX;
     private float vectorY;
 
+    public enum Surround { Horizonal, Diagonal };
+
     public Vector3 Convert(int x, int y)
     {
         vectorX = x * index2Vector;
@@ -48,5 +50,35 @@ public class ConvertCoordinates : MonoBehaviour
         indexXorY = (int)System.Math.Floor(position * vector2Index);
 
         return indexXorY;
+    }
+
+    public int[][] SurroundCoord(Surround neighbor, int x, int y)
+    {
+        int[] n = new int[] { x, y + 1 };
+        int[] s = new int[] { x, y - 1 };
+        int[] e = new int[] { x + 1, y };
+        int[] w = new int[] { x - 1, y };
+        int[] nw = new int[] { x - 1, y + 1 };
+        int[] ne = new int[] { x + 1, y + 1 };
+        int[] sw = new int[] { x - 1, y - 1 };
+        int[] se = new int[] { x + 1, y - 1 };
+        int[][] surround;
+
+        switch (neighbor)
+        {
+            case Surround.Horizonal:
+                surround = new int[][] { n, s, e, w };
+                break;
+
+            case Surround.Diagonal:
+                surround = new int[][] { n, s, e, w, ne, nw, se, sw };
+                break;
+
+            default:
+                surround = new int[][] { };
+                break;
+        }
+
+        return surround;
     }
 }

@@ -49,12 +49,8 @@ public class BlueprintPool : DungeonBlueprint
         nextX = index[0];
         nextY = index[1];
 
-        surround = new int[][] {
-            new int[] { nextX - 1, nextY},
-            new int[] { nextX + 1, nextY},
-            new int[] { nextX , nextY-1},
-            new int[] { nextX , nextY+1}
-        };
+        surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+            .SurroundCoord(ConvertCoordinates.Surround.Horizonal, nextX, nextY);
 
         board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, nextX, nextY);
         countPools--;
