@@ -48,17 +48,24 @@ public class DungeonBoard : MonoBehaviour
     public GameObject GetBlock(Vector3 position)
     {
         int[] index = coordinate.Convert(position);
-        string dictKey = index[0] + "," + index[1];
+        return GetBlock(index[0], index[1]);
+    }
+
+    public GameObject GetBlock(int x, int y)
+    {
+        string dictKey = x.ToString() + "," + y.ToString();
         GameObject block;
 
-        if (PoolBlocks.TryGetValue(dictKey, out block))
+        if (WallBlocks.TryGetValue(dictKey, out block)
+            || PoolBlocks.TryGetValue(dictKey, out block)
+            || FungusBlocks.TryGetValue(dictKey, out block))
         {
             return block;
         }
         return null;
     }
 
-    public bool IsInsideFOV(FOVShape shape, int maxRange,
+    public bool IsInsideRange(FOVShape shape, int maxRange,
         int[] source, int[] target)
     {
         bool check;
