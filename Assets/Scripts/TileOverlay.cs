@@ -2,14 +2,26 @@
 
 public class TileOverlay : MonoBehaviour
 {
+    private Vector3 currentPosition;
     private DungeonBoard dungeon;
+    private Vector3 previousPosition;
 
-    public void CoverTile(Vector3 position)
+    private void CheckTile()
     {
-        CoverTile(true, position);
+        if (currentPosition == previousPosition)
+        {
+            CoverTile(true, currentPosition);
+        }
+        else
+        {
+            CoverTile(false, previousPosition);
+            CoverTile(true, currentPosition);
+
+            previousPosition = currentPosition;
+        }
     }
 
-    public void CoverTile(bool cover, Vector3 position)
+    private void CoverTile(bool cover, Vector3 position)
     {
         if (dungeon.CheckTerrain(DungeonBoard.DungeonBlock.Pool, position))
         {
@@ -21,5 +33,11 @@ public class TileOverlay : MonoBehaviour
     private void Start()
     {
         dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+    }
+
+    private void Update()
+    {
+        currentPosition = gameObject.transform.position;
+        CheckTile();
     }
 }

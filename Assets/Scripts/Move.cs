@@ -99,14 +99,8 @@ public class Move : MonoBehaviour
                 FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
                 "\n2\n3\n4\n5\n6";
 
-            FindObjects.GameLogic.GetComponent<TileOverlay>()
-                .CoverTile(false, actor.position);
-
             actor.position += moveHere;
             countStep++;
-
-            FindObjects.GameLogic.GetComponent<TileOverlay>()
-                .CoverTile(actor.position);
         }
     }
 
