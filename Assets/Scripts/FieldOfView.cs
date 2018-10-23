@@ -24,8 +24,8 @@ public class FieldOfView : MonoBehaviour
                 pos[0], pos[1]))
             {
                 board.GetBlock(pos[0], pos[1]).GetComponent<SpriteRenderer>()
-                    .color = FindObjects.GameLogic.GetComponent<Color>()
-                    .PickColor(Color.ColorName.TEST);
+                    .color = FindObjects.GameLogic.GetComponent<GameColor>()
+                    .PickColor(GameColor.ColorName.TEST);
             }
         }
     }

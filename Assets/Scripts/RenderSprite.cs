@@ -11,7 +11,11 @@ public class RenderSprite : MonoBehaviour
 
     private void Update()
     {
-        if (!FindObjects.GameLogic.GetComponent<DungeonBoard>().IsInsideRange(
+        gameObject.GetComponent<SpriteRenderer>().color
+            = FindObjects.GameLogic.GetComponent<GameColor>().PickColor(
+                GameColor.ColorName.Black);
+
+        if (FindObjects.GameLogic.GetComponent<DungeonBoard>().IsInsideRange(
             DungeonBoard.FOVShape.Rhombus, 5,
             FindObjects.GameLogic.GetComponent<ConvertCoordinates>().Convert(
             GameObject.FindGameObjectWithTag("PC").transform.position),

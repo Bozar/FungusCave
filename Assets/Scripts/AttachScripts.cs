@@ -14,7 +14,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<RandomNumber>();
         gameObject.AddComponent<ConvertCoordinates>();
         gameObject.AddComponent<SchedulingSystem>();
-        gameObject.AddComponent<Color>();
+        gameObject.AddComponent<GameColor>();
 
         gameObject.AddComponent<DungeonBoard>();
         gameObject.AddComponent<DungeonBlueprint>();

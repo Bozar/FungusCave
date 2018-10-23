@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
-public class Color : MonoBehaviour
+public class GameColor : MonoBehaviour
 {
     private Color32 color;
 
