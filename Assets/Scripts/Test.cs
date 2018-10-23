@@ -21,6 +21,10 @@ public class Test : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
+        newPC.AddComponent<PCMove>();
+        newPC.AddComponent<TileOverlay>();
+        newPC.AddComponent<FieldOfView>();
+        newPC.AddComponent<RenderSprite>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
 
@@ -30,6 +34,11 @@ public class Test : MonoBehaviour
             newDummy.transform.position
                    = gameObject.GetComponent<ConvertCoordinates>()
                    .Convert(i * 2, i + 1);
+
+            newDummy.AddComponent<PCMove>().enabled = false;
+            newDummy.AddComponent<TileOverlay>();
+            //newDummy.AddComponent<FieldOfView>();
+            newDummy.AddComponent<RenderSprite>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

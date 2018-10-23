@@ -48,8 +48,8 @@ public class DungeonObjects : MonoBehaviour
                     && !blockDict.ContainsKey(blockKey))
                 {
                     newTile = Instantiate(newTile);
-                    newTile.transform.position
-                        = coordinate.Convert(x, y);
+                    newTile.transform.position = coordinate.Convert(x, y);
+                    newTile.AddComponent<RenderSprite>();
 
                     blockDict.Add(blockKey, newTile);
                 }

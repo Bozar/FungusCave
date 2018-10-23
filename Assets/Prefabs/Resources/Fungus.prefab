@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4678259896876490}
   - component: {fileID: 212688298922425234}
-  - component: {fileID: 114927673403078844}
+  - component: {fileID: 114909316134811366}
   m_Layer: 0
   m_Name: Fungus
   m_TagString: Wall
@@ -41,15 +41,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114927673403078844
+--- !u!114 &114909316134811366
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183015939177978}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b83d6666e1ec44c93dff92645c7c0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 99bd2db69c22167439f8bccfe3eeaa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212688298922425234
