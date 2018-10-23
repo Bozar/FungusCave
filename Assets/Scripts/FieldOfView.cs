@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
     private DungeonBoard board;
     private ConvertCoordinates coordinate;
     private int[] position;
-    private int[][] surround;
+    private List<int[]> surround;
     private int x;
     private int y;
 

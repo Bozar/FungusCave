@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 public class BlueprintPool : DungeonBlueprint
 {
@@ -15,7 +16,7 @@ public class BlueprintPool : DungeonBlueprint
     private int startX;
     private int startY;
     private Stack submergeGrid;
-    private int[][] surround;
+    private List<int[]> surround;
 
     public void DrawBlueprint()
     {

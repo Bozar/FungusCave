@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ConvertCoordinates : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ConvertCoordinates : MonoBehaviour
     private int indexX;
     private int indexXorY;
     private int indexY;
+    private List<int[]> surround;
+    private List<int[]> temp;
     private Vector3 vectorPosition;
     private float vectorX;
     private float vectorY;
@@ -52,31 +55,30 @@ public class ConvertCoordinates : MonoBehaviour
         return indexXorY;
     }
 
-    public int[][] SurroundCoord(Surround neighbor, int x, int y)
+    public List<int[]> SurroundCoord(Surround neighbor, int x, int y)
     {
-        int[] n = new int[] { x, y + 1 };
-        int[] s = new int[] { x, y - 1 };
-        int[] e = new int[] { x + 1, y };
-        int[] w = new int[] { x - 1, y };
-        int[] nw = new int[] { x - 1, y + 1 };
-        int[] ne = new int[] { x + 1, y + 1 };
-        int[] sw = new int[] { x - 1, y - 1 };
-        int[] se = new int[] { x + 1, y - 1 };
-        int[][] surround;
+        surround = new List<int[]>();
+        temp = new List<int[]>();
 
-        switch (neighbor)
+        for (int i = -1; i < 2; i++)
         {
-            case Surround.Horizonal:
-                surround = new int[][] { n, s, e, w };
-                break;
+            for (int j = -1; j < 2; j++)
+            {
+                surround.Add(new int[] { x + i, y + j });
+            }
+        }
 
-            case Surround.Diagonal:
-                surround = new int[][] { n, s, e, w, ne, nw, se, sw };
-                break;
+        if (neighbor == Surround.Horizonal)
+        {
+            foreach (var coord in surround)
+            {
+                if ((x == coord[0]) || (y == coord[1]))
+                {
+                    temp.Add(coord);
+                }
+            }
 
-            default:
-                surround = new int[][] { };
-                break;
+            surround = temp;
         }
 
         return surround;
