@@ -20,7 +20,7 @@
         {
             for (int j = y - height; j < y + height + 1; j++)
             {
-                if (board.CheckTerrain(DungeonBoard.DungeonBlock.Fungus, i, j))
+                if (board.CheckBlock(DungeonBoard.DungeonBlock.Fungus, i, j))
                 {
                     return false;
                 }
@@ -47,10 +47,10 @@
         x = index[0];
         y = index[1];
 
-        if (board.CheckTerrain(DungeonBoard.DungeonBlock.Wall, x, y)
+        if (board.CheckBlock(DungeonBoard.DungeonBlock.Wall, x, y)
             && IsEmptyArea(x, y, 3, 3))
         {
-            board.ChangeBlock(DungeonBoard.DungeonBlock.Fungus, x, y);
+            board.ChangeBlueprint(DungeonBoard.DungeonBlock.Fungus, x, y);
             countFungus--;
         }
 

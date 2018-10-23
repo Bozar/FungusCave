@@ -13,18 +13,18 @@ public class DungeonBlueprint : MonoBehaviour
 
     public void DrawManually()
     {
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, 4, 4);
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, 5, 5);
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, 6, 6);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall, 4, 4);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall, 5, 5);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall, 6, 6);
 
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Wall,
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall,
             board.Width - 1, board.Height - 1);
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Wall,
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall,
             board.Width, board.Height - 1);
 
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, 8, 8);
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, 8, 9);
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, 9, 9);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Pool, 8, 8);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Pool, 8, 9);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Pool, 9, 9);
     }
 
     public void DrawRandomly()
@@ -41,9 +41,9 @@ public class DungeonBlueprint : MonoBehaviour
             x = index[0];
             y = index[1];
 
-            if (board.CheckTerrain(DungeonBoard.DungeonBlock.Floor, x, y))
+            if (board.CheckBlock(DungeonBoard.DungeonBlock.Floor, x, y))
             {
-                board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, x, y);
+                board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall, x, y);
                 count++;
             }
         }

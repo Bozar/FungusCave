@@ -20,7 +20,7 @@ public class FieldOfView : MonoBehaviour
 
         foreach (var pos in surround)
         {
-            if (board.CheckTerrain(DungeonBoard.DungeonBlock.Wall,
+            if (board.CheckBlock(DungeonBoard.DungeonBlock.Wall,
                 pos[0], pos[1]))
             {
                 board.GetBlock(pos[0], pos[1]).GetComponent<SpriteRenderer>()

@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Create game objects based on the 2D array from DungeonBoard.
 public class DungeonObjects : MonoBehaviour
 {
-    private Dictionary<string, GameObject> blockDict;
-    private string blockKey;
     private DungeonBoard board;
     private ConvertCoordinates coordinate;
     private GameObject fungusTile;
@@ -19,39 +16,32 @@ public class DungeonObjects : MonoBehaviour
         {
             for (int y = 0; y < board.Height; y++)
             {
-                switch (board.Board[x, y])
+                switch (board.Blueprint[x, y])
                 {
                     case DungeonBoard.DungeonBlock.Wall:
                         newTile = wallTile;
-                        blockDict = board.WallBlocks;
                         break;
 
                     case DungeonBoard.DungeonBlock.Pool:
                         newTile = poolTile;
-                        blockDict = board.PoolBlocks;
                         break;
 
                     case DungeonBoard.DungeonBlock.Fungus:
                         newTile = fungusTile;
-                        blockDict = board.FungusBlocks;
                         break;
 
                     default:
                         newTile = null;
-                        blockDict = null;
                         break;
                 }
 
-                blockKey = x.ToString() + ',' + y.ToString();
-
-                if (newTile != null && blockDict != null
-                    && !blockDict.ContainsKey(blockKey))
+                if (newTile != null)
                 {
                     newTile = Instantiate(newTile);
                     newTile.transform.position = coordinate.Convert(x, y);
                     newTile.AddComponent<RenderSprite>();
 
-                    blockDict.Add(blockKey, newTile);
+                    board.Blocks[x, y] = newTile;
                 }
             }
         }

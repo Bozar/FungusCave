@@ -53,12 +53,12 @@ public class BlueprintPool : DungeonBlueprint
         surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .SurroundCoord(ConvertCoordinates.Surround.Horizonal, nextX, nextY);
 
-        board.ChangeBlock(DungeonBoard.DungeonBlock.Pool, nextX, nextY);
+        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Pool, nextX, nextY);
         countPools--;
 
         foreach (var grid in surround)
         {
-            if (board.CheckTerrain(DungeonBoard.DungeonBlock.Floor,
+            if (board.CheckBlock(DungeonBoard.DungeonBlock.Floor,
                 grid[0], grid[1])
                 && board.IsInsideRange(DungeonBoard.FOVShape.Rhombus, range,
                 startIndex, grid))
@@ -77,7 +77,7 @@ public class BlueprintPool : DungeonBlueprint
             index = RandomIndex();
             startX = index[0];
             startY = index[1];
-        } while (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor,
+        } while (!board.CheckBlock(DungeonBoard.DungeonBlock.Floor,
         startX, startY));
 
         startIndex = index;

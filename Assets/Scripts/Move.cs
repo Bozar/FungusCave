@@ -151,9 +151,9 @@ public class Move : MonoBehaviour
         }
 
         return FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckTerrain(DungeonBoard.DungeonBlock.Floor, x, y)
+            .CheckBlock(DungeonBoard.DungeonBlock.Floor, x, y)
             || FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckTerrain(DungeonBoard.DungeonBlock.Pool, x, y);
+            .CheckBlock(DungeonBoard.DungeonBlock.Pool, x, y);
     }
 
     private IEnumerator MoveAndWait()

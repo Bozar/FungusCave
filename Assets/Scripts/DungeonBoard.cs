@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Create a 2D array. Provide methods to inspect and change its content.
 public class DungeonBoard : MonoBehaviour
@@ -10,39 +9,37 @@ public class DungeonBoard : MonoBehaviour
 
     public enum FOVShape { Rhombus };
 
-    public DungeonBlock[,] Board { get; private set; }
-    public Dictionary<string, GameObject> FungusBlocks { get; private set; }
+    public GameObject[,] Blocks { get; set; }
+    public DungeonBlock[,] Blueprint { get; private set; }
     public int Height { get; private set; }
-    public Dictionary<string, GameObject> PoolBlocks { get; private set; }
-    public Dictionary<string, GameObject> WallBlocks { get; private set; }
     public int Width { get; private set; }
 
-    public bool ChangeBlock(DungeonBlock block, int x, int y)
+    public bool ChangeBlueprint(DungeonBlock block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
             return false;
         }
 
-        Board[x, y] = block;
+        Blueprint[x, y] = block;
         return true;
     }
 
-    public bool CheckTerrain(DungeonBlock block, int x, int y)
+    public bool CheckBlock(DungeonBlock block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
             return false;
         }
 
-        return Board[x, y] == block;
+        return Blueprint[x, y] == block;
     }
 
-    public bool CheckTerrain(DungeonBlock block, Vector3 position)
+    public bool CheckBlock(DungeonBlock block, Vector3 position)
     {
         int[] index = coordinate.Convert(position);
 
-        return CheckTerrain(block, index[0], index[1]);
+        return CheckBlock(block, index[0], index[1]);
     }
 
     public GameObject GetBlock(Vector3 position)
@@ -53,16 +50,7 @@ public class DungeonBoard : MonoBehaviour
 
     public GameObject GetBlock(int x, int y)
     {
-        string dictKey = x.ToString() + "," + y.ToString();
-        GameObject block;
-
-        if (WallBlocks.TryGetValue(dictKey, out block)
-            || PoolBlocks.TryGetValue(dictKey, out block)
-            || FungusBlocks.TryGetValue(dictKey, out block))
-        {
-            return block;
-        }
-        return null;
+        return Blocks[x, y];
     }
 
     public bool IsInsideRange(FOVShape shape, int maxRange,
@@ -90,19 +78,14 @@ public class DungeonBoard : MonoBehaviour
         Height = 17;
         Width = 24;
 
-        Board = new DungeonBlock[Width, Height];
-        PoolBlocks = new Dictionary<string, GameObject>();
-        WallBlocks = new Dictionary<string, GameObject>();
-        FungusBlocks = new Dictionary<string, GameObject>();
+        Blueprint = new DungeonBlock[Width, Height];
+        Blocks = new GameObject[Width, Height];
     }
 
     private bool IndexOutOfRange(int x, int y)
     {
-        bool checkWidth;
-        bool checkHeight;
-
-        checkWidth = x < Board.GetLowerBound(0) || x > Board.GetUpperBound(0);
-        checkHeight = y < Board.GetLowerBound(1) || y > Board.GetUpperBound(1);
+        bool checkWidth = (x < 0) || (x > Width - 1);
+        bool checkHeight = (y < 0) || (y > Height - 1);
 
         return checkWidth || checkHeight;
     }

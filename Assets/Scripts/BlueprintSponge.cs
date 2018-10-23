@@ -67,7 +67,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             for (int j = y; j < y + height; j++)
             {
-                if (!board.CheckTerrain(DungeonBoard.DungeonBlock.Floor, i, j))
+                if (!board.CheckBlock(DungeonBoard.DungeonBlock.Floor, i, j))
                 {
                     checkFloor = false;
                     break;
@@ -108,7 +108,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             if (random.RNG.Next(0, 3) < 2)
             {
-                board.ChangeBlock(DungeonBoard.DungeonBlock.Floor,
+                board.ChangeBlueprint(DungeonBoard.DungeonBlock.Floor,
                     index[0], index[1]);
                 countWalls--;
             }
@@ -128,7 +128,8 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
             while (digX > -1 && digY > -1)
             {
-                board.ChangeBlock(DungeonBoard.DungeonBlock.Floor, digX, digY);
+                board.ChangeBlueprint(
+                    DungeonBoard.DungeonBlock.Floor, digX, digY);
                 countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1);
@@ -144,7 +145,8 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
             while (digX > -1 && digY > -1)
             {
-                board.ChangeBlock(DungeonBoard.DungeonBlock.Floor, digX, digY);
+                board.ChangeBlueprint(
+                    DungeonBoard.DungeonBlock.Floor, digX, digY);
                 countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1, 1);
@@ -229,7 +231,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             for (int j = startY; j < startY + height; j++)
             {
-                board.ChangeBlock(DungeonBoard.DungeonBlock.Wall, i, j);
+                board.ChangeBlueprint(DungeonBoard.DungeonBlock.Wall, i, j);
                 countWalls++;
             }
         }
