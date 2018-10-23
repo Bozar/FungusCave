@@ -25,6 +25,14 @@ public class DungeonBoard : MonoBehaviour
         return true;
     }
 
+    public bool CheckBlock(DungeonBlock block, int[] position)
+    {
+        int x = position[0];
+        int y = position[1];
+
+        return CheckBlock(block, x, y);
+    }
+
     public bool CheckBlock(DungeonBlock block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
@@ -57,6 +65,11 @@ public class DungeonBoard : MonoBehaviour
         int[] source, int[] target)
     {
         bool check;
+
+        if (IndexOutOfRange(target[0], target[1]))
+        {
+            return false;
+        }
 
         switch (shape)
         {

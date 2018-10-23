@@ -6,6 +6,7 @@ public class DungeonObjects : MonoBehaviour
     private DungeonBoard board;
     private ConvertCoordinates coordinate;
     private GameObject fungusTile;
+    private GameColor gameColor;
     private GameObject newTile;
     private GameObject poolTile;
     private GameObject wallTile;
@@ -41,6 +42,9 @@ public class DungeonObjects : MonoBehaviour
                     newTile.transform.position = coordinate.Convert(x, y);
                     newTile.AddComponent<RenderSprite>();
 
+                    newTile.GetComponent<RenderSprite>().ChangeColor(
+                        gameColor.PickColor(GameColor.ColorName.Black));
+
                     board.Blocks[x, y] = newTile;
                 }
             }
@@ -57,6 +61,7 @@ public class DungeonObjects : MonoBehaviour
     private void Start()
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class BlueprintPool : DungeonBlueprint
 {
@@ -15,7 +14,7 @@ public class BlueprintPool : DungeonBlueprint
     private int[] startIndex;
     private int startX;
     private int startY;
-    private Stack submergeGrid;
+    private Stack<int[]> submergeGrid;
     private List<int[]> surround;
 
     public void DrawBlueprint()
@@ -32,7 +31,7 @@ public class BlueprintPool : DungeonBlueprint
 
     private void Awake()
     {
-        submergeGrid = new Stack();
+        submergeGrid = new Stack<int[]>();
         minRange = 1;
         maxRange = 3;
         minPool = 90;
@@ -46,7 +45,7 @@ public class BlueprintPool : DungeonBlueprint
             return;
         }
 
-        index = (int[])submergeGrid.Pop();
+        index = submergeGrid.Pop();
         nextX = index[0];
         nextY = index[1];
 

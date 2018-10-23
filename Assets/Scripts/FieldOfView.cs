@@ -4,40 +4,114 @@ using UnityEngine;
 public class FieldOfView : MonoBehaviour
 {
     private DungeonBoard board;
+    private Stack<int[]> checkPosition;
     private ConvertCoordinates coordinate;
+    private FoVStatus[,] fovBoard;
+    private int maxRange;
     private int[] position;
     private List<int[]> surround;
     private int x;
     private int y;
 
-    private void PaintRed()
-    {
-        position = coordinate.Convert(gameObject.transform.position);
-        x = position[0];
-        y = position[1];
-        surround = coordinate.SurroundCoord(
-            ConvertCoordinates.Surround.Diagonal, x, y);
+    public enum FoVStatus { Unknown, Visited, Insight };
 
-        foreach (var pos in surround)
-        {
-            if (board.CheckBlock(DungeonBoard.DungeonBlock.Wall,
-                pos[0], pos[1]))
-            {
-                board.GetBlock(pos[0], pos[1]).GetComponent<SpriteRenderer>()
-                    .color = FindObjects.GameLogic.GetComponent<GameColor>()
-                    .PickColor(GameColor.ColorName.TEST);
-            }
-        }
+    public FoVStatus CheckFov(int x, int y)
+    {
+        return fovBoard[x, y];
+    }
+
+    public FoVStatus CheckFov(int[] position)
+    {
+        int x = position[0];
+        int y = position[1];
+
+        return CheckFov(x, y);
+    }
+
+    private void ChangeFOVBoard(FoVStatus status, int[] position)
+    {
+        int x = position[0];
+        int y = position[1];
+
+        ChangeFOVBoard(status, x, y);
+    }
+
+    private void ChangeFOVBoard(FoVStatus status, int x, int y)
+    {
+        fovBoard[x, y] = status;
     }
 
     private void Start()
     {
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+
+        fovBoard = new FoVStatus[board.Width, board.Height];
+        maxRange = 5;
+        checkPosition = new Stack<int[]>();
     }
 
     private void Update()
     {
-        PaintRed();
+        UpdateMemory();
+        UpdatePosition();
+        UpdateFov();
+    }
+
+    private void UpdateFov()
+    {
+        if (checkPosition.Count < 1)
+        {
+            return;
+        }
+
+        position = checkPosition.Pop();
+        x = position[0];
+        y = position[1];
+
+        surround = coordinate.SurroundCoord(
+            ConvertCoordinates.Surround.Diagonal, x, y);
+
+        foreach (var grid in surround)
+        {
+            if (!board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+                maxRange,
+                coordinate.Convert(gameObject.transform.position),
+                grid))
+            {
+                continue;
+            }
+
+            if ((board.CheckBlock(DungeonBoard.DungeonBlock.Floor, grid)
+                || board.CheckBlock(DungeonBoard.DungeonBlock.Pool, grid))
+                && (CheckFov(grid) != FoVStatus.Insight))
+            {
+                checkPosition.Push(grid);
+            }
+
+            ChangeFOVBoard(FoVStatus.Insight, grid);
+        }
+
+        UpdateFov();
+    }
+
+    private void UpdateMemory()
+    {
+        for (int i = 0; i < board.Width; i++)
+        {
+            for (int j = 0; j < board.Height; j++)
+            {
+                if (CheckFov(i, j) == FoVStatus.Insight)
+                {
+                    ChangeFOVBoard(FoVStatus.Visited, i, j);
+                }
+            }
+        }
+    }
+
+    private void UpdatePosition()
+    {
+        position = coordinate.Convert(gameObject.transform.position);
+        checkPosition.Push(position);
     }
 }

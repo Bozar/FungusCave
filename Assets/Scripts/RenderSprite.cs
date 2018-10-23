@@ -2,28 +2,67 @@
 
 public class RenderSprite : MonoBehaviour
 {
-    public Color32 Color { get; private set; }
+    private ConvertCoordinates coordinate;
+    private Color32 defaultColor;
+    private GameColor gameColor;
+    private GameObject pc;
+    private int[] position;
+    private int x;
+    private int y;
+
+    public void ChangeColor(Color32 newColor)
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = newColor;
+    }
 
     private void Awake()
     {
-        Color = gameObject.GetComponent<SpriteRenderer>().color;
+        defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
+    }
+
+    private void HideSprite()
+    {
+        ChangeColor(gameColor.PickColor(GameColor.ColorName.Black));
+    }
+
+    private void RememberSprite()
+    {
+        ChangeColor(gameColor.PickColor(GameColor.ColorName.Grey));
+    }
+
+    private void ShowSprite()
+    {
+        ChangeColor(defaultColor);
+    }
+
+    private void Start()
+    {
+        gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
+        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+        pc = GameObject.FindGameObjectWithTag("PC");
     }
 
     private void Update()
     {
-        gameObject.GetComponent<SpriteRenderer>().color
-            = FindObjects.GameLogic.GetComponent<GameColor>().PickColor(
-                GameColor.ColorName.Black);
+        position = coordinate.GetComponent<ConvertCoordinates>().Convert(
+            gameObject.transform.position);
+        x = position[0];
+        y = position[1];
 
-        if (FindObjects.GameLogic.GetComponent<DungeonBoard>().IsInsideRange(
-            DungeonBoard.FOVShape.Rhombus, 5,
-            FindObjects.GameLogic.GetComponent<ConvertCoordinates>().Convert(
-            GameObject.FindGameObjectWithTag("PC").transform.position),
-            FindObjects.GameLogic.GetComponent<ConvertCoordinates>().Convert(
-            gameObject.transform.position)
-            ))
+        switch (pc.GetComponent<FieldOfView>().CheckFov(x, y))
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color;
+            case FieldOfView.FoVStatus.Unknown:
+                HideSprite();
+                break;
+
+            case FieldOfView.FoVStatus.Visited:
+                RememberSprite();
+                break;
+
+            case FieldOfView.FoVStatus.Insight:
+                //ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
+                ShowSprite();
+                break;
         }
     }
 }
