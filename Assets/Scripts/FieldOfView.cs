@@ -5,7 +5,7 @@ public class FieldOfView : MonoBehaviour
     private DungeonBoard board;
     private FOVStatus[,] fovBoard;
 
-    public enum FOVStatus { TEST, Unknown, Visited, Insight };
+    public enum FOVStatus { Unknown, Visited, Insight, TEST };
 
     public void ChangeFOVBoard(FOVStatus status, int[] position)
     {
