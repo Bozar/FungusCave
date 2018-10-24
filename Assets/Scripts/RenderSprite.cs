@@ -43,8 +43,11 @@ public class RenderSprite : MonoBehaviour
                 break;
 
             case FieldOfView.FOVStatus.Insight:
-                //ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
                 ShowSprite();
+                break;
+
+            case FieldOfView.FOVStatus.TEST:
+                ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
                 break;
         }
     }

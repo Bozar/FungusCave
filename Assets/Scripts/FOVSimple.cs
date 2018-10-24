@@ -13,7 +13,26 @@ public class FOVSimple : MonoBehaviour
     private int x;
     private int y;
 
-    public void UpdateFOVBoard()
+    public void UpdateFOV()
+    {
+        UpdatePosition();
+        UpdateFOVBoard();
+    }
+
+    private void Awake()
+    {
+        maxRange = 5;
+        checkPosition = new Stack<int[]>();
+    }
+
+    private void Start()
+    {
+        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+        board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        fov = gameObject.GetComponent<FieldOfView>();
+    }
+
+    private void UpdateFOVBoard()
     {
         if (checkPosition.Count < 1)
         {
@@ -39,32 +58,20 @@ public class FOVSimple : MonoBehaviour
 
             if ((board.CheckBlock(DungeonBoard.DungeonBlock.Floor, grid)
                 || board.CheckBlock(DungeonBoard.DungeonBlock.Pool, grid))
-                && (fov.CheckFOV(grid) != FieldOfView.FOVStatus.Insight))
+                && (fov.CheckFOV(grid) != FieldOfView.FOVStatus.TEST))
             {
                 checkPosition.Push(grid);
             }
-            fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, grid);
+            fov.ChangeFOVBoard(FieldOfView.FOVStatus.TEST, grid);
+            //fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, grid);
         }
 
         UpdateFOVBoard();
     }
 
-    public void UpdatePosition()
+    private void UpdatePosition()
     {
         position = coordinate.Convert(gameObject.transform.position);
         checkPosition.Push(position);
-    }
-
-    private void Awake()
-    {
-        maxRange = 5;
-        checkPosition = new Stack<int[]>();
-    }
-
-    private void Start()
-    {
-        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-        board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-        fov = gameObject.GetComponent<FieldOfView>();
     }
 }

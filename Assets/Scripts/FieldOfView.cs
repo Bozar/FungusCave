@@ -5,7 +5,7 @@ public class FieldOfView : MonoBehaviour
     private DungeonBoard board;
     private FOVStatus[,] fovBoard;
 
-    public enum FOVStatus { Unknown, Visited, Insight };
+    public enum FOVStatus { TEST, Unknown, Visited, Insight };
 
     public void ChangeFOVBoard(FOVStatus status, int[] position)
     {
@@ -36,6 +36,11 @@ public class FieldOfView : MonoBehaviour
     public void UpdateFOV()
     {
         UpdateMemory();
+
+        // You can enable multiple FOV algorithms at the same time. FOVSimple
+        // covers a larger area and it is painted red.
+
+        //gameObject.GetComponent<FOVSimple>().UpdateFOV();
         gameObject.GetComponent<FOVRhombus>().UpdateFOV();
     }
 
@@ -51,7 +56,8 @@ public class FieldOfView : MonoBehaviour
         {
             for (int j = 0; j < board.Height; j++)
             {
-                if (CheckFOV(i, j) == FOVStatus.Insight)
+                if (CheckFOV(i, j) == FOVStatus.Insight
+                    || CheckFOV(i, j) == FOVStatus.TEST)
                 {
                     ChangeFOVBoard(FOVStatus.Visited, i, j);
                 }
