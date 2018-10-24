@@ -36,8 +36,7 @@ public class FieldOfView : MonoBehaviour
     public void UpdateFOV()
     {
         UpdateMemory();
-        gameObject.GetComponent<FOVSimple>().UpdatePosition();
-        gameObject.GetComponent<FOVSimple>().UpdateFOVBoard();
+        gameObject.GetComponent<FOVRhombus>().UpdateFOV();
     }
 
     private void Start()

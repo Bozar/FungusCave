@@ -101,6 +101,11 @@ public class Move : MonoBehaviour
 
             actor.position += moveHere;
             countStep++;
+
+            if (actor.GetComponent<FieldOfView>() != null)
+            {
+                actor.GetComponent<FieldOfView>().UpdateFOV();
+            }
         }
     }
 

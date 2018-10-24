@@ -25,7 +25,7 @@ public class Test : MonoBehaviour
         newPC.AddComponent<TileOverlay>();
         newPC.AddComponent<FieldOfView>();
         newPC.AddComponent<RenderSprite>();
-        newPC.AddComponent<FOVSimple>();
+        newPC.AddComponent<FOVRhombus>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
 

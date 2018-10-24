@@ -27,5 +27,8 @@ public class Initialize : MonoBehaviour
         FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();
         FindObjects.GameLogic.GetComponent<BlueprintFungus>().DrawBlueprint();
         FindObjects.GameLogic.GetComponent<DungeonObjects>().CreateBuildings();
+
+        GameObject.FindGameObjectWithTag("PC").GetComponent<FieldOfView>()
+            .UpdateFOV();
     }
 }

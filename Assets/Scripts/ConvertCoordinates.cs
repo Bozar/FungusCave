@@ -55,6 +55,14 @@ public class ConvertCoordinates : MonoBehaviour
         return indexXorY;
     }
 
+    public List<int[]> SurroundCoord(Surround neighbor, int[] position)
+    {
+        int x = position[0];
+        int y = position[1];
+
+        return SurroundCoord(neighbor, x, y);
+    }
+
     public List<int[]> SurroundCoord(Surround neighbor, int x, int y)
     {
         surround = new List<int[]>();

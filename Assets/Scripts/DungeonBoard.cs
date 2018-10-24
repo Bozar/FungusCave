@@ -61,6 +61,22 @@ public class DungeonBoard : MonoBehaviour
         return Blocks[x, y];
     }
 
+    public int GetDistance(int[] source, int[] target)
+    {
+        int x = System.Math.Abs(source[0] - target[0]);
+        int y = System.Math.Abs(source[1] - target[1]);
+
+        return System.Math.Max(x, y);
+    }
+
+    public bool IndexOutOfRange(int x, int y)
+    {
+        bool checkWidth = (x < 0) || (x > Width - 1);
+        bool checkHeight = (y < 0) || (y > Height - 1);
+
+        return checkWidth || checkHeight;
+    }
+
     public bool IsInsideRange(FOVShape shape, int maxRange,
         int[] source, int[] target)
     {
@@ -93,14 +109,6 @@ public class DungeonBoard : MonoBehaviour
 
         Blueprint = new DungeonBlock[Width, Height];
         Blocks = new GameObject[Width, Height];
-    }
-
-    private bool IndexOutOfRange(int x, int y)
-    {
-        bool checkWidth = (x < 0) || (x > Width - 1);
-        bool checkHeight = (y < 0) || (y > Height - 1);
-
-        return checkWidth || checkHeight;
     }
 
     private void Start()
