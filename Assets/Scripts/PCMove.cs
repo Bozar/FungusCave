@@ -10,6 +10,11 @@ public class PCMove : MonoBehaviour
             return;
         }
 
+        if (gameObject.GetComponent<FieldOfView>() != null)
+        {
+            gameObject.GetComponent<FieldOfView>().UpdateFOV();
+        }
+
         FindObjects.GameLogic.GetComponent<Move>().
             MoveAround(gameObject.transform);
     }

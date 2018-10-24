@@ -5,7 +5,7 @@ public class UserInterface : MonoBehaviour
 {
     private string printText;
 
-    private void Update()
+    private void LateUpdate()
     {
         UpdateSeed();
     }

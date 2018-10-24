@@ -25,6 +25,30 @@ public class RenderSprite : MonoBehaviour
         ChangeColor(gameColor.PickColor(GameColor.ColorName.Black));
     }
 
+    private void LateUpdate()
+    {
+        position = coordinate.GetComponent<ConvertCoordinates>().Convert(
+            gameObject.transform.position);
+        x = position[0];
+        y = position[1];
+
+        switch (pc.GetComponent<FieldOfView>().CheckFOV(x, y))
+        {
+            case FieldOfView.FOVStatus.Unknown:
+                HideSprite();
+                break;
+
+            case FieldOfView.FOVStatus.Visited:
+                RememberSprite();
+                break;
+
+            case FieldOfView.FOVStatus.Insight:
+                //ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
+                ShowSprite();
+                break;
+        }
+    }
+
     private void RememberSprite()
     {
         ChangeColor(gameColor.PickColor(GameColor.ColorName.Grey));
@@ -40,29 +64,5 @@ public class RenderSprite : MonoBehaviour
         gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         pc = GameObject.FindGameObjectWithTag("PC");
-    }
-
-    private void Update()
-    {
-        position = coordinate.GetComponent<ConvertCoordinates>().Convert(
-            gameObject.transform.position);
-        x = position[0];
-        y = position[1];
-
-        switch (pc.GetComponent<FieldOfView>().CheckFov(x, y))
-        {
-            case FieldOfView.FoVStatus.Unknown:
-                HideSprite();
-                break;
-
-            case FieldOfView.FoVStatus.Visited:
-                RememberSprite();
-                break;
-
-            case FieldOfView.FoVStatus.Insight:
-                //ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
-                ShowSprite();
-                break;
-        }
     }
 }
