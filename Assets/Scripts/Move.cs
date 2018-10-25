@@ -92,6 +92,11 @@ public class Move : MonoBehaviour
         {
             FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
         }
+        else if (newDirection == PlayerInput.Command.RenderAll)
+        {
+            FindObjects.GameLogic.GetComponent<Test>().RenderAll
+                = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+        }
         else if (newDirection != PlayerInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {

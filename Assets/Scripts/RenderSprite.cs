@@ -27,6 +27,12 @@ public class RenderSprite : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (FindObjects.GameLogic.GetComponent<Test>().RenderAll)
+        {
+            ShowSprite();
+            return;
+        }
+
         position = coordinate.GetComponent<ConvertCoordinates>().Convert(
             gameObject.transform.position);
         x = position[0];

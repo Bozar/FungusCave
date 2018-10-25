@@ -11,8 +11,13 @@ public class Test : MonoBehaviour
 
     private GameObject newDummy;
     private GameObject newPC;
-
     private GameObject pcTile;
+    public bool RenderAll { get; set; }
+
+    private void Awake()
+    {
+        RenderAll = false;
+    }
 
     private void Start()
     {

@@ -52,6 +52,10 @@ public class FOVRhombus : MonoBehaviour
 
     private void ShadowWall()
     {
+        bool shape;
+        bool distance;
+        bool darkness;
+
         if (wallGrid.Count < 1)
         {
             return;
@@ -67,7 +71,7 @@ public class FOVRhombus : MonoBehaviour
             gridY = grid[1];
 
             // Wall grid casts a rhombus shadow.
-            bool shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+            shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
                 rangeWall, position, grid);
 
             // Shadow makes surrounding grids which are farther away from the
@@ -82,7 +86,7 @@ public class FOVRhombus : MonoBehaviour
             //* 1 1 2 3  |  1 1 2 4
             //* @ 1 2 3  |  @ 1 2 3
 
-            bool distance = board.GetDistance(source, grid)
+            distance = board.GetDistance(source, grid)
                 > board.GetDistance(source, position);
 
             // 1) Shadow from the same type of source do not stack. Two walls do
@@ -96,7 +100,7 @@ public class FOVRhombus : MonoBehaviour
             //* # X $
             //* # $ $
 
-            bool darkness = shape
+            darkness = shape
                 ? (distanceBoard[gridX, gridY]
                 < board.GetDistance(source, grid) + shadowWall)
                 : false;
