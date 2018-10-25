@@ -7,6 +7,7 @@ public class FOVSimple : MonoBehaviour
     private Stack<int[]> checkPosition;
     private ConvertCoordinates coordinate;
     private FieldOfView fov;
+    private bool fovTest;
     private int maxRange;
     private int[] position;
     private List<int[]> surround;
@@ -23,6 +24,7 @@ public class FOVSimple : MonoBehaviour
     {
         maxRange = 5;
         checkPosition = new Stack<int[]>();
+        fovTest = false;
     }
 
     private void Start()
@@ -34,6 +36,9 @@ public class FOVSimple : MonoBehaviour
 
     private void UpdateFOVBoard()
     {
+        bool walkable;
+        bool gridChecked;
+
         if (checkPosition.Count < 1)
         {
             return;
@@ -56,14 +61,26 @@ public class FOVSimple : MonoBehaviour
                 continue;
             }
 
-            if ((board.CheckBlock(DungeonBoard.DungeonBlock.Floor, grid)
-                || board.CheckBlock(DungeonBoard.DungeonBlock.Pool, grid))
-                && (fov.CheckFOV(grid) != FieldOfView.FOVStatus.TEST))
+            walkable = board.CheckBlock(DungeonBoard.DungeonBlock.Floor, grid)
+                || board.CheckBlock(DungeonBoard.DungeonBlock.Pool, grid);
+
+            gridChecked = fovTest
+                ? (fov.CheckFOV(grid) != FieldOfView.FOVStatus.TEST)
+                : (fov.CheckFOV(grid) != FieldOfView.FOVStatus.Insight);
+
+            if (walkable && gridChecked)
             {
                 checkPosition.Push(grid);
             }
-            fov.ChangeFOVBoard(FieldOfView.FOVStatus.TEST, grid);
-            //fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, grid);
+
+            if (fovTest)
+            {
+                fov.ChangeFOVBoard(FieldOfView.FOVStatus.TEST, grid);
+            }
+            else
+            {
+                fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, grid);
+            }
         }
 
         UpdateFOVBoard();

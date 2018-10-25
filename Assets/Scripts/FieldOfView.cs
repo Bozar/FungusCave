@@ -37,8 +37,11 @@ public class FieldOfView : MonoBehaviour
     {
         UpdateMemory();
 
-        // You can enable multiple FOV algorithms at the same time. FOVSimple
-        // covers a larger area and it is painted red.
+        // You can enable multiple FOV algorithms at the same time for testing.
+        // FOVSimple covers a larger area than FOVRhombus and it is painted red.
+        // 1) Attach FOVSimple component to the testing actor.
+        // 2) In `FOVSimple.cs`, set `fovTest` to `true`.
+        // 3) Uncomment the following line.
 
         //gameObject.GetComponent<FOVSimple>().UpdateFOV();
         gameObject.GetComponent<FOVRhombus>().UpdateFOV();

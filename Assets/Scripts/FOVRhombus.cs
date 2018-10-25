@@ -6,13 +6,14 @@ public class FOVRhombus : MonoBehaviour
     private DungeonBoard board;
     private Stack<int[]> checkPosition;
     private ConvertCoordinates coordinate;
-    private float[,] distanceBoard;
-    private float distanceWall;
+    private int[,] distanceBoard;
     private FieldOfView fov;
     private int gridX;
     private int gridY;
     private int maxRange;
     private int[] position;
+    private int rangeWall;
+    private int shadowWall;
     private int[] source;
     private List<int[]> surround;
     private Stack<int[]> wallGrid;
@@ -31,8 +32,10 @@ public class FOVRhombus : MonoBehaviour
     private void Awake()
     {
         maxRange = 5;
-        distanceWall = 2.5f;
         checkPosition = new Stack<int[]>();
+
+        rangeWall = 5;
+        shadowWall = 2;
         wallGrid = new Stack<int[]>();
     }
 
@@ -58,15 +61,6 @@ public class FOVRhombus : MonoBehaviour
         surround = coordinate.SurroundCoord(
             ConvertCoordinates.Surround.Diagonal, position);
 
-        //* Source: @.
-        //* Wall: #.
-        //* Distance: 3.
-
-        //* 3 3 3 3  |  3 4 4 4
-        //* 2 2 2 3  |  2 2 # 4
-        //* 1 1 2 3  |  1 1 2 4
-        //* @ 1 2 3  |  @ 1 2 3
-
         foreach (var grid in surround)
         {
             gridX = grid[0];
@@ -74,25 +68,42 @@ public class FOVRhombus : MonoBehaviour
 
             // Wall grid casts a rhombus shadow.
             bool shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
-                maxRange, position, grid);
+                rangeWall, position, grid);
 
-            // The shadow will make surrounding grids which are farther away from
-            // the source darker.
+            // Shadow makes surrounding grids which are farther away from the
+            // source darker.
+
+            //* Source: @.
+            //* Wall: #.
+            //* Distance: 3.
+
+            //* 3 3 3 3  |  3 4 4 4
+            //* 2 2 2 3  |  2 2 # 4
+            //* 1 1 2 3  |  1 1 2 4
+            //* @ 1 2 3  |  @ 1 2 3
+
             bool distance = board.GetDistance(source, grid)
                 > board.GetDistance(source, position);
 
-            // Shadow from the same source, for example, wall, do not stack. Only
-            // the darkest shadow takes effect.
-            bool darkness = false;
-            if (shape)
-            {
-                darkness = distanceBoard[gridX, gridY]
-                    < (board.GetDistance(source, grid)) + distanceWall;
-            }
+            // 1) Shadow from the same type of source do not stack. Two walls do
+            // not make one grid even darker.
+            // 2) When there are multiple dark sources, only the darkest shadow
+            // takes effect.
+            // 3) For example, if the distance (X) is increased by 2 from one
+            // wall grid (#) and 4 from one fog grid ($), the final modification
+            // is +4.
+
+            //* # X $
+            //* # $ $
+
+            bool darkness = shape
+                ? (distanceBoard[gridX, gridY]
+                < board.GetDistance(source, grid) + shadowWall)
+                : false;
 
             if (shape && distance && darkness)
             {
-                distanceBoard[gridX, gridY] += distanceWall;
+                distanceBoard[gridX, gridY] += shadowWall;
                 wallGrid.Push(grid);
             }
         }
@@ -106,7 +117,7 @@ public class FOVRhombus : MonoBehaviour
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         fov = gameObject.GetComponent<FieldOfView>();
 
-        distanceBoard = new float[board.Width, board.Height];
+        distanceBoard = new int[board.Width, board.Height];
     }
 
     private void UpdateDistanceBoard()
@@ -147,16 +158,20 @@ public class FOVRhombus : MonoBehaviour
 
     private void UpdateFOVBoard()
     {
+        bool shape;
+        bool lighted;
+
         for (int i = 0; i < board.Width; i++)
         {
             for (int j = 0; j < board.Height; j++)
             {
                 position = new int[] { i, j };
 
-                if (board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
-                    maxRange, source, position)
-                    && distanceBoard[i, j] <= maxRange
-                    && distanceBoard[i, j] >= 0)
+                shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+                    maxRange, source, position);
+                lighted = distanceBoard[i, j] <= maxRange;
+
+                if (shape && lighted)
                 {
                     fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, position);
                 }
