@@ -8,6 +8,9 @@ public class UserInterface : MonoBehaviour
     private void LateUpdate()
     {
         UpdateSeed();
+        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText("Hello world");
+        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText("Test input");
+        FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
     }
 
     private void UpdateSeed()

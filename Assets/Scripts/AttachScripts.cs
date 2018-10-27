@@ -8,8 +8,10 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<PlayerInput>();
         gameObject.AddComponent<SaveLoad>();
         gameObject.AddComponent<FindObjects>();
-        gameObject.AddComponent<UserInterface>();
         gameObject.AddComponent<Initialize>();
+
+        gameObject.AddComponent<UserInterface>();
+        gameObject.AddComponent<UIMessage>();
 
         gameObject.AddComponent<RandomNumber>();
         gameObject.AddComponent<ConvertCoordinates>();
