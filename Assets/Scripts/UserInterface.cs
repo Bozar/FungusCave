@@ -4,12 +4,11 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     private string printText;
+    private int textLength;
 
     private void LateUpdate()
     {
         UpdateSeed();
-        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText("Hello world");
-        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText("Test input");
         FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
     }
 
@@ -17,7 +16,7 @@ public class UserInterface : MonoBehaviour
     {
         printText = FindObjects.GameLogic.GetComponent<RandomNumber>()
             .Seed.ToString();
-        int textLength = printText.Length;
+        textLength = printText.Length;
 
         for (int i = 1; textLength > i * 3; i++)
         {

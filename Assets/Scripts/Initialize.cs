@@ -30,5 +30,8 @@ public class Initialize : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("PC").GetComponent<FieldOfView>()
             .UpdateFOV();
+
+        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+            FindObjects.GameLogic.GetComponent<RandomNumber>().Seed.ToString());
     }
 }

@@ -25,6 +25,8 @@ public class Move : MonoBehaviour
         {
             Debug.Log("You are blocked.");
             message.text = "You are blocked";
+            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+                message.text);
             return;
         }
 
