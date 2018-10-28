@@ -25,7 +25,7 @@ public class Move : MonoBehaviour
         {
             Debug.Log("You are blocked.");
             message.text = "You are blocked";
-            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
                 message.text);
             return;
         }
@@ -113,6 +113,11 @@ public class Move : MonoBehaviour
             {
                 actor.GetComponent<FieldOfView>().UpdateFOV();
             }
+        }
+
+        if (newDirection != PlayerInput.Command.Invalid)
+        {
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
         }
     }
 

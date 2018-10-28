@@ -12,6 +12,7 @@ public class AttachScripts : MonoBehaviour
 
         gameObject.AddComponent<UserInterface>();
         gameObject.AddComponent<UIMessage>();
+        gameObject.AddComponent<UIModeline>();
 
         gameObject.AddComponent<RandomNumber>();
         gameObject.AddComponent<ConvertCoordinates>();

@@ -9,7 +9,7 @@ public class FindObjects : MonoBehaviour
     private int tempDictKey;
     private GameObject[] tempGOArray;
 
-    public enum UITags { NONE, Seed, Message };
+    public enum UITags { NONE, Seed, Message, Modeline };
 
     public static GameObject GameLogic { get; private set; }
     public static Dictionary<int, GameObject> MainUIDict { get; private set; }
