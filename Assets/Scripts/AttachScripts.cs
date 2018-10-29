@@ -5,7 +5,6 @@ public class AttachScripts : MonoBehaviour
     private void Awake()
     {
         //gameObject.AddComponent<Singleton>();
-        //gameObject.AddComponent<PlayerInput>();
         gameObject.AddComponent<SaveLoad>();
         gameObject.AddComponent<FindObjects>();
         gameObject.AddComponent<Initialize>();

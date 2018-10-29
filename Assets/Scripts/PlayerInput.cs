@@ -1,7 +1,19 @@
 ﻿using UnityEngine;
 
+//* PlayerInput
+//* -> PCActions
+//* -> Move, Attack, etc.
 public class PlayerInput : MonoBehaviour
 {
+    private bool down;
+    private bool downLeft;
+    private bool downRight;
+    private bool left;
+    private bool right;
+    private bool up;
+    private bool upLeft;
+    private bool upRight;
+
     public enum Command
     {
         Left, Right, Up, Down,
@@ -14,49 +26,65 @@ public class PlayerInput : MonoBehaviour
         Confirm, Cancel, Invalid
     };
 
-    public Command OutputCommand()
+    public Command GameCommand()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)
+        left = Input.GetKeyDown(KeyCode.LeftArrow)
             || Input.GetKeyDown(KeyCode.H)
-            || Input.GetKeyDown(KeyCode.Keypad4))
+            || Input.GetKeyDown(KeyCode.Keypad4);
+
+        down = Input.GetKeyDown(KeyCode.DownArrow)
+            || Input.GetKeyDown(KeyCode.J)
+            || Input.GetKeyDown(KeyCode.Keypad2);
+
+        up = Input.GetKeyDown(KeyCode.UpArrow)
+            || Input.GetKeyDown(KeyCode.K)
+            || Input.GetKeyDown(KeyCode.Keypad8);
+
+        right = Input.GetKeyDown(KeyCode.RightArrow)
+            || Input.GetKeyDown(KeyCode.L)
+            || Input.GetKeyDown(KeyCode.Keypad6);
+
+        upLeft = Input.GetKeyDown(KeyCode.Y)
+            || Input.GetKeyDown(KeyCode.Keypad7);
+
+        upRight = Input.GetKeyDown(KeyCode.U)
+            || Input.GetKeyDown(KeyCode.Keypad9);
+
+        downLeft = Input.GetKeyDown(KeyCode.B)
+            || Input.GetKeyDown(KeyCode.Keypad1);
+
+        downRight = Input.GetKeyDown(KeyCode.N)
+            || Input.GetKeyDown(KeyCode.Keypad3);
+
+        if (left)
         {
             return Command.Left;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow)
-            || Input.GetKeyDown(KeyCode.J)
-            || Input.GetKeyDown(KeyCode.Keypad2))
+        else if (down)
         {
             return Command.Down;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow)
-            || Input.GetKeyDown(KeyCode.K)
-            || Input.GetKeyDown(KeyCode.Keypad8))
+        else if (up)
         {
             return Command.Up;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)
-            || Input.GetKeyDown(KeyCode.L)
-            || Input.GetKeyDown(KeyCode.Keypad6))
+        else if (right)
         {
             return Command.Right;
         }
-        else if (Input.GetKeyDown(KeyCode.Y)
-            || Input.GetKeyDown(KeyCode.Keypad7))
+        else if (upLeft)
         {
             return Command.UpLeft;
         }
-        else if (Input.GetKeyDown(KeyCode.U)
-            || Input.GetKeyDown(KeyCode.Keypad9))
+        else if (upRight)
         {
             return Command.UpRight;
         }
-        else if (Input.GetKeyDown(KeyCode.B)
-            || Input.GetKeyDown(KeyCode.Keypad1))
+        else if (downLeft)
         {
             return Command.DownLeft;
         }
-        else if (Input.GetKeyDown(KeyCode.N)
-            || Input.GetKeyDown(KeyCode.Keypad3))
+        else if (downRight)
         {
             return Command.DownRight;
         }

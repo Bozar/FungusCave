@@ -26,7 +26,7 @@ public class Test : MonoBehaviour
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
-        newPC.AddComponent<PCMove>();
+        newPC.AddComponent<PCActions>();
         newPC.AddComponent<TileOverlay>();
         newPC.AddComponent<FieldOfView>();
         newPC.AddComponent<RenderSprite>();
@@ -34,6 +34,7 @@ public class Test : MonoBehaviour
         newPC.AddComponent<FOVSimple>();
         newPC.AddComponent<Energy>();
         newPC.AddComponent<PlayerInput>();
+        newPC.AddComponent<Move>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
 
@@ -44,11 +45,12 @@ public class Test : MonoBehaviour
                    = gameObject.GetComponent<ConvertCoordinates>()
                    .Convert(i * 2, i + 1);
 
-            newDummy.AddComponent<PCMove>().enabled = false;
             newDummy.AddComponent<TileOverlay>();
             //newDummy.AddComponent<FieldOfView>();
             newDummy.AddComponent<RenderSprite>();
             newDummy.AddComponent<PlayerInput>();
+            newDummy.AddComponent<PCActions>().enabled = false;
+            newDummy.AddComponent<Move>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

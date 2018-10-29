@@ -17,7 +17,7 @@ public class TestMove : MonoBehaviour
 
     public void MoveAround(GameObject actor)
     {
-        newDirection = actor.GetComponent<PlayerInput>().OutputCommand();
+        newDirection = actor.GetComponent<PlayerInput>().GameCommand();
 
         if (!IsWalkable(newDirection, actor.transform))
         {
@@ -82,11 +82,11 @@ public class TestMove : MonoBehaviour
         if (newDirection == PlayerInput.Command.EndTurn)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
-                .GetComponent<PCMove>().enabled = false;
+                .GetComponent<PCActions>().enabled = false;
             FindObjects.GameLogic.GetComponent<SchedulingSystem>()
                 .GotoNextActor();
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
-                .GetComponent<PCMove>().enabled = true;
+                .GetComponent<PCActions>().enabled = true;
         }
         else if (newDirection == PlayerInput.Command.Initialize)
         {
