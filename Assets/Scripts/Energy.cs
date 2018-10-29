@@ -10,7 +10,7 @@ public class Energy : MonoBehaviour
 
     public enum RestoreType { Turn };
 
-    public int CurrentEnergy { get; set; }
+    public int CurrentEnergy { get; private set; }
 
     public bool ConsumeEnergy(ConsumeType type, bool checkThreshold)
     {

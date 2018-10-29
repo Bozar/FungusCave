@@ -5,7 +5,7 @@ public class AttachScripts : MonoBehaviour
     private void Awake()
     {
         //gameObject.AddComponent<Singleton>();
-        gameObject.AddComponent<PlayerInput>();
+        //gameObject.AddComponent<PlayerInput>();
         gameObject.AddComponent<SaveLoad>();
         gameObject.AddComponent<FindObjects>();
         gameObject.AddComponent<Initialize>();
@@ -27,6 +27,6 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<DungeonObjects>();
 
         gameObject.AddComponent<Test>();
-        gameObject.AddComponent<Move>();
+        gameObject.AddComponent<TestMove>();
     }
 }

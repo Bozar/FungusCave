@@ -33,6 +33,7 @@ public class Test : MonoBehaviour
         newPC.AddComponent<FOVRhombus>();
         newPC.AddComponent<FOVSimple>();
         newPC.AddComponent<Energy>();
+        newPC.AddComponent<PlayerInput>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
 
@@ -47,6 +48,7 @@ public class Test : MonoBehaviour
             newDummy.AddComponent<TileOverlay>();
             //newDummy.AddComponent<FieldOfView>();
             newDummy.AddComponent<RenderSprite>();
+            newDummy.AddComponent<PlayerInput>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

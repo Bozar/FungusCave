@@ -10,7 +10,7 @@ public class PCMove : MonoBehaviour
             return;
         }
 
-        FindObjects.GameLogic.GetComponent<Move>().
-            MoveAround(gameObject.transform);
+        FindObjects.GameLogic.GetComponent<TestMove>().
+            MoveAround(gameObject);
     }
 }

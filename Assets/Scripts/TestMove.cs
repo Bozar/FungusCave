@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Move : MonoBehaviour
+public class TestMove : MonoBehaviour
 {
     //private static bool Instance;
 
@@ -15,12 +15,11 @@ public class Move : MonoBehaviour
     private GameObject pc;
     private WaitForSeconds wait5Seconds;
 
-    public void MoveAround(Transform actor)
+    public void MoveAround(GameObject actor)
     {
-        newDirection = FindObjects.GameLogic.GetComponent<PlayerInput>().
-            OutputCommand();
+        newDirection = actor.GetComponent<PlayerInput>().OutputCommand();
 
-        if (!IsWalkable(newDirection, actor))
+        if (!IsWalkable(newDirection, actor.transform))
         {
             Debug.Log("You are blocked.");
             message.text = "You are blocked";
@@ -109,7 +108,7 @@ public class Move : MonoBehaviour
                 FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
                 "\n2\n3\n4\n5\n6";
 
-            actor.position += moveHere;
+            actor.transform.position += moveHere;
             countStep++;
 
             if (actor.GetComponent<FieldOfView>() != null)
