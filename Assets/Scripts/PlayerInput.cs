@@ -9,7 +9,7 @@ public class PlayerInput : MonoBehaviour
         Wait,
 
         // Debug commands:
-        EndTurn, Initialize, RenderAll,
+        EndTurn, Initialize, RenderAll, PrintEnergy,
 
         Confirm, Cancel, Invalid
     };
@@ -77,6 +77,10 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             return Command.RenderAll;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            return Command.PrintEnergy;
         }
 
         return Command.Invalid;

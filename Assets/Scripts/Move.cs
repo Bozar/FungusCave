@@ -11,9 +11,8 @@ public class Move : MonoBehaviour
     private GameObject[] mainUI;
     private Text message;
     private Vector3 moveHere;
-
     private PlayerInput.Command newDirection;
-
+    private GameObject pc;
     private WaitForSeconds wait5Seconds;
 
     public void MoveAround(Transform actor)
@@ -98,6 +97,10 @@ public class Move : MonoBehaviour
         {
             FindObjects.GameLogic.GetComponent<Test>().RenderAll
                 = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+        }
+        else if (newDirection == PlayerInput.Command.PrintEnergy)
+        {
+            pc.GetComponent<Energy>().PrintEnergy();
         }
         else if (newDirection != PlayerInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
@@ -202,6 +205,7 @@ public class Move : MonoBehaviour
 
         wait5Seconds = new WaitForSeconds(5.0f);
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");
+        pc = GameObject.FindGameObjectWithTag("PC");
 
         for (int i = 0; i < mainUI.Length; i++)
         {
