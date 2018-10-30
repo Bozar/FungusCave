@@ -51,6 +51,7 @@ public class Test : MonoBehaviour
             newDummy.AddComponent<PlayerInput>();
             newDummy.AddComponent<PCActions>().enabled = false;
             newDummy.AddComponent<Move>();
+            newDummy.AddComponent<Energy>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

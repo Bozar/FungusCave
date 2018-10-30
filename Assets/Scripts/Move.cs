@@ -21,7 +21,16 @@ public class Move : MonoBehaviour
             return;
         }
 
-        gameObject.transform.position = coordinates.Convert(x, y);
+        if (gameObject.GetComponent<Energy>().ConsumeEnergy(
+            Energy.ConsumeType.Move, true))
+        {
+            gameObject.transform.position = coordinates.Convert(x, y);
+        }
+        else
+        {
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+               "You are exhausted.");
+        }
 
         if (gameObject.GetComponent<FieldOfView>() != null)
         {
