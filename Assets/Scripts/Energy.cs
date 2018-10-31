@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
-public enum ConsumeType { Move, Attack, MoveDiagonally, AttackDiagonally };
+public enum EnergyConsume { Move, Attack, MoveDiagonally, AttackDiagonally };
 
-public enum RestoreType { Turn };
+public enum EnergyRestore { Turn };
 
 public class Energy : MonoBehaviour
 {
-    private Dictionary<ConsumeType, int> ConsumeData;
-    private Dictionary<RestoreType, int> RestoreData;
-
+    private Dictionary<EnergyConsume, int> ConsumeData;
+    private StringBuilder printText;
+    private Dictionary<EnergyRestore, int> RestoreData;
+    private int[] testPosition;
     public int CurrentEnergy { get; private set; }
 
-    public bool ConsumeEnergy(ConsumeType type, bool checkThreshold)
+    public bool ConsumeEnergy(EnergyConsume type, bool checkThreshold)
     {
         if (checkThreshold)
         {
-            if (CurrentEnergy >= RestoreData[RestoreType.Turn])
+            if (CurrentEnergy >= RestoreData[EnergyRestore.Turn])
             {
                 CurrentEnergy -= ConsumeData[type];
                 return true;
@@ -30,22 +32,34 @@ public class Energy : MonoBehaviour
 
     public bool HasEnoughEnergy()
     {
-        return CurrentEnergy >= RestoreData[RestoreType.Turn];
+        return CurrentEnergy >= RestoreData[EnergyRestore.Turn];
     }
 
     public void PrintEnergy()
     {
+        testPosition = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+            .Convert(gameObject.transform.position);
+
+        printText.Remove(0, printText.Length);
+        printText.Append("[");
+        printText.Append(testPosition[0].ToString());
+        printText.Append(",");
+        printText.Append(testPosition[1].ToString());
+        printText.Append("] ");
+        printText.Append("Energy: ");
+        printText.Append(CurrentEnergy.ToString());
+
         FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-            "Energy: " + CurrentEnergy.ToString());
+            printText.ToString());
     }
 
-    public void RestoreEnergy(RestoreType type)
+    public void RestoreEnergy(EnergyRestore type)
     {
-        if (type == RestoreType.Turn)
+        if (type == EnergyRestore.Turn)
         {
-            if (CurrentEnergy < RestoreData[RestoreType.Turn])
+            if (CurrentEnergy < RestoreData[EnergyRestore.Turn])
             {
-                CurrentEnergy += RestoreData[RestoreType.Turn];
+                CurrentEnergy += RestoreData[EnergyRestore.Turn];
             }
         }
         else
@@ -56,19 +70,21 @@ public class Energy : MonoBehaviour
 
     private void Awake()
     {
-        RestoreData = new Dictionary<RestoreType, int>
+        printText = new StringBuilder();
+
+        RestoreData = new Dictionary<EnergyRestore, int>
         {
-            { RestoreType.Turn, 2000 },
+            { EnergyRestore.Turn, 2000 },
         };
 
-        ConsumeData = new Dictionary<ConsumeType, int>
+        ConsumeData = new Dictionary<EnergyConsume, int>
         {
-            { ConsumeType.Move, 1000 },
-            { ConsumeType.MoveDiagonally, 1400 },
-            { ConsumeType.Attack, 1400 },
-            { ConsumeType.AttackDiagonally, 1960 }
+            { EnergyConsume.Move, 1000 },
+            { EnergyConsume.MoveDiagonally, 1400 },
+            { EnergyConsume.Attack, 1400 },
+            { EnergyConsume.AttackDiagonally, 1960 }
         };
 
-        CurrentEnergy = RestoreData[RestoreType.Turn];
+        CurrentEnergy = RestoreData[EnergyRestore.Turn];
     }
 }

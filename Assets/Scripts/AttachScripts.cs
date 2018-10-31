@@ -26,6 +26,6 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<DungeonObjects>();
 
         gameObject.AddComponent<Test>();
-        gameObject.AddComponent<TestMove>();
+        //gameObject.AddComponent<TestMove>();
     }
 }

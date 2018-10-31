@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
         }
 
         if (gameObject.GetComponent<Energy>().ConsumeEnergy(
-            ConsumeType.Move, true))
+            EnergyConsume.Move, true))
         {
             gameObject.transform.position = coordinates.Convert(x, y);
         }

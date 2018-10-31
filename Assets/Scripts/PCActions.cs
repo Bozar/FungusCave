@@ -37,31 +37,34 @@ public class PCActions : MonoBehaviour
         {
             switch (input.GameCommand())
             {
-                //case PlayerInput.Command.EndTurn:
-                //    break;
-
-                //case PlayerInput.Command.Initialize:
-                //    break;
-
-                //case PlayerInput.Command.RenderAll:
-                //    break;
-
-                //case PlayerInput.Command.PrintEnergy:
-                //    break;
-
-                //case PlayerInput.Command.Confirm:
-                //    break;
-
-                //case PlayerInput.Command.Cancel:
-                //    break;
-
-                //case PlayerInput.Command.Invalid:
-                //    break;
-
-                default:
-                    FindObjects.GameLogic.GetComponent<TestMove>().
-                        MoveAround(gameObject);
+                // Test commands.
+                case Command.Initialize:
+                    FindObjects.GameLogic.GetComponent<Initialize>()
+                        .InitializeGame();
                     break;
+
+                case Command.RenderAll:
+                    FindObjects.GameLogic.GetComponent<Test>().RenderAll
+                        = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+                    break;
+
+                case Command.PrintEnergy:
+                    schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
+                    break;
+
+                    //case PlayerInput.Command.Confirm:
+                    //    break;
+
+                    //case PlayerInput.Command.Cancel:
+                    //    break;
+
+                    //case PlayerInput.Command.Invalid:
+                    //    break;
+
+                    //default:
+                    //    FindObjects.GameLogic.GetComponent<TestMove>().
+                    //        MoveAround(gameObject);
+                    //    break;
             }
         }
     }
