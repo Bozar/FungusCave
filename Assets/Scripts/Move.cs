@@ -9,7 +9,7 @@ public class Move : MonoBehaviour
     private int x;
     private int y;
 
-    public void MoveActor(PlayerInput.Command direction)
+    public void MoveActor(Command direction)
     {
         NewPosition(direction);
 
@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
         }
 
         if (gameObject.GetComponent<Energy>().ConsumeEnergy(
-            Energy.ConsumeType.Move, true))
+            ConsumeType.Move, true))
         {
             gameObject.transform.position = coordinates.Convert(x, y);
         }
@@ -40,51 +40,51 @@ public class Move : MonoBehaviour
 
     private bool IsWalkable()
     {
-        isFloor = board.CheckBlock(DungeonBoard.DungeonBlock.Floor, x, y);
-        isPool = board.CheckBlock(DungeonBoard.DungeonBlock.Pool, x, y);
+        isFloor = board.CheckBlock(DungeonBlock.Floor, x, y);
+        isPool = board.CheckBlock(DungeonBlock.Pool, x, y);
 
         return isFloor || isPool;
     }
 
-    private void NewPosition(PlayerInput.Command direction)
+    private void NewPosition(Command direction)
     {
         x = coordinates.Convert(gameObject.transform.position.x);
         y = coordinates.Convert(gameObject.transform.position.y);
 
         switch (direction)
         {
-            case PlayerInput.Command.Left:
+            case Command.Left:
                 x -= 1;
                 break;
 
-            case PlayerInput.Command.Right:
+            case Command.Right:
                 x += 1;
                 break;
 
-            case PlayerInput.Command.Up:
+            case Command.Up:
                 y += 1;
                 break;
 
-            case PlayerInput.Command.Down:
+            case Command.Down:
                 y -= 1;
                 break;
 
-            case PlayerInput.Command.UpLeft:
+            case Command.UpLeft:
                 x -= 1;
                 y += 1;
                 break;
 
-            case PlayerInput.Command.UpRight:
+            case Command.UpRight:
                 x += 1;
                 y += 1;
                 break;
 
-            case PlayerInput.Command.DownLeft:
+            case Command.DownLeft:
                 x -= 1;
                 y -= 1;
                 break;
 
-            case PlayerInput.Command.DownRight:
+            case Command.DownRight:
                 x += 1;
                 y -= 1;
                 break;

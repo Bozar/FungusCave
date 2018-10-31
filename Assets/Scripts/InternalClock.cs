@@ -8,6 +8,6 @@ public class InternalClock : MonoBehaviour
 
     public void StartTurn()
     {
-        gameObject.GetComponent<Energy>().RestoreEnergy(Energy.RestoreType.Turn);
+        gameObject.GetComponent<Energy>().RestoreEnergy(RestoreType.Turn);
     }
 }

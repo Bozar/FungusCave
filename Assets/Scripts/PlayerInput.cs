@@ -1,5 +1,17 @@
 ﻿using UnityEngine;
 
+public enum Command
+{
+    Left, Right, Up, Down,
+    UpLeft, UpRight, DownLeft, DownRight,
+    Wait,
+
+    // Debug commands:
+    EndTurn, Initialize, RenderAll, PrintEnergy,
+
+    Confirm, Cancel, Invalid
+};
+
 //* PlayerInput
 //* -> PCActions
 //* -> Move, Attack, etc.
@@ -13,18 +25,6 @@ public class PlayerInput : MonoBehaviour
     private bool up;
     private bool upLeft;
     private bool upRight;
-
-    public enum Command
-    {
-        Left, Right, Up, Down,
-        UpLeft, UpRight, DownLeft, DownRight,
-        Wait,
-
-        // Debug commands:
-        EndTurn, Initialize, RenderAll, PrintEnergy,
-
-        Confirm, Cancel, Invalid
-    };
 
     public Command GameCommand()
     {

@@ -23,7 +23,7 @@ public class UserInterface : MonoBehaviour
             printText = printText.Insert(i * 4 - 1, "-");
         }
 
-        FindObjects.MainUIDict[(int)FindObjects.UITags.Seed].
+        FindObjects.MainUIDict[(int)UITags.Seed].
             GetComponent<Text>().text = printText;
     }
 }

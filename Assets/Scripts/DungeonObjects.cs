@@ -19,15 +19,15 @@ public class DungeonObjects : MonoBehaviour
             {
                 switch (board.Blueprint[x, y])
                 {
-                    case DungeonBoard.DungeonBlock.Wall:
+                    case DungeonBlock.Wall:
                         newTile = wallTile;
                         break;
 
-                    case DungeonBoard.DungeonBlock.Pool:
+                    case DungeonBlock.Pool:
                         newTile = poolTile;
                         break;
 
-                    case DungeonBoard.DungeonBlock.Fungus:
+                    case DungeonBlock.Fungus:
                         newTile = fungusTile;
                         break;
 
@@ -43,7 +43,7 @@ public class DungeonObjects : MonoBehaviour
                     newTile.AddComponent<RenderSprite>();
 
                     newTile.GetComponent<RenderSprite>().ChangeColor(
-                        gameColor.PickColor(GameColor.ColorName.Black));
+                        gameColor.PickColor(ColorName.Black));
 
                     board.Blocks[x, y] = newTile;
                 }

@@ -17,7 +17,7 @@ public class UIModeline : MonoBehaviour
         StoreText(text);
         CheckLineCount();
 
-        FindObjects.MainUIDict[(int)FindObjects.UITags.Modeline].
+        FindObjects.MainUIDict[(int)UITags.Modeline].
             GetComponent<Text>().text = newLine;
     }
 

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UITags { NONE, Seed, Message, Modeline };
+
 // A helper class that stores references to other game objects. The ONLY game
 // object which it CAN be and MUST be attached to is GameLogic.
 public class FindObjects : MonoBehaviour
 {
     private int tempDictKey;
     private GameObject[] tempGOArray;
-
-    public enum UITags { NONE, Seed, Message, Modeline };
 
     public static GameObject GameLogic { get; private set; }
     public static Dictionary<int, GameObject> MainUIDict { get; private set; }

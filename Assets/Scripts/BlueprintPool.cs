@@ -50,16 +50,16 @@ public class BlueprintPool : DungeonBlueprint
         nextY = index[1];
 
         surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .SurroundCoord(ConvertCoordinates.Surround.Horizonal, nextX, nextY);
+            .SurroundCoord(Surround.Horizonal, nextX, nextY);
 
-        board.ChangeBlueprint(DungeonBoard.DungeonBlock.Pool, nextX, nextY);
+        board.ChangeBlueprint(DungeonBlock.Pool, nextX, nextY);
         countPools--;
 
         foreach (var grid in surround)
         {
-            if (board.CheckBlock(DungeonBoard.DungeonBlock.Floor,
+            if (board.CheckBlock(DungeonBlock.Floor,
                 grid[0], grid[1])
-                && board.IsInsideRange(DungeonBoard.FOVShape.Rhombus, range,
+                && board.IsInsideRange(FOVShape.Rhombus, range,
                 startIndex, grid))
             {
                 submergeGrid.Push(grid);
@@ -76,7 +76,7 @@ public class BlueprintPool : DungeonBlueprint
             index = RandomIndex();
             startX = index[0];
             startY = index[1];
-        } while (!board.CheckBlock(DungeonBoard.DungeonBlock.Floor,
+        } while (!board.CheckBlock(DungeonBlock.Floor,
         startX, startY));
 
         startIndex = index;

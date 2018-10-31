@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
+public enum DungeonBlock { Floor, Wall, Pool, Fungus };
+
+public enum FOVShape { Rhombus };
+
 // Create a 2D array. Provide methods to inspect and change its content.
 public class DungeonBoard : MonoBehaviour
 {
     private ConvertCoordinates coordinate;
-
-    public enum DungeonBlock { Floor, Wall, Pool, Fungus };
-
-    public enum FOVShape { Rhombus };
 
     public GameObject[,] Blocks { get; set; }
     public DungeonBlock[,] Blueprint { get; private set; }

@@ -49,11 +49,11 @@ public class FOVSimple : MonoBehaviour
         y = position[1];
 
         surround = coordinate.SurroundCoord(
-            ConvertCoordinates.Surround.Diagonal, x, y);
+            Surround.Diagonal, x, y);
 
         foreach (var grid in surround)
         {
-            if (!board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+            if (!board.IsInsideRange(FOVShape.Rhombus,
                 maxRange,
                 coordinate.Convert(gameObject.transform.position),
                 grid))
@@ -61,12 +61,12 @@ public class FOVSimple : MonoBehaviour
                 continue;
             }
 
-            walkable = board.CheckBlock(DungeonBoard.DungeonBlock.Floor, grid)
-                || board.CheckBlock(DungeonBoard.DungeonBlock.Pool, grid);
+            walkable = board.CheckBlock(DungeonBlock.Floor, grid)
+                || board.CheckBlock(DungeonBlock.Pool, grid);
 
             gridChecked = fovTest
-                ? (fov.CheckFOV(grid) != FieldOfView.FOVStatus.TEST)
-                : (fov.CheckFOV(grid) != FieldOfView.FOVStatus.Insight);
+                ? (fov.CheckFOV(grid) != FOVStatus.TEST)
+                : (fov.CheckFOV(grid) != FOVStatus.Insight);
 
             if (walkable && gridChecked)
             {
@@ -75,11 +75,11 @@ public class FOVSimple : MonoBehaviour
 
             if (fovTest)
             {
-                fov.ChangeFOVBoard(FieldOfView.FOVStatus.TEST, grid);
+                fov.ChangeFOVBoard(FOVStatus.TEST, grid);
             }
             else
             {
-                fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, grid);
+                fov.ChangeFOVBoard(FOVStatus.Insight, grid);
             }
         }
 

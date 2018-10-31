@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
+public enum ColorName { TEST, White, Black, Grey }
+
 // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
 public class GameColor : MonoBehaviour
 {
     private Color32 color;
-
-    public enum ColorName { TEST, White, Black, Grey }
 
     public Color32 PickColor(ColorName name)
 

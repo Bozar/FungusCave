@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum Surround { Horizonal, Diagonal };
+
 public class ConvertCoordinates : MonoBehaviour
 {
     private readonly float index2Vector = 0.5f;
@@ -15,8 +17,6 @@ public class ConvertCoordinates : MonoBehaviour
     private Vector3 vectorPosition;
     private float vectorX;
     private float vectorY;
-
-    public enum Surround { Horizonal, Diagonal };
 
     public Vector3 Convert(int x, int y)
     {

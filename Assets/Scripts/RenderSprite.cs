@@ -22,7 +22,7 @@ public class RenderSprite : MonoBehaviour
 
     private void HideSprite()
     {
-        ChangeColor(gameColor.PickColor(GameColor.ColorName.Black));
+        ChangeColor(gameColor.PickColor(ColorName.Black));
     }
 
     private void LateUpdate()
@@ -40,27 +40,27 @@ public class RenderSprite : MonoBehaviour
 
         switch (pc.GetComponent<FieldOfView>().CheckFOV(x, y))
         {
-            case FieldOfView.FOVStatus.Unknown:
+            case FOVStatus.Unknown:
                 HideSprite();
                 break;
 
-            case FieldOfView.FOVStatus.Visited:
+            case FOVStatus.Visited:
                 RememberSprite();
                 break;
 
-            case FieldOfView.FOVStatus.Insight:
+            case FOVStatus.Insight:
                 ShowSprite();
                 break;
 
-            case FieldOfView.FOVStatus.TEST:
-                ChangeColor(gameColor.PickColor(GameColor.ColorName.TEST));
+            case FOVStatus.TEST:
+                ChangeColor(gameColor.PickColor(ColorName.TEST));
                 break;
         }
     }
 
     private void RememberSprite()
     {
-        ChangeColor(gameColor.PickColor(GameColor.ColorName.Grey));
+        ChangeColor(gameColor.PickColor(ColorName.Grey));
     }
 
     private void ShowSprite()

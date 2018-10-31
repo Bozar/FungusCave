@@ -63,7 +63,7 @@ public class FOVRhombus : MonoBehaviour
 
         position = wallGrid.Pop();
         surround = coordinate.SurroundCoord(
-            ConvertCoordinates.Surround.Diagonal, position);
+            Surround.Diagonal, position);
 
         foreach (var grid in surround)
         {
@@ -71,7 +71,7 @@ public class FOVRhombus : MonoBehaviour
             gridY = grid[1];
 
             // Wall grid casts a rhombus shadow.
-            shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+            shape = board.IsInsideRange(FOVShape.Rhombus,
                 rangeWall, position, grid);
 
             // Shadow makes surrounding grids which are farther away from the
@@ -133,7 +133,7 @@ public class FOVRhombus : MonoBehaviour
 
         position = checkPosition.Pop();
         surround = coordinate.SurroundCoord(
-            ConvertCoordinates.Surround.Diagonal, position);
+            Surround.Diagonal, position);
 
         foreach (var grid in surround)
         {
@@ -145,7 +145,7 @@ public class FOVRhombus : MonoBehaviour
                 continue;
             }
 
-            if (board.CheckBlock(DungeonBoard.DungeonBlock.Wall, grid))
+            if (board.CheckBlock(DungeonBlock.Wall, grid))
             {
                 wallGrid.Push(grid);
             }
@@ -171,13 +171,13 @@ public class FOVRhombus : MonoBehaviour
             {
                 position = new int[] { i, j };
 
-                shape = board.IsInsideRange(DungeonBoard.FOVShape.Rhombus,
+                shape = board.IsInsideRange(FOVShape.Rhombus,
                     maxRange, source, position);
                 lighted = distanceBoard[i, j] <= maxRange;
 
                 if (shape && lighted)
                 {
-                    fov.ChangeFOVBoard(FieldOfView.FOVStatus.Insight, position);
+                    fov.ChangeFOVBoard(FOVStatus.Insight, position);
                 }
             }
         }

@@ -11,8 +11,7 @@ public class TestMove : MonoBehaviour
     private GameObject[] mainUI;
     private Text message;
     private Vector3 moveHere;
-    private PlayerInput.Command newDirection;
-    private GameObject pc;
+    private Command newDirection;
     private WaitForSeconds wait5Seconds;
 
     public void MoveAround(GameObject actor)
@@ -30,75 +29,75 @@ public class TestMove : MonoBehaviour
 
         switch (newDirection)
         {
-            case PlayerInput.Command.Left:
+            case Command.Left:
                 moveHere
                     = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                     .Convert(-1, 0);
                 break;
 
-            case PlayerInput.Command.Right:
+            case Command.Right:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 0);
                 break;
 
-            case PlayerInput.Command.Down:
+            case Command.Down:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, -1);
                 break;
 
-            case PlayerInput.Command.Up:
+            case Command.Up:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(0, 1);
                 break;
 
-            case PlayerInput.Command.UpLeft:
+            case Command.UpLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, 1);
                 break;
 
-            case PlayerInput.Command.UpRight:
+            case Command.UpRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, 1);
                 break;
 
-            case PlayerInput.Command.DownLeft:
+            case Command.DownLeft:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(-1, -1);
                 break;
 
-            case PlayerInput.Command.DownRight:
+            case Command.DownRight:
                 moveHere
                   = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
                   .Convert(1, -1);
                 break;
         }
 
-        if (newDirection == PlayerInput.Command.EndTurn)
+        if (newDirection == Command.EndTurn)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
         }
-        else if (newDirection == PlayerInput.Command.Initialize)
+        else if (newDirection == Command.Initialize)
         {
             FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
         }
-        else if (newDirection == PlayerInput.Command.RenderAll)
+        else if (newDirection == Command.RenderAll)
         {
             FindObjects.GameLogic.GetComponent<Test>().RenderAll
                 = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
         }
-        else if (newDirection == PlayerInput.Command.PrintEnergy)
+        else if (newDirection == Command.PrintEnergy)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
                 .GetComponent<Energy>().PrintEnergy();
             //pc.GetComponent<Energy>().PrintEnergy();
         }
-        else if (newDirection != PlayerInput.Command.Invalid)
+        else if (newDirection != Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text =
@@ -114,13 +113,13 @@ public class TestMove : MonoBehaviour
             }
         }
 
-        if (newDirection != PlayerInput.Command.Invalid)
+        if (newDirection != Command.Invalid)
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
         }
     }
 
-    private bool IsWalkable(PlayerInput.Command direction, Transform actor)
+    private bool IsWalkable(Command direction, Transform actor)
     {
         int x = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .Convert(actor.position.x);
@@ -129,47 +128,47 @@ public class TestMove : MonoBehaviour
 
         switch (direction)
         {
-            case PlayerInput.Command.Left:
+            case Command.Left:
                 x -= 1;
                 break;
 
-            case PlayerInput.Command.Right:
+            case Command.Right:
                 x += 1;
                 break;
 
-            case PlayerInput.Command.Up:
+            case Command.Up:
                 y += 1;
                 break;
 
-            case PlayerInput.Command.Down:
+            case Command.Down:
                 y -= 1;
                 break;
 
-            case PlayerInput.Command.UpLeft:
+            case Command.UpLeft:
                 x -= 1;
                 y += 1;
                 break;
 
-            case PlayerInput.Command.UpRight:
+            case Command.UpRight:
                 x += 1;
                 y += 1;
                 break;
 
-            case PlayerInput.Command.DownLeft:
+            case Command.DownLeft:
                 x -= 1;
                 y -= 1;
                 break;
 
-            case PlayerInput.Command.DownRight:
+            case Command.DownRight:
                 x += 1;
                 y -= 1;
                 break;
         }
 
         return FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckBlock(DungeonBoard.DungeonBlock.Floor, x, y)
+            .CheckBlock(DungeonBlock.Floor, x, y)
             || FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckBlock(DungeonBoard.DungeonBlock.Pool, x, y);
+            .CheckBlock(DungeonBlock.Pool, x, y);
     }
 
     private IEnumerator MoveAndWait()
@@ -201,7 +200,6 @@ public class TestMove : MonoBehaviour
 
         wait5Seconds = new WaitForSeconds(5.0f);
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");
-        pc = GameObject.FindGameObjectWithTag("PC");
 
         for (int i = 0; i < mainUI.Length; i++)
         {

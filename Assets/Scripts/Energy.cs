@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum ConsumeType { Move, Attack, MoveDiagonally, AttackDiagonally };
+
+public enum RestoreType { Turn };
+
 public class Energy : MonoBehaviour
 {
     private Dictionary<ConsumeType, int> ConsumeData;
     private Dictionary<RestoreType, int> RestoreData;
-
-    public enum ConsumeType { Move, Attack, MoveDiagonally, AttackDiagonally };
-
-    public enum RestoreType { Turn };
 
     public int CurrentEnergy { get; private set; }
 

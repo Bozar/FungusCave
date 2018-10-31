@@ -22,7 +22,7 @@ public class UIMessage : MonoBehaviour
         CheckLineCount();
         CheckLineHeight();
 
-        FindObjects.MainUIDict[(int)FindObjects.UITags.Message].
+        FindObjects.MainUIDict[(int)UITags.Message].
             GetComponent<Text>().text = "";
 
         while (outputText.Count > 0)
@@ -33,7 +33,7 @@ public class UIMessage : MonoBehaviour
                 newLine += "\n";
             }
 
-            FindObjects.MainUIDict[(int)FindObjects.UITags.Message].
+            FindObjects.MainUIDict[(int)UITags.Message].
                 GetComponent<Text>().text += newLine;
         }
     }
