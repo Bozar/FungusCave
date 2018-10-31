@@ -81,12 +81,7 @@ public class TestMove : MonoBehaviour
 
         if (newDirection == PlayerInput.Command.EndTurn)
         {
-            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
-                .GetComponent<PCActions>().enabled = false;
-            FindObjects.GameLogic.GetComponent<SchedulingSystem>()
-                .GotoNextActor();
-            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
-                .GetComponent<PCActions>().enabled = true;
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
         }
         else if (newDirection == PlayerInput.Command.Initialize)
         {
@@ -99,7 +94,9 @@ public class TestMove : MonoBehaviour
         }
         else if (newDirection == PlayerInput.Command.PrintEnergy)
         {
-            pc.GetComponent<Energy>().PrintEnergy();
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
+                .GetComponent<Energy>().PrintEnergy();
+            //pc.GetComponent<Energy>().PrintEnergy();
         }
         else if (newDirection != PlayerInput.Command.Invalid)
         //if (!string.IsNullOrEmpty(newDirection))

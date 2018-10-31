@@ -39,19 +39,22 @@ public class SchedulingSystem : MonoBehaviour
         return true;
     }
 
-    public void GotoNextActor()
-    {
-        firstNode = schedule.First;
-        nextNode = currentNode.Next;
-
-        GotoNextNode();
-    }
-
     public bool IsCurrentActor(GameObject actor)
     {
         bool verify = actor == CurrentActor;
 
         return verify;
+    }
+
+    public void NextTurn()
+    {
+        CurrentActor.GetComponent<PCActions>().enabled = false;
+        CurrentActor.GetComponent<InternalClock>().EndTurn();
+
+        NextActor();
+
+        CurrentActor.GetComponent<PCActions>().enabled = true;
+        CurrentActor.GetComponent<InternalClock>().StartTurn();
     }
 
     public void PrintSchedule()
@@ -84,21 +87,22 @@ public class SchedulingSystem : MonoBehaviour
 
         if (removed && currentNodeIsRemoved)
         {
-            GotoNextNode();
+            NextNode();
         }
 
         return removed;
     }
 
-    private void GotoNextNode()
+    private void NextActor()
     {
-        if (nextNode != null)
-        {
-            currentNode = nextNode;
-        }
-        else
-        {
-            currentNode = firstNode;
-        }
+        firstNode = schedule.First;
+        nextNode = currentNode.Next;
+
+        NextNode();
+    }
+
+    private void NextNode()
+    {
+        currentNode = nextNode ?? firstNode;
     }
 }

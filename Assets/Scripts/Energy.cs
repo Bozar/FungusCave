@@ -28,6 +28,11 @@ public class Energy : MonoBehaviour
         return true;
     }
 
+    public bool HasEnoughEnergy()
+    {
+        return CurrentEnergy >= RestoreData[RestoreType.Turn];
+    }
+
     public void PrintEnergy()
     {
         FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(

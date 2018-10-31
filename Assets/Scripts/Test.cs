@@ -35,6 +35,7 @@ public class Test : MonoBehaviour
         newPC.AddComponent<Energy>();
         newPC.AddComponent<PlayerInput>();
         newPC.AddComponent<Move>();
+        newPC.AddComponent<InternalClock>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
 
@@ -52,6 +53,7 @@ public class Test : MonoBehaviour
             newDummy.AddComponent<PCActions>().enabled = false;
             newDummy.AddComponent<Move>();
             newDummy.AddComponent<Energy>();
+            newDummy.AddComponent<InternalClock>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }
