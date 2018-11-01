@@ -29,6 +29,11 @@ public class PCActions : MonoBehaviour
             return;
         }
 
+        if (input.GameCommand() != Command.Invalid)
+        {
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
+        }
+
         if (input.IsMovementCommand())
         {
             gameObject.GetComponent<Move>().MoveActor(input.GameCommand());
