@@ -2,17 +2,21 @@
 
 public class Move : MonoBehaviour
 {
+    private int baseEnergy;
     private DungeonBoard board;
     private ConvertCoordinates coordinates;
+    private bool isDiagonalMovement;
     private bool isFloor;
     private bool isPool;
-    private int moveEnergy;
+    private double moveDiagonally;
+    private double moveHorizonally;
     private int x;
     private int y;
 
     public void MoveActor(Command direction)
     {
         NewPosition(direction);
+        isDiagonalMovement = MoveDiagonally(direction);
 
         // TODO: check NPC's position.
         if (!IsWalkable())
@@ -24,7 +28,7 @@ public class Move : MonoBehaviour
 
         if (gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
-            gameObject.GetComponent<Energy>().CurrentEnergy -= moveEnergy;
+            gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
             gameObject.transform.position = coordinates.Convert(x, y);
         }
         else
@@ -41,7 +45,28 @@ public class Move : MonoBehaviour
 
     private void Awake()
     {
-        moveEnergy = 1000;
+        baseEnergy = 1000;
+        moveDiagonally = 1.4;
+        moveHorizonally = 1.0;
+    }
+
+    private int GetEnergyCost()
+    {
+        int totalEnergy;
+        double direction;
+
+        if (isDiagonalMovement)
+        {
+            direction = moveDiagonally;
+        }
+        else
+        {
+            direction = moveHorizonally;
+        }
+
+        totalEnergy = (int)System.Math.Floor(baseEnergy * direction);
+
+        return totalEnergy;
     }
 
     private bool IsWalkable()
@@ -50,6 +75,19 @@ public class Move : MonoBehaviour
         isPool = board.CheckBlock(DungeonBlock.Pool, x, y);
 
         return isFloor || isPool;
+    }
+
+    private bool MoveDiagonally(Command direction)
+    {
+        switch (direction)
+        {
+            case Command.UpLeft:
+            case Command.UpRight:
+            case Command.DownLeft:
+            case Command.DownRight:
+                return true;
+        }
+        return false;
     }
 
     private void NewPosition(Command direction)
