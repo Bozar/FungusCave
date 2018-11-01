@@ -1,38 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
-
-public enum EnergyConsume { Move, Attack, MoveDiagonally, AttackDiagonally };
-
-public enum EnergyRestore { Turn };
 
 public class Energy : MonoBehaviour
 {
-    private Dictionary<EnergyConsume, int> ConsumeData;
+    private int actionThreshold;
     private StringBuilder printText;
-    private Dictionary<EnergyRestore, int> RestoreData;
     private int[] testPosition;
-    public int CurrentEnergy { get; private set; }
-
-    public bool ConsumeEnergy(EnergyConsume type, bool checkThreshold)
-    {
-        if (checkThreshold)
-        {
-            if (CurrentEnergy >= RestoreData[EnergyRestore.Turn])
-            {
-                CurrentEnergy -= ConsumeData[type];
-                return true;
-            }
-            return false;
-        }
-
-        CurrentEnergy -= ConsumeData[type];
-        return true;
-    }
+    public int CurrentEnergy { get; set; }
 
     public bool HasEnoughEnergy()
     {
-        return CurrentEnergy >= RestoreData[EnergyRestore.Turn];
+        return CurrentEnergy >= actionThreshold;
     }
 
     public void PrintEnergy()
@@ -53,38 +31,21 @@ public class Energy : MonoBehaviour
             printText.ToString());
     }
 
-    public void RestoreEnergy(EnergyRestore type)
+    public void RestoreEnergy(int restore, bool checkCurrentEnergy)
     {
-        if (type == EnergyRestore.Turn)
+        if (checkCurrentEnergy && (CurrentEnergy >= actionThreshold))
         {
-            if (CurrentEnergy < RestoreData[EnergyRestore.Turn])
-            {
-                CurrentEnergy += RestoreData[EnergyRestore.Turn];
-            }
+            return;
         }
-        else
-        {
-            CurrentEnergy += RestoreData[type];
-        }
+
+        CurrentEnergy += restore;
     }
 
     private void Awake()
     {
+        actionThreshold = 2000;
+        CurrentEnergy = actionThreshold;
+
         printText = new StringBuilder();
-
-        RestoreData = new Dictionary<EnergyRestore, int>
-        {
-            { EnergyRestore.Turn, 2000 },
-        };
-
-        ConsumeData = new Dictionary<EnergyConsume, int>
-        {
-            { EnergyConsume.Move, 1000 },
-            { EnergyConsume.MoveDiagonally, 1400 },
-            { EnergyConsume.Attack, 1400 },
-            { EnergyConsume.AttackDiagonally, 1960 }
-        };
-
-        CurrentEnergy = RestoreData[EnergyRestore.Turn];
     }
 }

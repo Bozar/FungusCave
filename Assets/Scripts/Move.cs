@@ -6,6 +6,7 @@ public class Move : MonoBehaviour
     private ConvertCoordinates coordinates;
     private bool isFloor;
     private bool isPool;
+    private int moveEnergy;
     private int x;
     private int y;
 
@@ -21,9 +22,9 @@ public class Move : MonoBehaviour
             return;
         }
 
-        if (gameObject.GetComponent<Energy>().ConsumeEnergy(
-            EnergyConsume.Move, true))
+        if (gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
+            gameObject.GetComponent<Energy>().CurrentEnergy -= moveEnergy;
             gameObject.transform.position = coordinates.Convert(x, y);
         }
         else
@@ -36,6 +37,11 @@ public class Move : MonoBehaviour
         {
             gameObject.GetComponent<FieldOfView>().UpdateFOV();
         }
+    }
+
+    private void Awake()
+    {
+        moveEnergy = 1000;
     }
 
     private bool IsWalkable()
