@@ -18,6 +18,12 @@ public class Move : MonoBehaviour
         NewPosition(direction);
         isDiagonalMovement = MoveDiagonally(direction);
 
+        if (direction == Command.Wait)
+        {
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
+            return;
+        }
+
         // TODO: check NPC's position.
         if (!IsWalkable())
         {

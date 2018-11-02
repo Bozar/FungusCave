@@ -25,6 +25,7 @@ public class PlayerInput : MonoBehaviour
     private bool up;
     private bool upLeft;
     private bool upRight;
+    private bool wait;
 
     public Command GameCommand()
     {
@@ -55,6 +56,8 @@ public class PlayerInput : MonoBehaviour
 
         downRight = Input.GetKeyDown(KeyCode.N)
             || Input.GetKeyDown(KeyCode.Keypad3);
+
+        wait = Input.GetKeyDown(KeyCode.Period);
 
         if (left)
         {
@@ -87,6 +90,10 @@ public class PlayerInput : MonoBehaviour
         else if (downRight)
         {
             return Command.DownRight;
+        }
+        else if (wait)
+        {
+            return Command.Wait;
         }
         // Test key combinations.
         else if (Input.GetKey(KeyCode.LeftControl)
