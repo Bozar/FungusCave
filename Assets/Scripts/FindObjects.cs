@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum UITags { NONE, Seed, Message, Modeline };
+public enum UITags { NONE, Seed, Message, Modeline, Terrain };
 
 // A helper class that stores references to other game objects. The ONLY game
 // object which it CAN be and MUST be attached to is GameLogic.
@@ -35,6 +36,7 @@ public class FindObjects : MonoBehaviour
                 if (!MainUIDict.ContainsKey(tempDictKey))
                 {
                     MainUIDict.Add(tempDictKey, go);
+                    go.GetComponent<Text>().text = "";
                 }
             }
         }
