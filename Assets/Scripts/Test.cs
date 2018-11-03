@@ -36,8 +36,11 @@ public class Test : MonoBehaviour
         newPC.AddComponent<PlayerInput>();
         newPC.AddComponent<Move>();
         newPC.AddComponent<InternalClock>();
+        newPC.AddComponent<Attack>();
+        newPC.AddComponent<Defend>();
 
         gameObject.GetComponent<SchedulingSystem>().AddActor(newPC);
+        gameObject.GetComponent<ActorBoard>().AddActor(newPC, 0, 0);
 
         for (int i = 0; i < 2; i++)
         {
@@ -57,6 +60,8 @@ public class Test : MonoBehaviour
             newDummy.AddComponent<Move>();
             newDummy.AddComponent<Energy>();
             newDummy.AddComponent<InternalClock>();
+            newDummy.AddComponent<Attack>();
+            newDummy.AddComponent<Defend>();
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

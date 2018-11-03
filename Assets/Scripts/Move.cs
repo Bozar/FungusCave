@@ -21,17 +21,20 @@ public class Move : MonoBehaviour
         NewPosition(direction);
         isDiagonalMovement = MoveDiagonally(direction);
 
+        if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
+        {
+            return;
+        }
+
         if (direction == Command.Wait)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
             return;
         }
 
-        // TODO: Attack dummy.
         if (actorBoard.HasActor(x, y))
         {
-            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-                "Dummy here");
+            gameObject.GetComponent<Attack>().DealDamage(x, y);
             return;
         }
 
@@ -42,19 +45,11 @@ public class Move : MonoBehaviour
             return;
         }
 
-        if (gameObject.GetComponent<Energy>().HasEnoughEnergy())
-        {
-            gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
-            gameObject.transform.position = coordinates.Convert(x, y);
+        gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
+        gameObject.transform.position = coordinates.Convert(x, y);
 
-            actorBoard.RemoveActor(startPosition[0], startPosition[1]);
-            actorBoard.AddActor(gameObject, x, y);
-        }
-        else
-        {
-            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-               "You are exhausted.");
-        }
+        actorBoard.RemoveActor(startPosition[0], startPosition[1]);
+        actorBoard.AddActor(gameObject, x, y);
 
         if (gameObject.GetComponent<FieldOfView>() != null)
         {

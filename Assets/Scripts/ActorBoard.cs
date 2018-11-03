@@ -27,12 +27,7 @@ public class ActorBoard : MonoBehaviour
 
     public bool HasActor(int x, int y)
     {
-        if (dungeon.IndexOutOfRange(x, y))
-        {
-            return false;
-        }
-
-        return board[x, y] != null;
+        return GetActor(x, y) != null;
     }
 
     public void RemoveActor(int x, int y)
