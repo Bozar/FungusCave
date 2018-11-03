@@ -25,6 +25,8 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<BlueprintFungus>();
         gameObject.AddComponent<DungeonObjects>();
 
+        gameObject.AddComponent<ActorBoard>();
+
         gameObject.AddComponent<Test>();
         //gameObject.AddComponent<TestMove>();
     }

@@ -2,6 +2,7 @@
 
 public class Move : MonoBehaviour
 {
+    private ActorBoard actorBoard;
     private int baseEnergy;
     private DungeonBoard board;
     private ConvertCoordinates coordinates;
@@ -26,7 +27,14 @@ public class Move : MonoBehaviour
             return;
         }
 
-        // TODO: check NPC's position.
+        // TODO: Attack dummy.
+        if (actorBoard.HasActor(x, y))
+        {
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+                "Dummy here");
+            return;
+        }
+
         if (!IsWalkable())
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
@@ -38,6 +46,9 @@ public class Move : MonoBehaviour
         {
             gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
             gameObject.transform.position = coordinates.Convert(x, y);
+
+            actorBoard.RemoveActor(startPosition[0], startPosition[1]);
+            actorBoard.AddActor(gameObject, x, y);
         }
         else
         {
@@ -146,5 +157,6 @@ public class Move : MonoBehaviour
     {
         coordinates = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
     }
 }

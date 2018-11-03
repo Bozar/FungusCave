@@ -46,6 +46,9 @@ public class Test : MonoBehaviour
                    = gameObject.GetComponent<ConvertCoordinates>()
                    .Convert(i * 2, i + 1);
 
+            gameObject.GetComponent<ActorBoard>().AddActor(
+                newDummy, i * 2, i + 1);
+
             newDummy.AddComponent<TileOverlay>();
             //newDummy.AddComponent<FieldOfView>();
             newDummy.AddComponent<RenderSprite>();
