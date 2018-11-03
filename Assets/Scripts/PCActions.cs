@@ -57,6 +57,11 @@ public class PCActions : MonoBehaviour
                     schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
                     break;
 
+                case Command.AddEnergy:
+                    schedule.CurrentActor.GetComponent<Energy>()
+                        .RestoreEnergy(2000, false);
+                    break;
+
                     //case PlayerInput.Command.Confirm:
                     //    break;
 

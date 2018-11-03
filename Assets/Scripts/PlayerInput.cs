@@ -7,7 +7,7 @@ public enum Command
     Wait,
 
     // Debug commands:
-    EndTurn, Initialize, RenderAll, PrintEnergy,
+    EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy,
 
     Confirm, Cancel, Invalid
 };
@@ -116,6 +116,10 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             return Command.PrintEnergy;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            return Command.AddEnergy;
         }
 
         return Command.Invalid;
