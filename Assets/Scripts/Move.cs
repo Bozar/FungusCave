@@ -6,20 +6,20 @@ public class Move : MonoBehaviour
     private int baseEnergy;
     private DungeonBoard board;
     private ConvertCoordinates coordinates;
-    private bool isDiagonalMovement;
+    private double diagonalFactor;
     private bool isFloor;
     private bool isPool;
-    private double moveDiagonally;
-    private double moveHorizonally;
-    private int moveInPool;
+    private double linearFactor;
+    private int poolEnergy;
     private int[] startPosition;
+    private bool useDiagonalFactor;
     private int x;
     private int y;
 
     public void MoveActor(Command direction)
     {
         NewPosition(direction);
-        isDiagonalMovement = MoveDiagonally(direction);
+        useDiagonalFactor = MoveDiagonally(direction);
 
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
@@ -60,9 +60,9 @@ public class Move : MonoBehaviour
     private void Awake()
     {
         baseEnergy = 1000;
-        moveInPool = 200;
-        moveDiagonally = 1.4;
-        moveHorizonally = 1.0;
+        poolEnergy = 200;
+        diagonalFactor = 1.4;
+        linearFactor = 1.0;
     }
 
     private int GetEnergyCost()
@@ -73,8 +73,8 @@ public class Move : MonoBehaviour
 
         isPool = board.CheckBlock(DungeonBlock.Pool, startPosition);
 
-        direction = isDiagonalMovement ? moveDiagonally : moveHorizonally;
-        pool = isPool ? moveInPool : 0;
+        direction = useDiagonalFactor ? diagonalFactor : linearFactor;
+        pool = isPool ? poolEnergy : 0;
 
         totalEnergy = (int)System.Math.Floor(baseEnergy * direction + pool);
 
