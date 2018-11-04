@@ -31,7 +31,7 @@ public class Attack : MonoBehaviour
 
         FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
             "You hit: " + x + "," + y);
-        actorBoard.GetActor(x, y).GetComponent<Defend>().TakeDamage(1);
+        actorBoard.GetActor(x, y).GetComponent<Defend>().TestKill();
     }
 
     private bool AttackLinearly(int x, int y)
