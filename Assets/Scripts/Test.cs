@@ -21,11 +21,15 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        pcTile = Resources.Load("PC") as GameObject;
-        dummyTile = Resources.Load("Dummy") as GameObject;
+        pcTile = Resources.Load(ObjectTag.PC.ToString()) as GameObject;
+        dummyTile = Resources.Load(ObjectTag.Dummy.ToString()) as GameObject;
+        //dummyTile = Resources.Load("Dummy") as GameObject;
 
         newPC = Instantiate(pcTile);
         newPC.transform.position = new Vector3(0, 0);
+        newPC.AddComponent<ObjectMetaInfo>();
+        newPC.GetComponent<ObjectMetaInfo>().TagName = ObjectTag.PC;
+
         newPC.AddComponent<PCActions>();
         newPC.AddComponent<TileOverlay>();
         newPC.AddComponent<FieldOfView>();
@@ -62,6 +66,9 @@ public class Test : MonoBehaviour
             newDummy.AddComponent<InternalClock>();
             newDummy.AddComponent<Attack>();
             newDummy.AddComponent<Defend>();
+
+            newDummy.AddComponent<ObjectMetaInfo>();
+            newDummy.GetComponent<ObjectMetaInfo>().TagName = ObjectTag.Dummy;
 
             gameObject.GetComponent<SchedulingSystem>().AddActor(newDummy);
         }

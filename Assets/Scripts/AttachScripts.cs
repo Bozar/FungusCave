@@ -8,6 +8,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<SaveLoad>();
         gameObject.AddComponent<FindObjects>();
         gameObject.AddComponent<Initialize>();
+        gameObject.AddComponent<ObjectPool>();
 
         gameObject.AddComponent<UserInterface>();
         gameObject.AddComponent<UIMessage>();
