@@ -31,6 +31,20 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    public void StoreObject(GameObject go)
+    {
+        switch (ClassifyTag(go))
+        {
+            case ObjectTag.TActor:
+            case ObjectTag.PC:
+                StoreActor(go);
+                break;
+
+            case ObjectTag.TBuilding:
+                break;
+        }
+    }
+
     private void Awake()
     {
         pool = new Dictionary<ObjectTag, Stack<GameObject>>();
@@ -39,6 +53,11 @@ public class ObjectPool : MonoBehaviour
         {
             pool.Add((ObjectTag)tag, new Stack<GameObject>());
         }
+    }
+
+    private ObjectTag ClassifyTag(GameObject go)
+    {
+        return ClassifyTag(go.GetComponent<ObjectMetaInfo>().TagName);
     }
 
     private ObjectTag ClassifyTag(ObjectTag tag)
@@ -66,36 +85,36 @@ public class ObjectPool : MonoBehaviour
         {
             // TODO: Refresh the actor.
             go = pool[tag].Pop();
-
-            return go;
+            go.SetActive(true);
         }
+        else
+        {
+            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
 
-        go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
+            // TODO: Remove PC specific components.
+            go.AddComponent<PlayerInput>();
+            go.AddComponent<PCActions>().enabled = false;
 
-        // TODO: Remove PC specific components.
-        go.AddComponent<PlayerInput>();
-        go.AddComponent<PCActions>().enabled = false;
+            go.AddComponent<ObjectMetaInfo>();
+            go.GetComponent<ObjectMetaInfo>().TagName = tag;
 
-        go.AddComponent<ObjectMetaInfo>();
-        go.GetComponent<ObjectMetaInfo>().TagName = tag;
+            go.AddComponent<FieldOfView>();
+            go.AddComponent<FOVRhombus>();
+            //go.AddComponent<FOVSimple>();
+            go.AddComponent<RenderSprite>();
+
+            go.AddComponent<TileOverlay>();
+            go.AddComponent<InternalClock>();
+
+            go.AddComponent<Energy>();
+            go.AddComponent<Move>();
+            go.AddComponent<Attack>();
+            go.AddComponent<Defend>();
+        }
 
         // ObjectPool is attached to GameLogic.
         go.transform.position
             = gameObject.GetComponent<ConvertCoordinates>().Convert(x, y);
-
-        go.AddComponent<FieldOfView>();
-        go.AddComponent<FOVRhombus>();
-        //go.AddComponent<FOVSimple>();
-        go.AddComponent<RenderSprite>();
-
-        go.AddComponent<TileOverlay>();
-        go.AddComponent<InternalClock>();
-
-        go.AddComponent<Energy>();
-        go.AddComponent<Move>();
-        go.AddComponent<Attack>();
-        go.AddComponent<Defend>();
-
         gameObject.GetComponent<ActorBoard>().AddActor(go, x, y);
         gameObject.GetComponent<SchedulingSystem>().AddActor(go);
 
@@ -111,5 +130,20 @@ public class ObjectPool : MonoBehaviour
         go.GetComponent<PCActions>().enabled = true;
 
         return go;
+    }
+
+    private void StoreActor(GameObject go)
+    {
+        gameObject.GetComponent<SchedulingSystem>().RemoveActor(go);
+
+        gameObject.GetComponent<ActorBoard>().RemoveActor(
+            gameObject.GetComponent<ConvertCoordinates>()
+            .Convert(go.transform.position)[0],
+            gameObject.GetComponent<ConvertCoordinates>()
+            .Convert(go.transform.position)[1]);
+
+        pool[go.GetComponent<ObjectMetaInfo>().TagName].Push(go);
+
+        go.SetActive(false);
     }
 }
