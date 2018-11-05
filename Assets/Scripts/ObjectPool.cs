@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour
                 }
 
             case MainObjectTag.Building:
-                return null;
+                return CreateBuilding(subTag, x, y);
 
             default:
                 return null;
@@ -49,6 +49,39 @@ public class ObjectPool : MonoBehaviour
             case MainObjectTag.Building:
                 break;
         }
+    }
+
+    private GameObject CreateBuilding(SubObjectTag tag, int x, int y)
+    {
+        GameObject go;
+
+        if (pool[tag].Count > 0)
+        {
+            go = pool[tag].Pop();
+            go.SetActive(true);
+        }
+        else
+        {
+            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
+
+            go.AddComponent<ObjectMetaInfo>();
+            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Building);
+            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
+
+            go.AddComponent<RenderSprite>();
+        }
+
+        // ObjectPool is attached to GameLogic.
+        go.transform.position
+            = gameObject.GetComponent<ConvertCoordinates>().Convert(x, y);
+
+        go.GetComponent<RenderSprite>().ChangeColor(
+            gameObject.GetComponent<GameColor>().PickColor(ColorName.Black));
+
+        gameObject.GetComponent<DungeonBoard>().Blocks[x, y] = go;
+        gameObject.GetComponent<DungeonBoard>().ChangeBlueprint(tag, x, y);
+
+        return go;
     }
 
     private GameObject CreateNPC(SubObjectTag tag, int x, int y)
@@ -90,6 +123,7 @@ public class ObjectPool : MonoBehaviour
         // ObjectPool is attached to GameLogic.
         go.transform.position
             = gameObject.GetComponent<ConvertCoordinates>().Convert(x, y);
+
         gameObject.GetComponent<ActorBoard>().AddActor(go, x, y);
         gameObject.GetComponent<SchedulingSystem>().AddActor(go);
 
