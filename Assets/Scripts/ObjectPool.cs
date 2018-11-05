@@ -2,29 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectTag
+public enum MainObjectTag { NONE, Building, Actor };
+
+public enum SubObjectTag
 {
-    TEMP, TActor, TBuilding,
-    PC, Dummy,
-    Wall, Pool, Fungus
+    NONE,
+    Wall, Pool, Fungus,
+    PC, Dummy
 };
 
 public class ObjectPool : MonoBehaviour
 {
-    private Dictionary<ObjectTag, Stack<GameObject>> pool;
+    private Dictionary<SubObjectTag, Stack<GameObject>> pool;
 
-    public GameObject CreateObject(ObjectTag tag, int x, int y)
+    public GameObject CreateObject(MainObjectTag mainTag, SubObjectTag subTag,
+        int x, int y)
     {
-        switch (ClassifyTag(tag))
+        switch (mainTag)
         {
-            case ObjectTag.TActor:
-                return CreateNPC(tag, x, y);
+            case MainObjectTag.Actor:
+                switch (subTag)
+                {
+                    case SubObjectTag.PC:
+                        return CreatePC(x, y);
 
-            case ObjectTag.TBuilding:
+                    default:
+                        return CreateNPC(subTag, x, y);
+                }
+
+            case MainObjectTag.Building:
                 return null;
-
-            case ObjectTag.PC:
-                return CreatePC(x, y);
 
             default:
                 return null;
@@ -33,51 +40,18 @@ public class ObjectPool : MonoBehaviour
 
     public void StoreObject(GameObject go)
     {
-        switch (ClassifyTag(go))
+        switch (go.GetComponent<ObjectMetaInfo>().MainTag)
         {
-            case ObjectTag.TActor:
-            case ObjectTag.PC:
+            case MainObjectTag.Actor:
                 StoreActor(go);
                 break;
 
-            case ObjectTag.TBuilding:
+            case MainObjectTag.Building:
                 break;
         }
     }
 
-    private void Awake()
-    {
-        pool = new Dictionary<ObjectTag, Stack<GameObject>>();
-
-        foreach (var tag in Enum.GetValues(typeof(ObjectTag)))
-        {
-            pool.Add((ObjectTag)tag, new Stack<GameObject>());
-        }
-    }
-
-    private ObjectTag ClassifyTag(GameObject go)
-    {
-        return ClassifyTag(go.GetComponent<ObjectMetaInfo>().TagName);
-    }
-
-    private ObjectTag ClassifyTag(ObjectTag tag)
-    {
-        switch (tag)
-        {
-            case ObjectTag.Wall:
-            case ObjectTag.Pool:
-            case ObjectTag.Fungus:
-                return ObjectTag.TBuilding;
-
-            case ObjectTag.Dummy:
-                return ObjectTag.TActor;
-
-            default:
-                return tag;
-        }
-    }
-
-    private GameObject CreateNPC(ObjectTag tag, int x, int y)
+    private GameObject CreateNPC(SubObjectTag tag, int x, int y)
     {
         GameObject go;
 
@@ -96,7 +70,8 @@ public class ObjectPool : MonoBehaviour
             go.AddComponent<PCActions>().enabled = false;
 
             go.AddComponent<ObjectMetaInfo>();
-            go.GetComponent<ObjectMetaInfo>().TagName = tag;
+            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
+            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
 
             go.AddComponent<FieldOfView>();
             go.AddComponent<FOVRhombus>();
@@ -126,10 +101,20 @@ public class ObjectPool : MonoBehaviour
         GameObject go;
 
         // TODO: Add PC specific components.
-        go = CreateNPC(ObjectTag.PC, x, y);
+        go = CreateNPC(SubObjectTag.PC, x, y);
         go.GetComponent<PCActions>().enabled = true;
 
         return go;
+    }
+
+    private void Start()
+    {
+        pool = new Dictionary<SubObjectTag, Stack<GameObject>>();
+
+        foreach (var tag in Enum.GetValues(typeof(SubObjectTag)))
+        {
+            pool.Add((SubObjectTag)tag, new Stack<GameObject>());
+        }
     }
 
     private void StoreActor(GameObject go)
@@ -142,7 +127,7 @@ public class ObjectPool : MonoBehaviour
             gameObject.GetComponent<ConvertCoordinates>()
             .Convert(go.transform.position)[1]);
 
-        pool[go.GetComponent<ObjectMetaInfo>().TagName].Push(go);
+        pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
 
         go.SetActive(false);
     }

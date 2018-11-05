@@ -19,12 +19,13 @@ public class Test : MonoBehaviour
     private void Start()
     {
         FindObjects.GameLogic.GetComponent<ObjectPool>()
-            .CreateObject(ObjectTag.PC, 0, 0);
+            .CreateObject(MainObjectTag.Actor, SubObjectTag.PC, 0, 0);
 
         for (int i = 0; i < 2; i++)
         {
             FindObjects.GameLogic.GetComponent<ObjectPool>()
-                .CreateObject(ObjectTag.Dummy, i * 2, i + 1);
+                .CreateObject(MainObjectTag.Actor, SubObjectTag.Dummy,
+                i * 2, i + 1);
         }
 
         mainUI = GameObject.FindGameObjectsWithTag("MainUI");
