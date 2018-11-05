@@ -40,11 +40,11 @@ public class UserInterface : MonoBehaviour
         sb = sb.Remove(0, sb.Length);
         sb.Append("[ ");
 
-        if (board.CheckBlock(DungeonBlock.Floor, pc.transform.position))
+        if (board.CheckBlock(BuildingTag.Floor, pc.transform.position))
         {
             sb.Append("Floor");
         }
-        else if (board.CheckBlock(DungeonBlock.Pool, pc.transform.position))
+        else if (board.CheckBlock(BuildingTag.Pool, pc.transform.position))
         {
             sb.Append("Pool");
         }

@@ -20,7 +20,7 @@
         {
             for (int j = y - height; j < y + height + 1; j++)
             {
-                if (board.CheckBlock(DungeonBlock.Fungus, i, j))
+                if (board.CheckBlock(BuildingTag.Fungus, i, j))
                 {
                     return false;
                 }
@@ -47,10 +47,10 @@
         x = index[0];
         y = index[1];
 
-        if (board.CheckBlock(DungeonBlock.Wall, x, y)
+        if (board.CheckBlock(BuildingTag.Wall, x, y)
             && IsEmptyArea(x, y, 3, 3))
         {
-            board.ChangeBlueprint(DungeonBlock.Fungus, x, y);
+            board.ChangeBlueprint(BuildingTag.Fungus, x, y);
             countFungus--;
         }
 

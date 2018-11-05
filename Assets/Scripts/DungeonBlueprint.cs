@@ -13,18 +13,18 @@ public class DungeonBlueprint : MonoBehaviour
 
     public void DrawManually()
     {
-        board.ChangeBlueprint(DungeonBlock.Wall, 4, 4);
-        board.ChangeBlueprint(DungeonBlock.Wall, 5, 5);
-        board.ChangeBlueprint(DungeonBlock.Wall, 6, 6);
+        board.ChangeBlueprint(BuildingTag.Wall, 4, 4);
+        board.ChangeBlueprint(BuildingTag.Wall, 5, 5);
+        board.ChangeBlueprint(BuildingTag.Wall, 6, 6);
 
-        board.ChangeBlueprint(DungeonBlock.Wall,
+        board.ChangeBlueprint(BuildingTag.Wall,
             board.Width - 1, board.Height - 1);
-        board.ChangeBlueprint(DungeonBlock.Wall,
+        board.ChangeBlueprint(BuildingTag.Wall,
             board.Width, board.Height - 1);
 
-        board.ChangeBlueprint(DungeonBlock.Pool, 8, 8);
-        board.ChangeBlueprint(DungeonBlock.Pool, 8, 9);
-        board.ChangeBlueprint(DungeonBlock.Pool, 9, 9);
+        board.ChangeBlueprint(BuildingTag.Pool, 8, 8);
+        board.ChangeBlueprint(BuildingTag.Pool, 8, 9);
+        board.ChangeBlueprint(BuildingTag.Pool, 9, 9);
     }
 
     public void DrawRandomly()
@@ -41,9 +41,9 @@ public class DungeonBlueprint : MonoBehaviour
             x = index[0];
             y = index[1];
 
-            if (board.CheckBlock(DungeonBlock.Floor, x, y))
+            if (board.CheckBlock(BuildingTag.Floor, x, y))
             {
-                board.ChangeBlueprint(DungeonBlock.Wall, x, y);
+                board.ChangeBlueprint(BuildingTag.Wall, x, y);
                 count++;
             }
         }

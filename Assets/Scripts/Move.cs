@@ -71,7 +71,7 @@ public class Move : MonoBehaviour
         int pool;
         double direction;
 
-        isPool = board.CheckBlock(DungeonBlock.Pool, startPosition);
+        isPool = board.CheckBlock(BuildingTag.Pool, startPosition);
 
         direction = useDiagonalFactor ? diagonalFactor : linearFactor;
         pool = isPool ? poolEnergy : 0;
@@ -83,8 +83,8 @@ public class Move : MonoBehaviour
 
     private bool IsWalkable()
     {
-        isFloor = board.CheckBlock(DungeonBlock.Floor, x, y);
-        isPool = board.CheckBlock(DungeonBlock.Pool, x, y);
+        isFloor = board.CheckBlock(BuildingTag.Floor, x, y);
+        isPool = board.CheckBlock(BuildingTag.Pool, x, y);
 
         return isFloor || isPool;
     }

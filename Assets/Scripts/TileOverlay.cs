@@ -23,7 +23,7 @@ public class TileOverlay : MonoBehaviour
 
     private void CoverTile(bool cover, Vector3 position)
     {
-        if (dungeon.CheckBlock(DungeonBlock.Pool, position))
+        if (dungeon.CheckBlock(BuildingTag.Pool, position))
         {
             dungeon.GetBlock(position).GetComponent<Renderer>().enabled
                 = !cover;

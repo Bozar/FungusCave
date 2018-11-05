@@ -145,7 +145,7 @@ public class FOVRhombus : MonoBehaviour
                 continue;
             }
 
-            if (board.CheckBlock(DungeonBlock.Wall, grid))
+            if (board.CheckBlock(BuildingTag.Wall, grid))
             {
                 wallGrid.Push(grid);
             }

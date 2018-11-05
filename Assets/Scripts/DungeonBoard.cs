@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum DungeonBlock { Floor, Wall, Pool, Fungus };
+public enum BuildingTag { Floor, Wall, Pool, Fungus };
 
 public enum FOVShape { Rhombus };
 
@@ -10,11 +10,11 @@ public class DungeonBoard : MonoBehaviour
     private ConvertCoordinates coordinate;
 
     public GameObject[,] Blocks { get; set; }
-    public DungeonBlock[,] Blueprint { get; private set; }
+    public BuildingTag[,] Blueprint { get; private set; }
     public int Height { get; private set; }
     public int Width { get; private set; }
 
-    public bool ChangeBlueprint(DungeonBlock block, int x, int y)
+    public bool ChangeBlueprint(BuildingTag block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
@@ -25,7 +25,7 @@ public class DungeonBoard : MonoBehaviour
         return true;
     }
 
-    public bool CheckBlock(DungeonBlock block, int[] position)
+    public bool CheckBlock(BuildingTag block, int[] position)
     {
         int x = position[0];
         int y = position[1];
@@ -33,7 +33,7 @@ public class DungeonBoard : MonoBehaviour
         return CheckBlock(block, x, y);
     }
 
-    public bool CheckBlock(DungeonBlock block, int x, int y)
+    public bool CheckBlock(BuildingTag block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
@@ -43,7 +43,7 @@ public class DungeonBoard : MonoBehaviour
         return Blueprint[x, y] == block;
     }
 
-    public bool CheckBlock(DungeonBlock block, Vector3 position)
+    public bool CheckBlock(BuildingTag block, Vector3 position)
     {
         int[] index = coordinate.Convert(position);
 
@@ -107,7 +107,7 @@ public class DungeonBoard : MonoBehaviour
         Height = 17;
         Width = 24;
 
-        Blueprint = new DungeonBlock[Width, Height];
+        Blueprint = new BuildingTag[Width, Height];
         Blocks = new GameObject[Width, Height];
     }
 

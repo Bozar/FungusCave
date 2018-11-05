@@ -166,9 +166,9 @@ public class TestMove : MonoBehaviour
         }
 
         return FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckBlock(DungeonBlock.Floor, x, y)
+            .CheckBlock(BuildingTag.Floor, x, y)
             || FindObjects.GameLogic.GetComponent<DungeonBoard>()
-            .CheckBlock(DungeonBlock.Pool, x, y);
+            .CheckBlock(BuildingTag.Pool, x, y);
     }
 
     private IEnumerator MoveAndWait()
