@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-public enum DungeonBlock { Floor, Wall, Pool, Fungus };
-
 public enum FOVShape { Rhombus };
 
 // Create a 2D array. Provide methods to inspect and change its content.
@@ -10,11 +8,11 @@ public class DungeonBoard : MonoBehaviour
     private ConvertCoordinates coordinate;
 
     public GameObject[,] Blocks { get; set; }
-    public DungeonBlock[,] Blueprint { get; private set; }
+    public SubObjectTag[,] Blueprint { get; private set; }
     public int Height { get; private set; }
     public int Width { get; private set; }
 
-    public bool ChangeBlueprint(DungeonBlock block, int x, int y)
+    public bool ChangeBlueprint(SubObjectTag block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
@@ -25,7 +23,7 @@ public class DungeonBoard : MonoBehaviour
         return true;
     }
 
-    public bool CheckBlock(DungeonBlock block, int[] position)
+    public bool CheckBlock(SubObjectTag block, int[] position)
     {
         int x = position[0];
         int y = position[1];
@@ -33,7 +31,7 @@ public class DungeonBoard : MonoBehaviour
         return CheckBlock(block, x, y);
     }
 
-    public bool CheckBlock(DungeonBlock block, int x, int y)
+    public bool CheckBlock(SubObjectTag block, int x, int y)
     {
         if (IndexOutOfRange(x, y))
         {
@@ -43,7 +41,7 @@ public class DungeonBoard : MonoBehaviour
         return Blueprint[x, y] == block;
     }
 
-    public bool CheckBlock(DungeonBlock block, Vector3 position)
+    public bool CheckBlock(SubObjectTag block, Vector3 position)
     {
         int[] index = coordinate.Convert(position);
 
@@ -106,13 +104,21 @@ public class DungeonBoard : MonoBehaviour
     {
         Height = 17;
         Width = 24;
-
-        Blueprint = new DungeonBlock[Width, Height];
-        Blocks = new GameObject[Width, Height];
     }
 
     private void Start()
     {
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+
+        Blueprint = new SubObjectTag[Width, Height];
+        Blocks = new GameObject[Width, Height];
+
+        for (int i = 0; i < Width; i++)
+        {
+            for (int j = 0; j < Height; j++)
+            {
+                Blueprint[i, j] = SubObjectTag.Floor;
+            }
+        }
     }
 }

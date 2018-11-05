@@ -61,8 +61,8 @@ public class FOVSimple : MonoBehaviour
                 continue;
             }
 
-            walkable = board.CheckBlock(DungeonBlock.Floor, grid)
-                || board.CheckBlock(DungeonBlock.Pool, grid);
+            walkable = board.CheckBlock(SubObjectTag.Floor, grid)
+                || board.CheckBlock(SubObjectTag.Pool, grid);
 
             gridChecked = fovTest
                 ? (fov.CheckFOV(grid) != FOVStatus.TEST)

@@ -7,7 +7,7 @@ public enum MainObjectTag { NONE, Building, Actor };
 public enum SubObjectTag
 {
     NONE,
-    Wall, Pool, Fungus,
+    Floor, Wall, Pool, Fungus,
     PC, Dummy
 };
 

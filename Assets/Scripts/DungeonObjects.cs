@@ -19,15 +19,15 @@ public class DungeonObjects : MonoBehaviour
             {
                 switch (board.Blueprint[x, y])
                 {
-                    case DungeonBlock.Wall:
+                    case SubObjectTag.Wall:
                         newTile = wallTile;
                         break;
 
-                    case DungeonBlock.Pool:
+                    case SubObjectTag.Pool:
                         newTile = poolTile;
                         break;
 
-                    case DungeonBlock.Fungus:
+                    case SubObjectTag.Fungus:
                         newTile = fungusTile;
                         break;
 

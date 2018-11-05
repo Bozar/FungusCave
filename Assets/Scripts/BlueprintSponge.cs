@@ -67,7 +67,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             for (int j = y; j < y + height; j++)
             {
-                if (!board.CheckBlock(DungeonBlock.Floor, i, j))
+                if (!board.CheckBlock(SubObjectTag.Floor, i, j))
                 {
                     checkFloor = false;
                     break;
@@ -108,7 +108,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             if (random.RNG.Next(0, 3) < 2)
             {
-                board.ChangeBlueprint(DungeonBlock.Floor,
+                board.ChangeBlueprint(SubObjectTag.Floor,
                     index[0], index[1]);
                 countWalls--;
             }
@@ -129,7 +129,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             while (digX > -1 && digY > -1)
             {
                 board.ChangeBlueprint(
-                    DungeonBlock.Floor, digX, digY);
+                    SubObjectTag.Floor, digX, digY);
                 countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1);
@@ -146,7 +146,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             while (digX > -1 && digY > -1)
             {
                 board.ChangeBlueprint(
-                    DungeonBlock.Floor, digX, digY);
+                    SubObjectTag.Floor, digX, digY);
                 countWalls--;
 
                 digX = NextStep(digX, startX, startX + width - 1, 1);
@@ -231,7 +231,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         {
             for (int j = startY; j < startY + height; j++)
             {
-                board.ChangeBlueprint(DungeonBlock.Wall, i, j);
+                board.ChangeBlueprint(SubObjectTag.Wall, i, j);
                 countWalls++;
             }
         }
