@@ -5,12 +5,23 @@ public enum FOVShape { Rhombus };
 // Create a 2D array. Provide methods to inspect and change its content.
 public class DungeonBoard : MonoBehaviour
 {
+    private GameObject[,] blocks;
+    private SubObjectTag[,] blueprint;
     private ConvertCoordinates coordinate;
 
-    public GameObject[,] Blocks { get; set; }
-    public SubObjectTag[,] Blueprint { get; private set; }
     public int Height { get; private set; }
     public int Width { get; private set; }
+
+    public bool ChangeBlock(GameObject go, int x, int y)
+    {
+        if (IndexOutOfRange(x, y))
+        {
+            return false;
+        }
+
+        blocks[x, y] = go;
+        return true;
+    }
 
     public bool ChangeBlueprint(SubObjectTag block, int x, int y)
     {
@@ -19,7 +30,7 @@ public class DungeonBoard : MonoBehaviour
             return false;
         }
 
-        Blueprint[x, y] = block;
+        blueprint[x, y] = block;
         return true;
     }
 
@@ -38,7 +49,7 @@ public class DungeonBoard : MonoBehaviour
             return false;
         }
 
-        return Blueprint[x, y] == block;
+        return blueprint[x, y] == block;
     }
 
     public bool CheckBlock(SubObjectTag block, Vector3 position)
@@ -48,15 +59,30 @@ public class DungeonBoard : MonoBehaviour
         return CheckBlock(block, index[0], index[1]);
     }
 
-    public GameObject GetBlock(Vector3 position)
+    public GameObject GetBlockObject(Vector3 position)
     {
         int[] index = coordinate.Convert(position);
-        return GetBlock(index[0], index[1]);
+        return GetBlockObject(index[0], index[1]);
     }
 
-    public GameObject GetBlock(int x, int y)
+    public GameObject GetBlockObject(int x, int y)
     {
-        return Blocks[x, y];
+        if (IndexOutOfRange(x, y))
+        {
+            return null;
+        }
+
+        return blocks[x, y];
+    }
+
+    public SubObjectTag GetBlockTag(int x, int y)
+    {
+        if (IndexOutOfRange(x, y))
+        {
+            return SubObjectTag.NONE;
+        }
+
+        return blueprint[x, y];
     }
 
     public int GetDistance(int[] source, int[] target)
@@ -110,14 +136,14 @@ public class DungeonBoard : MonoBehaviour
     {
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
 
-        Blueprint = new SubObjectTag[Width, Height];
-        Blocks = new GameObject[Width, Height];
+        blueprint = new SubObjectTag[Width, Height];
+        blocks = new GameObject[Width, Height];
 
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Height; j++)
             {
-                Blueprint[i, j] = SubObjectTag.Floor;
+                blueprint[i, j] = SubObjectTag.Floor;
             }
         }
     }

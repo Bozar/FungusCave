@@ -25,7 +25,7 @@ public class TileOverlay : MonoBehaviour
     {
         if (dungeon.CheckBlock(SubObjectTag.Pool, position))
         {
-            dungeon.GetBlock(position).GetComponent<Renderer>().enabled
+            dungeon.GetBlockObject(position).GetComponent<Renderer>().enabled
                 = !cover;
         }
     }

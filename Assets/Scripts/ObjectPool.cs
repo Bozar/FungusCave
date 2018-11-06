@@ -78,7 +78,7 @@ public class ObjectPool : MonoBehaviour
         go.GetComponent<RenderSprite>().ChangeColor(
             gameObject.GetComponent<GameColor>().PickColor(ColorName.Black));
 
-        gameObject.GetComponent<DungeonBoard>().Blocks[x, y] = go;
+        gameObject.GetComponent<DungeonBoard>().ChangeBlock(go, x, y);
         gameObject.GetComponent<DungeonBoard>().ChangeBlueprint(tag, x, y);
 
         return go;
