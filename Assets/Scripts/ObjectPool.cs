@@ -14,6 +14,7 @@ public enum SubObjectTag
 public class ObjectPool : MonoBehaviour
 {
     private Dictionary<SubObjectTag, Stack<GameObject>> pool;
+    private int[] position;
 
     public GameObject CreateObject(MainObjectTag mainTag, SubObjectTag subTag,
         int x, int y)
@@ -47,6 +48,7 @@ public class ObjectPool : MonoBehaviour
                 break;
 
             case MainObjectTag.Building:
+                StoreBuilding(go);
                 break;
         }
     }
@@ -153,13 +155,29 @@ public class ObjectPool : MonoBehaviour
 
     private void StoreActor(GameObject go)
     {
+        position = gameObject.GetComponent<ConvertCoordinates>().Convert(
+            go.transform.position);
+
         gameObject.GetComponent<SchedulingSystem>().RemoveActor(go);
 
         gameObject.GetComponent<ActorBoard>().RemoveActor(
-            gameObject.GetComponent<ConvertCoordinates>()
-            .Convert(go.transform.position)[0],
-            gameObject.GetComponent<ConvertCoordinates>()
-            .Convert(go.transform.position)[1]);
+            position[0], position[1]);
+
+        pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
+
+        go.SetActive(false);
+    }
+
+    private void StoreBuilding(GameObject go)
+    {
+        position = gameObject.GetComponent<ConvertCoordinates>().Convert(
+            go.transform.position);
+
+        gameObject.GetComponent<DungeonBoard>().ChangeBlock(
+            null, position[0], position[1]);
+
+        gameObject.GetComponent<DungeonBoard>().ChangeBlueprint(
+            SubObjectTag.Floor, position[0], position[1]);
 
         pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
 
