@@ -38,7 +38,7 @@ public class RenderSprite : MonoBehaviour
         x = position[0];
         y = position[1];
 
-        switch (pc.GetComponent<FieldOfView>().CheckFOV(x, y))
+        switch (pc.GetComponent<FieldOfView>().GetFOVStatus(x, y))
         {
             case FOVStatus.Unknown:
                 HideSprite();

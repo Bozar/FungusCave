@@ -20,15 +20,20 @@ public class FieldOfView : MonoBehaviour
         fovBoard[x, y] = status;
     }
 
-    public FOVStatus CheckFOV(int[] position)
+    public bool CheckFOV(FOVStatus status, int[] position)
     {
         int x = position[0];
         int y = position[1];
 
-        return CheckFOV(x, y);
+        return CheckFOV(status, x, y);
     }
 
-    public FOVStatus CheckFOV(int x, int y)
+    public bool CheckFOV(FOVStatus status, int x, int y)
+    {
+        return fovBoard[x, y] == status;
+    }
+
+    public FOVStatus GetFOVStatus(int x, int y)
     {
         return fovBoard[x, y];
     }
@@ -39,7 +44,8 @@ public class FieldOfView : MonoBehaviour
 
         // You can enable multiple FOV algorithms at the same time for testing.
         // FOVSimple covers a larger area than FOVRhombus and it is painted red.
-        // 1) Attach FOVSimple component to the testing actor.
+        // 1) In `ObjectPool.cs`, attach FOVSimple component to the testing
+        // actor.
         // 2) In `FOVSimple.cs`, set `fovTest` to `true`.
         // 3) Uncomment the following line.
 
@@ -59,8 +65,8 @@ public class FieldOfView : MonoBehaviour
         {
             for (int j = 0; j < board.Height; j++)
             {
-                if (CheckFOV(i, j) == FOVStatus.Insight
-                    || CheckFOV(i, j) == FOVStatus.TEST)
+                if (CheckFOV(FOVStatus.Insight, i, j)
+                    || CheckFOV(FOVStatus.TEST, i, j))
                 {
                     ChangeFOVBoard(FOVStatus.Visited, i, j);
                 }

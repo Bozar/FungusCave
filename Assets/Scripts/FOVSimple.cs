@@ -24,6 +24,7 @@ public class FOVSimple : MonoBehaviour
     {
         maxRange = 5;
         checkPosition = new Stack<int[]>();
+        //fovTest = true;
         fovTest = false;
     }
 
@@ -65,8 +66,8 @@ public class FOVSimple : MonoBehaviour
                 || board.CheckBlock(SubObjectTag.Pool, grid);
 
             gridChecked = fovTest
-                ? (fov.CheckFOV(grid) != FOVStatus.TEST)
-                : (fov.CheckFOV(grid) != FOVStatus.Insight);
+                ? (!fov.CheckFOV(FOVStatus.TEST, grid))
+                : (!fov.CheckFOV(FOVStatus.Insight, grid));
 
             if (walkable && gridChecked)
             {
