@@ -22,14 +22,7 @@ public class ObjectPool : MonoBehaviour
         switch (mainTag)
         {
             case MainObjectTag.Actor:
-                switch (subTag)
-                {
-                    case SubObjectTag.PC:
-                        return CreatePC(x, y);
-
-                    default:
-                        return CreateNPC(subTag, x, y);
-                }
+                return CreateActor(subTag, x, y);
 
             case MainObjectTag.Building:
                 return CreateBuilding(subTag, x, y);
@@ -51,6 +44,63 @@ public class ObjectPool : MonoBehaviour
                 StoreBuilding(go);
                 break;
         }
+    }
+
+    private GameObject CreateActor(SubObjectTag tag, int x, int y)
+    {
+        GameObject go;
+
+        if (pool[tag].Count > 0)
+        {
+            // TODO: Refresh the actor.
+            go = pool[tag].Pop();
+            go.SetActive(true);
+        }
+        else
+        {
+            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
+
+            go.AddComponent<ObjectMetaInfo>();
+            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
+            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
+
+            go.AddComponent<FieldOfView>();
+            go.AddComponent<FOVRhombus>();
+            //go.AddComponent<FOVSimple>();
+            go.AddComponent<RenderSprite>();
+
+            go.AddComponent<TileOverlay>();
+            go.AddComponent<InternalClock>();
+
+            go.AddComponent<Energy>();
+            go.AddComponent<Move>();
+            go.AddComponent<Attack>();
+            go.AddComponent<Defend>();
+
+            if (tag == SubObjectTag.PC)
+            {
+                go.AddComponent<PlayerInput>();
+                go.AddComponent<PCActions>();
+            }
+            else
+            {
+                go.AddComponent<NPCAI>();
+                go.AddComponent<NPCActions>().enabled = false;
+
+                go.GetComponent<RenderSprite>().ChangeColor(
+                    gameObject.GetComponent<GameColor>().PickColor(
+                        ColorName.Black));
+            }
+        }
+
+        // ObjectPool is attached to GameLogic.
+        go.transform.position
+            = gameObject.GetComponent<ConvertCoordinates>().Convert(x, y);
+
+        gameObject.GetComponent<ActorBoard>().AddActor(go, x, y);
+        gameObject.GetComponent<SchedulingSystem>().AddActor(go);
+
+        return go;
     }
 
     private GameObject CreateBuilding(SubObjectTag tag, int x, int y)
@@ -82,63 +132,6 @@ public class ObjectPool : MonoBehaviour
 
         gameObject.GetComponent<DungeonBoard>().ChangeBlock(go, x, y);
         gameObject.GetComponent<DungeonBoard>().ChangeBlueprint(tag, x, y);
-
-        return go;
-    }
-
-    private GameObject CreateNPC(SubObjectTag tag, int x, int y)
-    {
-        GameObject go;
-
-        if (pool[tag].Count > 0)
-        {
-            // TODO: Refresh the actor.
-            go = pool[tag].Pop();
-            go.SetActive(true);
-        }
-        else
-        {
-            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
-
-            // TODO: Remove PC specific components.
-            go.AddComponent<PlayerInput>();
-            go.AddComponent<PCActions>().enabled = false;
-
-            go.AddComponent<ObjectMetaInfo>();
-            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
-            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
-
-            go.AddComponent<FieldOfView>();
-            go.AddComponent<FOVRhombus>();
-            //go.AddComponent<FOVSimple>();
-            go.AddComponent<RenderSprite>();
-
-            go.AddComponent<TileOverlay>();
-            go.AddComponent<InternalClock>();
-
-            go.AddComponent<Energy>();
-            go.AddComponent<Move>();
-            go.AddComponent<Attack>();
-            go.AddComponent<Defend>();
-        }
-
-        // ObjectPool is attached to GameLogic.
-        go.transform.position
-            = gameObject.GetComponent<ConvertCoordinates>().Convert(x, y);
-
-        gameObject.GetComponent<ActorBoard>().AddActor(go, x, y);
-        gameObject.GetComponent<SchedulingSystem>().AddActor(go);
-
-        return go;
-    }
-
-    private GameObject CreatePC(int x, int y)
-    {
-        GameObject go;
-
-        // TODO: Add PC specific components.
-        go = CreateNPC(SubObjectTag.PC, x, y);
-        go.GetComponent<PCActions>().enabled = true;
 
         return go;
     }

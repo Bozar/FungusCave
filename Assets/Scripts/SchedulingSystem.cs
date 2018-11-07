@@ -48,12 +48,12 @@ public class SchedulingSystem : MonoBehaviour
 
     public void NextTurn()
     {
-        CurrentActor.GetComponent<PCActions>().enabled = false;
+        EnableComponent(false);
         CurrentActor.GetComponent<InternalClock>().EndTurn();
 
         NextActor();
 
-        CurrentActor.GetComponent<PCActions>().enabled = true;
+        EnableComponent(true);
         CurrentActor.GetComponent<InternalClock>().StartTurn();
     }
 
@@ -91,6 +91,18 @@ public class SchedulingSystem : MonoBehaviour
         }
 
         return removed;
+    }
+
+    private void EnableComponent(bool enable)
+    {
+        if (CurrentActor.GetComponent<PCActions>() != null)
+        {
+            CurrentActor.GetComponent<PCActions>().enabled = enable;
+        }
+        else if (CurrentActor.GetComponent<NPCActions>() != null)
+        {
+            CurrentActor.GetComponent<NPCActions>().enabled = enable;
+        }
     }
 
     private void NextActor()
