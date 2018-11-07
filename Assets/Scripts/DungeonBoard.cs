@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum FOVShape { Rhombus };
 
@@ -57,6 +58,21 @@ public class DungeonBoard : MonoBehaviour
         int[] index = coordinate.Convert(position);
 
         return CheckBlock(block, index[0], index[1]);
+    }
+
+    public List<int[]> FilterPositions(List<int[]> positions)
+    {
+        List<int[]> validPositions = new List<int[]>();
+
+        foreach (var pos in positions)
+        {
+            if (!IndexOutOfRange(pos[0], pos[1]))
+            {
+                validPositions.Add(pos);
+            }
+        }
+
+        return validPositions;
     }
 
     public GameObject GetBlockObject(Vector3 position)
