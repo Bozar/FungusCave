@@ -84,7 +84,7 @@ public class ObjectPool : MonoBehaviour
             }
             else
             {
-                go.AddComponent<NPCAI>();
+                go.AddComponent<ActorAI>();
                 go.AddComponent<NPCActions>().enabled = false;
 
                 go.GetComponent<RenderSprite>().ChangeColor(

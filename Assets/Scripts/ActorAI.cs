@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class NPCAI : MonoBehaviour
+public class ActorAI : MonoBehaviour
 {
     public Command DummyAI()
     {

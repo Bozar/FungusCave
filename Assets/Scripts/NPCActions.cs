@@ -31,12 +31,12 @@ public class NPCActions : MonoBehaviour
             return;
         }
 
-        switch (gameObject.GetComponent<NPCAI>().DummyAI())
+        switch (gameObject.GetComponent<ActorAI>().DummyAI())
         {
             case Command.Wait:
                 gameObject.GetComponent<Move>().MoveActor(Command.Wait);
-                FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-                    "Dummy (" + position[0] + "," + position[1] + ") waits.");
+                //FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+                //    "Dummy (" + position[0] + "," + position[1] + ") waits.");
                 break;
         }
     }
