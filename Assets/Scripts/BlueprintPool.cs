@@ -50,7 +50,7 @@ public class BlueprintPool : DungeonBlueprint
         nextY = index[1];
 
         surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .SurroundCoord(Surround.Horizonal, nextX, nextY);
+            .SurroundCoord(Surround.Cardinal, nextX, nextY);
 
         board.ChangeBlueprint(SubObjectTag.Pool, nextX, nextY);
         countPools--;

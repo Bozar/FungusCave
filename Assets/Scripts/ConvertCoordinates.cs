@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum Surround { Horizonal, Diagonal };
+public enum Surround { Cardinal, Diagonal };
 
 public class ConvertCoordinates : MonoBehaviour
 {
@@ -76,7 +76,7 @@ public class ConvertCoordinates : MonoBehaviour
             }
         }
 
-        if (neighbor == Surround.Horizonal)
+        if (neighbor == Surround.Cardinal)
         {
             foreach (var coord in surround)
             {
