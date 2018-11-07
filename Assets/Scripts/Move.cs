@@ -16,6 +16,14 @@ public class Move : MonoBehaviour
     private int x;
     private int y;
 
+    public bool IsWalkable(int x, int y)
+    {
+        isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
+        isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
+
+        return isFloor || isPool;
+    }
+
     public void MoveActor(Command direction)
     {
         NewPosition(direction);
@@ -38,7 +46,7 @@ public class Move : MonoBehaviour
             return;
         }
 
-        if (!IsWalkable())
+        if (!IsWalkable(x, y))
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
                 "You are blocked");
@@ -79,14 +87,6 @@ public class Move : MonoBehaviour
         totalEnergy = (int)System.Math.Floor(baseEnergy * direction + pool);
 
         return totalEnergy;
-    }
-
-    private bool IsWalkable()
-    {
-        isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
-        isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
-
-        return isFloor || isPool;
     }
 
     private bool MoveDiagonally(Command direction)
