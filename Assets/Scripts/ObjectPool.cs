@@ -81,6 +81,7 @@ public class ObjectPool : MonoBehaviour
             {
                 go.AddComponent<PlayerInput>();
                 go.AddComponent<PCActions>();
+                go.AddComponent<AutoExplore>();
             }
             else
             {

@@ -4,7 +4,7 @@ public enum Command
 {
     Left, Right, Up, Down,
     UpLeft, UpRight, DownLeft, DownRight,
-    Wait,
+    Wait, AutoExplore,
 
     // Debug commands:
     EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy,
@@ -94,6 +94,10 @@ public class PlayerInput : MonoBehaviour
         else if (wait)
         {
             return Command.Wait;
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            return Command.AutoExplore;
         }
         // Test key combinations.
         else if (Input.GetKey(KeyCode.LeftControl)

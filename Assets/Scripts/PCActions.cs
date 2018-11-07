@@ -42,6 +42,11 @@ public class PCActions : MonoBehaviour
         {
             switch (input.GameCommand())
             {
+                case Command.AutoExplore:
+                    gameObject.GetComponent<Move>().MoveActor(
+                        gameObject.GetComponent<AutoExplore>().ChooseNextStep());
+                    break;
+
                 // Test commands.
                 case Command.Initialize:
                     FindObjects.GameLogic.GetComponent<Initialize>()
