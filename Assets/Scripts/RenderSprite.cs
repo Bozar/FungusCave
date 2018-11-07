@@ -45,7 +45,16 @@ public class RenderSprite : MonoBehaviour
                 break;
 
             case FOVStatus.Visited:
-                RememberSprite();
+                switch (gameObject.GetComponent<ObjectMetaInfo>().MainTag)
+                {
+                    case MainObjectTag.Building:
+                        RememberSprite();
+                        break;
+
+                    case MainObjectTag.Actor:
+                        HideSprite();
+                        break;
+                }
                 break;
 
             case FOVStatus.Insight:
