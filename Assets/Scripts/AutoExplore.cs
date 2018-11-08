@@ -13,41 +13,66 @@ public class AutoExplore : MonoBehaviour
     private bool isVaildDistance;
     private bool isWalkable;
     private int minDistance;
+    private int[] pcPosition;
     private int[] position;
+    private RandomNumber random;
     private List<int[]> surround;
     private int x;
     private int y;
 
-    public Command ChooseNextStep()
+    public int[] ChooseNextStep()
     {
         FindStartPoint();
 
         if (checkPosition.Count < 1)
         {
-            return Command.Invalid;
+            return null;
         }
 
+        pcPosition = coordinate.Convert(gameObject.transform.position);
         ResetBoard();
         MarkDistance();
+        position = ChooseNextGrid();
 
-        // TODO: Delete these lines.
-        surround = coordinate.SurroundCoord(Surround.Diagonal,
-            coordinate.Convert(gameObject.transform.position));
-        surround = dungeon.FilterPositions(surround);
-
-        foreach (var pos in surround)
-        {
-            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-                board[pos[0], pos[1]].ToString());
-        }
-
-        return Command.Right;
+        return position;
     }
 
     private void Awake()
     {
         checkPosition = new Stack<int[]>();
         surround = new List<int[]>();
+    }
+
+    private int[] ChooseNextGrid()
+    {
+        surround = coordinate.SurroundCoord(Surround.Diagonal, pcPosition);
+        surround = dungeon.FilterPositions(surround);
+
+        minDistance = board[surround[0][0], surround[0][1]];
+        checkPosition.Clear();
+        checkPosition.Push(surround[0]);
+
+        foreach (var pos in surround)
+        {
+            if (board[pos[0], pos[1]] < minDistance)
+            {
+                minDistance = board[pos[0], pos[1]];
+                checkPosition.Clear();
+                checkPosition.Push(pos);
+            }
+            else if (board[pos[0], pos[1]] == minDistance)
+            {
+                checkPosition.Push(pos);
+            }
+        }
+
+        surround = new List<int[]>();
+        while (checkPosition.Count > 0)
+        {
+            surround.Add(checkPosition.Pop());
+        }
+
+        return surround[random.RNG.Next(0, surround.Count)];
     }
 
     private void FindStartPoint()
@@ -146,6 +171,7 @@ public class AutoExplore : MonoBehaviour
     {
         dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+        random = FindObjects.GameLogic.GetComponent<RandomNumber>();
 
         board = new int[dungeon.Width, dungeon.Height];
     }

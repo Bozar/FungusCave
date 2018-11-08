@@ -27,42 +27,48 @@ public class Move : MonoBehaviour
     public void MoveActor(Command direction)
     {
         NewPosition(direction);
-        useDiagonalFactor = MoveDiagonally(direction);
+        MoveActor(x, y);
+    }
+
+    public void MoveActor(int targetX, int targetY)
+    {
+        startPosition = coordinates.Convert(gameObject.transform.position);
+        useDiagonalFactor = MoveDiagonally(targetX, targetY);
 
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
             return;
         }
 
-        if (direction == Command.Wait)
+        if (IsWait(targetX, targetY))
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
             return;
         }
 
-        if (actorBoard.HasActor(x, y))
+        if (actorBoard.HasActor(targetX, targetY))
         {
-            gameObject.GetComponent<Attack>().DealDamage(x, y);
+            gameObject.GetComponent<Attack>().DealDamage(targetX, targetY);
             return;
         }
 
-        if (!IsWalkable(x, y))
+        if (!IsWalkable(targetX, targetY))
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
                 "You are blocked");
             return;
         }
 
-        gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
-        gameObject.transform.position = coordinates.Convert(x, y);
-
         actorBoard.RemoveActor(startPosition[0], startPosition[1]);
-        actorBoard.AddActor(gameObject, x, y);
+        actorBoard.AddActor(gameObject, targetX, targetY);
 
         if (gameObject.GetComponent<FieldOfView>() != null)
         {
             gameObject.GetComponent<FieldOfView>().UpdateFOV();
         }
+
+        gameObject.transform.position = coordinates.Convert(targetX, targetY);
+        gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
     }
 
     private void Awake()
@@ -89,25 +95,23 @@ public class Move : MonoBehaviour
         return totalEnergy;
     }
 
-    private bool MoveDiagonally(Command direction)
+    private bool IsWait(int x, int y)
     {
-        switch (direction)
-        {
-            case Command.UpLeft:
-            case Command.UpRight:
-            case Command.DownLeft:
-            case Command.DownRight:
-                return true;
-        }
-        return false;
+        int[] pos = coordinates.Convert(gameObject.transform.position);
+
+        return (pos[0] == x) && (pos[1] == y);
+    }
+
+    private bool MoveDiagonally(int x, int y)
+    {
+        bool checkX = System.Math.Abs(startPosition[0] - x) == 1;
+        bool checkY = System.Math.Abs(startPosition[1] - y) == 1;
+
+        return checkX && checkY;
     }
 
     private void NewPosition(Command direction)
     {
-        x = coordinates.Convert(gameObject.transform.position.x);
-        y = coordinates.Convert(gameObject.transform.position.y);
-        startPosition = new int[] { x, y };
-
         switch (direction)
         {
             case Command.Left:

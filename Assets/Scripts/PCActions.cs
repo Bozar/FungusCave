@@ -4,8 +4,8 @@ public class PCActions : MonoBehaviour
 {
     private bool checkEnergy;
     private bool checkSchedule;
+    private int[] destination;
     private PlayerInput input;
-    private Command moveDirection;
     private SchedulingSystem schedule;
 
     private void Start()
@@ -44,12 +44,13 @@ public class PCActions : MonoBehaviour
             switch (input.GameCommand())
             {
                 case Command.AutoExplore:
-                    moveDirection = gameObject.GetComponent<AutoExplore>()
+                    destination = gameObject.GetComponent<AutoExplore>()
                         .ChooseNextStep();
 
-                    if (moveDirection != Command.Invalid)
+                    if (destination != null)
                     {
-                        gameObject.GetComponent<Move>().MoveActor(moveDirection);
+                        gameObject.GetComponent<Move>().MoveActor(
+                            destination[0], destination[1]);
                     }
                     break;
 
