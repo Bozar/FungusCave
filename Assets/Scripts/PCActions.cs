@@ -35,59 +35,57 @@ public class PCActions : MonoBehaviour
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
         }
 
+        if (gameObject.GetComponent<AutoExplore>().ContinueAutoExplore)
+        {
+            gameObject.GetComponent<AutoExplore>().AutoMove();
+            return;
+        }
+
         if (input.IsMovementCommand())
         {
             gameObject.GetComponent<Move>().MoveActor(input.GameCommand());
+            return;
         }
-        else
+
+        switch (input.GameCommand())
         {
-            switch (input.GameCommand())
-            {
-                case Command.AutoExplore:
-                    destination = gameObject.GetComponent<AutoExplore>()
-                        .ChooseNextStep();
+            case Command.AutoExplore:
+                gameObject.GetComponent<AutoExplore>().AutoMove();
+                return;
 
-                    if (destination != null)
-                    {
-                        gameObject.GetComponent<Move>().MoveActor(
-                            destination[0], destination[1]);
-                    }
-                    break;
+            // Test commands.
+            case Command.Initialize:
+                FindObjects.GameLogic.GetComponent<Initialize>()
+                    .InitializeGame();
+                return;
 
-                // Test commands.
-                case Command.Initialize:
-                    FindObjects.GameLogic.GetComponent<Initialize>()
-                        .InitializeGame();
-                    break;
+            case Command.RenderAll:
+                FindObjects.GameLogic.GetComponent<Test>().RenderAll
+                    = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+                return;
 
-                case Command.RenderAll:
-                    FindObjects.GameLogic.GetComponent<Test>().RenderAll
-                        = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
-                    break;
+            case Command.PrintEnergy:
+                schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
+                return;
 
-                case Command.PrintEnergy:
-                    schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
-                    break;
+            case Command.AddEnergy:
+                schedule.CurrentActor.GetComponent<Energy>()
+                    .RestoreEnergy(2000, false);
+                return;
 
-                case Command.AddEnergy:
-                    schedule.CurrentActor.GetComponent<Energy>()
-                        .RestoreEnergy(2000, false);
-                    break;
+                //case PlayerInput.Command.Confirm:
+                //    break;
 
-                    //case PlayerInput.Command.Confirm:
-                    //    break;
+                //case PlayerInput.Command.Cancel:
+                //    break;
 
-                    //case PlayerInput.Command.Cancel:
-                    //    break;
+                //case PlayerInput.Command.Invalid:
+                //    break;
 
-                    //case PlayerInput.Command.Invalid:
-                    //    break;
-
-                    //default:
-                    //    FindObjects.GameLogic.GetComponent<TestMove>().
-                    //        MoveAround(gameObject);
-                    //    break;
-            }
+                //default:
+                //    FindObjects.GameLogic.GetComponent<TestMove>().
+                //        MoveAround(gameObject);
+                //    break;
         }
     }
 }

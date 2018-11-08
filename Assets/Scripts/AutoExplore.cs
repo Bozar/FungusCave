@@ -20,13 +20,18 @@ public class AutoExplore : MonoBehaviour
     private int x;
     private int y;
 
-    public int[] ChooseNextStep()
+    public bool ContinueAutoExplore { get; private set; }
+
+    public void AutoMove()
     {
+        ContinueAutoExplore = true;
+
         FindStartPoint();
 
         if (checkPosition.Count < 1)
         {
-            return null;
+            ContinueAutoExplore = false;
+            return;
         }
 
         pcPosition = coordinate.Convert(gameObject.transform.position);
@@ -34,13 +39,15 @@ public class AutoExplore : MonoBehaviour
         MarkDistance();
         position = ChooseNextGrid();
 
-        return position;
+        gameObject.GetComponent<Move>().MoveActor(position[0], position[1]);
     }
 
     private void Awake()
     {
         checkPosition = new Stack<int[]>();
         surround = new List<int[]>();
+
+        ContinueAutoExplore = false;
     }
 
     private int[] ChooseNextGrid()
