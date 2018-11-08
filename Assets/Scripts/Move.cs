@@ -5,16 +5,17 @@ public class Move : MonoBehaviour
     private ActorBoard actorBoard;
     private int baseEnergy;
     private DungeonBoard board;
+    private double cardinalFactor;
+    private bool checkX;
+    private bool checkY;
     private ConvertCoordinates coordinates;
     private double diagonalFactor;
     private bool isFloor;
     private bool isPool;
-    private double linearFactor;
     private int poolEnergy;
     private int[] startPosition;
+    private int[] targetPosition;
     private bool useDiagonalFactor;
-    private int x;
-    private int y;
 
     public bool IsWalkable(int x, int y)
     {
@@ -26,14 +27,17 @@ public class Move : MonoBehaviour
 
     public void MoveActor(Command direction)
     {
-        NewPosition(direction);
-        MoveActor(x, y);
+        startPosition = coordinates.Convert(gameObject.transform.position);
+        targetPosition = DirectionToPosition(direction,
+            startPosition[0], startPosition[1]);
+
+        MoveActor(targetPosition[0], targetPosition[1]);
     }
 
     public void MoveActor(int targetX, int targetY)
     {
         startPosition = coordinates.Convert(gameObject.transform.position);
-        useDiagonalFactor = MoveDiagonally(targetX, targetY);
+        useDiagonalFactor = IsDiagonalMovement(targetX, targetY);
 
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
@@ -76,7 +80,51 @@ public class Move : MonoBehaviour
         baseEnergy = 1000;
         poolEnergy = 200;
         diagonalFactor = 1.4;
-        linearFactor = 1.0;
+        cardinalFactor = 1.0;
+    }
+
+    private int[] DirectionToPosition(Command direction, int startX, int startY)
+    {
+        switch (direction)
+        {
+            case Command.Left:
+                startX -= 1;
+                break;
+
+            case Command.Right:
+                startX += 1;
+                break;
+
+            case Command.Up:
+                startY += 1;
+                break;
+
+            case Command.Down:
+                startY -= 1;
+                break;
+
+            case Command.UpLeft:
+                startX -= 1;
+                startY += 1;
+                break;
+
+            case Command.UpRight:
+                startX += 1;
+                startY += 1;
+                break;
+
+            case Command.DownLeft:
+                startX -= 1;
+                startY -= 1;
+                break;
+
+            case Command.DownRight:
+                startX += 1;
+                startY -= 1;
+                break;
+        }
+
+        return new int[] { startX, startY };
     }
 
     private int GetEnergyCost()
@@ -87,7 +135,7 @@ public class Move : MonoBehaviour
 
         isPool = board.CheckBlock(SubObjectTag.Pool, startPosition);
 
-        direction = useDiagonalFactor ? diagonalFactor : linearFactor;
+        direction = useDiagonalFactor ? diagonalFactor : cardinalFactor;
         pool = isPool ? poolEnergy : 0;
 
         totalEnergy = (int)System.Math.Floor(baseEnergy * direction + pool);
@@ -95,61 +143,20 @@ public class Move : MonoBehaviour
         return totalEnergy;
     }
 
-    private bool IsWait(int x, int y)
+    private bool IsDiagonalMovement(int x, int y)
     {
-        int[] pos = coordinates.Convert(gameObject.transform.position);
-
-        return (pos[0] == x) && (pos[1] == y);
-    }
-
-    private bool MoveDiagonally(int x, int y)
-    {
-        bool checkX = System.Math.Abs(startPosition[0] - x) == 1;
-        bool checkY = System.Math.Abs(startPosition[1] - y) == 1;
+        checkX = System.Math.Abs(startPosition[0] - x) == 1;
+        checkY = System.Math.Abs(startPosition[1] - y) == 1;
 
         return checkX && checkY;
     }
 
-    private void NewPosition(Command direction)
+    private bool IsWait(int x, int y)
     {
-        switch (direction)
-        {
-            case Command.Left:
-                x -= 1;
-                break;
+        checkX = startPosition[0] == x;
+        checkY = startPosition[1] == y;
 
-            case Command.Right:
-                x += 1;
-                break;
-
-            case Command.Up:
-                y += 1;
-                break;
-
-            case Command.Down:
-                y -= 1;
-                break;
-
-            case Command.UpLeft:
-                x -= 1;
-                y += 1;
-                break;
-
-            case Command.UpRight:
-                x += 1;
-                y += 1;
-                break;
-
-            case Command.DownLeft:
-                x -= 1;
-                y -= 1;
-                break;
-
-            case Command.DownRight:
-                x += 1;
-                y -= 1;
-                break;
-        }
+        return checkX && checkY;
     }
 
     private void Start()
