@@ -7,9 +7,9 @@ public class Attack : MonoBehaviour
     private int attackerX;
     private int attackerY;
     private int baseEnergy;
+    private double cardinalFactor;
     private double diagonalFactor;
-    private double linearFactor;
-    private bool useLinearFactor;
+    private bool useCardinalFactor;
 
     public void DealDamage(int x, int y)
     {
@@ -25,7 +25,8 @@ public class Attack : MonoBehaviour
         attackerX = attackerPosition[0];
         attackerY = attackerPosition[1];
 
-        useLinearFactor = AttackLinearly(x, y);
+        useCardinalFactor = FindObjects.GameLogic.GetComponent<Direction>()
+            .CheckDirection(RelativePosition.Cardinal, attackerPosition, x, y);
 
         gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
 
@@ -34,18 +35,10 @@ public class Attack : MonoBehaviour
         actorBoard.GetActor(x, y).GetComponent<Defend>().TestKill();
     }
 
-    private bool AttackLinearly(int x, int y)
-    {
-        bool checkX = (attackerX == x) && (System.Math.Abs(attackerY - y) == 1);
-        bool checkY = (attackerY == y) && (System.Math.Abs(attackerX - x) == 1);
-
-        return checkX || checkY;
-    }
-
     private void Awake()
     {
         baseEnergy = 1200;
-        linearFactor = 1.0;
+        cardinalFactor = 1.0;
         diagonalFactor = 1.4;
     }
 
@@ -55,7 +48,7 @@ public class Attack : MonoBehaviour
         double direction;
 
         // TODO: Attack in fog.
-        direction = useLinearFactor ? linearFactor : diagonalFactor;
+        direction = useCardinalFactor ? cardinalFactor : diagonalFactor;
 
         totalEnergy = (int)System.Math.Floor(baseEnergy * direction);
 

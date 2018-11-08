@@ -37,7 +37,9 @@ public class Move : MonoBehaviour
     public void MoveActor(int targetX, int targetY)
     {
         startPosition = coordinates.Convert(gameObject.transform.position);
-        useDiagonalFactor = IsDiagonalMovement(targetX, targetY);
+        useDiagonalFactor = FindObjects.GameLogic.GetComponent<Direction>()
+            .CheckDirection(RelativePosition.Diagonal,
+            startPosition, targetX, targetY);
 
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {
@@ -141,14 +143,6 @@ public class Move : MonoBehaviour
         totalEnergy = (int)System.Math.Floor(baseEnergy * direction + pool);
 
         return totalEnergy;
-    }
-
-    private bool IsDiagonalMovement(int x, int y)
-    {
-        checkX = System.Math.Abs(startPosition[0] - x) == 1;
-        checkY = System.Math.Abs(startPosition[1] - y) == 1;
-
-        return checkX && checkY;
     }
 
     private bool IsWait(int x, int y)
