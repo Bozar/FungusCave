@@ -11,6 +11,11 @@ public class InternalClock : MonoBehaviour
     public void StartTurn()
     {
         gameObject.GetComponent<Energy>().RestoreEnergy(energyTurn, true);
+
+        if (gameObject.GetComponent<AutoExplore>() != null)
+        {
+            gameObject.GetComponent<AutoExplore>().CountDown();
+        }
     }
 
     private void Awake()

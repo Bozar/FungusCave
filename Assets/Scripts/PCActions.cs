@@ -4,7 +4,6 @@ public class PCActions : MonoBehaviour
 {
     private bool checkEnergy;
     private bool checkSchedule;
-    private int[] destination;
     private PlayerInput input;
     private SchedulingSystem schedule;
 
@@ -50,6 +49,7 @@ public class PCActions : MonoBehaviour
         switch (input.GameCommand())
         {
             case Command.AutoExplore:
+                gameObject.GetComponent<AutoExplore>().InitialCount();
                 gameObject.GetComponent<AutoExplore>().AutoMove();
                 return;
 

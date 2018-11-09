@@ -4,8 +4,6 @@ public class Attack : MonoBehaviour
 {
     private ActorBoard actorBoard;
     private int[] attackerPosition;
-    private int attackerX;
-    private int attackerY;
     private int baseEnergy;
     private double cardinalFactor;
     private double diagonalFactor;
@@ -22,8 +20,6 @@ public class Attack : MonoBehaviour
         attackerPosition
             = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .Convert(gameObject.transform.position);
-        attackerX = attackerPosition[0];
-        attackerY = attackerPosition[1];
 
         useCardinalFactor = FindObjects.GameLogic.GetComponent<Direction>()
             .CheckDirection(RelativePosition.Cardinal, attackerPosition, x, y);

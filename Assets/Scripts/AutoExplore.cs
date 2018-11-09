@@ -8,10 +8,12 @@ public class AutoExplore : MonoBehaviour
     private int[,] board;
     private Stack<int[]> checkPosition;
     private ConvertCoordinates coordinate;
+    private int countAutoExplore;
     private DungeonBoard dungeon;
     private bool isUnknown;
     private bool isVaildDistance;
     private bool isWalkable;
+    private int maxCount;
     private int minDistance;
     private int[] pcPosition;
     private int[] position;
@@ -19,7 +21,6 @@ public class AutoExplore : MonoBehaviour
     private List<int[]> surround;
     private int x;
     private int y;
-
     public bool ContinueAutoExplore { get; private set; }
 
     public void AutoMove()
@@ -28,9 +29,16 @@ public class AutoExplore : MonoBehaviour
 
         FindStartPoint();
 
-        if (checkPosition.Count < 1)
+        if ((countAutoExplore < 1) || (checkPosition.Count < 1))
         {
             ContinueAutoExplore = false;
+
+            if (checkPosition.Count < 1)
+            {
+                FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+                    "You have explored everywhere.");
+            }
+
             return;
         }
 
@@ -42,10 +50,24 @@ public class AutoExplore : MonoBehaviour
         gameObject.GetComponent<Move>().MoveActor(position[0], position[1]);
     }
 
+    public void CountDown()
+    {
+        if (countAutoExplore > 0)
+        {
+            countAutoExplore--;
+        }
+    }
+
+    public void InitialCount()
+    {
+        countAutoExplore = maxCount;
+    }
+
     private void Awake()
     {
         checkPosition = new Stack<int[]>();
         surround = new List<int[]>();
+        maxCount = 20;
 
         ContinueAutoExplore = false;
     }
