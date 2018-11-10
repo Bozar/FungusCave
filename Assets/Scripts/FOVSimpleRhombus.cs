@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FOVSimple : MonoBehaviour
+public class FOVSimpleRhombus : MonoBehaviour
 {
     private DungeonBoard board;
     private Stack<int[]> checkPosition;
@@ -49,8 +49,7 @@ public class FOVSimple : MonoBehaviour
         x = position[0];
         y = position[1];
 
-        surround = coordinate.SurroundCoord(
-            Surround.Diagonal, x, y);
+        surround = coordinate.SurroundCoord(Surround.Diagonal, x, y);
 
         foreach (var grid in surround)
         {

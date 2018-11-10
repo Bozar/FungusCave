@@ -49,7 +49,7 @@ public class FieldOfView : MonoBehaviour
         // 2) In `FOVSimple.cs`, set `fovTest` to `true`.
         // 3) Uncomment the following line.
 
-        //gameObject.GetComponent<FOVSimple>().UpdateFOV();
+        //gameObject.GetComponent<FOVSimpleRhombus>().UpdateFOV();
         gameObject.GetComponent<FOVRhombus>().UpdateFOV();
     }
 
