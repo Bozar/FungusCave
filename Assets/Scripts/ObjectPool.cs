@@ -66,8 +66,8 @@ public class ObjectPool : MonoBehaviour
 
             go.AddComponent<FieldOfView>();
             //go.AddComponent<FOVDijkstra>();
-            //go.AddComponent<FOVSimpleDijkstra>();
-            go.AddComponent<FOVRhombus>();
+            go.AddComponent<FOVSimpleDijkstra>();
+            //go.AddComponent<FOVRhombus>();
             //go.AddComponent<FOVSimpleRhombus>();
             go.AddComponent<RenderSprite>();
 
