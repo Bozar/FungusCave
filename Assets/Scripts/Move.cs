@@ -68,11 +68,6 @@ public class Move : MonoBehaviour
         actorBoard.RemoveActor(startPosition[0], startPosition[1]);
         actorBoard.AddActor(gameObject, targetX, targetY);
 
-        if (gameObject.GetComponent<FieldOfView>() != null)
-        {
-            gameObject.GetComponent<FieldOfView>().UpdateFOV();
-        }
-
         gameObject.transform.position = coordinates.Convert(targetX, targetY);
         gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
     }

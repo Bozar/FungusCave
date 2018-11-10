@@ -32,6 +32,11 @@ public class NPCActions : MonoBehaviour
             return;
         }
 
+        if (gameObject.GetComponent<FieldOfView>() != null)
+        {
+            gameObject.GetComponent<FieldOfView>().UpdateFOV();
+        }
+
         switch (gameObject.GetComponent<ActorAI>().DummyAI())
         {
             case Command.Wait:

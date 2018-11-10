@@ -29,6 +29,11 @@ public class PCActions : MonoBehaviour
             return;
         }
 
+        if (gameObject.GetComponent<FieldOfView>() != null)
+        {
+            gameObject.GetComponent<FieldOfView>().UpdateFOV();
+        }
+
         if (input.GameCommand() != Command.Invalid)
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
