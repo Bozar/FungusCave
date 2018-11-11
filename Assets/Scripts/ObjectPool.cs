@@ -65,10 +65,10 @@ public class ObjectPool : MonoBehaviour
             go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
 
             go.AddComponent<FieldOfView>();
-            //go.AddComponent<FOVDijkstra>();
             go.AddComponent<FOVSimpleDijkstra>();
-            //go.AddComponent<FOVRhombus>();
+            go.AddComponent<FOVDijkstra>();
             //go.AddComponent<FOVSimpleRhombus>();
+            //go.AddComponent<FOVRhombus>();
             go.AddComponent<RenderSprite>();
 
             go.AddComponent<TileOverlay>();

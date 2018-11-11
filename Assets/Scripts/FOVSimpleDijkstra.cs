@@ -9,6 +9,7 @@ public class FOVSimpleDijkstra : MonoBehaviour
     private int[,] distanceBoard;
     private DungeonBoard dungeon;
     private FieldOfView fov;
+    private bool fovTest;
     private int gridDistance;
     private int maxDistance;
     private int sightRange;
@@ -31,6 +32,7 @@ public class FOVSimpleDijkstra : MonoBehaviour
         maxDistance = 99999;
         gridDistance = 10;
         sightRange = 50;
+        fovTest = true;
 
         checkPosition = new Stack<int[]>();
     }
@@ -115,7 +117,14 @@ public class FOVSimpleDijkstra : MonoBehaviour
             {
                 if (distanceBoard[i, j] <= sightRange)
                 {
-                    fov.ChangeFOVBoard(FOVStatus.Insight, i, j);
+                    if (fovTest)
+                    {
+                        fov.ChangeFOVBoard(FOVStatus.TEST, i, j);
+                    }
+                    else
+                    {
+                        fov.ChangeFOVBoard(FOVStatus.Insight, i, j);
+                    }
                 }
             }
         }

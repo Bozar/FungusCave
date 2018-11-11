@@ -52,6 +52,7 @@ public class FieldOfView : MonoBehaviour
         //gameObject.GetComponent<FOVSimpleRhombus>().UpdateFOV();
         //gameObject.GetComponent<FOVRhombus>().UpdateFOV();
         gameObject.GetComponent<FOVSimpleDijkstra>().UpdateFOV();
+        gameObject.GetComponent<FOVDijkstra>().UpdateFOV();
     }
 
     private void Start()
