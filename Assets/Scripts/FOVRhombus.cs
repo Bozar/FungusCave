@@ -31,7 +31,6 @@ public class FOVRhombus : MonoBehaviour
 
     private void Awake()
     {
-        maxRange = 5;
         checkPosition = new Stack<int[]>();
 
         rangeWall = 5;
@@ -62,8 +61,7 @@ public class FOVRhombus : MonoBehaviour
         }
 
         position = wallGrid.Pop();
-        surround = coordinate.SurroundCoord(
-            Surround.Diagonal, position);
+        surround = coordinate.SurroundCoord(Surround.Diagonal, position);
 
         foreach (var grid in surround)
         {
@@ -122,6 +120,7 @@ public class FOVRhombus : MonoBehaviour
         fov = gameObject.GetComponent<FieldOfView>();
 
         distanceBoard = new int[board.Width, board.Height];
+        maxRange = fov.MaxRange;
     }
 
     private void UpdateDistanceBoard()
@@ -132,8 +131,7 @@ public class FOVRhombus : MonoBehaviour
         }
 
         position = checkPosition.Pop();
-        surround = coordinate.SurroundCoord(
-            Surround.Diagonal, position);
+        surround = coordinate.SurroundCoord(Surround.Diagonal, position);
 
         foreach (var grid in surround)
         {

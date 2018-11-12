@@ -22,7 +22,6 @@ public class FOVSimple : MonoBehaviour
 
     private void Awake()
     {
-        maxRange = 5;
         checkPosition = new Stack<int[]>();
         //fovTest = true;
         fovTest = false;
@@ -33,6 +32,8 @@ public class FOVSimple : MonoBehaviour
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         fov = gameObject.GetComponent<FieldOfView>();
+
+        maxRange = fov.MaxRange;
     }
 
     private void UpdateFOVBoard()
@@ -49,8 +50,7 @@ public class FOVSimple : MonoBehaviour
         x = position[0];
         y = position[1];
 
-        surround = coordinate.SurroundCoord(
-            Surround.Diagonal, x, y);
+        surround = coordinate.SurroundCoord(Surround.Diagonal, x, y);
 
         foreach (var grid in surround)
         {

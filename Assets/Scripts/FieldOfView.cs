@@ -7,6 +7,8 @@ public class FieldOfView : MonoBehaviour
     private DungeonBoard board;
     private FOVStatus[,] fovBoard;
 
+    public int MaxRange { get; private set; }
+
     public void ChangeFOVBoard(FOVStatus status, int[] position)
     {
         int x = position[0];
@@ -51,6 +53,11 @@ public class FieldOfView : MonoBehaviour
 
         //gameObject.GetComponent<FOVSimple>().UpdateFOV();
         gameObject.GetComponent<FOVRhombus>().UpdateFOV();
+    }
+
+    private void Awake()
+    {
+        MaxRange = 5;
     }
 
     private void Start()
