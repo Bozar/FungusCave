@@ -5,49 +5,40 @@ using UnityEngine;
 public class AutoExplore : MonoBehaviour
 {
     private readonly int NotChecked = 9999;
+    private ActorBoard actor;
     private int[,] board;
     private Stack<int[]> checkPosition;
     private ConvertCoordinates coordinate;
     private int countAutoExplore;
     private DungeonBoard dungeon;
+    private FieldOfView fov;
     private bool isUnknown;
     private bool isVaildDistance;
     private bool isWalkable;
     private int maxCount;
     private int minDistance;
+    private UIModeline modeline;
+    private Move move;
     private int[] pcPosition;
     private int[] position;
     private RandomNumber random;
+    private int sightRange;
     private List<int[]> surround;
     private int x;
     private int y;
     public bool ContinueAutoExplore { get; private set; }
 
-    public void AutoMove()
+    public void AutoAction()
     {
-        ContinueAutoExplore = true;
-
-        FindStartPoint();
-
-        if ((countAutoExplore < 1) || (checkPosition.Count < 1))
+        if (CanSeeEnemy())
         {
-            ContinueAutoExplore = false;
-
-            if (checkPosition.Count < 1)
-            {
-                FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-                    "You have explored everywhere.");
-            }
+            StopAutoExplore();
+            modeline.PrintText("There are enemies nearby.");
 
             return;
         }
 
-        pcPosition = coordinate.Convert(gameObject.transform.position);
-        ResetBoard();
-        MarkDistance();
-        position = ChooseNextGrid();
-
-        gameObject.GetComponent<Move>().MoveActor(position[0], position[1]);
+        AutoMove();
     }
 
     public void CountDown()
@@ -58,9 +49,34 @@ public class AutoExplore : MonoBehaviour
         }
     }
 
-    public void InitialCount()
+    public void Initialize()
     {
         countAutoExplore = maxCount;
+        ContinueAutoExplore = true;
+    }
+
+    private void AutoMove()
+    {
+        FindStartPoint();
+
+        if ((countAutoExplore < 1) || (checkPosition.Count < 1))
+        {
+            StopAutoExplore();
+
+            if (checkPosition.Count < 1)
+            {
+                modeline.PrintText("You have explored everywhere.");
+            }
+
+            return;
+        }
+
+        pcPosition = coordinate.Convert(gameObject.transform.position);
+        ResetBoard();
+        MarkDistance();
+        position = ChooseNextGrid();
+
+        move.MoveActor(position[0], position[1]);
     }
 
     private void Awake()
@@ -70,6 +86,30 @@ public class AutoExplore : MonoBehaviour
         maxCount = 20;
 
         ContinueAutoExplore = false;
+    }
+
+    // TODO: Move some methods to AI class?
+    private bool CanSeeEnemy()
+    {
+        pcPosition = coordinate.Convert(gameObject.transform.position);
+        x = pcPosition[0];
+        y = pcPosition[1];
+        sightRange = fov.MaxRange;
+
+        for (int i = x - sightRange; i < x + sightRange + 1; i++)
+        {
+            for (int j = y - sightRange; j < y + sightRange + 1; j++)
+            {
+                if (fov.CheckFOV(FOVStatus.Insight, i, j)
+                    && actor.CheckActorTag(MainObjectTag.Actor, i, j)
+                    && !actor.CheckActorTag(SubObjectTag.PC, i, j))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private int[] ChooseNextGrid()
@@ -110,10 +150,8 @@ public class AutoExplore : MonoBehaviour
         {
             for (int j = 0; j < board.GetLength(1); j++)
             {
-                isUnknown = gameObject.GetComponent<FieldOfView>().CheckFOV(
-                    FOVStatus.Unknown, i, j);
-
-                isWalkable = gameObject.GetComponent<Move>().IsWalkable(i, j);
+                isUnknown = fov.CheckFOV(FOVStatus.Unknown, i, j);
+                isWalkable = move.IsWalkable(i, j);
 
                 if (isUnknown && isWalkable)
                 {
@@ -157,8 +195,7 @@ public class AutoExplore : MonoBehaviour
         surround = coordinate.SurroundCoord(Surround.Diagonal, position);
         surround = dungeon.FilterPositions(surround);
 
-        if (gameObject.GetComponent<FieldOfView>().CheckFOV(
-            FOVStatus.Unknown, position))
+        if (fov.CheckFOV(FOVStatus.Unknown, position))
         {
             board[x, y] = 0;
         }
@@ -169,8 +206,7 @@ public class AutoExplore : MonoBehaviour
 
         foreach (var pos in surround)
         {
-            isWalkable = gameObject.GetComponent<Move>().IsWalkable(
-                pos[0], pos[1]);
+            isWalkable = move.IsWalkable(pos[0], pos[1]);
 
             isVaildDistance
                 = System.Math.Abs(board[x, y] - board[pos[0], pos[1]])
@@ -198,10 +234,21 @@ public class AutoExplore : MonoBehaviour
 
     private void Start()
     {
+        fov = gameObject.GetComponent<FieldOfView>();
+        move = gameObject.GetComponent<Move>();
+
         dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         random = FindObjects.GameLogic.GetComponent<RandomNumber>();
+        modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+        actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
         board = new int[dungeon.Width, dungeon.Height];
+    }
+
+    private void StopAutoExplore()
+    {
+        countAutoExplore = 0;
+        ContinueAutoExplore = false;
     }
 }

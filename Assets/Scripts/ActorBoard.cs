@@ -15,6 +15,25 @@ public class ActorBoard : MonoBehaviour
         board[x, y] = actor;
     }
 
+    public bool CheckActorTag<T>(T actorTag, int x, int y)
+    {
+        bool checkMainTag;
+        bool checkSubTag;
+        GameObject actor = GetActor(x, y);
+
+        if (actor == null)
+        {
+            return false;
+        }
+
+        checkMainTag
+            = actor.GetComponent<ObjectMetaInfo>().MainTag.Equals(actorTag);
+        checkSubTag
+            = actor.GetComponent<ObjectMetaInfo>().SubTag.Equals(actorTag);
+
+        return checkMainTag || checkSubTag;
+    }
+
     public GameObject GetActor(int x, int y)
     {
         if (dungeon.IndexOutOfRange(x, y))
