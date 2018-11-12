@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum FOVStatus { Unknown, Visited, Insight, TEST };
+public enum FOVStatus { INVALID, TEST, Unknown, Visited, Insight };
 
 public class FieldOfView : MonoBehaviour
 {
@@ -19,6 +19,10 @@ public class FieldOfView : MonoBehaviour
 
     public void ChangeFOVBoard(FOVStatus status, int x, int y)
     {
+        if (board.IndexOutOfRange(x, y))
+        {
+            return;
+        }
         fovBoard[x, y] = status;
     }
 
@@ -32,11 +36,19 @@ public class FieldOfView : MonoBehaviour
 
     public bool CheckFOV(FOVStatus status, int x, int y)
     {
+        if (board.IndexOutOfRange(x, y))
+        {
+            return false;
+        }
         return fovBoard[x, y] == status;
     }
 
     public FOVStatus GetFOVStatus(int x, int y)
     {
+        if (board.IndexOutOfRange(x, y))
+        {
+            return FOVStatus.INVALID;
+        }
         return fovBoard[x, y];
     }
 
@@ -64,6 +76,14 @@ public class FieldOfView : MonoBehaviour
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         fovBoard = new FOVStatus[board.Width, board.Height];
+
+        for (int i = 0; i < board.Width; i++)
+        {
+            for (int j = 0; j < board.Height; j++)
+            {
+                ChangeFOVBoard(FOVStatus.Unknown, i, j);
+            }
+        }
     }
 
     private void UpdateMemory()

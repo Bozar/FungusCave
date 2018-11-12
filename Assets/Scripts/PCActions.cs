@@ -43,7 +43,7 @@ public class PCActions : MonoBehaviour
 
         if (gameObject.GetComponent<AutoExplore>().ContinueAutoExplore)
         {
-            gameObject.GetComponent<AutoExplore>().AutoMove();
+            gameObject.GetComponent<AutoExplore>().AutoAction();
             return;
         }
 
@@ -56,8 +56,8 @@ public class PCActions : MonoBehaviour
         switch (input.GameCommand())
         {
             case Command.AutoExplore:
-                gameObject.GetComponent<AutoExplore>().InitialCount();
-                gameObject.GetComponent<AutoExplore>().AutoMove();
+                gameObject.GetComponent<AutoExplore>().Initialize();
+                gameObject.GetComponent<AutoExplore>().AutoAction();
                 return;
         }
 
