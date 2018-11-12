@@ -6,11 +6,13 @@ public class PCActions : MonoBehaviour
     private bool checkSchedule;
     private PlayerInput input;
     private SchedulingSystem schedule;
+    private WizardMode wizard;
 
     private void Start()
     {
         input = gameObject.GetComponent<PlayerInput>();
         schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+        wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
     }
 
     private void Update()
@@ -57,40 +59,43 @@ public class PCActions : MonoBehaviour
                 gameObject.GetComponent<AutoExplore>().InitialCount();
                 gameObject.GetComponent<AutoExplore>().AutoMove();
                 return;
+        }
 
-            // Test commands.
-            case Command.Initialize:
-                FindObjects.GameLogic.GetComponent<Initialize>()
-                    .InitializeGame();
-                return;
+        // Test commands.
+        if (wizard.IsWizardMode)
+        {
+            switch (input.GameCommand())
+            {
+                case Command.Initialize:
+                    wizard.Initialize();
+                    return;
 
-            case Command.RenderAll:
-                FindObjects.GameLogic.GetComponent<Test>().RenderAll
-                    = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
-                return;
+                case Command.RenderAll:
+                    wizard.RenderAll();
+                    return;
 
-            case Command.PrintEnergy:
-                schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
-                return;
+                case Command.PrintEnergy:
+                    wizard.PrintEnergy();
+                    return;
 
-            case Command.AddEnergy:
-                schedule.CurrentActor.GetComponent<Energy>()
-                    .RestoreEnergy(2000, false);
-                return;
+                case Command.AddEnergy:
+                    wizard.AddEnergy();
+                    return;
 
-                //case PlayerInput.Command.Confirm:
-                //    break;
+                    //case PlayerInput.Command.Confirm:
+                    //    break;
 
-                //case PlayerInput.Command.Cancel:
-                //    break;
+                    //case PlayerInput.Command.Cancel:
+                    //    break;
 
-                //case PlayerInput.Command.Invalid:
-                //    break;
+                    //case PlayerInput.Command.Invalid:
+                    //    break;
 
-                //default:
-                //    FindObjects.GameLogic.GetComponent<TestMove>().
-                //        MoveAround(gameObject);
-                //    break;
+                    //default:
+                    //    FindObjects.GameLogic.GetComponent<TestMove>().
+                    //        MoveAround(gameObject);
+                    //    break;
+            }
         }
     }
 }
