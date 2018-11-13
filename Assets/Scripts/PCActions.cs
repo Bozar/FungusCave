@@ -71,7 +71,7 @@ public class PCActions : MonoBehaviour
                     return;
 
                 case Command.RenderAll:
-                    wizard.RenderAll();
+                    wizard.SwitchRenderAll();
                     return;
 
                 case Command.PrintEnergy:

@@ -27,7 +27,7 @@ public class RenderSprite : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (FindObjects.GameLogic.GetComponent<Test>().RenderAll)
+        if (FindObjects.GameLogic.GetComponent<WizardMode>().RenderAll)
         {
             ShowSprite();
             return;

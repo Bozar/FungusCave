@@ -86,11 +86,11 @@ public class TestMove : MonoBehaviour
         {
             FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
         }
-        else if (newDirection == Command.RenderAll)
-        {
-            FindObjects.GameLogic.GetComponent<Test>().RenderAll
-                = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
-        }
+        //else if (newDirection == Command.RenderAll)
+        //{
+        //    FindObjects.GameLogic.GetComponent<Test>().RenderAll
+        //        = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+        //}
         else if (newDirection == Command.PrintEnergy)
         {
             FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor

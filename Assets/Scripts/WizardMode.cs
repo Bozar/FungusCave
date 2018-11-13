@@ -5,6 +5,7 @@ public class WizardMode : MonoBehaviour
     private SchedulingSystem schedule;
 
     public bool IsWizardMode { get; private set; }
+    public bool RenderAll { get; private set; }
 
     public void AddEnergy()
     {
@@ -21,15 +22,15 @@ public class WizardMode : MonoBehaviour
         schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
     }
 
-    public void RenderAll()
+    public void SwitchRenderAll()
     {
-        FindObjects.GameLogic.GetComponent<Test>().RenderAll
-            = !FindObjects.GameLogic.GetComponent<Test>().RenderAll;
+        RenderAll = !RenderAll;
     }
 
     private void Awake()
     {
         IsWizardMode = true;
+        RenderAll = false;
     }
 
     private void Start()

@@ -3,18 +3,18 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    public static readonly int height = 17;
-    public static readonly int width = 24;
+    //public static readonly int height = 17;
+    //public static readonly int width = 24;
 
     private GameObject[] mainUI;
     private Text message;
 
-    public bool RenderAll { get; set; }
+    //public bool RenderAll { get; set; }
 
-    private void Awake()
-    {
-        RenderAll = false;
-    }
+    //private void Awake()
+    //{
+    //    RenderAll = false;
+    //}
 
     private void Start()
     {
