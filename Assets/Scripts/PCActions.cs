@@ -4,6 +4,7 @@ public class PCActions : MonoBehaviour
 {
     private bool checkEnergy;
     private bool checkSchedule;
+    private Initialize init;
     private PlayerInput input;
     private SchedulingSystem schedule;
     private WizardMode wizard;
@@ -13,6 +14,7 @@ public class PCActions : MonoBehaviour
         input = gameObject.GetComponent<PlayerInput>();
         schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
         wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
+        init = FindObjects.GameLogic.GetComponent<Initialize>();
     }
 
     private void Update()
@@ -20,7 +22,7 @@ public class PCActions : MonoBehaviour
         checkSchedule = schedule.IsCurrentActor(gameObject);
         checkEnergy = gameObject.GetComponent<Energy>().HasEnoughEnergy();
 
-        if (!checkSchedule)
+        if (!checkSchedule || !init.Initialized)
         {
             return;
         }

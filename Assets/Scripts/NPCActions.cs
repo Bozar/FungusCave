@@ -4,13 +4,14 @@ public class NPCActions : MonoBehaviour
 {
     private bool checkEnergy;
     private bool checkSchedule;
+    private Initialize init;
     private SchedulingSystem schedule;
-
     //private int[] position;
 
     private void Start()
     {
         schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+        init = FindObjects.GameLogic.GetComponent<Initialize>();
     }
 
     private void Update()
@@ -21,7 +22,7 @@ public class NPCActions : MonoBehaviour
         //position = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
         //    .Convert(gameObject.transform.position);
 
-        if (!checkSchedule)
+        if (!checkSchedule || !init.Initialized)
         {
             return;
         }

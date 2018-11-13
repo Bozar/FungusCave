@@ -31,7 +31,7 @@ public class AttachScripts : MonoBehaviour
 
         gameObject.AddComponent<WizardMode>();
 
-        gameObject.AddComponent<Test>();
+        //gameObject.AddComponent<Test>();
         //gameObject.AddComponent<TestMove>();
     }
 }
