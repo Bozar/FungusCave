@@ -17,7 +17,7 @@ public class Move : MonoBehaviour
     private int[] targetPosition;
     private bool useDiagonalFactor;
 
-    public bool IsWalkable(int x, int y)
+    public bool IsPassable(int x, int y)
     {
         isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
         isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
@@ -58,7 +58,7 @@ public class Move : MonoBehaviour
             return;
         }
 
-        if (!IsWalkable(targetX, targetY))
+        if (!IsPassable(targetX, targetY))
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
                 "You are blocked");

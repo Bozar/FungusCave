@@ -18,7 +18,7 @@ public class TestMove : MonoBehaviour
     {
         newDirection = actor.GetComponent<PlayerInput>().GameCommand();
 
-        if (!IsWalkable(newDirection, actor.transform))
+        if (!IsPassable(newDirection, actor.transform))
         {
             Debug.Log("You are blocked.");
             message.text = "You are blocked";
@@ -119,7 +119,7 @@ public class TestMove : MonoBehaviour
         }
     }
 
-    private bool IsWalkable(Command direction, Transform actor)
+    private bool IsPassable(Command direction, Transform actor)
     {
         int x = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             .Convert(actor.position.x);

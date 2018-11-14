@@ -12,9 +12,9 @@ public class AutoExplore : MonoBehaviour
     private int countAutoExplore;
     private DungeonBoard dungeon;
     private FieldOfView fov;
+    private bool isPassable;
     private bool isUnknown;
     private bool isVaildDistance;
-    private bool isWalkable;
     private int maxCount;
     private int minDistance;
     private UIModeline modeline;
@@ -151,9 +151,9 @@ public class AutoExplore : MonoBehaviour
             for (int j = 0; j < board.GetLength(1); j++)
             {
                 isUnknown = fov.CheckFOV(FOVStatus.Unknown, i, j);
-                isWalkable = move.IsWalkable(i, j);
+                isPassable = move.IsPassable(i, j);
 
-                if (isUnknown && isWalkable)
+                if (isUnknown && isPassable)
                 {
                     position = new int[] { i, j };
                     checkPosition.Push(position);
@@ -206,13 +206,13 @@ public class AutoExplore : MonoBehaviour
 
         foreach (var pos in surround)
         {
-            isWalkable = move.IsWalkable(pos[0], pos[1]);
+            isPassable = move.IsPassable(pos[0], pos[1]);
 
             isVaildDistance
                 = System.Math.Abs(board[x, y] - board[pos[0], pos[1]])
                 <= 1;
 
-            if (isWalkable && !isVaildDistance)
+            if (isPassable && !isVaildDistance)
             {
                 checkPosition.Push(pos);
             }

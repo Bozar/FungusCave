@@ -38,7 +38,7 @@ public class FOVSimple : MonoBehaviour
 
     private void UpdateFOVBoard()
     {
-        bool walkable;
+        bool passable;
         bool gridChecked;
 
         if (checkPosition.Count < 1)
@@ -62,14 +62,14 @@ public class FOVSimple : MonoBehaviour
                 continue;
             }
 
-            walkable = board.CheckBlock(SubObjectTag.Floor, grid)
+            passable = board.CheckBlock(SubObjectTag.Floor, grid)
                 || board.CheckBlock(SubObjectTag.Pool, grid);
 
             gridChecked = fovTest
                 ? (!fov.CheckFOV(FOVStatus.TEST, grid))
                 : (!fov.CheckFOV(FOVStatus.Insight, grid));
 
-            if (walkable && gridChecked)
+            if (passable && gridChecked)
             {
                 checkPosition.Push(grid);
             }
