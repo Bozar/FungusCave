@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SchedulingSystem : MonoBehaviour
@@ -7,9 +6,7 @@ public class SchedulingSystem : MonoBehaviour
     private LinkedListNode<GameObject> currentNode;
     private LinkedListNode<GameObject> firstNode;
     private LinkedListNode<GameObject> nextNode;
-    private LinkedList<GameObject> schedule = new LinkedList<GameObject>();
-
-    private enum ValidTags { PC, NPC };
+    private LinkedList<GameObject> schedule;
 
     public GameObject CurrentActor
     {
@@ -18,14 +15,16 @@ public class SchedulingSystem : MonoBehaviour
 
     public bool AddActor(GameObject actor)
     {
-        if (!Enum.IsDefined(typeof(ValidTags), actor.tag))
+        if (actor.GetComponent<ObjectMetaInfo>().MainTag != MainObjectTag.Actor)
         {
-            Debug.Log("Invalid actor tag: " + actor.tag);
+            Debug.Log("Invalid actor tag: "
+                + actor.GetComponent<ObjectMetaInfo>().MainTag);
             return false;
         }
         else if (schedule.Contains(actor))
         {
-            Debug.Log("Actor already exists in the schedule: " + actor.name);
+            Debug.Log("Actor already exists in the schedule: "
+                + actor.GetComponent<ObjectMetaInfo>().SubTag);
             return false;
         }
 
@@ -41,17 +40,15 @@ public class SchedulingSystem : MonoBehaviour
 
     public bool IsCurrentActor(GameObject actor)
     {
-        bool verify = actor == CurrentActor;
-
-        return verify;
+        return actor == CurrentActor;
     }
 
-    public void NextTurn()
+    public void NextActor()
     {
         EnableComponent(false);
         CurrentActor.GetComponent<InternalClock>().EndTurn();
 
-        NextActor();
+        NextNode();
 
         EnableComponent(true);
         CurrentActor.GetComponent<InternalClock>().StartTurn();
@@ -60,37 +57,47 @@ public class SchedulingSystem : MonoBehaviour
     public void PrintSchedule()
     {
         int actorIndex = 1;
+        int[] position;
 
         Debug.Log("==========");
         Debug.Log("Total actors: " + schedule.Count);
-        Debug.Log("Current actor: " + CurrentActor.name);
+        Debug.Log("Current actor: "
+            + CurrentActor.GetComponent<ObjectMetaInfo>().SubTag);
 
         foreach (var actor in schedule)
         {
-            Debug.Log(actorIndex + ": " + actor.name);
+            position = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                .Convert(actor.transform.position);
+
+            Debug.Log(actorIndex + ": [" + position[0] + "," + position[1] + "] "
+                + actor.GetComponent<ObjectMetaInfo>().SubTag);
+
             actorIndex++;
         }
-
-        Debug.Log("==========");
     }
 
     public bool RemoveActor(GameObject actor)
     {
-        bool removed;
+        bool actorIsRemoved;
         bool currentNodeIsRemoved;
 
         firstNode = schedule.First;
         nextNode = currentNode.Next;
 
         currentNodeIsRemoved = currentNode.Value == actor;
-        removed = schedule.Remove(actor);
+        actorIsRemoved = schedule.Remove(actor);
 
-        if (removed && currentNodeIsRemoved)
+        if (actorIsRemoved && currentNodeIsRemoved)
         {
-            NextNode();
+            UpdateCurrentNode();
         }
 
-        return removed;
+        return actorIsRemoved;
+    }
+
+    private void Awake()
+    {
+        schedule = new LinkedList<GameObject>();
     }
 
     private void EnableComponent(bool enable)
@@ -105,15 +112,15 @@ public class SchedulingSystem : MonoBehaviour
         }
     }
 
-    private void NextActor()
+    private void NextNode()
     {
         firstNode = schedule.First;
         nextNode = currentNode.Next;
 
-        NextNode();
+        UpdateCurrentNode();
     }
 
-    private void NextNode()
+    private void UpdateCurrentNode()
     {
         currentNode = nextNode ?? firstNode;
     }

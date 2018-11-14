@@ -48,7 +48,7 @@ public class Move : MonoBehaviour
 
         if (IsWait(targetX, targetY))
         {
-            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextActor();
             return;
         }
 

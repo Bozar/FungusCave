@@ -29,7 +29,7 @@ public class PCActions : MonoBehaviour
 
         if (!checkEnergy)
         {
-            schedule.NextTurn();
+            schedule.NextActor();
             return;
         }
 
@@ -84,19 +84,9 @@ public class PCActions : MonoBehaviour
                     wizard.AddEnergy();
                     return;
 
-                    //case PlayerInput.Command.Confirm:
-                    //    break;
-
-                    //case PlayerInput.Command.Cancel:
-                    //    break;
-
-                    //case PlayerInput.Command.Invalid:
-                    //    break;
-
-                    //default:
-                    //    FindObjects.GameLogic.GetComponent<TestMove>().
-                    //        MoveAround(gameObject);
-                    //    break;
+                case Command.PrintSchedule:
+                    wizard.PrintSchedule();
+                    return;
             }
         }
     }

@@ -80,7 +80,7 @@ public class TestMove : MonoBehaviour
 
         if (newDirection == Command.EndTurn)
         {
-            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextTurn();
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextActor();
         }
         else if (newDirection == Command.Initialize)
         {

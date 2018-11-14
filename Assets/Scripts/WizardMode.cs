@@ -22,6 +22,11 @@ public class WizardMode : MonoBehaviour
         schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
     }
 
+    public void PrintSchedule()
+    {
+        schedule.PrintSchedule();
+    }
+
     public void SwitchRenderAll()
     {
         RenderAll = !RenderAll;

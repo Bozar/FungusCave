@@ -29,7 +29,7 @@ public class NPCActions : MonoBehaviour
 
         if (!checkEnergy)
         {
-            schedule.NextTurn();
+            schedule.NextActor();
             return;
         }
 
