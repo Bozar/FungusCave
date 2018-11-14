@@ -30,14 +30,14 @@ public class TileOverlay : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-    }
-
-    private void Update()
+    private void LateUpdate()
     {
         currentPosition = gameObject.transform.position;
         CheckTile();
+    }
+
+    private void Start()
+    {
+        dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
     }
 }

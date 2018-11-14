@@ -49,7 +49,7 @@ public class DungeonBlueprint : MonoBehaviour
         }
     }
 
-    protected int[] RandomIndex()
+    public int[] RandomIndex()
     {
         int[] index;
         int x;

@@ -25,7 +25,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<BlueprintSponge>();
         gameObject.AddComponent<BlueprintPool>();
         gameObject.AddComponent<BlueprintFungus>();
-        gameObject.AddComponent<DungeonObjects>();
+        gameObject.AddComponent<CreateWorld>();
 
         gameObject.AddComponent<ActorBoard>();
 

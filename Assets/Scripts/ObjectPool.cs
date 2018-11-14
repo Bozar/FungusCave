@@ -17,6 +17,12 @@ public class ObjectPool : MonoBehaviour
     private int[] position;
 
     public GameObject CreateObject(MainObjectTag mainTag, SubObjectTag subTag,
+        int[] position)
+    {
+        return CreateObject(mainTag, subTag, position[0], position[1]);
+    }
+
+    public GameObject CreateObject(MainObjectTag mainTag, SubObjectTag subTag,
         int x, int y)
     {
         switch (mainTag)

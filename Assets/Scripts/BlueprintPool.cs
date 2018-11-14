@@ -76,8 +76,7 @@ public class BlueprintPool : DungeonBlueprint
             index = RandomIndex();
             startX = index[0];
             startY = index[1];
-        } while (!board.CheckBlock(SubObjectTag.Floor,
-        startX, startY));
+        } while (!board.CheckBlock(SubObjectTag.Floor, startX, startY));
 
         startIndex = index;
         submergeGrid.Push(index);
