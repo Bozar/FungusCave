@@ -14,15 +14,16 @@ public enum SeedTag
 public class RandomNumber : MonoBehaviour
 {
     private Dictionary<SeedTag, Queue<int>> intQueueDict;
+    private int maxQueueLength;
+    private int minQueueLength;
     private Dictionary<SeedTag, System.Random> rngDict;
     private Dictionary<SeedTag, int> seedDict;
-    private List<SeedTag> tagList;
-
     public System.Random RNG { get; private set; }
     public int RootSeed { get; private set; }
 
     public void InitializeSeed()
     {
+        List<SeedTag> tagList;
         RootSeed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
 
         if (RootSeed == 0)
@@ -45,39 +46,37 @@ public class RandomNumber : MonoBehaviour
             }
         }
 
-        foreach (var tagSeed in seedDict)
+        Debug.Log("Double: Start");
+        Debug.Log(seedDict[SeedTag.AutoExplore]);
+        for (int i = 0; i < maxQueueLength + 5; i++)
         {
-            Debug.Log(tagSeed);
+            Debug.Log(Next(SeedTag.AutoExplore));
         }
+        Debug.Log(seedDict[SeedTag.AutoExplore]);
+        Debug.Log("Double: End");
 
-        foreach (var tagRNG in rngDict)
+        Debug.Log("Int: Start");
+        Debug.Log(seedDict[SeedTag.AutoExplore]);
+        for (int i = 0; i < maxQueueLength + 5; i++)
         {
-            Debug.Log(tagRNG);
+            Debug.Log(Next(SeedTag.AutoExplore, 1, 10));
         }
+        Debug.Log(seedDict[SeedTag.AutoExplore]);
+        Debug.Log("Int: End");
 
-        foreach (var tagRNG in intQueueDict)
-        {
-            Debug.Log(tagRNG);
-        }
-
-        Debug.Log(Next(SeedTag.Dungeon));
-        Debug.Log(Next(SeedTag.AutoExplore));
+        //Debug.Log(Next(SeedTag.Dungeon, 1, -11));
         Debug.Log(Next(SeedTag.Dungeon, 1, 11));
         //Debug.Log(Next(SeedTag.PERSISTENT));
     }
 
     public double Next(SeedTag tag)
     {
-        if (IsInvalid(tag))
-        {
-            throw new Exception("Invalid tag: " + tag);
-        }
-
+        CheckErrors(tag);
         InitializeRNG(tag);
 
         if (IsPersistent(tag))
         {
-            return -42;
+            return DequeDouble(tag);
         }
 
         return rngDict[tag].NextDouble();
@@ -85,16 +84,12 @@ public class RandomNumber : MonoBehaviour
 
     public int Next(SeedTag tag, int min, int max)
     {
-        if (IsInvalid(tag))
-        {
-            throw new Exception("Invalid tag: " + tag);
-        }
-
+        CheckErrors(tag, min, max);
         InitializeRNG(tag);
 
         if (IsPersistent(tag))
         {
-            return -42;
+            return DequeInt(tag, min, max);
         }
 
         return rngDict[tag].Next(min, max);
@@ -107,6 +102,10 @@ public class RandomNumber : MonoBehaviour
 
     private void Awake()
     {
+        // TODO: Change these numbers.
+        minQueueLength = 2;
+        maxQueueLength = 10;
+
         seedDict = new Dictionary<SeedTag, int>();
         rngDict = new Dictionary<SeedTag, System.Random>();
         intQueueDict = new Dictionary<SeedTag, Queue<int>>();
@@ -131,8 +130,45 @@ public class RandomNumber : MonoBehaviour
         }
     }
 
+    private void CheckErrors(SeedTag tag, int min = 0, int max = 0)
+    {
+        if (IsInvalid(tag))
+        {
+            throw new Exception("Invalid tag: " + tag);
+        }
+
+        if (max < min)
+        {
+            throw new Exception("Invalid range.");
+        }
+    }
+
+    private double DequeDouble(SeedTag tag)
+    {
+        double result = intQueueDict[tag].Dequeue() / Math.Pow(10, 9);
+
+        if (intQueueDict[tag].Count < minQueueLength)
+        {
+            InitializeRNG(tag);
+        }
+
+        return result;
+    }
+
+    private int DequeInt(SeedTag tag, int min, int max)
+    {
+        int result;
+        int delta = max - min;
+
+        result = (int)(min + Math.Floor(delta * DequeDouble(tag)));
+
+        return result;
+    }
+
     private void InitializeRNG(SeedTag tag)
     {
+        System.Random tempRNG;
+
         if (IsInvalid(tag))
         {
             return;
@@ -140,7 +176,14 @@ public class RandomNumber : MonoBehaviour
 
         if (IsPersistent(tag))
         {
-            Debug.Log("WIP");
+            tempRNG = new System.Random(seedDict[tag]);
+
+            for (int i = 0; i < maxQueueLength; i++)
+            {
+                intQueueDict[tag].Enqueue(RandomInteger(false, tempRNG));
+            }
+
+            seedDict[tag] = RandomInteger(false, tempRNG);
         }
         else
         {
