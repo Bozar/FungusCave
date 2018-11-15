@@ -101,7 +101,7 @@ public class TestMove : MonoBehaviour
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text =
-                FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
+                FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed +
                 "\n2\n3\n4\n5\n6";
 
             actor.transform.position += moveHere;

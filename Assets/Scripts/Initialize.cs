@@ -18,7 +18,7 @@ public class Initialize : MonoBehaviour
 
         FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeed();
 
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().Seed);
+        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
@@ -29,7 +29,7 @@ public class Initialize : MonoBehaviour
         FindObjects.GameLogic.GetComponent<CreateWorld>().Initialize();
 
         FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-            FindObjects.GameLogic.GetComponent<RandomNumber>().Seed.ToString());
+            FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed.ToString());
     }
 
     private void Update()

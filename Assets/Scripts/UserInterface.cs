@@ -63,7 +63,7 @@ public class UserInterface : MonoBehaviour
     private void UpdateSeed()
     {
         printText = FindObjects.GameLogic.GetComponent<RandomNumber>()
-            .Seed.ToString();
+            .RootSeed.ToString();
         textLength = printText.Length;
 
         for (int i = 1; textLength > i * 3; i++)

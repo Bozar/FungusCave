@@ -1,33 +1,84 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum SeedTag
+{
+    DISCARDABLE,
+    Root, Dungeon,
+
+    PERSISTENT,
+    AutoExplore
+}
 
 public class RandomNumber : MonoBehaviour
 {
-    public System.Random RNG { get; private set; }
+    private Dictionary<SeedTag, int> seedDict;
+    private List<SeedTag> tagList;
 
-    public int Seed { get; private set; }
+    public System.Random RNG { get; private set; }
+    public int RootSeed { get; private set; }
 
     public void InitializeSeed()
     {
-        Seed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
+        RootSeed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
 
-        if (Seed == 0)
+        if (RootSeed == 0)
         {
-            RandomSeed();
+            RootSeed = RandomSeed();
         }
 
-        RNG = new System.Random(Seed);
+        RNG = new System.Random(RootSeed);
+        tagList = new List<SeedTag>(seedDict.Keys);
+
+        foreach (var tag in tagList)
+        {
+            if (tag != SeedTag.Root)
+            {
+                seedDict[tag] = RandomSeed(RNG);
+            }
+            else
+            {
+                seedDict[SeedTag.Root] = RootSeed;
+            }
+        }
+
+        foreach (var tagSeed in seedDict)
+        {
+            Debug.Log(tagSeed);
+        }
     }
 
-    private void RandomSeed()
+    private void Awake()
     {
-        System.Random tempRNG = new System.Random();
-        double tempSeed = 0;
+        seedDict = new Dictionary<SeedTag, int>();
 
-        while (tempSeed < 0.1)
+        foreach (var tag in Enum.GetValues(typeof(SeedTag)))
         {
-            tempSeed = tempRNG.NextDouble();
+            if (!tag.Equals(SeedTag.DISCARDABLE)
+                && !tag.Equals(SeedTag.PERSISTENT))
+            {
+                seedDict.Add((SeedTag)tag, -1);
+            }
         }
+    }
 
-        Seed = (int)(tempSeed * System.Math.Pow(10, 9));
+    private int RandomSeed()
+    {
+        double doubleSeed;
+        System.Random rng = new System.Random();
+
+        do
+        {
+            doubleSeed = rng.NextDouble();
+        }
+        while (doubleSeed < 0.1);
+
+        return (int)(doubleSeed * Math.Pow(10, 9));
+    }
+
+    private int RandomSeed(System.Random rng)
+    {
+        return (int)(rng.NextDouble() * Math.Pow(10, 9));
     }
 }

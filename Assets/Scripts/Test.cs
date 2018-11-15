@@ -40,7 +40,7 @@ public class Test : MonoBehaviour
         }
 
         message.text =
-            FindObjects.GameLogic.GetComponent<RandomNumber>().Seed +
+            FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed +
             "\nThis is a test\n3\n4\n5\n6";
     }
 }
