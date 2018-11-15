@@ -19,7 +19,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
     public void DrawBlueprint()
     {
-        finalWall = random.RNG.Next(minWall, maxWall + 1);
+        finalWall = random.Next(SeedTag.Dungeon, minWall, maxWall + 1);
 
         Debug.Log("Final: " + finalWall);
 
@@ -106,7 +106,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
         foreach (var index in cornerIndex)
         {
-            if (random.RNG.Next(0, 3) < 2)
+            if (random.Next(SeedTag.Dungeon, 0, 3) < 2)
             {
                 board.ChangeBlueprint(SubObjectTag.Floor,
                     index[0], index[1]);
@@ -121,7 +121,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         // left to right because the dungeon screen is a horizontal rectangle.
         if (width > height)
         {
-            digX = random.RNG.Next(startX, startX + width);
+            digX = random.Next(SeedTag.Dungeon, startX, startX + width);
             // Try to move starting point away from corner.
             digX = NextStep(digX, startX, startX + width - 1);
             digY = startY;
@@ -140,7 +140,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         else
         {
             digX = startX;
-            digY = random.RNG.Next(startY, startY + height);
+            digY = random.Next(SeedTag.Dungeon, startY, startY + height);
             digY = NextStep(digY, startY, startY + height - 1);
 
             while (digX > -1 && digY > -1)
@@ -175,7 +175,7 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
         while (step.Count > 0)
         {
-            stepIndex = random.RNG.Next(0, step.Count);
+            stepIndex = random.Next(SeedTag.Dungeon, 0, step.Count);
             next = current + step[stepIndex];
 
             if (next > min && next < max)
@@ -209,8 +209,8 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
         startX = index[0];
         startY = index[1];
 
-        width = random.RNG.Next(minSize, maxSize + 1);
-        height = random.RNG.Next(minSize, maxSize + 1);
+        width = random.Next(SeedTag.Dungeon, minSize, maxSize + 1);
+        height = random.Next(SeedTag.Dungeon, minSize, maxSize + 1);
 
         // If a block is of maxWidth & maxHeight, it looks too big.
         tooBig = System.Math.Min(width, height) == maxSize;

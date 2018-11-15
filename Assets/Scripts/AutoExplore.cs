@@ -141,7 +141,9 @@ public class AutoExplore : MonoBehaviour
             surround.Add(checkPosition.Pop());
         }
 
-        return surround[random.RNG.Next(0, surround.Count)];
+        return (surround.Count > 1)
+            ? surround[random.Next(SeedTag.AutoExplore, 0, surround.Count)]
+            : surround[0];
     }
 
     private void FindStartPoint()

@@ -55,8 +55,8 @@ public class DungeonBlueprint : MonoBehaviour
         int x;
         int y;
 
-        x = random.RNG.Next(0, board.Width);
-        y = random.RNG.Next(0, board.Height);
+        x = random.Next(SeedTag.Dungeon, 0, board.Width);
+        y = random.Next(SeedTag.Dungeon, 0, board.Height);
         index = new int[] { x, y };
 
         return index;

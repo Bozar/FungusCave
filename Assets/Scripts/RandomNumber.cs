@@ -18,7 +18,7 @@ public class RandomNumber : MonoBehaviour
     private int minQueueLength;
     private Dictionary<SeedTag, System.Random> rngDict;
     private Dictionary<SeedTag, int> seedDict;
-    public System.Random RNG { get; private set; }
+
     public int RootSeed { get; private set; }
 
     public void InitializeSeed()
@@ -31,42 +31,20 @@ public class RandomNumber : MonoBehaviour
             RootSeed = RandomInteger(true);
         }
 
-        RNG = new System.Random(RootSeed);
+        rngDict[SeedTag.Root] = new System.Random(RootSeed);
         tagList = new List<SeedTag>(seedDict.Keys);
 
         foreach (var tag in tagList)
         {
             if (tag != SeedTag.Root)
             {
-                seedDict[tag] = RandomInteger(false, RNG);
+                seedDict[tag] = RandomInteger(false, rngDict[SeedTag.Root]);
             }
             else
             {
                 seedDict[SeedTag.Root] = RootSeed;
             }
         }
-
-        Debug.Log("Double: Start");
-        Debug.Log(seedDict[SeedTag.AutoExplore]);
-        for (int i = 0; i < maxQueueLength + 5; i++)
-        {
-            Debug.Log(Next(SeedTag.AutoExplore));
-        }
-        Debug.Log(seedDict[SeedTag.AutoExplore]);
-        Debug.Log("Double: End");
-
-        Debug.Log("Int: Start");
-        Debug.Log(seedDict[SeedTag.AutoExplore]);
-        for (int i = 0; i < maxQueueLength + 5; i++)
-        {
-            Debug.Log(Next(SeedTag.AutoExplore, 1, 10));
-        }
-        Debug.Log(seedDict[SeedTag.AutoExplore]);
-        Debug.Log("Int: End");
-
-        //Debug.Log(Next(SeedTag.Dungeon, 1, -11));
-        Debug.Log(Next(SeedTag.Dungeon, 1, 11));
-        //Debug.Log(Next(SeedTag.PERSISTENT));
     }
 
     public double Next(SeedTag tag)
@@ -95,16 +73,10 @@ public class RandomNumber : MonoBehaviour
         return rngDict[tag].Next(min, max);
     }
 
-    public int Next(SeedTag tag, int max)
-    {
-        return Next(tag, 0, max);
-    }
-
     private void Awake()
     {
-        // TODO: Change these numbers.
-        minQueueLength = 2;
-        maxQueueLength = 10;
+        minQueueLength = 100;
+        maxQueueLength = 1000;
 
         seedDict = new Dictionary<SeedTag, int>();
         rngDict = new Dictionary<SeedTag, System.Random>();

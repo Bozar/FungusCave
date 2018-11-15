@@ -19,9 +19,6 @@ public class Initialize : MonoBehaviour
         FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeed();
 
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RNG.NextDouble());
 
         FindObjects.GameLogic.GetComponent<BlueprintSponge>().DrawBlueprint();
         FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();

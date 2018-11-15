@@ -19,11 +19,11 @@ public class BlueprintPool : DungeonBlueprint
 
     public void DrawBlueprint()
     {
-        countPools = random.RNG.Next(minPool, maxPool + 1);
+        countPools = random.Next(SeedTag.Dungeon, minPool, maxPool + 1);
 
         while (countPools > 0)
         {
-            range = random.RNG.Next(minRange, maxRange + 1);
+            range = random.Next(SeedTag.Dungeon, minRange, maxRange + 1);
             WaterSource();
             WaterFlow();
         }

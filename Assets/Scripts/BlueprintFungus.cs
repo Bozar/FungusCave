@@ -10,7 +10,7 @@
 
     public void DrawBlueprint()
     {
-        countFungus = random.RNG.Next(minFungus, maxFungus + 1);
+        countFungus = random.Next(SeedTag.Dungeon, minFungus, maxFungus + 1);
         ConvertWall2Fungus();
     }
 
