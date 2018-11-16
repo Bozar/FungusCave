@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Surround { Cardinal, Diagonal };
@@ -40,8 +41,8 @@ public class ConvertCoordinates : MonoBehaviour
 
     public int[] Convert(Vector3 position)
     {
-        indexX = (int)System.Math.Floor(position.x * vector2Index);
-        indexY = (int)System.Math.Floor(position.y * vector2Index);
+        indexX = (int)Math.Floor(position.x * vector2Index);
+        indexY = (int)Math.Floor(position.y * vector2Index);
 
         arrayPosition = new int[] { indexX, indexY };
 
@@ -50,7 +51,7 @@ public class ConvertCoordinates : MonoBehaviour
 
     public int Convert(float position)
     {
-        indexXorY = (int)System.Math.Floor(position * vector2Index);
+        indexXorY = (int)Math.Floor(position * vector2Index);
 
         return indexXorY;
     }

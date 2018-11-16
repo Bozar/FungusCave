@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class Attack : MonoBehaviour
         // TODO: Attack in fog.
         direction = useCardinalFactor ? cardinalFactor : diagonalFactor;
 
-        totalEnergy = (int)System.Math.Floor(baseEnergy * direction);
+        totalEnergy = (int)Math.Floor(baseEnergy * direction);
 
         return totalEnergy;
     }

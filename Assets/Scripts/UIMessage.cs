@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -86,7 +87,7 @@ public class UIMessage : MonoBehaviour
         {
             lineLength = checkLength.Pop();
             newLine = checkText.Pop();
-            lineHeight = (int)System.Math.Ceiling((float)lineLength / maxWidth);
+            lineHeight = (int)Math.Ceiling((float)lineLength / maxWidth);
 
             if (accumulatedHeight + lineHeight > maxHeight)
             {

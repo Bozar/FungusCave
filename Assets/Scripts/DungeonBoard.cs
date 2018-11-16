@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum FOVShape { Rhombus };
@@ -103,10 +104,10 @@ public class DungeonBoard : MonoBehaviour
 
     public int GetDistance(int[] source, int[] target)
     {
-        int x = System.Math.Abs(source[0] - target[0]);
-        int y = System.Math.Abs(source[1] - target[1]);
+        int x = Math.Abs(source[0] - target[0]);
+        int y = Math.Abs(source[1] - target[1]);
 
-        return System.Math.Max(x, y);
+        return Math.Max(x, y);
     }
 
     public bool IndexOutOfRange(int x, int y)
@@ -130,8 +131,8 @@ public class DungeonBoard : MonoBehaviour
         switch (shape)
         {
             case FOVShape.Rhombus:
-                check = System.Math.Abs(target[0] - source[0])
-                    + System.Math.Abs(target[1] - source[1])
+                check = Math.Abs(target[0] - source[0])
+                    + Math.Abs(target[1] - source[1])
                     <= maxRange;
                 break;
 

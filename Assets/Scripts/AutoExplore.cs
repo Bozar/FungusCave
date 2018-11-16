@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
@@ -209,10 +210,8 @@ public class AutoExplore : MonoBehaviour
         foreach (var pos in surround)
         {
             isPassable = move.IsPassable(pos[0], pos[1]);
-
             isVaildDistance
-                = System.Math.Abs(board[x, y] - board[pos[0], pos[1]])
-                <= 1;
+                = Math.Abs(board[x, y] - board[pos[0], pos[1]]) <= 1;
 
             if (isPassable && !isVaildDistance)
             {

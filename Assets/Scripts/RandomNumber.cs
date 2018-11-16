@@ -21,7 +21,7 @@ public class RandomNumber : MonoBehaviour
 
     public int RootSeed { get; private set; }
 
-    public void InitializeSeed()
+    public void InitializeSeeds()
     {
         List<SeedTag> tagList;
         RootSeed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
@@ -50,7 +50,7 @@ public class RandomNumber : MonoBehaviour
     public double Next(SeedTag tag)
     {
         CheckErrors(tag);
-        InitializeRNG(tag);
+        InitializeRNGs(tag);
 
         if (IsPersistent(tag))
         {
@@ -63,7 +63,7 @@ public class RandomNumber : MonoBehaviour
     public int Next(SeedTag tag, int min, int max)
     {
         CheckErrors(tag, min, max);
-        InitializeRNG(tag);
+        InitializeRNGs(tag);
 
         if (IsPersistent(tag))
         {
@@ -121,7 +121,7 @@ public class RandomNumber : MonoBehaviour
 
         if (intQueueDict[tag].Count < minQueueLength)
         {
-            InitializeRNG(tag);
+            InitializeRNGs(tag);
         }
 
         return result;
@@ -137,7 +137,7 @@ public class RandomNumber : MonoBehaviour
         return result;
     }
 
-    private void InitializeRNG(SeedTag tag)
+    private void InitializeRNGs(SeedTag tag)
     {
         System.Random tempRNG;
 
@@ -186,14 +186,14 @@ public class RandomNumber : MonoBehaviour
 
     private int RandomInteger(bool mustHave9Digits, System.Random rng)
     {
-        double doubleSeed;
+        double result;
 
         do
         {
-            doubleSeed = rng.NextDouble();
+            result = rng.NextDouble();
         }
-        while (mustHave9Digits && (doubleSeed < 0.1));
+        while (mustHave9Digits && (result < 0.1));
 
-        return (int)(doubleSeed * Math.Pow(10, 9));
+        return (int)(result * Math.Pow(10, 9));
     }
 }

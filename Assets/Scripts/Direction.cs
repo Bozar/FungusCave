@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum RelativePosition { INVALID, Cardinal, Diagonal };
 
@@ -35,17 +36,17 @@ public class Direction : MonoBehaviour
     private bool CheckCardinal(int[] source, int[] target)
     {
         checkX = (source[0] == target[0])
-            && (System.Math.Abs(source[1] - target[1]) == 1);
+            && (Math.Abs(source[1] - target[1]) == 1);
         checkY = (source[1] == target[1])
-            && (System.Math.Abs(source[0] - target[0]) == 1);
+            && (Math.Abs(source[0] - target[0]) == 1);
 
         return checkX || checkY;
     }
 
     private bool CheckDiagonal(int[] source, int[] target)
     {
-        checkX = System.Math.Abs(source[0] - target[0]) == 1;
-        checkY = System.Math.Abs(source[1] - target[1]) == 1;
+        checkX = Math.Abs(source[0] - target[0]) == 1;
+        checkY = Math.Abs(source[1] - target[1]) == 1;
 
         return checkX && checkY;
     }

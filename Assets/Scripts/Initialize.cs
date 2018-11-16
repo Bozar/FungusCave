@@ -16,7 +16,7 @@ public class Initialize : MonoBehaviour
 
         Initialized = true;
 
-        FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeed();
+        FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeeds();
 
         Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
 

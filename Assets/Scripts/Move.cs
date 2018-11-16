@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Move : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class Move : MonoBehaviour
         direction = useDiagonalFactor ? diagonalFactor : cardinalFactor;
         pool = isPool ? poolEnergy : 0;
 
-        totalEnergy = (int)System.Math.Floor(baseEnergy * direction + pool);
+        totalEnergy = (int)Math.Floor(baseEnergy * direction + pool);
 
         return totalEnergy;
     }

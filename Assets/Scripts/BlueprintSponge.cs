@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
@@ -34,19 +35,19 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
             if (SolidWall())
             {
                 // Do not dig through a 2*2 block.
-                if (System.Math.Max(width, height) > 2)
+                if (Math.Max(width, height) > 2)
                 {
                     DigTunnel();
                 }
 
                 // Dig another tunnel through a big block.
-                if (System.Math.Max(width, height) == maxSize - 2)
+                if (Math.Max(width, height) == maxSize - 2)
                 {
                     DigTunnel();
                 }
 
                 // Dig one or more corners of a "thick" block.
-                if (System.Math.Min(width, height) > 2)
+                if (Math.Min(width, height) > 2)
                 {
                     DigCorner();
                 }
@@ -80,8 +81,8 @@ public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
 
         // Do not generate a looong bar. Also note that the acutal wall block is
         // shrinked by 1 gird in four directions.
-        checkSize = System.Math.Min(width - 2, height - 2) * 3
-            > System.Math.Max(width - 2, height - 2);
+        checkSize = Math.Min(width - 2, height - 2) * 3
+            > Math.Max(width - 2, height - 2);
 
         return checkX && checkY && checkFloor && checkSize;
     }
