@@ -44,6 +44,12 @@ public class UserInterface : MonoBehaviour
         sb = sb.Remove(0, sb.Length);
         sb.Append("[ ");
 
+        if (pc.GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
+        {
+            sb.Append("@");
+            sb.Append(" | ");
+        }
+
         if (board.CheckBlock(SubObjectTag.Floor, pc.transform.position))
         {
             sb.Append("Floor");
