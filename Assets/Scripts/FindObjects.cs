@@ -3,42 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum UITags { NONE, Seed, Message, Modeline, Terrain };
+public enum UITag { NONE, Seed, Message, Modeline, Terrain };
 
 // A helper class that stores references to other game objects. The ONLY game
 // object which it CAN be and MUST be attached to is GameLogic.
 public class FindObjects : MonoBehaviour
 {
-    private int tempDictKey;
-    private GameObject[] tempGOArray;
+    private static Dictionary<UITag, GameObject> mainUIDict;
 
     public static GameObject GameLogic { get; private set; }
-    public static Dictionary<int, GameObject> MainUIDict { get; private set; }
+
+    public static GameObject GetUIObject(UITag tag)
+    {
+        return mainUIDict[tag];
+    }
 
     private void Awake()
     {
         GameLogic = gameObject;
-        MainUIDict = new Dictionary<int, GameObject>();
+        mainUIDict = new Dictionary<UITag, GameObject>();
     }
 
-    private void Start()
+    private void InitializeUIDict()
     {
         // NOTE: If a GameObject's tag is MainUI AND its name is stored in
         // UITags, it can be found in MainUIDict.
-        tempGOArray = GameObject.FindGameObjectsWithTag("MainUI");
+        UITag tempDictKey;
+        GameObject[] tempGOArray = GameObject.FindGameObjectsWithTag("MainUI");
 
         foreach (var go in tempGOArray)
         {
-            if (Enum.IsDefined(typeof(UITags), go.name))
+            if (Enum.IsDefined(typeof(UITag), go.name))
             {
-                tempDictKey = (int)Enum.Parse(typeof(UITags), go.name);
+                tempDictKey = (UITag)Enum.Parse(typeof(UITag), go.name);
 
-                if (!MainUIDict.ContainsKey(tempDictKey))
+                if (!mainUIDict.ContainsKey(tempDictKey))
                 {
-                    MainUIDict.Add(tempDictKey, go);
+                    mainUIDict.Add(tempDictKey, go);
                     go.GetComponent<Text>().text = "";
                 }
             }
         }
+    }
+
+    private void Start()
+    {
+        InitializeUIDict();
     }
 }

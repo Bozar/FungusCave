@@ -5,11 +5,14 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     private DungeonBoard board;
+    private UIDict getUI;
     private bool hasFog;
     private GameObject pc;
     private string printText;
     private StringBuilder sb;
     private int textLength;
+
+    private delegate GameObject UIDict(UITag tag);
 
     private void Awake()
     {
@@ -31,6 +34,7 @@ public class UserInterface : MonoBehaviour
     private void Start()
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        getUI = FindObjects.GetUIObject;
     }
 
     private void UpdateEnvironment()
@@ -56,8 +60,7 @@ public class UserInterface : MonoBehaviour
         }
         sb.Append(" ]");
 
-        FindObjects.MainUIDict[(int)UITags.Terrain].GetComponent<Text>()
-               .text = sb.ToString();
+        getUI(UITag.Terrain).GetComponent<Text>().text = sb.ToString();
     }
 
     private void UpdateSeed()
@@ -71,7 +74,6 @@ public class UserInterface : MonoBehaviour
             printText = printText.Insert(i * 4 - 1, "-");
         }
 
-        FindObjects.MainUIDict[(int)UITags.Seed].
-            GetComponent<Text>().text = printText;
+        getUI(UITag.Seed).GetComponent<Text>().text = printText;
     }
 }

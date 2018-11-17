@@ -9,6 +9,7 @@ public class UIMessage : MonoBehaviour
     private int accumulatedHeight;
     private Stack<int> checkLength;
     private Stack<string> checkText;
+    private UIDict getUI;
     private Queue<int> inputLength;
     private Queue<string> inputText;
     private int lineHeight;
@@ -18,13 +19,14 @@ public class UIMessage : MonoBehaviour
     private string newLine;
     private Queue<string> outputText;
 
+    private delegate GameObject UIDict(UITag tag);
+
     public void PrintText()
     {
         CheckLineCount();
         CheckLineHeight();
 
-        FindObjects.MainUIDict[(int)UITags.Message].
-            GetComponent<Text>().text = "";
+        getUI(UITag.Message).GetComponent<Text>().text = "";
 
         while (outputText.Count > 0)
         {
@@ -34,8 +36,7 @@ public class UIMessage : MonoBehaviour
                 newLine += "\n";
             }
 
-            FindObjects.MainUIDict[(int)UITags.Message].
-                GetComponent<Text>().text += newLine;
+            getUI(UITag.Message).GetComponent<Text>().text += newLine;
         }
     }
 
@@ -107,5 +108,10 @@ public class UIMessage : MonoBehaviour
 
         inputText = new Queue<string>(inputText.Reverse());
         inputLength = new Queue<int>(inputLength.Reverse());
+    }
+
+    private void Start()
+    {
+        getUI = FindObjects.GetUIObject;
     }
 }

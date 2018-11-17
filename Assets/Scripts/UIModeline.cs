@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class UIModeline : MonoBehaviour
 {
+    private UIDict getUI;
     private Queue<string> inputText;
     private string newLine;
+
+    private delegate GameObject UIDict(UITag tag);
 
     public void PrintText()
     {
@@ -17,8 +20,7 @@ public class UIModeline : MonoBehaviour
         StoreText(text);
         CheckLineCount();
 
-        FindObjects.MainUIDict[(int)UITags.Modeline].
-            GetComponent<Text>().text = newLine;
+        getUI(UITag.Modeline).GetComponent<Text>().text = newLine;
     }
 
     private void Awake()
@@ -36,6 +38,11 @@ public class UIModeline : MonoBehaviour
         newLine = inputText.Count > 0
             ? inputText.Dequeue()
             : "";
+    }
+
+    private void Start()
+    {
+        getUI = FindObjects.GetUIObject;
     }
 
     private void StoreText(string text)
