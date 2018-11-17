@@ -83,6 +83,8 @@ public class ObjectPool : MonoBehaviour
             go.AddComponent<Attack>();
             go.AddComponent<Defend>();
 
+            go.AddComponent<AIVision>();
+
             if (tag == SubObjectTag.PC)
             {
                 go.AddComponent<PlayerInput>();

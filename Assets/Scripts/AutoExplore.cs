@@ -23,15 +23,15 @@ public class AutoExplore : MonoBehaviour
     private int[] pcPosition;
     private int[] position;
     private RandomNumber random;
-    private int sightRange;
     private List<int[]> surround;
     private int x;
     private int y;
+
     public bool ContinueAutoExplore { get; private set; }
 
     public void AutoAction()
     {
-        if (CanSeeEnemy())
+        if (gameObject.GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
         {
             StopAutoExplore();
             modeline.PrintText("There are enemies nearby.");
@@ -90,29 +90,6 @@ public class AutoExplore : MonoBehaviour
     }
 
     // TODO: Move some methods to AI class?
-    private bool CanSeeEnemy()
-    {
-        pcPosition = coordinate.Convert(gameObject.transform.position);
-        x = pcPosition[0];
-        y = pcPosition[1];
-        sightRange = fov.MaxRange;
-
-        for (int i = x - sightRange; i < x + sightRange + 1; i++)
-        {
-            for (int j = y - sightRange; j < y + sightRange + 1; j++)
-            {
-                if (fov.CheckFOV(FOVStatus.Insight, i, j)
-                    && actor.CheckActorTag(MainObjectTag.Actor, i, j)
-                    && !actor.CheckActorTag(SubObjectTag.PC, i, j))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     private int[] ChooseNextGrid()
     {
         surround = coordinate.SurroundCoord(Surround.Diagonal, pcPosition);
