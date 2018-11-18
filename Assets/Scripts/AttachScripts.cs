@@ -28,6 +28,7 @@ public class AttachScripts : MonoBehaviour
         gameObject.AddComponent<CreateWorld>();
 
         gameObject.AddComponent<ActorBoard>();
+        gameObject.AddComponent<ObjectData>();
 
         gameObject.AddComponent<WizardMode>();
 
