@@ -6,7 +6,6 @@ public class UserInterface : MonoBehaviour
 {
     private DungeonBoard board;
     private UIDict getUI;
-    private bool hasFog;
     private GameObject pc;
     private string printText;
     private StringBuilder sb;
@@ -26,8 +25,10 @@ public class UserInterface : MonoBehaviour
             pc = GameObject.FindGameObjectWithTag("PC");
         }
 
-        UpdateSeed();
+        UpdateHP();
         UpdateEnvironment();
+        UpdateSeed();
+
         FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
     }
 
@@ -40,7 +41,7 @@ public class UserInterface : MonoBehaviour
     private void UpdateEnvironment()
     {
         // TODO: check the weather.
-        hasFog = false;
+        bool hasFog = false;
         sb = sb.Remove(0, sb.Length);
         sb.Append("[ ");
 
@@ -67,6 +68,14 @@ public class UserInterface : MonoBehaviour
         sb.Append(" ]");
 
         getUI(UITag.Terrain).GetComponent<Text>().text = sb.ToString();
+    }
+
+    private void UpdateHP()
+    {
+        int current = pc.GetComponent<HP>().CurrentHP;
+        int max = pc.GetComponent<HP>().MaxHP;
+
+        getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
     }
 
     private void UpdateSeed()

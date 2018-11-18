@@ -2,14 +2,16 @@
 
 public enum Command
 {
+    INVALID,
     Left, Right, Up, Down,
     UpLeft, UpRight, DownLeft, DownRight,
     Wait, AutoExplore,
+    Confirm, Cancel,
 
     // Debug commands:
-    EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy, PrintSchedule,
 
-    Confirm, Cancel, Invalid
+    EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy, PrintSchedule,
+    GainHP, LoseHP
 };
 
 //* PlayerInput
@@ -129,8 +131,16 @@ public class PlayerInput : MonoBehaviour
         {
             return Command.PrintSchedule;
         }
+        else if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            return Command.GainHP;
+        }
+        else if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            return Command.LoseHP;
+        }
 
-        return Command.Invalid;
+        return Command.INVALID;
     }
 
     public bool IsMovementCommand()

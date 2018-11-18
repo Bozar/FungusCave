@@ -79,6 +79,8 @@ public class ObjectPool : MonoBehaviour
             go.AddComponent<InternalClock>();
 
             go.AddComponent<Energy>();
+            go.AddComponent<HP>();
+
             go.AddComponent<Move>();
             go.AddComponent<Attack>();
             go.AddComponent<Defend>();

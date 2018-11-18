@@ -97,7 +97,7 @@ public class TestMove : MonoBehaviour
                 .GetComponent<Energy>().PrintEnergy();
             //pc.GetComponent<Energy>().PrintEnergy();
         }
-        else if (newDirection != Command.Invalid)
+        else if (newDirection != Command.INVALID)
         //if (!string.IsNullOrEmpty(newDirection))
         {
             message.text =
@@ -113,7 +113,7 @@ public class TestMove : MonoBehaviour
             }
         }
 
-        if (newDirection != Command.Invalid)
+        if (newDirection != Command.INVALID)
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
         }

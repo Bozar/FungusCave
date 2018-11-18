@@ -38,7 +38,7 @@ public class PCActions : MonoBehaviour
             gameObject.GetComponent<FieldOfView>().UpdateFOV();
         }
 
-        if (input.GameCommand() != Command.Invalid)
+        if (input.GameCommand() != Command.INVALID)
         {
             FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
         }
@@ -86,6 +86,14 @@ public class PCActions : MonoBehaviour
 
                 case Command.PrintSchedule:
                     wizard.PrintSchedule();
+                    return;
+
+                case Command.GainHP:
+                    wizard.GainHP();
+                    return;
+
+                case Command.LoseHP:
+                    wizard.LoseHP();
                     return;
             }
         }

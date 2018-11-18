@@ -10,7 +10,7 @@ public class ObjectData : MonoBehaviour
 
     public int GetIntData(SubObjectTag oTag, DataTag dTag)
     {
-        Dictionary<DataTag, int> dataDict = new Dictionary<DataTag, int>();
+        Dictionary<DataTag, int> dataDict;
         int gameData;
 
         if (intData.TryGetValue(oTag, out dataDict))
@@ -26,34 +26,27 @@ public class ObjectData : MonoBehaviour
 
     private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
     {
-        Dictionary<DataTag, int> dataDict = new Dictionary<DataTag, int>();
-
-        if (intData.TryGetValue(oTag, out dataDict))
+        if (!intData.ContainsKey(oTag))
         {
-            if (!dataDict.ContainsKey(dTag))
-            {
-                dataDict.Add(dTag, data);
-            }
+            intData.Add(oTag, new Dictionary<DataTag, int>());
+        }
+
+        if (!intData[oTag].ContainsKey(dTag))
+        {
+            intData[oTag].Add(dTag, data);
         }
     }
 
     private void Awake()
     {
         invalidData = -99999;
+        intData = new Dictionary<SubObjectTag, Dictionary<DataTag, int>>();
 
-        intData = new Dictionary<SubObjectTag, Dictionary<DataTag, int>>
-        {
-            { SubObjectTag.PC, new Dictionary<DataTag, int>() }
-        };
+        InitializeData();
     }
 
     private void InitializeData()
     {
         AddIntData(SubObjectTag.PC, DataTag.HP, 10);
-    }
-
-    private void Start()
-    {
-        InitializeData();
     }
 }

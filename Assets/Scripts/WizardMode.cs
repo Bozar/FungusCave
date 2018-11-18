@@ -12,9 +12,19 @@ public class WizardMode : MonoBehaviour
         schedule.CurrentActor.GetComponent<Energy>().RestoreEnergy(2000, false);
     }
 
+    public void GainHP()
+    {
+        schedule.CurrentActor.GetComponent<HP>().GainHP(2);
+    }
+
     public void Initialize()
     {
         FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
+    }
+
+    public void LoseHP()
+    {
+        schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
     }
 
     public void PrintEnergy()
