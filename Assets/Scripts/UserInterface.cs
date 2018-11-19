@@ -26,6 +26,7 @@ public class UserInterface : MonoBehaviour
         }
 
         UpdateHP();
+        UpdateStress();
         UpdateEnvironment();
         UpdateSeed();
 
@@ -90,5 +91,13 @@ public class UserInterface : MonoBehaviour
         }
 
         getUI(UITag.Seed).GetComponent<Text>().text = printText;
+    }
+
+    private void UpdateStress()
+    {
+        int current = pc.GetComponent<Stress>().CurrentStress;
+        int max = pc.GetComponent<Stress>().MaxStress;
+
+        getUI(UITag.StressData).GetComponent<Text>().text = current + "/" + max;
     }
 }

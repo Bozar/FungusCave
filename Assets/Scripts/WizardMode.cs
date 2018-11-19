@@ -14,7 +14,8 @@ public class WizardMode : MonoBehaviour
 
     public void GainHP()
     {
-        schedule.CurrentActor.GetComponent<HP>().GainHP(2);
+        schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
+        //schedule.CurrentActor.GetComponent<HP>().GainHP(2);
     }
 
     public void Initialize()
@@ -24,7 +25,8 @@ public class WizardMode : MonoBehaviour
 
     public void LoseHP()
     {
-        schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
+        schedule.CurrentActor.GetComponent<Stress>().ClearStress();
+        //schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
     }
 
     public void PrintEnergy()

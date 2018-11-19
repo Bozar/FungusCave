@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum UITag { NONE, Seed, Message, Modeline, Terrain, HPData };
+public enum UITag { NONE, Seed, Message, Modeline, Terrain, HPData, StressData };
 
 // A helper class that stores references to other game objects. The ONLY game
 // object which it CAN be and MUST be attached to is GameLogic.
