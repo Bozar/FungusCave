@@ -11,7 +11,7 @@ public enum Command
     // Debug commands:
 
     EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy, PrintSchedule,
-    GainHP, LoseHP
+    GainHP, LoseHP, DrinkPotion
 };
 
 //* PlayerInput
@@ -138,6 +138,10 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Minus))
         {
             return Command.LoseHP;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            return Command.DrinkPotion;
         }
 
         return Command.INVALID;

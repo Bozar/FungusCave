@@ -8,7 +8,19 @@ public class HP : MonoBehaviour
 
     public void GainHP(int hp)
     {
-        CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
+        GainHP(hp, false);
+    }
+
+    public void GainHP(int hp, bool setHP)
+    {
+        if (setHP)
+        {
+            CurrentHP = hp;
+        }
+        else
+        {
+            CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
+        }
     }
 
     public bool IsDead()

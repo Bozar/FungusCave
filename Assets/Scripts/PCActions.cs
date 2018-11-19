@@ -95,6 +95,10 @@ public class PCActions : MonoBehaviour
                 case Command.LoseHP:
                     wizard.LoseHP();
                     return;
+
+                case Command.DrinkPotion:
+                    wizard.DrinkPotion();
+                    return;
             }
         }
     }

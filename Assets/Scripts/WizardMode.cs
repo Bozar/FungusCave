@@ -12,9 +12,18 @@ public class WizardMode : MonoBehaviour
         schedule.CurrentActor.GetComponent<Energy>().RestoreEnergy(2000, false);
     }
 
+    public void DrinkPotion()
+    {
+        if (schedule.CurrentActor.GetComponent<Potion>().HasEnoughPotion(1))
+        {
+            schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
+        }
+    }
+
     public void GainHP()
     {
-        schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
+        schedule.CurrentActor.GetComponent<Potion>().GainPotion(90);
+        //schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
         //schedule.CurrentActor.GetComponent<HP>().GainHP(2);
     }
 
@@ -25,8 +34,9 @@ public class WizardMode : MonoBehaviour
 
     public void LoseHP()
     {
-        schedule.CurrentActor.GetComponent<Stress>().ClearStress();
-        //schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
+        //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
+        //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
+        schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
     }
 
     public void PrintEnergy()

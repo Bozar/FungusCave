@@ -27,6 +27,7 @@ public class UserInterface : MonoBehaviour
 
         UpdateHP();
         UpdateStress();
+        UpdatePotion();
         UpdateEnvironment();
         UpdateSeed();
 
@@ -77,6 +78,13 @@ public class UserInterface : MonoBehaviour
         int max = pc.GetComponent<HP>().MaxHP;
 
         getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
+    }
+
+    private void UpdatePotion()
+    {
+        int current = pc.GetComponent<Potion>().CurrentPotion;
+
+        getUI(UITag.PotionData).GetComponent<Text>().text = current.ToString();
     }
 
     private void UpdateSeed()
