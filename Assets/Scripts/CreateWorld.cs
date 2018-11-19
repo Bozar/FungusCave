@@ -2,6 +2,7 @@
 
 public class CreateWorld : MonoBehaviour
 {
+    private ActorBoard actor;
     private DungeonBlueprint blueprint;
     private DungeonBoard board;
     private ObjectPool oPool;
@@ -48,8 +49,9 @@ public class CreateWorld : MonoBehaviour
         do
         {
             pos = blueprint.RandomIndex();
-        } while (!board.CheckBlock(SubObjectTag.Floor, pos)
-        && !board.CheckBlock(SubObjectTag.Pool, pos));
+        } while (actor.HasActor(pos)
+        || board.CheckBlock(SubObjectTag.Wall, pos)
+        || board.CheckBlock(SubObjectTag.Fungus, pos));
 
         return pos;
     }
@@ -57,6 +59,7 @@ public class CreateWorld : MonoBehaviour
     private void Start()
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         blueprint = FindObjects.GameLogic.GetComponent<DungeonBlueprint>();
         oPool = FindObjects.GameLogic.GetComponent<ObjectPool>();
     }

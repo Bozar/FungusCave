@@ -49,6 +49,11 @@ public class ActorBoard : MonoBehaviour
         return GetActor(x, y) != null;
     }
 
+    public bool HasActor(int[] position)
+    {
+        return HasActor(position[0], position[1]);
+    }
+
     public void RemoveActor(int x, int y)
     {
         AddActor(null, x, y);
