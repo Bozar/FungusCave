@@ -4,32 +4,39 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private ActorBoard actorBoard;
-    private int[] attackerPosition;
+    private int baseDamage;
     private int baseEnergy;
     private double cardinalFactor;
+    private ConvertCoordinates coordinate;
     private double diagonalFactor;
-    private bool useCardinalFactor;
+    private Direction direction;
 
     public void DealDamage(int x, int y)
     {
+        int[] position;
+        bool isCardinalAttack;
+        int attackEnergy;
+
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
             || !actorBoard.HasActor(x, y))
         {
             return;
         }
 
-        attackerPosition
-            = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .Convert(gameObject.transform.position);
+        position = coordinate.Convert(gameObject.transform.position);
+        isCardinalAttack = direction.CheckDirection(
+            RelativePosition.Cardinal, position, x, y);
+        attackEnergy = GetEnergyCost(isCardinalAttack);
 
-        useCardinalFactor = FindObjects.GameLogic.GetComponent<Direction>()
-            .CheckDirection(RelativePosition.Cardinal, attackerPosition, x, y);
+        gameObject.GetComponent<Energy>().LoseEnergy(attackEnergy);
+        actorBoard.GetActor(x, y).GetComponent<Defend>().TakeDamage(
+            GetCurrentDamage());
+    }
 
-        gameObject.GetComponent<Energy>().LoseEnergy(GetEnergyCost());
-
-        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-            "You hit: " + x + "," + y);
-        actorBoard.GetActor(x, y).GetComponent<Defend>().TestKill();
+    public int GetCurrentDamage()
+    {
+        // TODO: Change damage.
+        return baseDamage;
     }
 
     private void Awake()
@@ -39,15 +46,14 @@ public class Attack : MonoBehaviour
         diagonalFactor = 1.4;
     }
 
-    private int GetEnergyCost()
+    private int GetEnergyCost(bool isCardinal)
     {
         int totalEnergy;
-        double direction;
+        double directionFactor;
 
         // TODO: Attack in fog.
-        direction = useCardinalFactor ? cardinalFactor : diagonalFactor;
-
-        totalEnergy = (int)Math.Floor(baseEnergy * direction);
+        directionFactor = isCardinal ? cardinalFactor : diagonalFactor;
+        totalEnergy = (int)Math.Floor(baseEnergy * directionFactor);
 
         return totalEnergy;
     }
@@ -55,5 +61,11 @@ public class Attack : MonoBehaviour
     private void Start()
     {
         actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
+        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+        direction = FindObjects.GameLogic.GetComponent<Direction>();
+
+        baseDamage
+            = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
+            gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
     }
 }

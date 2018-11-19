@@ -28,6 +28,7 @@ public class UserInterface : MonoBehaviour
         UpdateHP();
         UpdateStress();
         UpdatePotion();
+        UpdateDamage();
         UpdateEnvironment();
         UpdateSeed();
 
@@ -38,6 +39,13 @@ public class UserInterface : MonoBehaviour
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         getUI = FindObjects.GetUIObject;
+    }
+
+    private void UpdateDamage()
+    {
+        int current = pc.GetComponent<Attack>().GetCurrentDamage();
+
+        getUI(UITag.DamageData).GetComponent<Text>().text = current.ToString();
     }
 
     private void UpdateEnvironment()

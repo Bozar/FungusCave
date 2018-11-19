@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum UITag
 {
     NONE, Seed, Message, Modeline,
-    HPData, StressData, PotionData, Terrain
+    HPData, StressData, PotionData, DamageData, Terrain
 };
 
 // A helper class that stores references to other game objects. The ONLY game
