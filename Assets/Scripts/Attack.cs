@@ -13,24 +13,14 @@ public class Attack : MonoBehaviour
 
     public void DealDamage(int x, int y)
     {
-        int[] position;
-        bool isCardinalAttack;
-        int attackEnergy;
-
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
             || !actorBoard.HasActor(x, y))
         {
             return;
         }
 
-        position = coordinate.Convert(gameObject.transform.position);
-        isCardinalAttack = direction.CheckDirection(
-            RelativePosition.Cardinal, position, x, y);
-        attackEnergy = GetEnergyCost(isCardinalAttack);
-
-        gameObject.GetComponent<Energy>().LoseEnergy(attackEnergy);
-        actorBoard.GetActor(x, y).GetComponent<Defend>().TakeDamage(
-            GetCurrentDamage());
+        gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
+        actorBoard.GetActor(x, y).GetComponent<HP>().LoseHP(GetCurrentDamage());
     }
 
     public int GetCurrentDamage()
@@ -46,12 +36,18 @@ public class Attack : MonoBehaviour
         diagonalFactor = 1.4;
     }
 
-    private int GetEnergyCost(bool isCardinal)
+    private int GetMeleeEnergy(int x, int y)
     {
-        int totalEnergy;
+        int[] position;
+        bool isCardinal;
         double directionFactor;
+        int totalEnergy;
 
-        // TODO: Attack in fog.
+        position = coordinate.Convert(gameObject.transform.position);
+        isCardinal = direction.CheckDirection(
+            RelativePosition.Cardinal, position, x, y);
+
+        // TODO: Attack in fog. Infection and power.
         directionFactor = isCardinal ? cardinalFactor : diagonalFactor;
         totalEnergy = (int)Math.Floor(baseEnergy * directionFactor);
 
