@@ -25,7 +25,7 @@ public class Attack : MonoBehaviour
         useCardinalFactor = FindObjects.GameLogic.GetComponent<Direction>()
             .CheckDirection(RelativePosition.Cardinal, attackerPosition, x, y);
 
-        gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
+        gameObject.GetComponent<Energy>().LoseEnergy(GetEnergyCost());
 
         FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
             "You hit: " + x + "," + y);

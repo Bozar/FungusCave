@@ -70,7 +70,7 @@ public class Move : MonoBehaviour
         actorBoard.AddActor(gameObject, targetX, targetY);
 
         gameObject.transform.position = coordinates.Convert(targetX, targetY);
-        gameObject.GetComponent<Energy>().CurrentEnergy -= GetEnergyCost();
+        gameObject.GetComponent<Energy>().LoseEnergy(GetEnergyCost());
     }
 
     private void Awake()
