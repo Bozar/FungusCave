@@ -102,6 +102,11 @@ public class ObjectPool : MonoBehaviour
                 go.GetComponent<RenderSprite>().ChangeColor(
                     gameObject.GetComponent<GameColor>().PickColor(
                         ColorName.Black));
+
+                // NOTE: Change sprite.
+                //UnityEngine.Object[] test
+                //      = Resources.LoadAll("curses_vector_32x48", typeof(Sprite));
+                //go.GetComponent<SpriteRenderer>().sprite = (Sprite)test[5];
             }
         }
 
