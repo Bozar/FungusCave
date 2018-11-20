@@ -41,6 +41,11 @@ public class HP : MonoBehaviour
 
         position = coordinate.Convert(gameObject.transform.position);
         message.StoreText(position[0] + "," + position[1] + " is hit.");
+
+        if (IsDead())
+        {
+            gameObject.GetComponent<Die>().Bury();
+        }
     }
 
     private void Start()

@@ -17,9 +17,13 @@ public class ActorBoard : MonoBehaviour
 
     public bool CheckActorTag<T>(T actorTag, int x, int y)
     {
+        return CheckActorTag(actorTag, GetActor(x, y));
+    }
+
+    public bool CheckActorTag<T>(T actorTag, GameObject actor)
+    {
         bool checkMainTag;
         bool checkSubTag;
-        GameObject actor = GetActor(x, y);
 
         if (actor == null)
         {

@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     private DungeonBoard board;
+    private int current;
     private UIDict getUI;
+    private int max;
     private GameObject pc;
     private string printText;
     private StringBuilder sb;
@@ -43,7 +45,7 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateDamage()
     {
-        int current = pc.GetComponent<Attack>().GetCurrentDamage();
+        current = pc.GetComponent<Attack>().GetCurrentDamage();
 
         getUI(UITag.DamageData).GetComponent<Text>().text = current.ToString();
     }
@@ -85,15 +87,15 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateHP()
     {
-        int current = pc.GetComponent<HP>().CurrentHP;
-        int max = pc.GetComponent<HP>().MaxHP;
+        current = pc.GetComponent<HP>().CurrentHP;
+        max = pc.GetComponent<HP>().MaxHP;
 
         getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
     }
 
     private void UpdatePotion()
     {
-        int current = pc.GetComponent<Potion>().CurrentPotion;
+        current = pc.GetComponent<Potion>().CurrentPotion;
 
         getUI(UITag.PotionData).GetComponent<Text>().text = current.ToString();
     }
@@ -114,8 +116,8 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateStress()
     {
-        int current = pc.GetComponent<Stress>().CurrentStress;
-        int max = pc.GetComponent<Stress>().MaxStress;
+        current = pc.GetComponent<Stress>().CurrentStress;
+        max = pc.GetComponent<Stress>().MaxStress;
 
         getUI(UITag.StressData).GetComponent<Text>().text = current + "/" + max;
     }

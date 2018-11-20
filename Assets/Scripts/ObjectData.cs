@@ -50,5 +50,7 @@ public class ObjectData : MonoBehaviour
         AddIntData(SubObjectTag.PC, DataTag.HP, 10);
         AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
         AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
+
+        AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
     }
 }

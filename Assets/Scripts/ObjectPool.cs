@@ -84,6 +84,7 @@ public class ObjectPool : MonoBehaviour
 
             go.AddComponent<Move>();
             go.AddComponent<Attack>();
+            go.AddComponent<Die>();
 
             go.AddComponent<AIVision>();
 
