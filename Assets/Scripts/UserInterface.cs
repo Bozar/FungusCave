@@ -58,23 +58,26 @@ public class UserInterface : MonoBehaviour
         if (pc.GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
         {
             sb.Append("@");
-            sb.Append(" | ");
         }
 
-        if (board.CheckBlock(SubObjectTag.Floor, pc.transform.position))
+        if (board.CheckBlock(SubObjectTag.Pool, pc.transform.position))
         {
-            sb.Append("Floor");
-        }
-        else if (board.CheckBlock(SubObjectTag.Pool, pc.transform.position))
-        {
+            if (sb.Length > 2)
+            {
+                sb.Append(" | ");
+            }
             sb.Append("Pool");
         }
 
         if (hasFog)
         {
-            sb.Append(" | ");
+            if (sb.Length > 2)
+            {
+                sb.Append(" | ");
+            }
             sb.Append("Fog");
         }
+
         sb.Append(" ]");
 
         getUI(UITag.Terrain).GetComponent<Text>().text = sb.ToString();
