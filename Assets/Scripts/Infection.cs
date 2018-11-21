@@ -6,35 +6,46 @@ public enum InfectionTag { Slow, Weak, Poison };
 
 public class Infection : MonoBehaviour
 {
-    private Dictionary<InfectionTag, int> infectionDuration;
+    private int duration;
+    private Dictionary<InfectionTag, int> infectionsDict;
     private int maxInfections;
     private UIMessage message;
 
     public void CountDown()
     {
+        foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+        {
+            if (infectionsDict[tag] > 0)
+            {
+                infectionsDict[tag] -= 1;
+            }
+        }
     }
 
-    public void GainInfection()
+    public void GainInfection(InfectionTag tag)
     {
         if (!IsInfected())
         {
             return;
         }
+
+        infectionsDict[tag] = duration;
         message.StoreText("You are infected.");
     }
 
-    public bool HasInfection(InfectionTag infection)
+    public bool HasInfection(InfectionTag tag)
     {
-        return false;
+        return infectionsDict[tag] > 0;
     }
 
     private void Awake()
     {
-        infectionDuration = new Dictionary<InfectionTag, int>();
+        duration = 5;
+        infectionsDict = new Dictionary<InfectionTag, int>();
 
         foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
         {
-            infectionDuration.Add((InfectionTag)tag, 0);
+            infectionsDict.Add((InfectionTag)tag, 0);
         }
     }
 
