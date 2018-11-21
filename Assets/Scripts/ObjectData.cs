@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum DataTag { HP, Stress, Damage }
+public enum DataTag { HP, Stress, Damage, MaxInfections }
 
 public class ObjectData : MonoBehaviour
 {
@@ -49,7 +49,8 @@ public class ObjectData : MonoBehaviour
     {
         AddIntData(SubObjectTag.PC, DataTag.HP, 10);
         AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
-        AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
+        AddIntData(SubObjectTag.PC, DataTag.Damage, 3);
+        AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
 
         AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
     }

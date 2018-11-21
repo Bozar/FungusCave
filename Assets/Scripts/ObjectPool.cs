@@ -81,6 +81,7 @@ public class ObjectPool : MonoBehaviour
             go.AddComponent<Energy>();
             go.AddComponent<HP>();
             go.AddComponent<Stress>();
+            go.AddComponent<Infection>();
 
             go.AddComponent<Move>();
             go.AddComponent<Attack>();

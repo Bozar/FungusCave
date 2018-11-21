@@ -6,6 +6,7 @@ public class InternalClock : MonoBehaviour
 
     public void EndTurn()
     {
+        gameObject.GetComponent<Infection>().CountDown();
     }
 
     public void StartTurn()

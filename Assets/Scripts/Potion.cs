@@ -9,6 +9,7 @@ public class Potion : MonoBehaviour
 
     public void DrinkPotion()
     {
+        // TODO: Lose stress. Lose infections. Gain energy.
         gameObject.GetComponent<HP>().GainHP(
             gameObject.GetComponent<HP>().MaxHP, true);
 
