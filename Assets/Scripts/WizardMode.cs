@@ -15,7 +15,7 @@ public class WizardMode : MonoBehaviour
     public void DrinkPotion()
     {
         if (schedule.CurrentActor.GetComponent<Infection>().HasInfection(
-            InfectionTag.Poison))
+            InfectionTag.Weak))
         {
             schedule.CurrentActor.GetComponent<Infection>().GainInfection(
                 InfectionTag.Slow);
@@ -23,7 +23,7 @@ public class WizardMode : MonoBehaviour
         else
         {
             schedule.CurrentActor.GetComponent<Infection>().GainInfection(
-                InfectionTag.Poison);
+                InfectionTag.Weak);
         }
 
         //int[] pos = gameObject.GetComponent<ConvertCoordinates>()

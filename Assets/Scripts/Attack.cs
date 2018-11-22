@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     private int baseEnergy;
     private double cardinalFactor;
     private ConvertCoordinates coordinate;
+    private int damageWeak;
     private double diagonalFactor;
     private Direction direction;
 
@@ -25,13 +26,23 @@ public class Attack : MonoBehaviour
 
     public int GetCurrentDamage()
     {
+        int weak;
+        int finalDamage;
+
         // TODO: Change damage.
-        return baseDamage;
+
+        weak = gameObject.GetComponent<Infection>()
+            .HasInfection(InfectionTag.Weak) ? damageWeak : 0;
+
+        finalDamage = baseDamage - weak;
+
+        return finalDamage;
     }
 
     private void Awake()
     {
         baseEnergy = 1200;
+        damageWeak = 2;
         cardinalFactor = 1.0;
         diagonalFactor = 1.4;
     }
