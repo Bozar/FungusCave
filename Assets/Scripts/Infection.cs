@@ -6,7 +6,9 @@ public enum InfectionTag { Weak, Slow, Poison };
 
 public class Infection : MonoBehaviour
 {
+    private int countInfections;
     private int duration;
+    private int infectionOverflowDamage;
     private Dictionary<InfectionTag, int> infectionsDict;
     private int maxInfections;
     private UIMessage message;
@@ -18,6 +20,11 @@ public class Infection : MonoBehaviour
             if (infectionsDict[tag] > 0)
             {
                 infectionsDict[tag] -= 1;
+
+                if (infectionsDict[tag] == 0)
+                {
+                    countInfections--;
+                }
             }
         }
     }
@@ -29,7 +36,19 @@ public class Infection : MonoBehaviour
             return;
         }
 
-        infectionsDict[tag] = duration;
+        if (gameObject.GetComponent<Stress>().IsUnderLowStress())
+        {
+            gameObject.GetComponent<Stress>().GainStress(1);
+        }
+        else if (countInfections >= maxInfections)
+        {
+            gameObject.GetComponent<HP>().LoseHP(infectionOverflowDamage);
+        }
+        else
+        {
+            infectionsDict[tag] = duration;
+            countInfections++;
+        }
     }
 
     public bool HasInfection(InfectionTag tag, out int duration)
@@ -53,11 +72,15 @@ public class Infection : MonoBehaviour
                 infectionsDict[tag] = 0;
             }
         }
+
+        countInfections = 0;
     }
 
     private void Awake()
     {
+        countInfections = 0;
         duration = 5;
+        infectionOverflowDamage = 2;
         infectionsDict = new Dictionary<InfectionTag, int>();
 
         foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
