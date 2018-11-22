@@ -14,11 +14,23 @@ public class WizardMode : MonoBehaviour
 
     public void DrinkPotion()
     {
-        int[] pos = gameObject.GetComponent<ConvertCoordinates>()
-            .Convert(schedule.CurrentActor.transform.position);
+        if (schedule.CurrentActor.GetComponent<Infection>().HasInfection(
+            InfectionTag.Poison))
+        {
+            schedule.CurrentActor.GetComponent<Infection>().GainInfection(
+                InfectionTag.Slow);
+        }
+        else
+        {
+            schedule.CurrentActor.GetComponent<Infection>().GainInfection(
+                InfectionTag.Poison);
+        }
 
-        schedule.CurrentActor.GetComponent<Attack>().DealDamage(
-            pos[0], pos[1]);
+        //int[] pos = gameObject.GetComponent<ConvertCoordinates>()
+        //    .Convert(schedule.CurrentActor.transform.position);
+
+        //schedule.CurrentActor.GetComponent<Attack>().DealDamage(
+        //    pos[0], pos[1]);
 
         //if (schedule.CurrentActor.GetComponent<Potion>().HasEnoughPotion(1))
         //{

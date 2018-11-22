@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,11 @@ public class UserInterface : MonoBehaviour
     private DungeonBoard board;
     private int current;
     private UIDict getUI;
+    private int lineNumber;
     private int max;
     private GameObject pc;
     private string printText;
     private StringBuilder sb;
-    private int textLength;
 
     private delegate GameObject UIDict(UITag tag);
 
@@ -33,6 +34,7 @@ public class UserInterface : MonoBehaviour
         UpdateDamage();
         UpdateEnvironment();
         UpdateSeed();
+        UpdateInfection();
 
         FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
     }
@@ -93,6 +95,42 @@ public class UserInterface : MonoBehaviour
         getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
     }
 
+    private void UpdateInfection()
+    {
+        lineNumber = -1;
+
+        getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
+
+        for (int i = 0; i < 2; i++)
+        {
+            getUI((UITag)Enum.Parse(typeof(UITag), "InfectionName" + i))
+                .GetComponent<Text>().text = "";
+            getUI((UITag)Enum.Parse(typeof(UITag), "InfectionDuration" + i))
+                .GetComponent<Text>().text = "";
+        }
+
+        foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+        {
+            if (pc.GetComponent<Infection>().HasInfection(tag, out current))
+            {
+                lineNumber++;
+
+                getUI((UITag)Enum.Parse(typeof(UITag),
+                    "InfectionName" + lineNumber)).GetComponent<Text>().text
+                    = tag.ToString();
+                getUI((UITag)Enum.Parse(typeof(UITag),
+                    "InfectionDuration" + lineNumber)).GetComponent<Text>().text
+                    = current.ToString();
+            }
+        }
+
+        if (lineNumber > -1)
+        {
+            getUI(UITag.InfectionLabel).GetComponent<Text>().text
+                = "[ Infections ]";
+        }
+    }
+
     private void UpdatePotion()
     {
         current = pc.GetComponent<Potion>().CurrentPotion;
@@ -102,8 +140,10 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateSeed()
     {
-        printText = FindObjects.GameLogic.GetComponent<RandomNumber>()
-            .RootSeed.ToString();
+        int textLength;
+
+        printText = FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed
+            .ToString();
         textLength = printText.Length;
 
         for (int i = 1; textLength > i * 3; i++)

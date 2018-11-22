@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public enum UITag
 {
     NONE, Seed, Message, Modeline,
-    HPData, StressData, PotionData, DamageData, Terrain
+    HPData, StressData, PotionData, DamageData, Terrain,
+    InfectionLabel,
+    InfectionName0, InfectionDuration0,
+    InfectionName1, InfectionDuration1,
 };
 
 // A helper class that stores references to other game objects. The ONLY game

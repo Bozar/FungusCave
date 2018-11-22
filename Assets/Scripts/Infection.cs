@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InfectionTag { Slow, Weak, Poison };
+public enum InfectionTag { Weak, Slow, Poison };
 
 public class Infection : MonoBehaviour
 {
@@ -30,12 +30,18 @@ public class Infection : MonoBehaviour
         }
 
         infectionsDict[tag] = duration;
-        message.StoreText("You are infected.");
+    }
+
+    public bool HasInfection(InfectionTag tag, out int duration)
+    {
+        duration = infectionsDict[tag];
+        return duration > 0;
     }
 
     public bool HasInfection(InfectionTag tag)
     {
-        return infectionsDict[tag] > 0;
+        int temp;
+        return HasInfection(tag, out temp);
     }
 
     private void Awake()
@@ -51,6 +57,8 @@ public class Infection : MonoBehaviour
 
     private bool IsInfected()
     {
+        message.StoreText("You are infected.");
+
         return true;
     }
 
