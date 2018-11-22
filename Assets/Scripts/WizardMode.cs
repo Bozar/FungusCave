@@ -42,7 +42,8 @@ public class WizardMode : MonoBehaviour
     {
         //schedule.CurrentActor.GetComponent<Potion>().GainPotion(90);
         //schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
-        schedule.CurrentActor.GetComponent<HP>().GainHP(2);
+        //schedule.CurrentActor.GetComponent<HP>().GainHP(2);
+        schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
     }
 
     public void Initialize()

@@ -9,9 +9,9 @@ public class Potion : MonoBehaviour
 
     public void DrinkPotion()
     {
-        // TODO: Lose stress. Lose infections. Gain energy.
-        gameObject.GetComponent<HP>().GainHP(
-            gameObject.GetComponent<HP>().MaxHP, true);
+        // TODO: Lose stress. Gain energy.
+        gameObject.GetComponent<HP>().ResetHP();
+        gameObject.GetComponent<Infection>().ResetInfection();
 
         LosePotion(1);
     }
@@ -21,7 +21,7 @@ public class Potion : MonoBehaviour
         CurrentPotion = Math.Min(maxPotion, CurrentPotion + potion);
     }
 
-    public bool HasEnoughPotion(int min)
+    public bool HasEnoughPotion(int min = 1)
     {
         return CurrentPotion >= min;
     }

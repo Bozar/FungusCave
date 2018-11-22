@@ -44,6 +44,17 @@ public class Infection : MonoBehaviour
         return HasInfection(tag, out temp);
     }
 
+    public void ResetInfection()
+    {
+        foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+        {
+            if (infectionsDict[tag] > 0)
+            {
+                infectionsDict[tag] = 0;
+            }
+        }
+    }
+
     private void Awake()
     {
         duration = 5;
@@ -60,10 +71,6 @@ public class Infection : MonoBehaviour
         message.StoreText("You are infected.");
 
         return true;
-    }
-
-    private void LoseInfection()
-    {
     }
 
     private void Start()

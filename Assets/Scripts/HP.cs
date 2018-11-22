@@ -48,6 +48,11 @@ public class HP : MonoBehaviour
         }
     }
 
+    public void ResetHP()
+    {
+        GainHP(MaxHP, true);
+    }
+
     private void Start()
     {
         MaxHP = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
