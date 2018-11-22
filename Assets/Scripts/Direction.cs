@@ -9,6 +9,9 @@ public class Direction : MonoBehaviour
     private bool checkY;
     private int[] position;
 
+    public int CardinalFactor { get; private set; }
+    public int DiagonalFactor { get; private set; }
+
     public bool CheckDirection(RelativePosition checkType,
        int[] source, int targetX, int targetY)
     {
@@ -31,6 +34,12 @@ public class Direction : MonoBehaviour
             default:
                 return false;
         }
+    }
+
+    private void Awake()
+    {
+        CardinalFactor = 10;
+        DiagonalFactor = 14;
     }
 
     private bool CheckCardinal(int[] source, int[] target)

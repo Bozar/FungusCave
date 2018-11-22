@@ -13,6 +13,10 @@ public class Infection : MonoBehaviour
     private int maxInfections;
     private UIMessage message;
 
+    public int ModDamage { get; private set; }
+    public int ModEnergy { get; private set; }
+    public int ModInfectionRate { get; private set; }
+
     public void CountDown()
     {
         foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
@@ -78,6 +82,9 @@ public class Infection : MonoBehaviour
 
     private void Awake()
     {
+        ModDamage = 2;
+        ModEnergy = 200;
+
         countInfections = 0;
         duration = 5;
         infectionOverflowDamage = 2;

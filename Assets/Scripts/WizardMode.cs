@@ -5,6 +5,7 @@ public class WizardMode : MonoBehaviour
     private SchedulingSystem schedule;
 
     public bool IsWizardMode { get; private set; }
+    public bool PrintEnergyCost { get; private set; }
     public bool RenderAll { get; private set; }
 
     public void AddEnergy()
@@ -68,6 +69,14 @@ public class WizardMode : MonoBehaviour
         schedule.PrintSchedule();
     }
 
+    public void SwitchPrintEnergyCost()
+    {
+        PrintEnergyCost = !PrintEnergyCost;
+
+        FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+            "Print energy cost: " + PrintEnergyCost);
+    }
+
     public void SwitchRenderAll()
     {
         RenderAll = !RenderAll;
@@ -77,6 +86,7 @@ public class WizardMode : MonoBehaviour
     {
         IsWizardMode = true;
         RenderAll = false;
+        PrintEnergyCost = false;
     }
 
     private void Start()

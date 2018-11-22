@@ -99,6 +99,10 @@ public class PCActions : MonoBehaviour
                 case Command.DrinkPotion:
                     wizard.DrinkPotion();
                     return;
+
+                case Command.PrintEnergyCost:
+                    wizard.SwitchPrintEnergyCost();
+                    return;
             }
         }
     }

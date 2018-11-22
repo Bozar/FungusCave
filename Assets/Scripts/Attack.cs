@@ -6,10 +6,7 @@ public class Attack : MonoBehaviour
     private ActorBoard actorBoard;
     private int baseDamage;
     private int baseEnergy;
-    private double cardinalFactor;
     private ConvertCoordinates coordinate;
-    private int damageWeak;
-    private double diagonalFactor;
     private Direction direction;
 
     public void DealDamage(int x, int y)
@@ -32,7 +29,9 @@ public class Attack : MonoBehaviour
         // TODO: Change damage.
 
         weak = gameObject.GetComponent<Infection>()
-            .HasInfection(InfectionTag.Weak) ? damageWeak : 0;
+            .HasInfection(InfectionTag.Weak)
+            ? gameObject.GetComponent<Infection>().ModDamage
+            : 0;
 
         finalDamage = baseDamage - weak;
 
@@ -42,9 +41,6 @@ public class Attack : MonoBehaviour
     private void Awake()
     {
         baseEnergy = 1200;
-        damageWeak = 2;
-        cardinalFactor = 1.0;
-        diagonalFactor = 1.4;
     }
 
     private int GetMeleeEnergy(int x, int y)
@@ -53,14 +49,37 @@ public class Attack : MonoBehaviour
         bool isCardinal;
         double directionFactor;
         int totalEnergy;
+        int slow;
 
         position = coordinate.Convert(gameObject.transform.position);
         isCardinal = direction.CheckDirection(
             RelativePosition.Cardinal, position, x, y);
 
-        // TODO: Attack in fog. Infection and power.
-        directionFactor = isCardinal ? cardinalFactor : diagonalFactor;
-        totalEnergy = (int)Math.Floor(baseEnergy * directionFactor);
+        directionFactor = isCardinal
+            ? direction.CardinalFactor
+            : direction.DiagonalFactor;
+
+        slow = gameObject.GetComponent<Infection>()
+            .HasInfection(InfectionTag.Slow)
+            ? gameObject.GetComponent<Infection>().ModEnergy
+            : 0;
+
+        // NOTE: Data is calculated in this way.
+        //> total = (base + positiveMod - negativeMod) * factor
+        //> positiveMod
+        //> = Max(pos1, pos2, ...)
+        //> + (Sum(pos1, pos2, ...) - Max(pos1, pos2, ...)) * 0.5
+
+        // TODO: Attack in fog. Power.
+        totalEnergy = (int)Math.Floor((baseEnergy + slow)
+            * (directionFactor * 0.1));
+
+        if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
+            && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+        {
+            FindObjects.GameLogic.GetComponent<UIMessage>()
+                .StoreText("Melee energy: " + totalEnergy);
+        }
 
         return totalEnergy;
     }

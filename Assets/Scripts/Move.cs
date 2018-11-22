@@ -6,13 +6,8 @@ public class Move : MonoBehaviour
     private ActorBoard actorBoard;
     private int baseEnergy;
     private DungeonBoard board;
-    private double cardinalFactor;
-    private bool checkX;
-    private bool checkY;
     private ConvertCoordinates coordinates;
-    private double diagonalFactor;
-    private bool isFloor;
-    private bool isPool;
+    private Direction direction;
     private int poolEnergy;
     private int[] startPosition;
     private int[] targetPosition;
@@ -20,6 +15,9 @@ public class Move : MonoBehaviour
 
     public bool IsPassable(int x, int y)
     {
+        bool isFloor;
+        bool isPool;
+
         isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
         isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
 
@@ -77,8 +75,6 @@ public class Move : MonoBehaviour
     {
         baseEnergy = 1000;
         poolEnergy = 200;
-        diagonalFactor = 1.4;
-        cardinalFactor = 1.0;
     }
 
     private int[] DirectionToPosition(Command direction, int startX, int startY)
@@ -129,22 +125,45 @@ public class Move : MonoBehaviour
     {
         int totalEnergy;
         int pool;
-        double direction;
+        int slow;
+        int positive;
+        int maxPositive;
+        int directionFactor;
 
-        isPool = board.CheckBlock(SubObjectTag.Pool, startPosition);
+        directionFactor = useDiagonalFactor
+            ? direction.DiagonalFactor
+            : direction.CardinalFactor;
 
-        direction = useDiagonalFactor ? diagonalFactor : cardinalFactor;
-        pool = isPool ? poolEnergy : 0;
+        pool = board.CheckBlock(SubObjectTag.Pool, startPosition)
+            ? poolEnergy
+            : 0;
 
-        totalEnergy = (int)Math.Floor(baseEnergy * direction + pool);
+        slow = gameObject.GetComponent<Infection>()
+            .HasInfection(InfectionTag.Slow)
+            ? gameObject.GetComponent<Infection>().ModEnergy
+            : 0;
+
+        positive = pool + slow;
+        maxPositive = Math.Max(pool, slow);
+
+        totalEnergy = (int)Math.Floor(
+            (baseEnergy + ((positive + maxPositive) * 0.5))
+            * (directionFactor * 0.1));
+
+        if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
+            && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+        {
+            FindObjects.GameLogic.GetComponent<UIMessage>()
+                .StoreText("Move energy: " + totalEnergy);
+        }
 
         return totalEnergy;
     }
 
     private bool IsWait(int x, int y)
     {
-        checkX = startPosition[0] == x;
-        checkY = startPosition[1] == y;
+        bool checkX = startPosition[0] == x;
+        bool checkY = startPosition[1] == y;
 
         return checkX && checkY;
     }
@@ -154,5 +173,6 @@ public class Move : MonoBehaviour
         coordinates = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
         actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
+        direction = FindObjects.GameLogic.GetComponent<Direction>();
     }
 }
