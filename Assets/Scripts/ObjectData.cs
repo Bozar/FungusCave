@@ -5,17 +5,17 @@ public enum DataTag { HP, Stress, Damage, MaxInfections }
 
 public class ObjectData : MonoBehaviour
 {
-    private Dictionary<SubObjectTag, Dictionary<DataTag, int>> intData;
+    private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
     private int invalidData;
 
     public int GetIntData(SubObjectTag oTag, DataTag dTag)
     {
-        Dictionary<DataTag, int> dataDict;
+        Dictionary<SubObjectTag, int> dataDict;
         int gameData;
 
-        if (intData.TryGetValue(oTag, out dataDict))
+        if (intData.TryGetValue(dTag, out dataDict))
         {
-            if (dataDict.TryGetValue(dTag, out gameData))
+            if (dataDict.TryGetValue(oTag, out gameData))
             {
                 return gameData;
             }
@@ -26,21 +26,21 @@ public class ObjectData : MonoBehaviour
 
     private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
     {
-        if (!intData.ContainsKey(oTag))
+        if (!intData.ContainsKey(dTag))
         {
-            intData.Add(oTag, new Dictionary<DataTag, int>());
+            intData.Add(dTag, new Dictionary<SubObjectTag, int>());
         }
 
-        if (!intData[oTag].ContainsKey(dTag))
+        if (!intData[dTag].ContainsKey(oTag))
         {
-            intData[oTag].Add(dTag, data);
+            intData[dTag].Add(oTag, data);
         }
     }
 
     private void Awake()
     {
         invalidData = -99999;
-        intData = new Dictionary<SubObjectTag, Dictionary<DataTag, int>>();
+        intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
 
         InitializeData();
     }
@@ -49,7 +49,7 @@ public class ObjectData : MonoBehaviour
     {
         AddIntData(SubObjectTag.PC, DataTag.HP, 10);
         AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
-        AddIntData(SubObjectTag.PC, DataTag.Damage, 3);
+        AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
         AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
 
         AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
