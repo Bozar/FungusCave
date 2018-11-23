@@ -82,7 +82,7 @@ public class Infection : MonoBehaviour
 
     private void Awake()
     {
-        ModDamage = 2;
+        ModDamage = 1;
         ModEnergy = 200;
 
         countInfections = 0;

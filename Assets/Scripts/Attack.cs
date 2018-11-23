@@ -34,6 +34,7 @@ public class Attack : MonoBehaviour
             : 0;
 
         finalDamage = baseDamage - weak;
+        finalDamage = Math.Max(0, finalDamage);
 
         return finalDamage;
     }
