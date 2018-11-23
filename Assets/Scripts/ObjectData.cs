@@ -19,6 +19,10 @@ public class ObjectData : MonoBehaviour
             {
                 return gameData;
             }
+            else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
+            {
+                return gameData;
+            }
         }
 
         return invalidData;
