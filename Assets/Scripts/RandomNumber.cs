@@ -8,7 +8,7 @@ public enum SeedTag
     Root, Dungeon,
 
     PERSISTENT,
-    AutoExplore
+    AutoExplore, Infection
 }
 
 public class RandomNumber : MonoBehaviour
@@ -82,32 +82,37 @@ public class RandomNumber : MonoBehaviour
         rngDict = new Dictionary<SeedTag, System.Random>();
         intQueueDict = new Dictionary<SeedTag, Queue<int>>();
 
-        foreach (var tag in Enum.GetValues(typeof(SeedTag)))
+        foreach (SeedTag tag in Enum.GetValues(typeof(SeedTag)))
         {
-            if (IsInvalid((SeedTag)tag))
+            if (IsInvalid(tag))
             {
                 continue;
             }
 
-            seedDict.Add((SeedTag)tag, -1);
+            seedDict.Add(tag, -1);
 
-            if (IsPersistent((SeedTag)tag))
+            if (IsPersistent(tag))
             {
-                intQueueDict.Add((SeedTag)tag, new Queue<int>());
+                intQueueDict.Add(tag, new Queue<int>());
             }
             else
             {
-                rngDict.Add((SeedTag)tag, null);
+                rngDict.Add(tag, null);
             }
         }
     }
 
-    private void CheckErrors(SeedTag tag, int min = 0, int max = 0)
+    private void CheckErrors(SeedTag tag)
     {
         if (IsInvalid(tag))
         {
             throw new Exception("Invalid tag: " + tag);
         }
+    }
+
+    private void CheckErrors(SeedTag tag, int min, int max)
+    {
+        CheckErrors(tag);
 
         if (max < min)
         {
