@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     private int baseEnergy;
     private ConvertCoordinates coordinate;
     private Direction direction;
+    private int weakDamage;
 
     public void DealDamage(int x, int y)
     {
@@ -30,7 +31,7 @@ public class Attack : MonoBehaviour
 
         weak = gameObject.GetComponent<Infection>()
             .HasInfection(InfectionTag.Weak)
-            ? gameObject.GetComponent<Infection>().ModDamage
+            ? weakDamage
             : 0;
 
         finalDamage = baseDamage - weak;
@@ -42,6 +43,7 @@ public class Attack : MonoBehaviour
     private void Awake()
     {
         baseEnergy = 1200;
+        weakDamage = 1;
     }
 
     private int GetMeleeEnergy(int x, int y)

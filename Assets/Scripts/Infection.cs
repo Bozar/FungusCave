@@ -13,9 +13,7 @@ public class Infection : MonoBehaviour
     private int maxInfections;
     private UIMessage message;
 
-    public int ModDamage { get; private set; }
     public int ModEnergy { get; private set; }
-    public int ModInfectionRate { get; private set; }
 
     public void CountDown()
     {
@@ -82,12 +80,11 @@ public class Infection : MonoBehaviour
 
     private void Awake()
     {
-        ModDamage = 1;
         ModEnergy = 200;
 
         countInfections = 0;
         duration = 5;
-        infectionOverflowDamage = 2;
+        infectionOverflowDamage = 1;
         infectionsDict = new Dictionary<InfectionTag, int>();
 
         foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
