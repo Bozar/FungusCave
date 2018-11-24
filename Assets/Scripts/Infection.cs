@@ -12,6 +12,7 @@ public class Infection : MonoBehaviour
     private Dictionary<InfectionTag, int> infectionsDict;
     private int maxInfections;
     private UIMessage message;
+    private RandomNumber random;
 
     public int ModEnergy { get; private set; }
 
@@ -31,7 +32,7 @@ public class Infection : MonoBehaviour
         }
     }
 
-    public void GainInfection(InfectionTag tag)
+    public void GainInfection()
     {
         if (!IsInfected())
         {
@@ -48,8 +49,7 @@ public class Infection : MonoBehaviour
         }
         else
         {
-            infectionsDict[tag] = duration;
-            countInfections++;
+            ChooseInfection();
         }
     }
 
@@ -93,6 +93,30 @@ public class Infection : MonoBehaviour
         }
     }
 
+    private void ChooseInfection()
+    {
+        List<InfectionTag> candidates = new List<InfectionTag>();
+        InfectionTag newInfection;
+        int index;
+
+        foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+        {
+            if (!HasInfection(tag))
+            {
+                candidates.Add(tag);
+            }
+        }
+
+        if (candidates.Count > 0)
+        {
+            index = random.Next(SeedTag.Infection, 0, candidates.Count);
+            newInfection = candidates[index];
+            infectionsDict[newInfection] = duration;
+
+            countInfections++;
+        }
+    }
+
     private bool IsInfected()
     {
         message.StoreText("You are infected.");
@@ -107,5 +131,6 @@ public class Infection : MonoBehaviour
             DataTag.MaxInfections);
 
         message = FindObjects.GameLogic.GetComponent<UIMessage>();
+        random = FindObjects.GameLogic.GetComponent<RandomNumber>();
     }
 }
