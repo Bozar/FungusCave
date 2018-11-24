@@ -36,9 +36,8 @@ public class Move : MonoBehaviour
     public void MoveActor(int targetX, int targetY)
     {
         startPosition = coordinates.Convert(gameObject.transform.position);
-        useDiagonalFactor = FindObjects.GameLogic.GetComponent<Direction>()
-            .CheckDirection(RelativePosition.Diagonal,
-            startPosition, targetX, targetY);
+        useDiagonalFactor = direction.CheckDirection(
+            RelativePosition.Diagonal, startPosition, targetX, targetY);
 
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
         {

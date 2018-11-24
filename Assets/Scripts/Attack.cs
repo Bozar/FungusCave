@@ -70,8 +70,8 @@ public class Attack : MonoBehaviour
         // NOTE: Data is calculated in this way.
         //> total = (base + positiveMod - negativeMod) * factor
         //> positiveMod
-        //> = Max(pos1, pos2, ...)
-        //> + (Sum(pos1, pos2, ...) - Max(pos1, pos2, ...)) * 0.5
+        //> = Max(mod1, mod2, ...)
+        //> + 0.5 * (Sum(mod1, mod2, ...) - Max(mod1, mod2, ...))
 
         // TODO: Attack in fog. Power.
         totalEnergy = (int)Math.Floor((baseEnergy + slow)

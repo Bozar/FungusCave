@@ -46,7 +46,7 @@ public class WizardMode : MonoBehaviour
     {
         //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
         //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
-        schedule.CurrentActor.GetComponent<HP>().LoseHP(2);
+        schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
     }
 
     public void PrintEnergy()
