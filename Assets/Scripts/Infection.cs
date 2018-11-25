@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public enum InfectionTag { Weak, Slow, Poison };
@@ -101,7 +100,7 @@ public class Infection : MonoBehaviour
         hpFactor = 3.0;
         modFog = 30;
         modPool = 10;
-        modPoison = 20;
+        modPoison = 4;
 
         infectionsDict = new Dictionary<InfectionTag, int>();
 
@@ -138,32 +137,38 @@ public class Infection : MonoBehaviour
     private int GetInfectionRate()
     {
         int currentHP;
+        Vector3 currentPosition;
         int hp;
         int pool;
         int fog;
+        int attack;
+        int defense;
         int poison;
-        int maxMod;
         int sumMod;
+        int sumFactor;
         int finalRate;
 
         currentHP = gameObject.GetComponent<HP>().CurrentHP;
+        currentPosition = gameObject.transform.position;
+
         hp = (int)Math.Floor(
             Math.Max(0, defaultMaxHP - currentHP) / hpFactor * 10);
 
-        pool = board.CheckBlock(SubObjectTag.Pool, gameObject.transform.position)
+        pool = board.CheckBlock(SubObjectTag.Pool, currentPosition)
             ? modPool : 0;
 
-        // TODO: Check weather. Attack power changes infection rate.
-        bool hasFog = false;
-        fog = hasFog ? modFog : 0;
+        // TODO: Check weather. Attack power increase infection rate. Defense
+        // power decrease infection rate.
+        fog = 0;
+        attack = 0;
+        defense = 0;
 
         poison = HasInfection(InfectionTag.Poison) ? modPoison : 0;
 
-        sumMod = hp + pool + fog + poison;
-        // NOTE: Enumerable.Max
-        maxMod = new int[] { hp, pool, fog, poison }.Max();
+        sumMod = hp + pool + fog + attack;
+        sumFactor = Math.Max(0, poison - defense + 10);
 
-        finalRate = (int)Math.Floor((sumMod + maxMod) * 0.5);
+        finalRate = (int)Math.Floor(sumMod * (sumFactor * 0.1));
 
         return finalRate;
     }
