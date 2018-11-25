@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InfectionTag { Weak, Slow, Poison };
+public enum InfectionTag { Mutate, Weak, Slow, Poison };
 
 public class Infection : MonoBehaviour
 {
@@ -159,7 +159,7 @@ public class Infection : MonoBehaviour
 
         // TODO: Check weather. Attack power increase infection rate. Defense
         // power decrease infection rate.
-        fog = 0;
+        fog = modFog * 0;
         attack = 0;
         defense = 0;
 

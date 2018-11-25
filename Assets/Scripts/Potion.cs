@@ -9,9 +9,23 @@ public class Potion : MonoBehaviour
 
     public void DrinkPotion()
     {
-        // TODO: Lose stress. Gain energy.
-        gameObject.GetComponent<HP>().ResetHP();
-        gameObject.GetComponent<Infection>().ResetInfection();
+        int restoreFull;
+        int restoreHalf;
+
+        restoreFull = gameObject.GetComponent<HP>().MaxHP;
+        restoreHalf = (int)Math.Floor(restoreFull * 0.5);
+
+        if (gameObject.GetComponent<Infection>().HasInfection(
+            InfectionTag.Mutate))
+        {
+            gameObject.GetComponent<HP>().GainHP(restoreHalf);
+        }
+        else
+        {
+            // TODO: Lose stress. Gain energy.
+            gameObject.GetComponent<HP>().GainHP(restoreFull);
+            gameObject.GetComponent<Infection>().ResetInfection();
+        }
 
         LosePotion(1);
     }
