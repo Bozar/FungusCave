@@ -11,19 +11,7 @@ public class HP : MonoBehaviour
 
     public void GainHP(int hp)
     {
-        GainHP(hp, false);
-    }
-
-    public void GainHP(int hp, bool setHP)
-    {
-        if (setHP)
-        {
-            CurrentHP = hp;
-        }
-        else
-        {
-            CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
-        }
+        CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
     }
 
     public bool IsDead()
@@ -46,11 +34,6 @@ public class HP : MonoBehaviour
         {
             gameObject.GetComponent<Die>().Bury();
         }
-    }
-
-    public void ResetHP()
-    {
-        GainHP(MaxHP, true);
     }
 
     private void Start()
