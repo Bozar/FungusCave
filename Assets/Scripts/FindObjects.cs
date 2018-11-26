@@ -7,6 +7,7 @@ public enum UITag
 {
     NONE, Seed, Message, Modeline,
     HPData, StressData, PotionData, DamageData, Terrain,
+    PowerData1, PowerData2, PowerData3,
     InfectionLabel,
     InfectionName0, InfectionDuration0,
     InfectionName1, InfectionDuration1,
