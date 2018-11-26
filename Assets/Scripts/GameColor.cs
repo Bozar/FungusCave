@@ -5,11 +5,10 @@ public enum ColorName { TEST, White, Black, Grey }
 // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
 public class GameColor : MonoBehaviour
 {
-    private Color32 color;
-
-    public Color32 PickColor(ColorName name)
-
+    public Color PickColor(ColorName name)
     {
+        Color32 color;
+
         switch (name)
         {
             case ColorName.White:
@@ -27,13 +26,12 @@ public class GameColor : MonoBehaviour
             case ColorName.TEST:
                 color = new Color32(255, 0, 0, 255);
                 break;
+
+            default:
+                color = new Color32();
+                break;
         }
 
         return color;
-    }
-
-    private void Awake()
-    {
-        color = new Color32();
     }
 }

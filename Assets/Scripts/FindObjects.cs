@@ -9,8 +9,8 @@ public enum UITag
     HPData, StressData, PotionData, DamageData, Terrain,
     PowerData1, PowerData2, PowerData3,
     InfectionLabel,
-    InfectionName0, InfectionDuration0,
     InfectionName1, InfectionDuration1,
+    InfectionName2, InfectionDuration2
 };
 
 // A helper class that stores references to other game objects. The ONLY game

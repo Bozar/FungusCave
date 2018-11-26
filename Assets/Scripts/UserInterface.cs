@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     private DungeonBoard board;
+    private GameColor color;
     private int current;
     private UIDict getUI;
     private int lineNumber;
@@ -35,6 +37,7 @@ public class UserInterface : MonoBehaviour
         UpdateEnvironment();
         UpdateSeed();
         UpdateInfection();
+        UpdatePower();
 
         FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
     }
@@ -42,6 +45,7 @@ public class UserInterface : MonoBehaviour
     private void Start()
     {
         board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        color = FindObjects.GameLogic.GetComponent<GameColor>();
         getUI = FindObjects.GetUIObject;
     }
 
@@ -97,11 +101,11 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateInfection()
     {
-        lineNumber = -1;
+        lineNumber = 0;
 
         getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 1; i < 3; i++)
         {
             getUI((UITag)Enum.Parse(typeof(UITag), "InfectionName" + i))
                 .GetComponent<Text>().text = "";
@@ -124,7 +128,7 @@ public class UserInterface : MonoBehaviour
             }
         }
 
-        if (lineNumber > -1)
+        if (lineNumber > 0)
         {
             getUI(UITag.InfectionLabel).GetComponent<Text>().text
                 = "[ Infections ]";
@@ -136,6 +140,28 @@ public class UserInterface : MonoBehaviour
         current = pc.GetComponent<Potion>().CurrentPotion;
 
         getUI(UITag.PotionData).GetComponent<Text>().text = current.ToString();
+    }
+
+    private void UpdatePower()
+    {
+        List<string> powers = new List<string>
+        {
+            "Power01",
+            "Power02",
+            "Power03"
+        };
+
+        for (int i = 1; i < 4; i++)
+        {
+            getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
+                .GetComponent<Text>().text = powers[i - 1];
+
+            getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
+                .GetComponent<Text>().color
+                = i > pc.GetComponent<Stress>().CurrentStress
+                ? color.PickColor(ColorName.Grey)
+                : color.PickColor(ColorName.White);
+        }
     }
 
     private void UpdateSeed()
