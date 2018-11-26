@@ -95,6 +95,7 @@ public class ObjectPool : MonoBehaviour
                 go.AddComponent<PCActions>();
                 go.AddComponent<AutoExplore>();
                 go.AddComponent<Potion>();
+                go.AddComponent<PCPowers>();
             }
             else
             {

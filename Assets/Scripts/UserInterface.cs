@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -101,11 +100,11 @@ public class UserInterface : MonoBehaviour
 
     private void UpdateInfection()
     {
-        lineNumber = 0;
+        lineNumber = -1;
 
         getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
 
-        for (int i = 1; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             getUI((UITag)Enum.Parse(typeof(UITag), "InfectionName" + i))
                 .GetComponent<Text>().text = "";
@@ -128,7 +127,7 @@ public class UserInterface : MonoBehaviour
             }
         }
 
-        if (lineNumber > 0)
+        if (lineNumber > -1)
         {
             getUI(UITag.InfectionLabel).GetComponent<Text>().text
                 = "[ Infections ]";
@@ -144,23 +143,17 @@ public class UserInterface : MonoBehaviour
 
     private void UpdatePower()
     {
-        List<string> powers = new List<string>
-        {
-            "Power01",
-            "Power02",
-            "Power03"
-        };
-
-        for (int i = 1; i < 4; i++)
+        for (int i = 0; i < pc.GetComponent<Stress>().MaxStress; i++)
         {
             getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
-                .GetComponent<Text>().text = powers[i - 1];
+                .GetComponent<Text>().text
+                = pc.GetComponent<PCPowers>().GetPowerName((PowerSlotTag)i);
 
             getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
                 .GetComponent<Text>().color
-                = i > pc.GetComponent<Stress>().CurrentStress
-                ? color.PickColor(ColorName.Grey)
-                : color.PickColor(ColorName.White);
+                = pc.GetComponent<PCPowers>().SlotIsActive((PowerSlotTag)i)
+                ? color.PickColor(ColorName.White)
+                : color.PickColor(ColorName.Grey);
         }
     }
 
