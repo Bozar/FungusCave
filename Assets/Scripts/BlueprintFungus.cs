@@ -1,4 +1,4 @@
-﻿public class BlueprintFungus : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
+﻿public class BlueprintFungus : DungeonBlueprint, IIsEmptyArea
 {
     private int countFungus;
     private int[] index;

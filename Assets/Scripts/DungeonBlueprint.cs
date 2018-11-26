@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
+public interface IIsEmptyArea
+{
+    bool IsEmptyArea(int x, int y, int width, int height);
+}
+
 // Change the 2D array's content, which is defined in DungeonBoard.
 public class DungeonBlueprint : MonoBehaviour
 {
     protected DungeonBoard board;
     protected RandomNumber random;
-
-    public interface IIsEmptyArea
-    {
-        bool IsEmptyArea(int x, int y, int width, int height);
-    }
 
     public void DrawManually()
     {

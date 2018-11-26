@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueprintSponge : DungeonBlueprint, DungeonBlueprint.IIsEmptyArea
+public class BlueprintSponge : DungeonBlueprint, IIsEmptyArea
 {
     private int countWalls;
     private int digX;
