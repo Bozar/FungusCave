@@ -13,7 +13,14 @@ public enum PowerTag
     Poison1, Poison2
 }
 
-public class PCPowers : MonoBehaviour
+public interface ICheckActorPower
+{
+    bool HasPower(PowerTag tag);
+
+    bool PowerIsActive(PowerTag tag);
+}
+
+public class PCPowers : MonoBehaviour, ICheckActorPower
 {
     private Dictionary<PowerTag, string> nameDict;
     private Dictionary<PowerSlotTag, PowerTag> powerDict;
@@ -30,6 +37,24 @@ public class PCPowers : MonoBehaviour
             return "";
         }
         return nameDict[powerDict[slot]];
+    }
+
+    public bool HasPower(PowerTag tag)
+    {
+        bool isActive;
+
+        return HasPower(tag, out isActive);
+    }
+
+    public bool PowerIsActive(PowerTag tag)
+    {
+        bool isActive;
+
+        if (HasPower(tag, out isActive))
+        {
+            return isActive;
+        }
+        return false;
     }
 
     public bool SlotIsActive(PowerSlotTag slot)
@@ -54,6 +79,21 @@ public class PCPowers : MonoBehaviour
             { PowerTag.Poison1, "Poison I" },
             { PowerTag.Poison2, "Poison II" }
         };
+    }
+
+    private bool HasPower(PowerTag tag, out bool isActive)
+    {
+        foreach (var slotPower in powerDict)
+        {
+            if (slotPower.Value == tag)
+            {
+                isActive = SlotIsActive(slotPower.Key);
+                return true;
+            }
+        }
+
+        isActive = false;
+        return false;
     }
 
     private void Start()
