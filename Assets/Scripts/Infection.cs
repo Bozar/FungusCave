@@ -67,13 +67,12 @@ public class Infection : MonoBehaviour
     public bool HasInfection(InfectionTag tag, out int duration)
     {
         duration = infectionsDict[tag];
-        return duration > 0;
+        return HasInfection(tag);
     }
 
     public bool HasInfection(InfectionTag tag)
     {
-        int temp;
-        return HasInfection(tag, out temp);
+        return infectionsDict[tag] > 0;
     }
 
     public void ResetInfection()
