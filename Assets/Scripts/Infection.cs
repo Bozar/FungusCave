@@ -16,10 +16,11 @@ public class Infection : MonoBehaviour
     private int maxInfections;
     private UIMessage message;
     private int modFog;
-    private int modPoison;
+    private int modInfectionPoison;
     private int modPool;
+    private int modPowerImmunity1;
+    private int modPowerPoison1;
     private RandomNumber random;
-
     public int ModEnergy { get; private set; }
 
     public void CountDown()
@@ -49,7 +50,7 @@ public class Infection : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            if (gameObject.GetComponent<Stress>().IsUnderLowStress())
+            if (!gameObject.GetComponent<Stress>().HasMaxStress())
             {
                 gameObject.GetComponent<Stress>().GainStress(1);
             }
@@ -62,6 +63,18 @@ public class Infection : MonoBehaviour
                 ChooseInfection();
             }
         }
+    }
+
+    public bool HasInfection()
+    {
+        foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+        {
+            if (infectionsDict[tag] > 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool HasInfection(InfectionTag tag, out int duration)
@@ -97,9 +110,11 @@ public class Infection : MonoBehaviour
         infectionOverflowDamage = 1;
         defaultMaxHP = 10;
         hpFactor = 3.0;
-        modFog = 30;
-        modPool = 10;
-        modPoison = 4;
+        modFog = 40;
+        modPool = 20;
+        modInfectionPoison = 60;
+        modPowerImmunity1 = 20;
+        modPowerPoison1 = 30;
 
         infectionsDict = new Dictionary<InfectionTag, int>();
 
@@ -141,7 +156,9 @@ public class Infection : MonoBehaviour
         int pool;
         int fog;
         int attack;
-        int defense;
+        bool pcHasPower;
+        bool npcHasPower;
+        int stress;
         int poison;
         int sumMod;
         int sumFactor;
@@ -156,18 +173,25 @@ public class Infection : MonoBehaviour
         pool = board.CheckBlock(SubObjectTag.Pool, currentPosition)
             ? modPool : 0;
 
-        // TODO: Check weather. Attack power increase infection rate. Defense
-        // power decrease infection rate.
+        // TODO: Check weather. Attack power increase infection rate.
         fog = modFog * 0;
-        attack = 0;
-        defense = 0;
+        attack = modPowerPoison1 * 0;
 
-        poison = HasInfection(InfectionTag.Poison) ? modPoison : 0;
+        // TODO: Update after Unity 2018.3.
+        pcHasPower = gameObject.GetComponent<PCPowers>() != null
+            && gameObject.GetComponent<PCPowers>().HasPower(PowerTag.Immunity1);
+        npcHasPower = gameObject.GetComponent<NPCPowers>() != null
+            && gameObject.GetComponent<NPCPowers>().HasPower(PowerTag.Immunity1);
+        stress = ((pcHasPower || npcHasPower)
+            && gameObject.GetComponent<Stress>().HasMaxStress())
+            ? modPowerImmunity1 : 0;
 
-        sumMod = hp + pool + fog + attack;
-        sumFactor = Math.Max(0, poison - defense + 10);
+        poison = HasInfection(InfectionTag.Poison) ? modInfectionPoison : 0;
 
-        finalRate = (int)Math.Floor(sumMod * (sumFactor * 0.1));
+        sumMod = Math.Max(0, hp + pool + fog + attack - stress);
+        sumFactor = poison + 100;
+
+        finalRate = (int)Math.Floor(sumMod * (sumFactor * 0.01));
 
         return finalRate;
     }

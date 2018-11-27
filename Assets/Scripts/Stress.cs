@@ -9,13 +9,11 @@ public class Stress : MonoBehaviour
     public void GainStress(int stress)
     {
         CurrentStress = Math.Min(MaxStress, CurrentStress + stress);
-
-        // TODO: Gain powers.
     }
 
-    public bool IsUnderLowStress()
+    public bool HasMaxStress()
     {
-        return CurrentStress < MaxStress;
+        return CurrentStress == MaxStress;
     }
 
     public void LoseStress(int stress)
