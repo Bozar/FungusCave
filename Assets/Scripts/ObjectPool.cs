@@ -101,6 +101,7 @@ public class ObjectPool : MonoBehaviour
             {
                 go.AddComponent<ActorAI>();
                 go.AddComponent<NPCActions>().enabled = false;
+                go.AddComponent<NPCPowers>();
 
                 go.GetComponent<RenderSprite>().ChangeColor(
                     gameObject.GetComponent<GameColor>().PickColor(

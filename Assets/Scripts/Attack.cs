@@ -8,10 +8,13 @@ public class Attack : MonoBehaviour
     private int baseEnergy;
     private ConvertCoordinates coordinate;
     private Direction direction;
+    private int powerEnergy2;
     private int weakDamage;
 
     public void DealDamage(int x, int y)
     {
+        bool targetIsDead;
+
         if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
             || !actorBoard.HasActor(x, y))
         {
@@ -19,7 +22,21 @@ public class Attack : MonoBehaviour
         }
 
         gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
-        actorBoard.GetActor(x, y).GetComponent<HP>().LoseHP(GetCurrentDamage());
+
+        targetIsDead = actorBoard.GetActor(x, y).GetComponent<HP>().LoseHP(
+            GetCurrentDamage());
+
+        // TODO: Update after Unity 2018.3.
+        if (targetIsDead
+            && (gameObject.GetComponent<PCPowers>() != null
+            && gameObject.GetComponent<PCPowers>().PowerIsActive(
+                PowerTag.Energy2))
+            || (gameObject.GetComponent<NPCPowers>() != null
+            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
+                PowerTag.Energy2)))
+        {
+            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+        }
     }
 
     public int GetCurrentDamage()
@@ -44,6 +61,7 @@ public class Attack : MonoBehaviour
     {
         baseEnergy = 1200;
         weakDamage = 1;
+        powerEnergy2 = 400;
     }
 
     private int GetMeleeEnergy(int x, int y)

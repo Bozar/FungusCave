@@ -19,7 +19,7 @@ public class HP : MonoBehaviour
         return CurrentHP < 1;
     }
 
-    public void LoseHP(int hp)
+    public bool LoseHP(int hp)
     {
         CurrentHP = Math.Max(0, CurrentHP - hp);
 
@@ -33,7 +33,10 @@ public class HP : MonoBehaviour
         if (IsDead())
         {
             gameObject.GetComponent<Die>().Bury();
+
+            return true;
         }
+        return false;
     }
 
     private void Start()

@@ -2,8 +2,8 @@
 
 public class InternalClock : MonoBehaviour
 {
-    private int bonusEnergy;
     private int energyTurn;
+    private int powerEnergy1;
 
     public void EndTurn()
     {
@@ -15,11 +15,14 @@ public class InternalClock : MonoBehaviour
         gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
 
         // TODO: Update after Unity 2018.3.
-        if (gameObject.GetComponent<PCPowers>() != null
+        if ((gameObject.GetComponent<PCPowers>() != null
             && gameObject.GetComponent<PCPowers>().PowerIsActive(
                 PowerTag.Energy1))
+            || (gameObject.GetComponent<NPCPowers>() != null
+            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
+                PowerTag.Energy1)))
         {
-            gameObject.GetComponent<Energy>().GainEnergy(bonusEnergy, false);
+            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
         }
 
         if (gameObject.GetComponent<AutoExplore>() != null)
@@ -31,6 +34,6 @@ public class InternalClock : MonoBehaviour
     private void Awake()
     {
         energyTurn = 2000;
-        bonusEnergy = 400;
+        powerEnergy1 = 200;
     }
 }
