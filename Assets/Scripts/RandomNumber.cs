@@ -56,7 +56,6 @@ public class RandomNumber : MonoBehaviour
         {
             return DequeDouble(tag);
         }
-
         return rngDict[tag].NextDouble();
     }
 
@@ -69,7 +68,6 @@ public class RandomNumber : MonoBehaviour
         {
             return DequeInt(tag, min, max);
         }
-
         return rngDict[tag].Next(min, max);
     }
 
@@ -124,11 +122,6 @@ public class RandomNumber : MonoBehaviour
     {
         double result = intQueueDict[tag].Dequeue() / Math.Pow(10, 9);
 
-        if (intQueueDict[tag].Count < minQueueLength)
-        {
-            InitializeRNGs(tag);
-        }
-
         return result;
     }
 
@@ -144,8 +137,6 @@ public class RandomNumber : MonoBehaviour
 
     private void InitializeRNGs(SeedTag tag)
     {
-        System.Random tempRNG;
-
         if (IsInvalid(tag))
         {
             return;
@@ -153,7 +144,12 @@ public class RandomNumber : MonoBehaviour
 
         if (IsPersistent(tag))
         {
-            tempRNG = new System.Random(seedDict[tag]);
+            if (intQueueDict[tag].Count > minQueueLength)
+            {
+                return;
+            }
+
+            System.Random tempRNG = new System.Random(seedDict[tag]);
 
             for (int i = 0; i < maxQueueLength; i++)
             {
