@@ -20,7 +20,11 @@ public class Infection : MonoBehaviour
     private int modPool;
     private int modPowerImmunity1;
     private int modPowerPoison1;
+    private bool npcHasPower;
+    private bool pcHasPower;
+    private int powerImmunity2;
     private RandomNumber random;
+
     public int ModEnergy { get; private set; }
 
     public void CountDown()
@@ -48,6 +52,12 @@ public class Infection : MonoBehaviour
             return;
         }
 
+        // TODO: Update after Unity 2018.3.
+        pcHasPower = gameObject.GetComponent<PCPowers>() != null
+            && gameObject.GetComponent<PCPowers>().HasPower(PowerTag.Immunity2);
+        npcHasPower = gameObject.GetComponent<NPCPowers>() != null
+            && gameObject.GetComponent<NPCPowers>().HasPower(PowerTag.Immunity2);
+
         for (int i = 0; i < count; i++)
         {
             if (!gameObject.GetComponent<Stress>().HasMaxStress())
@@ -61,6 +71,11 @@ public class Infection : MonoBehaviour
             else
             {
                 ChooseInfection();
+
+                if (pcHasPower || npcHasPower)
+                {
+                    gameObject.GetComponent<HP>().GainHP(powerImmunity2);
+                }
             }
         }
     }
@@ -108,6 +123,7 @@ public class Infection : MonoBehaviour
         countInfections = 0;
         maxDuration = 5;
         infectionOverflowDamage = 1;
+        powerImmunity2 = 2;
         defaultMaxHP = 10;
         hpFactor = 3.0;
         modFog = 40;
@@ -156,8 +172,6 @@ public class Infection : MonoBehaviour
         int pool;
         int fog;
         int attack;
-        bool pcHasPower;
-        bool npcHasPower;
         int stress;
         int poison;
         int sumMod;
