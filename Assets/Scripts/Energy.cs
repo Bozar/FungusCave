@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 
 public class Energy : MonoBehaviour
@@ -15,6 +16,7 @@ public class Energy : MonoBehaviour
         }
 
         CurrentEnergy += energy;
+        CurrentEnergy = Math.Min(CurrentEnergy, actionThreshold * 3);
     }
 
     public bool HasEnoughEnergy()

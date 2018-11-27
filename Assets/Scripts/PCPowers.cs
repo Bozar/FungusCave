@@ -41,6 +41,7 @@ public class PCPowers : MonoBehaviour, ICheckActorPower
 
     public bool HasPower(PowerTag tag)
     {
+        // TODO: Update after Unity 2018.3.
         bool isActive;
 
         return HasPower(tag, out isActive);
