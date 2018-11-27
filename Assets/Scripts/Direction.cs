@@ -38,8 +38,8 @@ public class Direction : MonoBehaviour
 
     private void Awake()
     {
-        CardinalFactor = 10;
-        DiagonalFactor = 14;
+        CardinalFactor = 0;
+        DiagonalFactor = 40;
     }
 
     private bool CheckCardinal(int[] source, int[] target)

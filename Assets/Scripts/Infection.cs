@@ -118,7 +118,7 @@ public class Infection : MonoBehaviour
 
     private void Awake()
     {
-        ModEnergy = 200;
+        ModEnergy = 60;
 
         countInfections = 0;
         maxDuration = 5;

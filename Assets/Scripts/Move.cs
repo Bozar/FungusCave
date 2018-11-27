@@ -125,29 +125,21 @@ public class Move : MonoBehaviour
         int totalEnergy;
         int pool;
         int slow;
-        int positive;
-        int maxPositive;
         int directionFactor;
+
+        pool = board.CheckBlock(SubObjectTag.Pool, startPosition)
+            ? poolEnergy : 0;
 
         directionFactor = useDiagonalFactor
             ? direction.DiagonalFactor
             : direction.CardinalFactor;
 
-        pool = board.CheckBlock(SubObjectTag.Pool, startPosition)
-            ? poolEnergy
-            : 0;
-
         slow = gameObject.GetComponent<Infection>()
             .HasInfection(InfectionTag.Slow)
-            ? gameObject.GetComponent<Infection>().ModEnergy
-            : 0;
-
-        positive = pool + slow;
-        maxPositive = Math.Max(pool, slow);
+            ? gameObject.GetComponent<Infection>().ModEnergy : 0;
 
         totalEnergy = (int)Math.Floor(
-            (baseEnergy + ((positive + maxPositive) * 0.5))
-            * (directionFactor * 0.1));
+            (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));
 
         if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
             && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))

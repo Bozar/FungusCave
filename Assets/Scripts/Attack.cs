@@ -82,18 +82,11 @@ public class Attack : MonoBehaviour
 
         slow = gameObject.GetComponent<Infection>()
             .HasInfection(InfectionTag.Slow)
-            ? gameObject.GetComponent<Infection>().ModEnergy
-            : 0;
-
-        // NOTE: Data is calculated in this way.
-        //> total = (base + positiveMod - negativeMod) * factor
-        //> positiveMod
-        //> = Max(mod1, mod2, ...)
-        //> + 0.5 * (Sum(mod1, mod2, ...) - Max(mod1, mod2, ...))
+            ? gameObject.GetComponent<Infection>().ModEnergy : 0;
 
         // TODO: Attack in fog. Power.
-        totalEnergy = (int)Math.Floor((baseEnergy + slow)
-            * (directionFactor * 0.1));
+        totalEnergy = (int)Math.Floor(
+            baseEnergy * ((100 + directionFactor + slow) * 0.01));
 
         if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
             && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
