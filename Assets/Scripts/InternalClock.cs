@@ -14,13 +14,7 @@ public class InternalClock : MonoBehaviour
     {
         gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
 
-        // TODO: Update after Unity 2018.3.
-        if ((gameObject.GetComponent<PCPowers>() != null
-            && gameObject.GetComponent<PCPowers>().PowerIsActive(
-                PowerTag.Energy1))
-            || (gameObject.GetComponent<NPCPowers>() != null
-            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
-                PowerTag.Energy1)))
+        if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
         {
             gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
         }

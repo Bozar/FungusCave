@@ -147,11 +147,11 @@ public class UserInterface : MonoBehaviour
         {
             getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
                 .GetComponent<Text>().text
-                = pc.GetComponent<PCPowers>().GetPowerName((PowerSlotTag)i);
+                = pc.GetComponent<Power>().GetPowerName((PowerSlotTag)i);
 
             getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
                 .GetComponent<Text>().color
-                = pc.GetComponent<PCPowers>().SlotIsActive((PowerSlotTag)i)
+                = pc.GetComponent<Power>().SlotIsActive((PowerSlotTag)i)
                 ? color.PickColor(ColorName.White)
                 : color.PickColor(ColorName.Grey);
         }

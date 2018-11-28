@@ -10,6 +10,7 @@ public class Infection : MonoBehaviour
     private DungeonBoard board;
     private int countInfections;
     private int defaultMaxHP;
+    private bool hasPower;
     private double hpFactor;
     private int infectionOverflowDamage;
     private Dictionary<InfectionTag, int> infectionsDict;
@@ -21,8 +22,6 @@ public class Infection : MonoBehaviour
     private int modPool;
     private int modPowerImmunity1;
     private int modPowerPoison1;
-    private bool npcHasPower;
-    private bool pcHasPower;
     private int powerImmunity2;
     private RandomNumber random;
 
@@ -55,11 +54,7 @@ public class Infection : MonoBehaviour
             return isDead;
         }
 
-        // TODO: Update after Unity 2018.3.
-        pcHasPower = gameObject.GetComponent<PCPowers>() != null
-            && gameObject.GetComponent<PCPowers>().HasPower(PowerTag.Immunity2);
-        npcHasPower = gameObject.GetComponent<NPCPowers>() != null
-            && gameObject.GetComponent<NPCPowers>().HasPower(PowerTag.Immunity2);
+        hasPower = gameObject.GetComponent<Power>().HasPower(PowerTag.Immunity2);
 
         for (int i = 0; i < count; i++)
         {
@@ -76,7 +71,7 @@ public class Infection : MonoBehaviour
             {
                 ChooseInfection();
 
-                if (pcHasPower || npcHasPower)
+                if (hasPower)
                 {
                     gameObject.GetComponent<HP>().GainHP(powerImmunity2);
                 }
@@ -197,13 +192,8 @@ public class Infection : MonoBehaviour
         fog = modFog * 0;
         attPower = attackerHasPower ? modPowerPoison1 : 0;
 
-        // TODO: Update after Unity 2018.3.
-        pcHasPower = gameObject.GetComponent<PCPowers>() != null
-            && gameObject.GetComponent<PCPowers>().HasPower(PowerTag.Immunity1);
-        npcHasPower = gameObject.GetComponent<NPCPowers>() != null
-            && gameObject.GetComponent<NPCPowers>().HasPower(PowerTag.Immunity1);
-        stress = ((pcHasPower || npcHasPower)
-            && gameObject.GetComponent<Stress>().HasMaxStress())
+        hasPower = gameObject.GetComponent<Power>().HasPower(PowerTag.Immunity1);
+        stress = (hasPower && gameObject.GetComponent<Stress>().HasMaxStress())
             ? modPowerImmunity1 : 0;
 
         poison = HasInfection(InfectionTag.Poison) ? modInfectionPoison : 0;

@@ -86,6 +86,7 @@ public class ObjectPool : MonoBehaviour
             go.AddComponent<Move>();
             go.AddComponent<Attack>();
             go.AddComponent<Die>();
+            go.AddComponent<Power>();
 
             go.AddComponent<AIVision>();
 
@@ -95,13 +96,11 @@ public class ObjectPool : MonoBehaviour
                 go.AddComponent<PCActions>();
                 go.AddComponent<AutoExplore>();
                 go.AddComponent<Potion>();
-                go.AddComponent<PCPowers>();
             }
             else
             {
                 go.AddComponent<ActorAI>();
                 go.AddComponent<NPCActions>().enabled = false;
-                go.AddComponent<NPCPowers>();
 
                 go.GetComponent<RenderSprite>().ChangeColor(
                     gameObject.GetComponent<GameColor>().PickColor(

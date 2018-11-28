@@ -42,15 +42,10 @@ public class Attack : MonoBehaviour
 
         gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-        // TODO: Update after Unity 2018.3.
-        hasPower = (gameObject.GetComponent<PCPowers>() != null
-            && gameObject.GetComponent<PCPowers>().PowerIsActive(
-                PowerTag.Poison1))
-            || (gameObject.GetComponent<NPCPowers>() != null
-            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
-                PowerTag.Poison1));
-
+        hasPower = gameObject.GetComponent<Power>().PowerIsActive(
+            PowerTag.Poison1);
         target = actorBoard.GetActor(x, y);
+
         targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage())
             || target.GetComponent<Infection>().GainInfection(hasPower);
 
@@ -105,13 +100,7 @@ public class Attack : MonoBehaviour
             return;
         }
 
-        // TODO: Update after Unity 2018.3.
-        if ((gameObject.GetComponent<PCPowers>() != null
-            && gameObject.GetComponent<PCPowers>().PowerIsActive(
-                PowerTag.Energy2))
-            || (gameObject.GetComponent<NPCPowers>() != null
-            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
-                PowerTag.Energy2)))
+        if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
         {
             gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
         }
