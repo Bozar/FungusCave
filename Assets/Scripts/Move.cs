@@ -52,7 +52,7 @@ public class Move : MonoBehaviour
 
         if (actorBoard.HasActor(targetX, targetY))
         {
-            gameObject.GetComponent<Attack>().DealDamage(targetX, targetY);
+            gameObject.GetComponent<Attack>().MeleeAttack(targetX, targetY);
             return;
         }
 

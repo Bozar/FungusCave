@@ -43,13 +43,14 @@ public class Infection : MonoBehaviour
         }
     }
 
-    public void GainInfection()
+    public bool GainInfection()
     {
         int count;
+        bool isDead = false;
 
         if (!IsInfected(out count))
         {
-            return;
+            return isDead;
         }
 
         // TODO: Update after Unity 2018.3.
@@ -66,7 +67,8 @@ public class Infection : MonoBehaviour
             }
             else if (countInfections >= maxInfections)
             {
-                gameObject.GetComponent<HP>().LoseHP(infectionOverflowDamage);
+                isDead = gameObject.GetComponent<HP>().LoseHP(
+                    infectionOverflowDamage);
             }
             else
             {
@@ -78,6 +80,8 @@ public class Infection : MonoBehaviour
                 }
             }
         }
+
+        return isDead;
     }
 
     public bool HasInfection()
