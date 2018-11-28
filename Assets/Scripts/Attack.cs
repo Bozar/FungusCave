@@ -4,6 +4,8 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private ActorBoard actorBoard;
+    private int attackPowerEnergy;
+    private PowerTag[] attackPowers;
     private int baseDamage;
     private int baseEnergy;
     private ConvertCoordinates coordinate;
@@ -57,6 +59,7 @@ public class Attack : MonoBehaviour
         baseEnergy = 1200;
         weakDamage = 1;
         powerEnergy2 = 400;
+        attackPowerEnergy = 200;
     }
 
     private int GetMeleeEnergy(int x, int y)
@@ -64,6 +67,7 @@ public class Attack : MonoBehaviour
         int[] position;
         bool isCardinal;
         double directionFactor;
+        int attack;
         int totalEnergy;
         int slow;
 
@@ -79,9 +83,18 @@ public class Attack : MonoBehaviour
             .HasInfection(InfectionTag.Slow)
             ? gameObject.GetComponent<Infection>().ModEnergy : 0;
 
-        // TODO: Attack in fog. Power.
+        attack = 0;
+        foreach (PowerTag tag in attackPowers)
+        {
+            if (gameObject.GetComponent<Power>().PowerIsActive(tag))
+            {
+                attack += attackPowerEnergy;
+            }
+        }
+
+        // TODO: Attack in fog.
         totalEnergy = (int)Math.Floor(
-            baseEnergy * ((100 + directionFactor + slow) * 0.01));
+            (baseEnergy + attack) * ((100 + directionFactor + slow) * 0.01));
 
         if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
             && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
@@ -111,6 +124,12 @@ public class Attack : MonoBehaviour
         actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
         coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         direction = FindObjects.GameLogic.GetComponent<Direction>();
+
+        attackPowers = new PowerTag[]
+        {
+            PowerTag.Damage1, PowerTag.Damage2,
+            PowerTag.Poison1, PowerTag.Poison2
+        };
 
         baseDamage
             = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
