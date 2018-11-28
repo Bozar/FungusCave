@@ -20,8 +20,7 @@ public class Attack : MonoBehaviour
 
         weak = gameObject.GetComponent<Infection>()
             .HasInfection(InfectionTag.Weak)
-            ? weakDamage
-            : 0;
+            ? weakDamage : 0;
 
         finalDamage = baseDamage - weak;
         finalDamage = Math.Max(0, finalDamage);
@@ -31,6 +30,7 @@ public class Attack : MonoBehaviour
 
     public void MeleeAttack(int x, int y)
     {
+        bool hasPower;
         bool targetIsDead;
         GameObject target;
 
@@ -42,21 +42,19 @@ public class Attack : MonoBehaviour
 
         gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-        target = actorBoard.GetActor(x, y);
-        targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage())
-            || target.GetComponent<Infection>().GainInfection();
-
         // TODO: Update after Unity 2018.3.
-        if (targetIsDead
-            && (gameObject.GetComponent<PCPowers>() != null
+        hasPower = (gameObject.GetComponent<PCPowers>() != null
             && gameObject.GetComponent<PCPowers>().PowerIsActive(
-                PowerTag.Energy2))
+                PowerTag.Poison1))
             || (gameObject.GetComponent<NPCPowers>() != null
             && gameObject.GetComponent<NPCPowers>().PowerIsActive(
-                PowerTag.Energy2)))
-        {
-            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
-        }
+                PowerTag.Poison1));
+
+        target = actorBoard.GetActor(x, y);
+        targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage())
+            || target.GetComponent<Infection>().GainInfection(hasPower);
+
+        RestoreEnergy(targetIsDead);
     }
 
     private void Awake()
@@ -98,6 +96,25 @@ public class Attack : MonoBehaviour
         }
 
         return totalEnergy;
+    }
+
+    private void RestoreEnergy(bool killTarget)
+    {
+        if (!killTarget)
+        {
+            return;
+        }
+
+        // TODO: Update after Unity 2018.3.
+        if ((gameObject.GetComponent<PCPowers>() != null
+            && gameObject.GetComponent<PCPowers>().PowerIsActive(
+                PowerTag.Energy2))
+            || (gameObject.GetComponent<NPCPowers>() != null
+            && gameObject.GetComponent<NPCPowers>().PowerIsActive(
+                PowerTag.Energy2)))
+        {
+            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+        }
     }
 
     private void Start()

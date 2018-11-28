@@ -6,6 +6,7 @@ public enum InfectionTag { Mutate, Weak, Slow, Poison };
 
 public class Infection : MonoBehaviour
 {
+    private bool attacker;
     private DungeonBoard board;
     private int countInfections;
     private int defaultMaxHP;
@@ -43,10 +44,11 @@ public class Infection : MonoBehaviour
         }
     }
 
-    public bool GainInfection()
+    public bool GainInfection(bool attackerHasPower)
     {
         int count;
         bool isDead = false;
+        attacker = attackerHasPower;
 
         if (!IsInfected(out count))
         {
@@ -168,14 +170,14 @@ public class Infection : MonoBehaviour
         }
     }
 
-    private int GetInfectionRate()
+    private int GetInfectionRate(bool attackerHasPower)
     {
         int currentHP;
         Vector3 currentPosition;
         int hp;
         int pool;
         int fog;
-        int attack;
+        int attPower;
         int stress;
         int poison;
         int sumMod;
@@ -191,9 +193,9 @@ public class Infection : MonoBehaviour
         pool = board.CheckBlock(SubObjectTag.Pool, currentPosition)
             ? modPool : 0;
 
-        // TODO: Check weather. Attack power increase infection rate.
+        // TODO: Check weather.
         fog = modFog * 0;
-        attack = modPowerPoison1 * 0;
+        attPower = attackerHasPower ? modPowerPoison1 : 0;
 
         // TODO: Update after Unity 2018.3.
         pcHasPower = gameObject.GetComponent<PCPowers>() != null
@@ -206,7 +208,7 @@ public class Infection : MonoBehaviour
 
         poison = HasInfection(InfectionTag.Poison) ? modInfectionPoison : 0;
 
-        sumMod = Math.Max(0, hp + pool + fog + attack - stress);
+        sumMod = Math.Max(0, hp + pool + fog + attPower - stress);
         sumFactor = poison + 100;
 
         finalRate = (int)Math.Floor(sumMod * (sumFactor * 0.01));
@@ -216,7 +218,7 @@ public class Infection : MonoBehaviour
 
     private bool IsInfected(out int totalInfections)
     {
-        int rate = GetInfectionRate();
+        int rate = GetInfectionRate(attacker);
         totalInfections = 0;
 
         while (rate > 100)
