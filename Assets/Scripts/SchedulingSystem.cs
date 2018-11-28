@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SchedulingSystem : MonoBehaviour
@@ -13,29 +14,15 @@ public class SchedulingSystem : MonoBehaviour
         get { return currentNode.Value; }
     }
 
-    public bool AddActor(GameObject actor)
+    public void AddActor(GameObject actor)
     {
-        if (actor.GetComponent<ObjectMetaInfo>().MainTag != MainObjectTag.Actor)
-        {
-            Debug.Log("Invalid actor tag: "
-                + actor.GetComponent<ObjectMetaInfo>().MainTag);
-            return false;
-        }
-        else if (schedule.Contains(actor))
-        {
-            Debug.Log("Actor already exists in the schedule: "
-                + actor.GetComponent<ObjectMetaInfo>().SubTag);
-            return false;
-        }
-
+        CheckErrors(actor);
         schedule.AddLast(actor);
 
         if (schedule.Count == 1)
         {
             currentNode = schedule.First;
         }
-
-        return true;
     }
 
     public bool IsCurrentActor(GameObject actor)
@@ -100,8 +87,23 @@ public class SchedulingSystem : MonoBehaviour
         schedule = new LinkedList<GameObject>();
     }
 
+    private void CheckErrors(GameObject actor)
+    {
+        if (actor.GetComponent<ObjectMetaInfo>().MainTag != MainObjectTag.Actor)
+        {
+            throw new Exception("Invalid actor tag: "
+                + actor.GetComponent<ObjectMetaInfo>().MainTag);
+        }
+        else if (schedule.Contains(actor))
+        {
+            throw new Exception("Actor already exists in the schedule: "
+                + actor.GetComponent<ObjectMetaInfo>().SubTag);
+        }
+    }
+
     private void EnableComponent(bool enable)
     {
+        // TODO: Update after Unity 2018.3.
         if (CurrentActor.GetComponent<PCActions>() != null)
         {
             CurrentActor.GetComponent<PCActions>().enabled = enable;
