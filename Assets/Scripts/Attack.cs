@@ -11,6 +11,7 @@ public class Attack : MonoBehaviour
     private ConvertCoordinates coordinate;
     private Direction direction;
     private int powerEnergy2;
+    private int powerPoison2;
     private int weakDamage;
 
     public int GetCurrentDamage()
@@ -45,8 +46,16 @@ public class Attack : MonoBehaviour
         gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
         hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-            PowerTag.Poison1);
+           PowerTag.Poison2);
         target = actorBoard.GetActor(x, y);
+
+        if (hasPower)
+        {
+            target.GetComponent<Energy>().LoseEnergy(powerPoison2);
+        }
+
+        hasPower = gameObject.GetComponent<Power>().PowerIsActive(
+            PowerTag.Poison1);
 
         targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage())
             || target.GetComponent<Infection>().GainInfection(hasPower);
@@ -59,6 +68,7 @@ public class Attack : MonoBehaviour
         baseEnergy = 1200;
         weakDamage = 1;
         powerEnergy2 = 400;
+        powerPoison2 = 400;
         attackPowerEnergy = 200;
     }
 

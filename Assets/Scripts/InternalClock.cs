@@ -19,6 +19,7 @@ public class InternalClock : MonoBehaviour
             gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
         }
 
+        // TODO: Update after Unity 2018.3.
         if (gameObject.GetComponent<AutoExplore>() != null)
         {
             gameObject.GetComponent<AutoExplore>().CountDown();
