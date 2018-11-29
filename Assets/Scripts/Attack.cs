@@ -12,6 +12,7 @@ public class Attack : MonoBehaviour
     private Direction direction;
     private int powerEnergy2;
     private int powerPoison2;
+    private int relieveStressAfterKill;
     private int weakDamage;
 
     public int GetCurrentDamage()
@@ -59,6 +60,7 @@ public class Attack : MonoBehaviour
         if (targetIsDead)
         {
             RestoreEnergy();
+            gameObject.GetComponent<Stress>().LoseStress(relieveStressAfterKill);
         }
         else
         {
@@ -75,6 +77,7 @@ public class Attack : MonoBehaviour
         powerEnergy2 = 400;
         powerPoison2 = 400;
         attackPowerEnergy = 200;
+        relieveStressAfterKill = 2;
     }
 
     private int GetMeleeEnergy(int x, int y)

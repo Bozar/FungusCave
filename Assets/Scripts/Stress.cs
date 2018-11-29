@@ -19,8 +19,6 @@ public class Stress : MonoBehaviour
     public void LoseStress(int stress)
     {
         CurrentStress = Math.Max(0, CurrentStress - stress);
-
-        // TODO: Lose all powers.
     }
 
     private void Start()
