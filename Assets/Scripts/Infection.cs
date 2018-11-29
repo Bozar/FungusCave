@@ -10,9 +10,9 @@ public class Infection : MonoBehaviour
     private DungeonBoard board;
     private int countInfections;
     private int defaultMaxHP;
+    private int energyInfectionOverflow;
     private bool hasPower;
     private double hpFactor;
-    private int infectionOverflowDamage;
     private Dictionary<InfectionTag, int> infectionsDict;
     private int maxDuration;
     private int maxInfections;
@@ -43,29 +43,29 @@ public class Infection : MonoBehaviour
         }
     }
 
-    public bool GainInfection(bool attackerHasPower)
+    public void GainInfection(bool attackerHasPower)
     {
         int count;
-        bool isDead = false;
         attacker = attackerHasPower;
 
         if (!IsInfected(out count))
         {
-            return isDead;
+            return;
         }
-
-        hasPower = gameObject.GetComponent<Power>().HasPower(PowerTag.Immunity2);
 
         for (int i = 0; i < count; i++)
         {
+            hasPower = gameObject.GetComponent<Power>().HasPower(
+                PowerTag.Immunity2);
+
             if (!gameObject.GetComponent<Stress>().HasMaxStress())
             {
                 gameObject.GetComponent<Stress>().GainStress(1);
             }
             else if (countInfections >= maxInfections)
             {
-                isDead = gameObject.GetComponent<HP>().LoseHP(
-                    infectionOverflowDamage);
+                gameObject.GetComponent<Energy>().LoseEnergy(
+                    energyInfectionOverflow);
             }
             else
             {
@@ -78,7 +78,7 @@ public class Infection : MonoBehaviour
             }
         }
 
-        return isDead;
+        return;
     }
 
     public bool HasInfection()
@@ -123,7 +123,7 @@ public class Infection : MonoBehaviour
 
         countInfections = 0;
         maxDuration = 5;
-        infectionOverflowDamage = 1;
+        energyInfectionOverflow = 200;
         powerImmunity2 = 2;
         defaultMaxHP = 10;
         hpFactor = 3.0;

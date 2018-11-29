@@ -54,13 +54,18 @@ public class Attack : MonoBehaviour
             target.GetComponent<Energy>().LoseEnergy(powerPoison2);
         }
 
-        hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-            PowerTag.Poison1);
+        targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage());
 
-        targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage())
-            || target.GetComponent<Infection>().GainInfection(hasPower);
-
-        RestoreEnergy(targetIsDead);
+        if (targetIsDead)
+        {
+            RestoreEnergy();
+        }
+        else
+        {
+            hasPower = gameObject.GetComponent<Power>().PowerIsActive(
+                PowerTag.Poison1);
+            target.GetComponent<Infection>().GainInfection(hasPower);
+        }
     }
 
     private void Awake()
@@ -116,13 +121,8 @@ public class Attack : MonoBehaviour
         return totalEnergy;
     }
 
-    private void RestoreEnergy(bool killTarget)
+    private void RestoreEnergy()
     {
-        if (!killTarget)
-        {
-            return;
-        }
-
         if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
         {
             gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
