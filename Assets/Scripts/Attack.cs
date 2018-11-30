@@ -10,6 +10,8 @@ public class Attack : MonoBehaviour
     private int baseEnergy;
     private ConvertCoordinates coordinate;
     private Direction direction;
+    private int powerDamage1;
+    private int powerDamage2;
     private int powerEnergy2;
     private int powerPoison2;
     private int relieveStressAfterKill;
@@ -18,6 +20,7 @@ public class Attack : MonoBehaviour
     public int GetCurrentDamage()
     {
         int weak;
+        int power;
         int finalDamage;
 
         // TODO: Change damage.
@@ -26,7 +29,12 @@ public class Attack : MonoBehaviour
             .HasInfection(InfectionTag.Weak)
             ? weakDamage : 0;
 
-        finalDamage = baseDamage - weak;
+        power = gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
+            ? powerDamage1 : 0;
+        power += gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
+            ? powerDamage2 : 0;
+
+        finalDamage = baseDamage + power - weak;
         finalDamage = Math.Max(0, finalDamage);
 
         return finalDamage;
@@ -76,6 +84,8 @@ public class Attack : MonoBehaviour
         weakDamage = 1;
         powerEnergy2 = 400;
         powerPoison2 = 400;
+        powerDamage1 = 1;
+        powerDamage2 = 1;
         attackPowerEnergy = 200;
         relieveStressAfterKill = 2;
     }
