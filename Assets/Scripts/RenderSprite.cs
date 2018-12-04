@@ -1,86 +1,89 @@
 ﻿using UnityEngine;
 
-public class RenderSprite : MonoBehaviour
+namespace Fungus.Render
 {
-    private ConvertCoordinates coordinate;
-    private Color32 defaultColor;
-    private GameColor gameColor;
-    private GameObject pc;
-    private int[] position;
-    private int x;
-    private int y;
-
-    public void ChangeColor(Color32 newColor)
+    public class RenderSprite : MonoBehaviour
     {
-        gameObject.GetComponent<SpriteRenderer>().color = newColor;
-    }
+        private ConvertCoordinates coordinate;
+        private Color32 defaultColor;
+        private GameColor gameColor;
+        private GameObject pc;
+        private int[] position;
+        private int x;
+        private int y;
 
-    private void Awake()
-    {
-        defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
-    }
-
-    private void HideSprite()
-    {
-        ChangeColor(gameColor.PickColor(ColorName.Black));
-    }
-
-    private void LateUpdate()
-    {
-        if (FindObjects.GameLogic.GetComponent<WizardMode>().RenderAll)
+        public void ChangeColor(Color32 newColor)
         {
-            ShowSprite();
-            return;
+            gameObject.GetComponent<SpriteRenderer>().color = newColor;
         }
 
-        position = coordinate.GetComponent<ConvertCoordinates>().Convert(
-            gameObject.transform.position);
-        x = position[0];
-        y = position[1];
-
-        switch (pc.GetComponent<FieldOfView>().GetFOVStatus(x, y))
+        private void Awake()
         {
-            case FOVStatus.Unknown:
-                HideSprite();
-                break;
+            defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
+        }
 
-            case FOVStatus.Visited:
-                switch (gameObject.GetComponent<ObjectMetaInfo>().MainTag)
-                {
-                    case MainObjectTag.Building:
-                        RememberSprite();
-                        break;
+        private void HideSprite()
+        {
+            ChangeColor(gameColor.PickColor(ColorName.Black));
+        }
 
-                    case MainObjectTag.Actor:
-                        HideSprite();
-                        break;
-                }
-                break;
-
-            case FOVStatus.Insight:
+        private void LateUpdate()
+        {
+            if (FindObjects.GameLogic.GetComponent<WizardMode>().RenderAll)
+            {
                 ShowSprite();
-                break;
+                return;
+            }
 
-            case FOVStatus.TEST:
-                ChangeColor(gameColor.PickColor(ColorName.TEST));
-                break;
+            position = coordinate.GetComponent<ConvertCoordinates>().Convert(
+                gameObject.transform.position);
+            x = position[0];
+            y = position[1];
+
+            switch (pc.GetComponent<FieldOfView>().GetFOVStatus(x, y))
+            {
+                case FOVStatus.Unknown:
+                    HideSprite();
+                    break;
+
+                case FOVStatus.Visited:
+                    switch (gameObject.GetComponent<ObjectMetaInfo>().MainTag)
+                    {
+                        case MainObjectTag.Building:
+                            RememberSprite();
+                            break;
+
+                        case MainObjectTag.Actor:
+                            HideSprite();
+                            break;
+                    }
+                    break;
+
+                case FOVStatus.Insight:
+                    ShowSprite();
+                    break;
+
+                case FOVStatus.TEST:
+                    ChangeColor(gameColor.PickColor(ColorName.TEST));
+                    break;
+            }
         }
-    }
 
-    private void RememberSprite()
-    {
-        ChangeColor(gameColor.PickColor(ColorName.Grey));
-    }
+        private void RememberSprite()
+        {
+            ChangeColor(gameColor.PickColor(ColorName.Grey));
+        }
 
-    private void ShowSprite()
-    {
-        ChangeColor(defaultColor);
-    }
+        private void ShowSprite()
+        {
+            ChangeColor(defaultColor);
+        }
 
-    private void Start()
-    {
-        gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
-        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-        pc = GameObject.FindGameObjectWithTag("PC");
+        private void Start()
+        {
+            gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
+            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            pc = GameObject.FindGameObjectWithTag("PC");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus.Render;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Initialize : MonoBehaviour

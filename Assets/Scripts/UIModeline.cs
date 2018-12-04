@@ -2,51 +2,52 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIModeline : MonoBehaviour
+namespace Fungus.Render
 {
-    private UIDict getUI;
-    private Queue<string> inputText;
-    private string newLine;
-
-    private delegate GameObject UIDict(UITag tag);
-
-    public void PrintText()
+    public class UIModeline : MonoBehaviour
     {
-        PrintText("");
-    }
+        private UIDict getUI;
+        private Queue<string> inputText;
+        private string newLine;
 
-    public void PrintText(string text)
-    {
-        StoreText(text);
-        CheckLineCount();
+        private delegate GameObject UIDict(UITag tag);
 
-        getUI(UITag.Modeline).GetComponent<Text>().text = newLine;
-    }
-
-    private void Awake()
-    {
-        inputText = new Queue<string>();
-    }
-
-    private void CheckLineCount()
-    {
-        while (inputText.Count > 1)
+        public void PrintText()
         {
-            inputText.Dequeue();
+            PrintText("");
         }
 
-        newLine = inputText.Count > 0
-            ? inputText.Dequeue()
-            : "";
-    }
+        public void PrintText(string text)
+        {
+            StoreText(text);
+            CheckLineCount();
 
-    private void Start()
-    {
-        getUI = FindObjects.GetUIObject;
-    }
+            getUI(UITag.Modeline).GetComponent<Text>().text = newLine;
+        }
 
-    private void StoreText(string text)
-    {
-        inputText.Enqueue(text);
+        private void Awake()
+        {
+            inputText = new Queue<string>();
+        }
+
+        private void CheckLineCount()
+        {
+            while (inputText.Count > 1)
+            {
+                inputText.Dequeue();
+            }
+
+            newLine = inputText.Count > 0 ? inputText.Dequeue() : "";
+        }
+
+        private void Start()
+        {
+            getUI = FindObjects.GetUIObject;
+        }
+
+        private void StoreText(string text)
+        {
+            inputText.Enqueue(text);
+        }
     }
 }

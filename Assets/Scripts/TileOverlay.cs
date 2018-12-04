@@ -1,43 +1,46 @@
 ﻿using UnityEngine;
 
-public class TileOverlay : MonoBehaviour
+namespace Fungus.Render
 {
-    private Vector3 currentPosition;
-    private DungeonBoard dungeon;
-    private Vector3 previousPosition;
-
-    private void CheckTile()
+    public class TileOverlay : MonoBehaviour
     {
-        if (currentPosition == previousPosition)
+        private Vector3 currentPosition;
+        private DungeonBoard dungeon;
+        private Vector3 previousPosition;
+
+        private void CheckTile()
         {
-            CoverTile(true, currentPosition);
+            if (currentPosition == previousPosition)
+            {
+                CoverTile(true, currentPosition);
+            }
+            else
+            {
+                CoverTile(false, previousPosition);
+                CoverTile(true, currentPosition);
+
+                previousPosition = currentPosition;
+            }
         }
-        else
+
+        private void CoverTile(bool cover, Vector3 position)
         {
-            CoverTile(false, previousPosition);
-            CoverTile(true, currentPosition);
-
-            previousPosition = currentPosition;
+            if (dungeon.CheckBlock(SubObjectTag.Pool, position))
+            {
+                dungeon.GetBlockObject(position).GetComponent<Renderer>().enabled
+                    = !cover;
+            }
         }
-    }
 
-    private void CoverTile(bool cover, Vector3 position)
-    {
-        if (dungeon.CheckBlock(SubObjectTag.Pool, position))
+        private void LateUpdate()
         {
-            dungeon.GetBlockObject(position).GetComponent<Renderer>().enabled
-                = !cover;
+            currentPosition = gameObject.transform.position;
+            CheckTile();
         }
-    }
 
-    private void LateUpdate()
-    {
-        currentPosition = gameObject.transform.position;
-        CheckTile();
-    }
-
-    private void Start()
-    {
-        dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        private void Start()
+        {
+            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+        }
     }
 }
