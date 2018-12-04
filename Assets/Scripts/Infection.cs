@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum InfectionTag { Mutate, Weak, Slow, Poison };
 
-public class Infection : MonoBehaviour
+public class Infection : MonoBehaviour, ICountDown
 {
     private bool attacker;
     private DungeonBoard board;

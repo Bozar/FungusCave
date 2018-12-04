@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+public interface ICountDown { void CountDown(); }
+
 public class InternalClock : MonoBehaviour
 {
     private int energyTurn;

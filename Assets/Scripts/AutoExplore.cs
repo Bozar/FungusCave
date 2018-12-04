@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
-public class AutoExplore : MonoBehaviour
+public class AutoExplore : MonoBehaviour, ICountDown
 {
     private readonly int NotChecked = 9999;
     private int[,] board;
@@ -13,9 +13,6 @@ public class AutoExplore : MonoBehaviour
     private int countAutoExplore;
     private DungeonBoard dungeon;
     private FieldOfView fov;
-    private bool isPassable;
-    private bool isUnknown;
-    private bool isVaildDistance;
     private int maxCount;
     private int minDistance;
     private UIModeline modeline;
@@ -68,7 +65,6 @@ public class AutoExplore : MonoBehaviour
             {
                 modeline.PrintText("You have explored everywhere.");
             }
-
             return;
         }
 
@@ -126,6 +122,9 @@ public class AutoExplore : MonoBehaviour
 
     private void FindStartPoint()
     {
+        bool isUnknown;
+        bool isPassable;
+
         for (int i = 0; i < board.GetLength(0); i++)
         {
             for (int j = 0; j < board.GetLength(1); j++)
@@ -163,6 +162,9 @@ public class AutoExplore : MonoBehaviour
 
     private void MarkDistance()
     {
+        bool isPassable;
+        bool isVaildDistance;
+
         if (checkPosition.Count < 1)
         {
             return;
