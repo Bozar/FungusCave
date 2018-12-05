@@ -1,10 +1,13 @@
 ﻿using Fungus.GameSystem;
 using UnityEngine;
 
-public class ActorAI : MonoBehaviour
+namespace Fungus.Actor.AI
 {
-    public Command DummyAI()
+    public class ActorAI : MonoBehaviour
     {
-        return Command.Wait;
+        public Command DummyAI()
+        {
+            return Command.Wait;
+        }
     }
 }

@@ -1,44 +1,47 @@
 ﻿using Fungus.GameSystem;
 using UnityEngine;
 
-public class AIVision : MonoBehaviour
+namespace Fungus.Actor.AI
 {
-    private ActorBoard actor;
-    private ConvertCoordinates coordinate;
-    private FieldOfView fov;
-
-    public bool CanSeeTarget<T>(T targetTag)
+    public class AIVision : MonoBehaviour
     {
-        int[] position = coordinate.Convert(gameObject.transform.position);
-        int x = position[0];
-        int y = position[1];
-        int range = fov.MaxRange;
+        private ActorBoard actor;
+        private ConvertCoordinates coordinate;
+        private FieldOfView fov;
 
-        for (int i = x - range; i < x + range + 1; i++)
+        public bool CanSeeTarget<T>(T targetTag)
         {
-            for (int j = y - range; j < y + range + 1; j++)
-            {
-                if ((i == x && j == y)
-                    || !fov.CheckFOV(FOVStatus.Insight, i, j))
-                {
-                    continue;
-                }
+            int[] position = coordinate.Convert(gameObject.transform.position);
+            int x = position[0];
+            int y = position[1];
+            int range = fov.MaxRange;
 
-                if (actor.CheckActorTag(targetTag, i, j))
+            for (int i = x - range; i < x + range + 1; i++)
+            {
+                for (int j = y - range; j < y + range + 1; j++)
                 {
-                    return true;
+                    if ((i == x && j == y)
+                        || !fov.CheckFOV(FOVStatus.Insight, i, j))
+                    {
+                        continue;
+                    }
+
+                    if (actor.CheckActorTag(targetTag, i, j))
+                    {
+                        return true;
+                    }
                 }
             }
+
+            return false;
         }
 
-        return false;
-    }
+        private void Start()
+        {
+            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
-    private void Start()
-    {
-        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-        actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-
-        fov = gameObject.GetComponent<FieldOfView>();
+            fov = gameObject.GetComponent<FieldOfView>();
+        }
     }
 }

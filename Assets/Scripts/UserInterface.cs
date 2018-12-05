@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor;
+using Fungus.Actor.AI;
 using Fungus.GameSystem;
 using System;
 using System.Text;
