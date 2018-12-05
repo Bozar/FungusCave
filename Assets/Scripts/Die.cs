@@ -1,4 +1,5 @@
-﻿using Fungus.Render;
+﻿using Fungus.GameSystem;
+using Fungus.Render;
 using UnityEngine;
 
 public class Die : MonoBehaviour

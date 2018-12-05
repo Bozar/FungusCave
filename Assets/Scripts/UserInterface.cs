@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus.GameSystem;
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Fungus.GameSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FOVSimple : MonoBehaviour
+public class FOVSimple : MonoBehaviour, IFOVAlgorithm
 {
     private DungeonBoard board;
     private Stack<int[]> checkPosition;

@@ -2,39 +2,42 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Initialize : MonoBehaviour
+namespace Fungus.GameSystem
 {
-    public bool Initialized { get; private set; }
-
-    public void InitializeGame()
+    public class Initialize : MonoBehaviour
     {
-        if (Initialized)
+        public bool Initialized { get; private set; }
+
+        public void InitializeGame()
         {
-            SceneManager.LoadSceneAsync(0);
-            SceneManager.UnloadSceneAsync(0);
-            return;
+            if (Initialized)
+            {
+                SceneManager.LoadSceneAsync(0);
+                SceneManager.UnloadSceneAsync(0);
+                return;
+            }
+
+            Initialized = true;
+
+            FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeeds();
+
+            Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
+
+            FindObjects.GameLogic.GetComponent<BlueprintSponge>().DrawBlueprint();
+            FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();
+            FindObjects.GameLogic.GetComponent<BlueprintFungus>().DrawBlueprint();
+            FindObjects.GameLogic.GetComponent<CreateWorld>().Initialize();
+
+            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+                FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed.ToString());
         }
 
-        Initialized = true;
-
-        FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeeds();
-
-        Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
-
-        FindObjects.GameLogic.GetComponent<BlueprintSponge>().DrawBlueprint();
-        FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();
-        FindObjects.GameLogic.GetComponent<BlueprintFungus>().DrawBlueprint();
-        FindObjects.GameLogic.GetComponent<CreateWorld>().Initialize();
-
-        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-            FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed.ToString());
-    }
-
-    private void Update()
-    {
-        if (!Initialized)
+        private void Update()
         {
-            InitializeGame();
+            if (!Initialized)
+            {
+                InitializeGame();
+            }
         }
     }
 }

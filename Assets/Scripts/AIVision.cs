@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus.GameSystem;
+using UnityEngine;
 
 public class AIVision : MonoBehaviour
 {

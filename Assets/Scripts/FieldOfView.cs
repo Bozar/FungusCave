@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using Fungus.GameSystem;
+using UnityEngine;
 
 public enum FOVStatus { INVALID, TEST, Unknown, Visited, Insight };
+
+public interface IFOVAlgorithm { void UpdateFOV(); }
 
 public class FieldOfView : MonoBehaviour
 {

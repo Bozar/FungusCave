@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus.GameSystem;
+using System;
 using UnityEngine;
 
 public class Stress : MonoBehaviour

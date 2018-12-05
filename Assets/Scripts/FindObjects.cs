@@ -3,59 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum UITag
+namespace Fungus.GameSystem
 {
-    NONE, Seed, Message, Modeline,
-    HPData, StressData, PotionData, DamageData, Terrain,
-    PowerData0, PowerData1, PowerData2,
-    InfectionLabel,
-    InfectionName0, InfectionDuration0,
-    InfectionName1, InfectionDuration1
-};
-
-// A helper class that stores references to other game objects. The ONLY game
-// object which it CAN be and MUST be attached to is GameLogic.
-public class FindObjects : MonoBehaviour
-{
-    private static Dictionary<UITag, GameObject> mainUIDict;
-
-    public static GameObject GameLogic { get; private set; }
-
-    public static GameObject GetUIObject(UITag tag)
+    public enum UITag
     {
-        return mainUIDict[tag];
-    }
+        NONE, Seed, Message, Modeline,
+        HPData, StressData, PotionData, DamageData, Terrain,
+        PowerData0, PowerData1, PowerData2,
+        InfectionLabel,
+        InfectionName0, InfectionDuration0,
+        InfectionName1, InfectionDuration1
+    };
 
-    private void Awake()
+    // A helper class that stores references to other game objects. The ONLY game
+    // object which it CAN be and MUST be attached to is GameLogic.
+    public class FindObjects : MonoBehaviour
     {
-        GameLogic = gameObject;
-        mainUIDict = new Dictionary<UITag, GameObject>();
-    }
+        private static Dictionary<UITag, GameObject> mainUIDict;
 
-    private void InitializeUIDict()
-    {
-        // NOTE: If a GameObject's tag is MainUI AND its name is stored in
-        // UITags, it can be found in MainUIDict.
-        UITag tempDictKey;
-        GameObject[] tempGOArray = GameObject.FindGameObjectsWithTag("MainUI");
+        public static GameObject GameLogic { get; private set; }
 
-        foreach (var go in tempGOArray)
+        public static GameObject GetUIObject(UITag tag)
         {
-            if (Enum.IsDefined(typeof(UITag), go.name))
-            {
-                tempDictKey = (UITag)Enum.Parse(typeof(UITag), go.name);
+            return mainUIDict[tag];
+        }
 
-                if (!mainUIDict.ContainsKey(tempDictKey))
+        private void Awake()
+        {
+            GameLogic = gameObject;
+            mainUIDict = new Dictionary<UITag, GameObject>();
+        }
+
+        private void InitializeUIDict()
+        {
+            // NOTE: If a GameObject's tag is MainUI AND its name is stored in
+            // UITags, it can be found in MainUIDict.
+            UITag tempDictKey;
+            GameObject[] tempGOArray
+                = GameObject.FindGameObjectsWithTag("MainUI");
+
+            foreach (var go in tempGOArray)
+            {
+                if (Enum.IsDefined(typeof(UITag), go.name))
                 {
-                    mainUIDict.Add(tempDictKey, go);
-                    go.GetComponent<Text>().text = "";
+                    tempDictKey = (UITag)Enum.Parse(typeof(UITag), go.name);
+
+                    if (!mainUIDict.ContainsKey(tempDictKey))
+                    {
+                        mainUIDict.Add(tempDictKey, go);
+                        go.GetComponent<Text>().text = "";
+                    }
                 }
             }
         }
-    }
 
-    private void Start()
-    {
-        InitializeUIDict();
+        private void Start()
+        {
+            InitializeUIDict();
+        }
     }
 }

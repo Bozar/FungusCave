@@ -1,39 +1,42 @@
 ﻿using Fungus.Render;
 using UnityEngine;
 
-public class AttachScripts : MonoBehaviour
+namespace Fungus.GameSystem
 {
-    private void Awake()
+    public class AttachScripts : MonoBehaviour
     {
-        //gameObject.AddComponent<Singleton>();
-        gameObject.AddComponent<SaveLoad>();
-        gameObject.AddComponent<FindObjects>();
-        gameObject.AddComponent<Initialize>();
-        gameObject.AddComponent<ObjectPool>();
+        private void Awake()
+        {
+            //gameObject.AddComponent<Singleton>();
+            gameObject.AddComponent<SaveLoad>();
+            gameObject.AddComponent<FindObjects>();
+            gameObject.AddComponent<Initialize>();
+            gameObject.AddComponent<ObjectPool>();
 
-        gameObject.AddComponent<UserInterface>();
-        gameObject.AddComponent<UIMessage>();
-        gameObject.AddComponent<UIModeline>();
+            gameObject.AddComponent<UserInterface>();
+            gameObject.AddComponent<UIMessage>();
+            gameObject.AddComponent<UIModeline>();
 
-        gameObject.AddComponent<RandomNumber>();
-        gameObject.AddComponent<ConvertCoordinates>();
-        gameObject.AddComponent<Direction>();
-        gameObject.AddComponent<SchedulingSystem>();
-        gameObject.AddComponent<GameColor>();
+            gameObject.AddComponent<RandomNumber>();
+            gameObject.AddComponent<ConvertCoordinates>();
+            gameObject.AddComponent<Direction>();
+            gameObject.AddComponent<SchedulingSystem>();
+            gameObject.AddComponent<GameColor>();
 
-        gameObject.AddComponent<DungeonBoard>();
-        gameObject.AddComponent<DungeonBlueprint>();
-        gameObject.AddComponent<BlueprintSponge>();
-        gameObject.AddComponent<BlueprintPool>();
-        gameObject.AddComponent<BlueprintFungus>();
-        gameObject.AddComponent<CreateWorld>();
+            gameObject.AddComponent<DungeonBoard>();
+            gameObject.AddComponent<DungeonBlueprint>();
+            gameObject.AddComponent<BlueprintSponge>();
+            gameObject.AddComponent<BlueprintPool>();
+            gameObject.AddComponent<BlueprintFungus>();
+            gameObject.AddComponent<CreateWorld>();
 
-        gameObject.AddComponent<ActorBoard>();
-        gameObject.AddComponent<ObjectData>();
+            gameObject.AddComponent<ActorBoard>();
+            gameObject.AddComponent<ObjectData>();
 
-        gameObject.AddComponent<WizardMode>();
+            gameObject.AddComponent<WizardMode>();
 
-        //gameObject.AddComponent<Test>();
-        //gameObject.AddComponent<TestMove>();
+            //gameObject.AddComponent<Test>();
+            //gameObject.AddComponent<TestMove>();
+        }
     }
 }

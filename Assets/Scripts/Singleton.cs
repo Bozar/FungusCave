@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 
-// This script is only attached to GameLogic.
-public class Singleton : MonoBehaviour
+namespace Fungus.GameSystem
 {
-    private static bool instance;
-
-    private void Awake()
+    // This script is only attached to GameLogic.
+    public class Singleton : MonoBehaviour
     {
-        if (instance)
+        private static bool instance;
+
+        private void Awake()
         {
-            Debug.Log(gameObject.name + " already exists.");
-            Destroy(gameObject);
+            if (instance)
+            {
+                Debug.Log(gameObject.name + " already exists.");
+                Destroy(gameObject);
 
-            return;
+                return;
+            }
+
+            instance = true;
         }
-
-        instance = true;
     }
 }

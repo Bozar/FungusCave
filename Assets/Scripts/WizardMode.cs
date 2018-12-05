@@ -1,87 +1,90 @@
 ﻿using Fungus.Render;
 using UnityEngine;
 
-public class WizardMode : MonoBehaviour
+namespace Fungus.GameSystem
 {
-    private SchedulingSystem schedule;
-
-    public bool IsWizardMode { get; private set; }
-    public bool PrintEnergyCost { get; private set; }
-    public bool RenderAll { get; private set; }
-
-    public void AddEnergy()
+    public class WizardMode : MonoBehaviour
     {
-        schedule.CurrentActor.GetComponent<Energy>().GainEnergy(2000, false);
-    }
+        private SchedulingSystem schedule;
 
-    public void DrinkPotion()
-    {
-        //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
+        public bool IsWizardMode { get; private set; }
+        public bool PrintEnergyCost { get; private set; }
+        public bool RenderAll { get; private set; }
 
-        int[] pos = gameObject.GetComponent<ConvertCoordinates>()
-            .Convert(schedule.CurrentActor.transform.position);
+        public void AddEnergy()
+        {
+            schedule.CurrentActor.GetComponent<Energy>().GainEnergy(2000, false);
+        }
 
-        schedule.CurrentActor.GetComponent<Attack>().MeleeAttack(
-            pos[0], pos[1]);
+        public void DrinkPotion()
+        {
+            //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
 
-        //if (schedule.CurrentActor.GetComponent<Potion>().HasEnoughPotion(1))
-        //{
-        //    schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
-        //}
-    }
+            int[] pos = gameObject.GetComponent<ConvertCoordinates>()
+                .Convert(schedule.CurrentActor.transform.position);
 
-    public void GainHP()
-    {
-        //schedule.CurrentActor.GetComponent<Potion>().GainPotion(90);
-        //schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
-        //schedule.CurrentActor.GetComponent<HP>().GainHP(2);
-        schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
-    }
+            schedule.CurrentActor.GetComponent<Attack>().MeleeAttack(
+                pos[0], pos[1]);
 
-    public void Initialize()
-    {
-        FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
-    }
+            //if (schedule.CurrentActor.GetComponent<Potion>().HasEnoughPotion(1))
+            //{
+            //    schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
+            //}
+        }
 
-    public void LoseHP()
-    {
-        //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
-        //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
-        schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
-    }
+        public void GainHP()
+        {
+            //schedule.CurrentActor.GetComponent<Potion>().GainPotion(90);
+            //schedule.CurrentActor.GetComponent<Stress>().GainStress(1);
+            //schedule.CurrentActor.GetComponent<HP>().GainHP(2);
+            schedule.CurrentActor.GetComponent<Potion>().DrinkPotion();
+        }
 
-    public void PrintEnergy()
-    {
-        schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
-    }
+        public void Initialize()
+        {
+            FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
+        }
 
-    public void PrintSchedule()
-    {
-        schedule.PrintSchedule();
-    }
+        public void LoseHP()
+        {
+            //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
+            //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
+            schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
+        }
 
-    public void SwitchPrintEnergyCost()
-    {
-        PrintEnergyCost = !PrintEnergyCost;
+        public void PrintEnergy()
+        {
+            schedule.CurrentActor.GetComponent<Energy>().PrintEnergy();
+        }
 
-        FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-            "Print energy cost: " + PrintEnergyCost);
-    }
+        public void PrintSchedule()
+        {
+            schedule.PrintSchedule();
+        }
 
-    public void SwitchRenderAll()
-    {
-        RenderAll = !RenderAll;
-    }
+        public void SwitchPrintEnergyCost()
+        {
+            PrintEnergyCost = !PrintEnergyCost;
 
-    private void Awake()
-    {
-        IsWizardMode = true;
-        RenderAll = false;
-        PrintEnergyCost = false;
-    }
+            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+                "Print energy cost: " + PrintEnergyCost);
+        }
 
-    private void Start()
-    {
-        schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+        public void SwitchRenderAll()
+        {
+            RenderAll = !RenderAll;
+        }
+
+        private void Awake()
+        {
+            IsWizardMode = true;
+            RenderAll = false;
+            PrintEnergyCost = false;
+        }
+
+        private void Start()
+        {
+            schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+        }
     }
 }

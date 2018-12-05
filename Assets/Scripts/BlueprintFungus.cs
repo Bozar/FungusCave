@@ -1,4 +1,6 @@
-﻿public class BlueprintFungus : DungeonBlueprint, IIsEmptyArea
+﻿using Fungus.GameSystem;
+
+public class BlueprintFungus : DungeonBlueprint, IIsEmptyArea
 {
     private int countFungus;
     private int[] index;

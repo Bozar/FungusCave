@@ -1,62 +1,65 @@
 ﻿using System;
 using UnityEngine;
 
-public enum RelativePosition { INVALID, Cardinal, Diagonal };
-
-public class Direction : MonoBehaviour
+namespace Fungus.GameSystem
 {
-    private bool checkX;
-    private bool checkY;
-    private int[] position;
+    public enum RelativePosition { INVALID, Cardinal, Diagonal };
 
-    public int CardinalFactor { get; private set; }
-    public int DiagonalFactor { get; private set; }
-
-    public bool CheckDirection(RelativePosition checkType,
-       int[] source, int targetX, int targetY)
+    public class Direction : MonoBehaviour
     {
-        position = new int[] { targetX, targetY };
+        private bool checkX;
+        private bool checkY;
+        private int[] position;
 
-        return CheckDirection(checkType, source, position);
-    }
+        public int CardinalFactor { get; private set; }
+        public int DiagonalFactor { get; private set; }
 
-    public bool CheckDirection(RelativePosition checkType,
-        int[] source, int[] target)
-    {
-        switch (checkType)
+        public bool CheckDirection(RelativePosition checkType,
+           int[] source, int targetX, int targetY)
         {
-            case RelativePosition.Cardinal:
-                return CheckCardinal(source, target);
+            position = new int[] { targetX, targetY };
 
-            case RelativePosition.Diagonal:
-                return CheckDiagonal(source, target);
-
-            default:
-                return false;
+            return CheckDirection(checkType, source, position);
         }
-    }
 
-    private void Awake()
-    {
-        CardinalFactor = 0;
-        DiagonalFactor = 40;
-    }
+        public bool CheckDirection(RelativePosition checkType,
+            int[] source, int[] target)
+        {
+            switch (checkType)
+            {
+                case RelativePosition.Cardinal:
+                    return CheckCardinal(source, target);
 
-    private bool CheckCardinal(int[] source, int[] target)
-    {
-        checkX = (source[0] == target[0])
-            && (Math.Abs(source[1] - target[1]) == 1);
-        checkY = (source[1] == target[1])
-            && (Math.Abs(source[0] - target[0]) == 1);
+                case RelativePosition.Diagonal:
+                    return CheckDiagonal(source, target);
 
-        return checkX || checkY;
-    }
+                default:
+                    return false;
+            }
+        }
 
-    private bool CheckDiagonal(int[] source, int[] target)
-    {
-        checkX = Math.Abs(source[0] - target[0]) == 1;
-        checkY = Math.Abs(source[1] - target[1]) == 1;
+        private void Awake()
+        {
+            CardinalFactor = 0;
+            DiagonalFactor = 40;
+        }
 
-        return checkX && checkY;
+        private bool CheckCardinal(int[] source, int[] target)
+        {
+            checkX = (source[0] == target[0])
+                && (Math.Abs(source[1] - target[1]) == 1);
+            checkY = (source[1] == target[1])
+                && (Math.Abs(source[0] - target[0]) == 1);
+
+            return checkX || checkY;
+        }
+
+        private bool CheckDiagonal(int[] source, int[] target)
+        {
+            checkX = Math.Abs(source[0] - target[0]) == 1;
+            checkY = Math.Abs(source[1] - target[1]) == 1;
+
+            return checkX && checkY;
+        }
     }
 }

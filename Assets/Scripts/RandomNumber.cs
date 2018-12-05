@@ -2,199 +2,203 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SeedTag
+namespace Fungus.GameSystem
 {
-    DISCARDABLE,
-    Root, Dungeon,
-
-    PERSISTENT,
-    AutoExplore, Infection
-}
-
-public class RandomNumber : MonoBehaviour
-{
-    private Dictionary<SeedTag, Queue<int>> intQueueDict;
-    private int maxQueueLength;
-    private int minQueueLength;
-    private Dictionary<SeedTag, System.Random> rngDict;
-    private Dictionary<SeedTag, int> seedDict;
-
-    public int RootSeed { get; private set; }
-
-    public void InitializeSeeds()
+    public enum SeedTag
     {
-        List<SeedTag> tagList;
-        RootSeed = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
+        DISCARDABLE,
+        Root, Dungeon,
 
-        if (RootSeed == 0)
-        {
-            RootSeed = RandomInteger(true);
-        }
-
-        rngDict[SeedTag.Root] = new System.Random(RootSeed);
-        tagList = new List<SeedTag>(seedDict.Keys);
-
-        foreach (var tag in tagList)
-        {
-            if (tag != SeedTag.Root)
-            {
-                seedDict[tag] = RandomInteger(false, rngDict[SeedTag.Root]);
-            }
-            else
-            {
-                seedDict[SeedTag.Root] = RootSeed;
-            }
-        }
+        PERSISTENT,
+        AutoExplore, Infection
     }
 
-    public double Next(SeedTag tag)
+    public class RandomNumber : MonoBehaviour
     {
-        CheckErrors(tag);
-        InitializeRNGs(tag);
+        private Dictionary<SeedTag, Queue<int>> intQueueDict;
+        private int maxQueueLength;
+        private int minQueueLength;
+        private Dictionary<SeedTag, System.Random> rngDict;
+        private Dictionary<SeedTag, int> seedDict;
 
-        if (IsPersistent(tag))
+        public int RootSeed { get; private set; }
+
+        public void InitializeSeeds()
         {
-            return DequeDouble(tag);
-        }
-        return rngDict[tag].NextDouble();
-    }
+            List<SeedTag> tagList;
+            RootSeed
+                = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
 
-    public int Next(SeedTag tag, int min, int max)
-    {
-        CheckErrors(tag, min, max);
-        InitializeRNGs(tag);
-
-        if (IsPersistent(tag))
-        {
-            return DequeInt(tag, min, max);
-        }
-        return rngDict[tag].Next(min, max);
-    }
-
-    private void Awake()
-    {
-        minQueueLength = 100;
-        maxQueueLength = 1000;
-
-        seedDict = new Dictionary<SeedTag, int>();
-        rngDict = new Dictionary<SeedTag, System.Random>();
-        intQueueDict = new Dictionary<SeedTag, Queue<int>>();
-
-        foreach (SeedTag tag in Enum.GetValues(typeof(SeedTag)))
-        {
-            if (IsInvalid(tag))
+            if (RootSeed == 0)
             {
-                continue;
+                RootSeed = RandomInteger(true);
             }
 
-            seedDict.Add(tag, -1);
+            rngDict[SeedTag.Root] = new System.Random(RootSeed);
+            tagList = new List<SeedTag>(seedDict.Keys);
+
+            foreach (var tag in tagList)
+            {
+                if (tag != SeedTag.Root)
+                {
+                    seedDict[tag] = RandomInteger(false, rngDict[SeedTag.Root]);
+                }
+                else
+                {
+                    seedDict[SeedTag.Root] = RootSeed;
+                }
+            }
+        }
+
+        public double Next(SeedTag tag)
+        {
+            CheckErrors(tag);
+            InitializeRNGs(tag);
 
             if (IsPersistent(tag))
             {
-                intQueueDict.Add(tag, new Queue<int>());
+                return DequeDouble(tag);
             }
-            else
+            return rngDict[tag].NextDouble();
+        }
+
+        public int Next(SeedTag tag, int min, int max)
+        {
+            CheckErrors(tag, min, max);
+            InitializeRNGs(tag);
+
+            if (IsPersistent(tag))
             {
-                rngDict.Add(tag, null);
+                return DequeInt(tag, min, max);
+            }
+            return rngDict[tag].Next(min, max);
+        }
+
+        private void Awake()
+        {
+            minQueueLength = 100;
+            maxQueueLength = 1000;
+
+            seedDict = new Dictionary<SeedTag, int>();
+            rngDict = new Dictionary<SeedTag, System.Random>();
+            intQueueDict = new Dictionary<SeedTag, Queue<int>>();
+
+            foreach (SeedTag tag in Enum.GetValues(typeof(SeedTag)))
+            {
+                if (IsInvalid(tag))
+                {
+                    continue;
+                }
+
+                seedDict.Add(tag, -1);
+
+                if (IsPersistent(tag))
+                {
+                    intQueueDict.Add(tag, new Queue<int>());
+                }
+                else
+                {
+                    rngDict.Add(tag, null);
+                }
             }
         }
-    }
 
-    private void CheckErrors(SeedTag tag)
-    {
-        if (IsInvalid(tag))
+        private void CheckErrors(SeedTag tag)
         {
-            throw new Exception("Invalid tag: " + tag);
-        }
-    }
-
-    private void CheckErrors(SeedTag tag, int min, int max)
-    {
-        CheckErrors(tag);
-
-        if (max < min)
-        {
-            throw new Exception("Invalid range.");
-        }
-    }
-
-    private double DequeDouble(SeedTag tag)
-    {
-        double result = intQueueDict[tag].Dequeue() / Math.Pow(10, 9);
-
-        return result;
-    }
-
-    private int DequeInt(SeedTag tag, int min, int max)
-    {
-        int result;
-        int delta = max - min;
-
-        result = (int)(min + Math.Floor(delta * DequeDouble(tag)));
-
-        return result;
-    }
-
-    private void InitializeRNGs(SeedTag tag)
-    {
-        if (IsInvalid(tag))
-        {
-            return;
+            if (IsInvalid(tag))
+            {
+                throw new Exception("Invalid tag: " + tag);
+            }
         }
 
-        if (IsPersistent(tag))
+        private void CheckErrors(SeedTag tag, int min, int max)
         {
-            if (intQueueDict[tag].Count > minQueueLength)
+            CheckErrors(tag);
+
+            if (max < min)
+            {
+                throw new Exception("Invalid range.");
+            }
+        }
+
+        private double DequeDouble(SeedTag tag)
+        {
+            double result = intQueueDict[tag].Dequeue() / Math.Pow(10, 9);
+
+            return result;
+        }
+
+        private int DequeInt(SeedTag tag, int min, int max)
+        {
+            int result;
+            int delta = max - min;
+
+            result = (int)(min + Math.Floor(delta * DequeDouble(tag)));
+
+            return result;
+        }
+
+        private void InitializeRNGs(SeedTag tag)
+        {
+            if (IsInvalid(tag))
             {
                 return;
             }
 
-            System.Random tempRNG = new System.Random(seedDict[tag]);
-
-            for (int i = 0; i < maxQueueLength; i++)
+            if (IsPersistent(tag))
             {
-                intQueueDict[tag].Enqueue(RandomInteger(false, tempRNG));
-            }
+                if (intQueueDict[tag].Count > minQueueLength)
+                {
+                    return;
+                }
 
-            seedDict[tag] = RandomInteger(false, tempRNG);
-        }
-        else
-        {
-            if (rngDict[tag] == null)
+                System.Random tempRNG = new System.Random(seedDict[tag]);
+
+                for (int i = 0; i < maxQueueLength; i++)
+                {
+                    intQueueDict[tag].Enqueue(RandomInteger(false, tempRNG));
+                }
+
+                seedDict[tag] = RandomInteger(false, tempRNG);
+            }
+            else
             {
-                rngDict[tag] = new System.Random(seedDict[tag]);
+                if (rngDict[tag] == null)
+                {
+                    rngDict[tag] = new System.Random(seedDict[tag]);
+                }
             }
         }
-    }
 
-    private bool IsInvalid(SeedTag tag)
-    {
-        bool isDiscardable = tag.Equals(SeedTag.DISCARDABLE);
-        bool isPersistent = tag.Equals(SeedTag.PERSISTENT);
-
-        return isDiscardable || isPersistent;
-    }
-
-    private bool IsPersistent(SeedTag tag)
-    {
-        return tag.CompareTo(SeedTag.PERSISTENT) > 0;
-    }
-
-    private int RandomInteger(bool mustHave9Digits)
-    {
-        return RandomInteger(mustHave9Digits, new System.Random());
-    }
-
-    private int RandomInteger(bool mustHave9Digits, System.Random rng)
-    {
-        double result;
-
-        do
+        private bool IsInvalid(SeedTag tag)
         {
-            result = rng.NextDouble();
-        }
-        while (mustHave9Digits && (result < 0.1));
+            bool isDiscardable = tag.Equals(SeedTag.DISCARDABLE);
+            bool isPersistent = tag.Equals(SeedTag.PERSISTENT);
 
-        return (int)(result * Math.Pow(10, 9));
+            return isDiscardable || isPersistent;
+        }
+
+        private bool IsPersistent(SeedTag tag)
+        {
+            return tag.CompareTo(SeedTag.PERSISTENT) > 0;
+        }
+
+        private int RandomInteger(bool mustHave9Digits)
+        {
+            return RandomInteger(mustHave9Digits, new System.Random());
+        }
+
+        private int RandomInteger(bool mustHave9Digits, System.Random rng)
+        {
+            double result;
+
+            do
+            {
+                result = rng.NextDouble();
+            }
+            while (mustHave9Digits && (result < 0.1));
+
+            return (int)(result * Math.Pow(10, 9));
+        }
     }
 }
