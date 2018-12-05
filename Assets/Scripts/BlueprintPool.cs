@@ -1,85 +1,88 @@
 ﻿using Fungus.GameSystem;
 using System.Collections.Generic;
 
-public class BlueprintPool : DungeonBlueprint
+namespace Fungus.Actor.WorldBuilding
 {
-    private int countPools;
-    private int[] index;
-    private int maxPool;
-    private int maxRange;
-    private int minPool;
-    private int minRange;
-    private int nextX;
-    private int nextY;
-    private int range;
-    private int[] startIndex;
-    private int startX;
-    private int startY;
-    private Stack<int[]> submergeGrid;
-    private List<int[]> surround;
-
-    public void DrawBlueprint()
+    public class BlueprintPool : DungeonBlueprint
     {
-        countPools = random.Next(SeedTag.Dungeon, minPool, maxPool + 1);
+        private int countPools;
+        private int[] index;
+        private int maxPool;
+        private int maxRange;
+        private int minPool;
+        private int minRange;
+        private int nextX;
+        private int nextY;
+        private int range;
+        private int[] startIndex;
+        private int startX;
+        private int startY;
+        private Stack<int[]> submergeGrid;
+        private List<int[]> surround;
 
-        while (countPools > 0)
+        public void DrawBlueprint()
         {
-            range = random.Next(SeedTag.Dungeon, minRange, maxRange + 1);
-            WaterSource();
-            WaterFlow();
-        }
-    }
+            countPools = random.Next(SeedTag.Dungeon, minPool, maxPool + 1);
 
-    private void Awake()
-    {
-        submergeGrid = new Stack<int[]>();
-        minRange = 1;
-        maxRange = 3;
-        minPool = 90;
-        maxPool = 110;
-    }
-
-    private void WaterFlow()
-    {
-        if (submergeGrid.Count == 0)
-        {
-            return;
-        }
-
-        index = submergeGrid.Pop();
-        nextX = index[0];
-        nextY = index[1];
-
-        surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .SurroundCoord(Surround.Cardinal, nextX, nextY);
-
-        board.ChangeBlueprint(SubObjectTag.Pool, nextX, nextY);
-        countPools--;
-
-        foreach (var grid in surround)
-        {
-            if (board.CheckBlock(SubObjectTag.Floor,
-                grid[0], grid[1])
-                && board.IsInsideRange(FOVShape.Rhombus, range,
-                startIndex, grid))
+            while (countPools > 0)
             {
-                submergeGrid.Push(grid);
+                range = random.Next(SeedTag.Dungeon, minRange, maxRange + 1);
+                WaterSource();
+                WaterFlow();
             }
         }
 
-        WaterFlow();
-    }
-
-    private void WaterSource()
-    {
-        do
+        private void Awake()
         {
-            index = RandomIndex();
-            startX = index[0];
-            startY = index[1];
-        } while (!board.CheckBlock(SubObjectTag.Floor, startX, startY));
+            submergeGrid = new Stack<int[]>();
+            minRange = 1;
+            maxRange = 3;
+            minPool = 90;
+            maxPool = 110;
+        }
 
-        startIndex = index;
-        submergeGrid.Push(index);
+        private void WaterFlow()
+        {
+            if (submergeGrid.Count == 0)
+            {
+                return;
+            }
+
+            index = submergeGrid.Pop();
+            nextX = index[0];
+            nextY = index[1];
+
+            surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                .SurroundCoord(Surround.Cardinal, nextX, nextY);
+
+            board.ChangeBlueprint(SubObjectTag.Pool, nextX, nextY);
+            countPools--;
+
+            foreach (var grid in surround)
+            {
+                if (board.CheckBlock(SubObjectTag.Floor,
+                    grid[0], grid[1])
+                    && board.IsInsideRange(FOVShape.Rhombus, range,
+                    startIndex, grid))
+                {
+                    submergeGrid.Push(grid);
+                }
+            }
+
+            WaterFlow();
+        }
+
+        private void WaterSource()
+        {
+            do
+            {
+                index = RandomIndex();
+                startX = index[0];
+                startY = index[1];
+            } while (!board.CheckBlock(SubObjectTag.Floor, startX, startY));
+
+            startIndex = index;
+            submergeGrid.Push(index);
+        }
     }
 }

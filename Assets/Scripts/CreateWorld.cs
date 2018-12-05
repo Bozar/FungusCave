@@ -1,67 +1,72 @@
 ﻿using Fungus.GameSystem;
 using UnityEngine;
 
-public class CreateWorld : MonoBehaviour
+namespace Fungus.Actor.WorldBuilding
 {
-    private ActorBoard actor;
-    private DungeonBlueprint blueprint;
-    private DungeonBoard board;
-    private ObjectPool oPool;
-    private int[] position;
-
-    public void Initialize()
+    public class CreateWorld : MonoBehaviour
     {
-        CreateBuildings();
-        CreateActors();
-    }
+        private ActorBoard actor;
+        private DungeonBlueprint blueprint;
+        private DungeonBoard board;
+        private ObjectPool oPool;
+        private int[] position;
 
-    // TODO: Create actors based on dungeon level.
-    private void CreateActors()
-    {
-        position = GetPassablePosition();
-        oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
+        public void Initialize()
+        {
+            CreateBuildings();
+            CreateActors();
+        }
 
-        for (int i = 0; i < 2; i++)
+        // TODO: Create actors based on dungeon level.
+        private void CreateActors()
         {
             position = GetPassablePosition();
-            oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.Dummy, position);
-        }
-    }
+            oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
 
-    private void CreateBuildings()
-    {
-        for (int x = 0; x < board.Width; x++)
-        {
-            for (int y = 0; y < board.Height; y++)
+            for (int i = 0; i < 2; i++)
             {
-                if (!board.CheckBlock(SubObjectTag.Floor, x, y))
+                position = GetPassablePosition();
+                oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.Dummy,
+                    position);
+            }
+        }
+
+        private void CreateBuildings()
+        {
+            for (int x = 0; x < board.Width; x++)
+            {
+                for (int y = 0; y < board.Height; y++)
                 {
-                    oPool.CreateObject(
-                        MainObjectTag.Building, board.GetBlockTag(x, y), x, y);
+                    if (!board.CheckBlock(SubObjectTag.Floor, x, y))
+                    {
+                        oPool.CreateObject(
+                            MainObjectTag.Building, board.GetBlockTag(x, y),
+                            x, y);
+                    }
                 }
             }
         }
-    }
 
-    private int[] GetPassablePosition()
-    {
-        int[] pos;
-
-        do
+        private int[] GetPassablePosition()
         {
-            pos = blueprint.RandomIndex();
-        } while (actor.HasActor(pos)
-        || board.CheckBlock(SubObjectTag.Wall, pos)
-        || board.CheckBlock(SubObjectTag.Fungus, pos));
+            int[] pos;
 
-        return pos;
-    }
+            do
+            {
+                pos = blueprint.RandomIndex();
+            } while (actor.HasActor(pos)
+            || board.CheckBlock(SubObjectTag.Wall, pos)
+            || board.CheckBlock(SubObjectTag.Fungus, pos));
 
-    private void Start()
-    {
-        board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-        actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-        blueprint = FindObjects.GameLogic.GetComponent<DungeonBlueprint>();
-        oPool = FindObjects.GameLogic.GetComponent<ObjectPool>();
+            return pos;
+        }
+
+        private void Start()
+        {
+            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            blueprint = FindObjects.GameLogic.GetComponent<DungeonBlueprint>();
+            oPool = FindObjects.GameLogic.GetComponent<ObjectPool>();
+        }
     }
 }

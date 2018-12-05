@@ -1,71 +1,74 @@
 ﻿using Fungus.GameSystem;
 using UnityEngine;
 
-public interface IIsEmptyArea
+namespace Fungus.Actor.WorldBuilding
 {
-    bool IsEmptyArea(int x, int y, int width, int height);
-}
-
-// Change the 2D array's content, which is defined in DungeonBoard.
-public class DungeonBlueprint : MonoBehaviour
-{
-    protected DungeonBoard board;
-    protected RandomNumber random;
-
-    public void DrawManually()
+    public interface IIsEmptyArea
     {
-        board.ChangeBlueprint(SubObjectTag.Wall, 4, 4);
-        board.ChangeBlueprint(SubObjectTag.Wall, 5, 5);
-        board.ChangeBlueprint(SubObjectTag.Wall, 6, 6);
-
-        board.ChangeBlueprint(SubObjectTag.Wall,
-            board.Width - 1, board.Height - 1);
-        board.ChangeBlueprint(SubObjectTag.Wall,
-            board.Width, board.Height - 1);
-
-        board.ChangeBlueprint(SubObjectTag.Pool, 8, 8);
-        board.ChangeBlueprint(SubObjectTag.Pool, 8, 9);
-        board.ChangeBlueprint(SubObjectTag.Pool, 9, 9);
+        bool IsEmptyArea(int x, int y, int width, int height);
     }
 
-    public void DrawRandomly()
+    // Change the 2D array's content, which is defined in DungeonBoard.
+    public class DungeonBlueprint : MonoBehaviour
     {
-        int wall = 5;
-        int count = 0;
-        int[] index;
-        int x;
-        int y;
+        protected DungeonBoard board;
+        protected RandomNumber random;
 
-        while (count < wall)
+        public void DrawManually()
         {
-            index = RandomIndex();
-            x = index[0];
-            y = index[1];
+            board.ChangeBlueprint(SubObjectTag.Wall, 4, 4);
+            board.ChangeBlueprint(SubObjectTag.Wall, 5, 5);
+            board.ChangeBlueprint(SubObjectTag.Wall, 6, 6);
 
-            if (board.CheckBlock(SubObjectTag.Floor, x, y))
+            board.ChangeBlueprint(SubObjectTag.Wall,
+                board.Width - 1, board.Height - 1);
+            board.ChangeBlueprint(SubObjectTag.Wall,
+                board.Width, board.Height - 1);
+
+            board.ChangeBlueprint(SubObjectTag.Pool, 8, 8);
+            board.ChangeBlueprint(SubObjectTag.Pool, 8, 9);
+            board.ChangeBlueprint(SubObjectTag.Pool, 9, 9);
+        }
+
+        public void DrawRandomly()
+        {
+            int wall = 5;
+            int count = 0;
+            int[] index;
+            int x;
+            int y;
+
+            while (count < wall)
             {
-                board.ChangeBlueprint(SubObjectTag.Wall, x, y);
-                count++;
+                index = RandomIndex();
+                x = index[0];
+                y = index[1];
+
+                if (board.CheckBlock(SubObjectTag.Floor, x, y))
+                {
+                    board.ChangeBlueprint(SubObjectTag.Wall, x, y);
+                    count++;
+                }
             }
         }
-    }
 
-    public int[] RandomIndex()
-    {
-        int[] index;
-        int x;
-        int y;
+        public int[] RandomIndex()
+        {
+            int[] index;
+            int x;
+            int y;
 
-        x = random.Next(SeedTag.Dungeon, 0, board.Width);
-        y = random.Next(SeedTag.Dungeon, 0, board.Height);
-        index = new int[] { x, y };
+            x = random.Next(SeedTag.Dungeon, 0, board.Width);
+            y = random.Next(SeedTag.Dungeon, 0, board.Height);
+            index = new int[] { x, y };
 
-        return index;
-    }
+            return index;
+        }
 
-    private void Start()
-    {
-        board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-        random = FindObjects.GameLogic.GetComponent<RandomNumber>();
+        private void Start()
+        {
+            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            random = FindObjects.GameLogic.GetComponent<RandomNumber>();
+        }
     }
 }

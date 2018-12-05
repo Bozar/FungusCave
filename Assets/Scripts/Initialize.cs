@@ -1,4 +1,5 @@
-﻿using Fungus.Render;
+﻿using Fungus.Actor.WorldBuilding;
+using Fungus.Render;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

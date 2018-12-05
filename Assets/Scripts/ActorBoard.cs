@@ -1,72 +1,75 @@
 ﻿using Fungus.GameSystem;
 using UnityEngine;
 
-public class ActorBoard : MonoBehaviour
+namespace Fungus.Actor.WorldBuilding
 {
-    private GameObject[,] board;
-    private DungeonBoard dungeon;
-
-    public void AddActor(GameObject actor, int x, int y)
+    public class ActorBoard : MonoBehaviour
     {
-        if (dungeon.IndexOutOfRange(x, y))
+        private GameObject[,] board;
+        private DungeonBoard dungeon;
+
+        public void AddActor(GameObject actor, int x, int y)
         {
-            return;
+            if (dungeon.IndexOutOfRange(x, y))
+            {
+                return;
+            }
+
+            board[x, y] = actor;
         }
 
-        board[x, y] = actor;
-    }
-
-    public bool CheckActorTag<T>(T actorTag, int x, int y)
-    {
-        return CheckActorTag(actorTag, GetActor(x, y));
-    }
-
-    public bool CheckActorTag<T>(T actorTag, GameObject actor)
-    {
-        bool checkMainTag;
-        bool checkSubTag;
-
-        if (actor == null)
+        public bool CheckActorTag<T>(T actorTag, int x, int y)
         {
-            return false;
+            return CheckActorTag(actorTag, GetActor(x, y));
         }
 
-        checkMainTag
-            = actor.GetComponent<ObjectMetaInfo>().MainTag.Equals(actorTag);
-        checkSubTag
-            = actor.GetComponent<ObjectMetaInfo>().SubTag.Equals(actorTag);
-
-        return checkMainTag || checkSubTag;
-    }
-
-    public GameObject GetActor(int x, int y)
-    {
-        if (dungeon.IndexOutOfRange(x, y))
+        public bool CheckActorTag<T>(T actorTag, GameObject actor)
         {
-            return null;
+            bool checkMainTag;
+            bool checkSubTag;
+
+            if (actor == null)
+            {
+                return false;
+            }
+
+            checkMainTag
+                = actor.GetComponent<ObjectMetaInfo>().MainTag.Equals(actorTag);
+            checkSubTag
+                = actor.GetComponent<ObjectMetaInfo>().SubTag.Equals(actorTag);
+
+            return checkMainTag || checkSubTag;
         }
 
-        return board[x, y];
-    }
+        public GameObject GetActor(int x, int y)
+        {
+            if (dungeon.IndexOutOfRange(x, y))
+            {
+                return null;
+            }
 
-    public bool HasActor(int x, int y)
-    {
-        return GetActor(x, y) != null;
-    }
+            return board[x, y];
+        }
 
-    public bool HasActor(int[] position)
-    {
-        return HasActor(position[0], position[1]);
-    }
+        public bool HasActor(int x, int y)
+        {
+            return GetActor(x, y) != null;
+        }
 
-    public void RemoveActor(int x, int y)
-    {
-        AddActor(null, x, y);
-    }
+        public bool HasActor(int[] position)
+        {
+            return HasActor(position[0], position[1]);
+        }
 
-    private void Start()
-    {
-        dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-        board = new GameObject[dungeon.Width, dungeon.Height];
+        public void RemoveActor(int x, int y)
+        {
+            AddActor(null, x, y);
+        }
+
+        private void Start()
+        {
+            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            board = new GameObject[dungeon.Width, dungeon.Height];
+        }
     }
 }

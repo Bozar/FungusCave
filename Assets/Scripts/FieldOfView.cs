@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.WorldBuilding;
+using Fungus.GameSystem;
 using UnityEngine;
 
 public enum FOVStatus { INVALID, TEST, Unknown, Visited, Insight };
