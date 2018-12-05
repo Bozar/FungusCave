@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class ObjectMetaInfo : MonoBehaviour
+namespace Fungus.Actor.ObjectManager
 {
-    public MainObjectTag MainTag { get; private set; }
-    public SubObjectTag SubTag { get; private set; }
-
-    public void SetMainTag(MainObjectTag tag)
+    public class ObjectMetaInfo : MonoBehaviour
     {
-        MainTag = tag;
-    }
+        public MainObjectTag MainTag { get; private set; }
+        public SubObjectTag SubTag { get; private set; }
 
-    public void SetSubTag(SubObjectTag tag)
-    {
-        SubTag = tag;
+        public void SetMainTag(MainObjectTag tag)
+        {
+            MainTag = tag;
+        }
+
+        public void SetSubTag(SubObjectTag tag)
+        {
+            SubTag = tag;
+        }
     }
 }

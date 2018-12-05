@@ -1,61 +1,64 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum DataTag { HP, Stress, Damage, MaxInfections }
-
-public class ObjectData : MonoBehaviour
+namespace Fungus.Actor.ObjectManager
 {
-    private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
-    private int invalidData;
+    public enum DataTag { HP, Stress, Damage, MaxInfections }
 
-    public int GetIntData(SubObjectTag oTag, DataTag dTag)
+    public class ObjectData : MonoBehaviour
     {
-        Dictionary<SubObjectTag, int> dataDict;
-        int gameData;
+        private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
+        private int invalidData;
 
-        if (intData.TryGetValue(dTag, out dataDict))
+        public int GetIntData(SubObjectTag oTag, DataTag dTag)
         {
-            if (dataDict.TryGetValue(oTag, out gameData))
+            Dictionary<SubObjectTag, int> dataDict;
+            int gameData;
+
+            if (intData.TryGetValue(dTag, out dataDict))
             {
-                return gameData;
+                if (dataDict.TryGetValue(oTag, out gameData))
+                {
+                    return gameData;
+                }
+                else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
+                {
+                    return gameData;
+                }
             }
-            else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
+
+            return invalidData;
+        }
+
+        private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
+        {
+            if (!intData.ContainsKey(dTag))
             {
-                return gameData;
+                intData.Add(dTag, new Dictionary<SubObjectTag, int>());
+            }
+
+            if (!intData[dTag].ContainsKey(oTag))
+            {
+                intData[dTag].Add(oTag, data);
             }
         }
 
-        return invalidData;
-    }
-
-    private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
-    {
-        if (!intData.ContainsKey(dTag))
+        private void Awake()
         {
-            intData.Add(dTag, new Dictionary<SubObjectTag, int>());
+            invalidData = -99999;
+            intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
+
+            InitializeData();
         }
 
-        if (!intData[dTag].ContainsKey(oTag))
+        private void InitializeData()
         {
-            intData[dTag].Add(oTag, data);
+            AddIntData(SubObjectTag.PC, DataTag.HP, 10);
+            AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
+            AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
+            AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
+
+            AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
         }
-    }
-
-    private void Awake()
-    {
-        invalidData = -99999;
-        intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
-
-        InitializeData();
-    }
-
-    private void InitializeData()
-    {
-        AddIntData(SubObjectTag.PC, DataTag.HP, 10);
-        AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
-        AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
-        AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
-
-        AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
     }
 }

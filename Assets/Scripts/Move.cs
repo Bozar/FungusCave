@@ -1,4 +1,5 @@
-﻿using Fungus.Actor.WorldBuilding;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
 using Fungus.Render;
 using System;

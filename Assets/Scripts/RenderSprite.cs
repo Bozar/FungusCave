@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor.FOV;
+using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
 using UnityEngine;
 
