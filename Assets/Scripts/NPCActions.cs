@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.AI;
+using Fungus.Actor.FOV;
 using Fungus.GameSystem;
 using UnityEngine;
 

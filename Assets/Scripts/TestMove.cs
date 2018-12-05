@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor;
+using Fungus.Actor.FOV;
 using Fungus.Actor.WorldBuilding;
 using Fungus.Render;
 using System.Collections;

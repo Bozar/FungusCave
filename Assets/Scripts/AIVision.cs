@@ -1,4 +1,5 @@
-﻿using Fungus.Actor.WorldBuilding;
+﻿using Fungus.Actor.FOV;
+using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
 using UnityEngine;
 
