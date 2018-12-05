@@ -4,56 +4,59 @@ using System;
 using System.Text;
 using UnityEngine;
 
-public class Energy : MonoBehaviour
+namespace Fungus.Actor
 {
-    private int actionThreshold;
-
-    public int CurrentEnergy { get; private set; }
-
-    public void GainEnergy(int energy, bool checkCurrentEnergy)
+    public class Energy : MonoBehaviour
     {
-        if (checkCurrentEnergy && HasEnoughEnergy())
+        private int actionThreshold;
+
+        public int CurrentEnergy { get; private set; }
+
+        public void GainEnergy(int energy, bool checkCurrentEnergy)
         {
-            return;
+            if (checkCurrentEnergy && HasEnoughEnergy())
+            {
+                return;
+            }
+
+            CurrentEnergy += energy;
+            CurrentEnergy = Math.Min(CurrentEnergy, actionThreshold * 3);
         }
 
-        CurrentEnergy += energy;
-        CurrentEnergy = Math.Min(CurrentEnergy, actionThreshold * 3);
-    }
+        public bool HasEnoughEnergy()
+        {
+            return CurrentEnergy >= actionThreshold;
+        }
 
-    public bool HasEnoughEnergy()
-    {
-        return CurrentEnergy >= actionThreshold;
-    }
+        public void LoseEnergy(int energy)
+        {
+            CurrentEnergy -= energy;
+        }
 
-    public void LoseEnergy(int energy)
-    {
-        CurrentEnergy -= energy;
-    }
+        public void PrintEnergy()
+        {
+            StringBuilder printText = new StringBuilder();
+            int[] testPosition
+                = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
+                .Convert(gameObject.transform.position);
 
-    public void PrintEnergy()
-    {
-        StringBuilder printText = new StringBuilder();
-        int[] testPosition
-            = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-            .Convert(gameObject.transform.position);
+            printText.Remove(0, printText.Length);
+            printText.Append("[");
+            printText.Append(testPosition[0].ToString());
+            printText.Append(",");
+            printText.Append(testPosition[1].ToString());
+            printText.Append("] ");
+            printText.Append("Energy: ");
+            printText.Append(CurrentEnergy.ToString());
 
-        printText.Remove(0, printText.Length);
-        printText.Append("[");
-        printText.Append(testPosition[0].ToString());
-        printText.Append(",");
-        printText.Append(testPosition[1].ToString());
-        printText.Append("] ");
-        printText.Append("Energy: ");
-        printText.Append(CurrentEnergy.ToString());
+            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
+                printText.ToString());
+        }
 
-        FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-            printText.ToString());
-    }
-
-    private void Awake()
-    {
-        actionThreshold = 2000;
-        CurrentEnergy = actionThreshold;
+        private void Awake()
+        {
+            actionThreshold = 2000;
+            CurrentEnergy = actionThreshold;
+        }
     }
 }

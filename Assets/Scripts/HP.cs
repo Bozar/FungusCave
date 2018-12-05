@@ -3,50 +3,53 @@ using Fungus.Render;
 using System;
 using UnityEngine;
 
-public class HP : MonoBehaviour
+namespace Fungus.Actor
 {
-    private ConvertCoordinates coordinate;
-    private UIMessage message;
-
-    public int CurrentHP { get; private set; }
-    public int MaxHP { get; private set; }
-
-    public void GainHP(int hp)
+    public class HP : MonoBehaviour
     {
-        CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
-    }
+        private ConvertCoordinates coordinate;
+        private UIMessage message;
 
-    public bool LoseHP(int hp)
-    {
-        CurrentHP = Math.Max(0, CurrentHP - hp);
+        public int CurrentHP { get; private set; }
+        public int MaxHP { get; private set; }
 
-        // TODO: Check if actor is dead.
-
-        int[] position;
-
-        position = coordinate.Convert(gameObject.transform.position);
-        message.StoreText(position[0] + "," + position[1] + " is hit.");
-
-        if (IsDead())
+        public void GainHP(int hp)
         {
-            gameObject.GetComponent<Die>().Bury();
-            return true;
+            CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
         }
-        return false;
-    }
 
-    private bool IsDead()
-    {
-        return CurrentHP < 1;
-    }
+        public bool LoseHP(int hp)
+        {
+            CurrentHP = Math.Max(0, CurrentHP - hp);
 
-    private void Start()
-    {
-        MaxHP = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
-            gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.HP);
-        CurrentHP = MaxHP;
+            // TODO: Check if actor is dead.
 
-        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-        message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            int[] position;
+
+            position = coordinate.Convert(gameObject.transform.position);
+            message.StoreText(position[0] + "," + position[1] + " is hit.");
+
+            if (IsDead())
+            {
+                gameObject.GetComponent<Die>().Bury();
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsDead()
+        {
+            return CurrentHP < 1;
+        }
+
+        private void Start()
+        {
+            MaxHP = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
+                gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.HP);
+            CurrentHP = MaxHP;
+
+            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            message = FindObjects.GameLogic.GetComponent<UIMessage>();
+        }
     }
 }

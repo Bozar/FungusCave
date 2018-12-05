@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus.Actor;
+using UnityEngine;
 
 public interface ICountDown { void CountDown(); }
 

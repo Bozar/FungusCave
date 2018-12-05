@@ -3,161 +3,165 @@ using Fungus.Render;
 using System;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+namespace Fungus.Actor
 {
-    private ActorBoard actorBoard;
-    private int attackPowerEnergy;
-    private PowerTag[] attackPowers;
-    private int baseDamage;
-    private int baseEnergy;
-    private ConvertCoordinates coordinate;
-    private Direction direction;
-    private int powerDamage1;
-    private int powerDamage2;
-    private int powerEnergy2;
-    private int powerPoison2;
-    private int relieveStressAfterKill;
-    private int weakDamage;
-
-    public int GetCurrentDamage()
+    public class Attack : MonoBehaviour
     {
-        int weak;
-        int power;
-        int finalDamage;
+        private ActorBoard actorBoard;
+        private int attackPowerEnergy;
+        private PowerTag[] attackPowers;
+        private int baseDamage;
+        private int baseEnergy;
+        private ConvertCoordinates coordinate;
+        private Direction direction;
+        private int powerDamage1;
+        private int powerDamage2;
+        private int powerEnergy2;
+        private int powerPoison2;
+        private int relieveStressAfterKill;
+        private int weakDamage;
 
-        // TODO: Change damage.
-
-        weak = gameObject.GetComponent<Infection>()
-            .HasInfection(InfectionTag.Weak)
-            ? weakDamage : 0;
-
-        power = gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
-            ? powerDamage1 : 0;
-        power += gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
-            ? powerDamage2 : 0;
-
-        finalDamage = baseDamage + power - weak;
-        finalDamage = Math.Max(0, finalDamage);
-
-        return finalDamage;
-    }
-
-    public void MeleeAttack(int x, int y)
-    {
-        bool hasPower;
-        bool targetIsDead;
-        GameObject target;
-
-        if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
-            || !actorBoard.HasActor(x, y))
+        public int GetCurrentDamage()
         {
-            return;
+            int weak;
+            int power;
+            int finalDamage;
+
+            // TODO: Change damage.
+
+            weak = gameObject.GetComponent<Infection>()
+                .HasInfection(InfectionTag.Weak)
+                ? weakDamage : 0;
+
+            power = gameObject.GetComponent<Power>()
+                .PowerIsActive(PowerTag.Damage1) ? powerDamage1 : 0;
+            power += gameObject.GetComponent<Power>()
+                .PowerIsActive(PowerTag.Damage2) ? powerDamage2 : 0;
+
+            finalDamage = baseDamage + power - weak;
+            finalDamage = Math.Max(0, finalDamage);
+
+            return finalDamage;
         }
 
-        gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
-
-        hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-           PowerTag.Poison2);
-        target = actorBoard.GetActor(x, y);
-
-        if (hasPower)
+        public void MeleeAttack(int x, int y)
         {
-            target.GetComponent<Energy>().LoseEnergy(powerPoison2);
-        }
+            bool hasPower;
+            bool targetIsDead;
+            GameObject target;
 
-        targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage());
-
-        if (targetIsDead)
-        {
-            RestoreEnergy();
-            gameObject.GetComponent<Stress>().LoseStress(relieveStressAfterKill);
-        }
-        else
-        {
-            hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-                PowerTag.Poison1);
-            target.GetComponent<Infection>().GainInfection(hasPower);
-        }
-    }
-
-    private void Awake()
-    {
-        baseEnergy = 1200;
-        weakDamage = 1;
-        powerEnergy2 = 400;
-        powerPoison2 = 400;
-        powerDamage1 = 1;
-        powerDamage2 = 1;
-        attackPowerEnergy = 200;
-        relieveStressAfterKill = 2;
-    }
-
-    private int GetMeleeEnergy(int x, int y)
-    {
-        int[] position;
-        bool isCardinal;
-        double directionFactor;
-        int attack;
-        int totalEnergy;
-        int slow;
-
-        position = coordinate.Convert(gameObject.transform.position);
-        isCardinal = direction.CheckDirection(
-            RelativePosition.Cardinal, position, x, y);
-
-        directionFactor = isCardinal
-            ? direction.CardinalFactor
-            : direction.DiagonalFactor;
-
-        slow = gameObject.GetComponent<Infection>()
-            .HasInfection(InfectionTag.Slow)
-            ? gameObject.GetComponent<Infection>().ModEnergy : 0;
-
-        attack = 0;
-        foreach (PowerTag tag in attackPowers)
-        {
-            if (gameObject.GetComponent<Power>().PowerIsActive(tag))
+            if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
+                || !actorBoard.HasActor(x, y))
             {
-                attack += attackPowerEnergy;
+                return;
+            }
+
+            gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
+
+            hasPower = gameObject.GetComponent<Power>().PowerIsActive(
+               PowerTag.Poison2);
+            target = actorBoard.GetActor(x, y);
+
+            if (hasPower)
+            {
+                target.GetComponent<Energy>().LoseEnergy(powerPoison2);
+            }
+
+            targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage());
+
+            if (targetIsDead)
+            {
+                RestoreEnergy();
+                gameObject.GetComponent<Stress>().LoseStress(
+                    relieveStressAfterKill);
+            }
+            else
+            {
+                hasPower = gameObject.GetComponent<Power>().PowerIsActive(
+                    PowerTag.Poison1);
+                target.GetComponent<Infection>().GainInfection(hasPower);
             }
         }
 
-        // TODO: Attack in fog.
-        totalEnergy = (int)Math.Floor(
-            (baseEnergy + attack) * ((100 + directionFactor + slow) * 0.01));
-
-        if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
-            && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+        private void Awake()
         {
-            FindObjects.GameLogic.GetComponent<UIMessage>()
-                .StoreText("Melee energy: " + totalEnergy);
+            baseEnergy = 1200;
+            weakDamage = 1;
+            powerEnergy2 = 400;
+            powerPoison2 = 400;
+            powerDamage1 = 1;
+            powerDamage2 = 1;
+            attackPowerEnergy = 200;
+            relieveStressAfterKill = 2;
         }
 
-        return totalEnergy;
-    }
-
-    private void RestoreEnergy()
-    {
-        if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
+        private int GetMeleeEnergy(int x, int y)
         {
-            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+            int[] position;
+            bool isCardinal;
+            double directionFactor;
+            int attack;
+            int totalEnergy;
+            int slow;
+
+            position = coordinate.Convert(gameObject.transform.position);
+            isCardinal = direction.CheckDirection(
+                RelativePosition.Cardinal, position, x, y);
+
+            directionFactor = isCardinal
+                ? direction.CardinalFactor
+                : direction.DiagonalFactor;
+
+            slow = gameObject.GetComponent<Infection>()
+                .HasInfection(InfectionTag.Slow)
+                ? gameObject.GetComponent<Infection>().ModEnergy : 0;
+
+            attack = 0;
+            foreach (PowerTag tag in attackPowers)
+            {
+                if (gameObject.GetComponent<Power>().PowerIsActive(tag))
+                {
+                    attack += attackPowerEnergy;
+                }
+            }
+
+            // TODO: Attack in fog.
+            totalEnergy = (int)Math.Floor(
+                (baseEnergy + attack) * ((100 + directionFactor + slow) * 0.01));
+
+            if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
+                && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+            {
+                FindObjects.GameLogic.GetComponent<UIMessage>()
+                    .StoreText("Melee energy: " + totalEnergy);
+            }
+
+            return totalEnergy;
         }
-    }
 
-    private void Start()
-    {
-        actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
-        coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-        direction = FindObjects.GameLogic.GetComponent<Direction>();
-
-        attackPowers = new PowerTag[]
+        private void RestoreEnergy()
         {
+            if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
+            {
+                gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+            }
+        }
+
+        private void Start()
+        {
+            actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            direction = FindObjects.GameLogic.GetComponent<Direction>();
+
+            attackPowers = new PowerTag[]
+            {
             PowerTag.Damage1, PowerTag.Damage2,
             PowerTag.Poison1, PowerTag.Poison2
-        };
+            };
 
-        baseDamage
-            = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
-            gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
+            baseDamage
+                = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
+                gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
+        }
     }
 }

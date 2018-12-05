@@ -1,53 +1,56 @@
 ﻿using System;
 using UnityEngine;
 
-public class Potion : MonoBehaviour
+namespace Fungus.Actor
 {
-    private int maxPotion;
-
-    public int CurrentPotion { get; private set; }
-
-    public void DrinkPotion()
+    public class Potion : MonoBehaviour
     {
-        int restoreFull;
-        int restoreHalf;
+        private int maxPotion;
 
-        restoreFull = gameObject.GetComponent<HP>().MaxHP;
-        restoreHalf = (int)Math.Floor(restoreFull * 0.5);
+        public int CurrentPotion { get; private set; }
 
-        if (gameObject.GetComponent<Infection>().HasInfection(
-            InfectionTag.Mutate))
+        public void DrinkPotion()
         {
-            gameObject.GetComponent<HP>().GainHP(restoreHalf);
+            int restoreFull;
+            int restoreHalf;
+
+            restoreFull = gameObject.GetComponent<HP>().MaxHP;
+            restoreHalf = (int)Math.Floor(restoreFull * 0.5);
+
+            if (gameObject.GetComponent<Infection>().HasInfection(
+                InfectionTag.Mutate))
+            {
+                gameObject.GetComponent<HP>().GainHP(restoreHalf);
+            }
+            else
+            {
+                // TODO: Lose stress. Gain energy.
+                gameObject.GetComponent<HP>().GainHP(restoreFull);
+                gameObject.GetComponent<Infection>().ResetInfection();
+            }
+
+            LosePotion(1);
         }
-        else
+
+        public void GainPotion(int potion)
         {
-            // TODO: Lose stress. Gain energy.
-            gameObject.GetComponent<HP>().GainHP(restoreFull);
-            gameObject.GetComponent<Infection>().ResetInfection();
+            CurrentPotion = Math.Min(maxPotion, CurrentPotion + potion);
         }
 
-        LosePotion(1);
-    }
+        public bool HasEnoughPotion(int min = 1)
+        {
+            return CurrentPotion >= min;
+        }
 
-    public void GainPotion(int potion)
-    {
-        CurrentPotion = Math.Min(maxPotion, CurrentPotion + potion);
-    }
+        public void LosePotion(int potion)
+        {
+            CurrentPotion = Math.Max(0, CurrentPotion - potion);
+        }
 
-    public bool HasEnoughPotion(int min = 1)
-    {
-        return CurrentPotion >= min;
-    }
-
-    public void LosePotion(int potion)
-    {
-        CurrentPotion = Math.Max(0, CurrentPotion - potion);
-    }
-
-    private void Awake()
-    {
-        CurrentPotion = 0;
-        maxPotion = 99;
+        private void Awake()
+        {
+            CurrentPotion = 0;
+            maxPotion = 99;
+        }
     }
 }
