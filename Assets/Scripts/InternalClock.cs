@@ -1,38 +1,40 @@
-﻿using Fungus.Actor;
-using Fungus.Actor.AI;
+﻿using Fungus.Actor.AI;
 using UnityEngine;
 
-public interface ICountDown { void CountDown(); }
-
-public class InternalClock : MonoBehaviour
+namespace Fungus.Actor.Turn
 {
-    private int energyTurn;
-    private int powerEnergy1;
+    public interface ICountDown { void CountDown(); }
 
-    public void EndTurn()
+    public class InternalClock : MonoBehaviour
     {
-        gameObject.GetComponent<Infection>().CountDown();
-    }
+        private int energyTurn;
+        private int powerEnergy1;
 
-    public void StartTurn()
-    {
-        gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
-
-        if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
+        public void EndTurn()
         {
-            gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
+            gameObject.GetComponent<Infection>().CountDown();
         }
 
-        // TODO: Update after Unity 2018.3.
-        if (gameObject.GetComponent<AutoExplore>() != null)
+        public void StartTurn()
         {
-            gameObject.GetComponent<AutoExplore>().CountDown();
-        }
-    }
+            gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
 
-    private void Awake()
-    {
-        energyTurn = 2000;
-        powerEnergy1 = 200;
+            if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
+            {
+                gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
+            }
+
+            // TODO: Update after Unity 2018.3.
+            if (gameObject.GetComponent<AutoExplore>() != null)
+            {
+                gameObject.GetComponent<AutoExplore>().CountDown();
+            }
+        }
+
+        private void Awake()
+        {
+            energyTurn = 2000;
+            powerEnergy1 = 200;
+        }
     }
 }
