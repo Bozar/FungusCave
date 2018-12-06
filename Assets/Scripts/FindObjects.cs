@@ -10,7 +10,7 @@ namespace Fungus.GameSystem
         NONE, Seed, Message, Modeline,
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
-        PowerData0, PowerData1, PowerData2,
+        PowerLabel, PowerData0, PowerData1, PowerData2,
         InfectionLabel,
         InfectionName0, InfectionDuration0,
         InfectionName1, InfectionDuration1

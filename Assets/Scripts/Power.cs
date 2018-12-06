@@ -74,6 +74,18 @@ namespace Fungus.Actor
             return npcPowerDict.ContainsKey(tag);
         }
 
+        public bool HasPower()
+        {
+            foreach (PowerTag tag in Enum.GetValues(typeof(PowerTag)))
+            {
+                if ((tag != PowerTag.INVALID) && HasPower(tag))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool PowerIsActive(PowerTag tag)
         {
             bool isActive;
@@ -111,16 +123,16 @@ namespace Fungus.Actor
         private void Awake()
         {
             nameDict = new Dictionary<PowerTag, string>
-        {
-            { PowerTag.Energy1, "Energy I" },
-            { PowerTag.Energy2, "Energy II" },
-            { PowerTag.Immunity1, "Immunity I" },
-            { PowerTag.Immunity2, "Immunity II" },
-            { PowerTag.Damage1, "Damage I" },
-            { PowerTag.Damage2, "Damage II" },
-            { PowerTag.Poison1, "Poison I" },
-            { PowerTag.Poison2, "Poison II" }
-        };
+            {
+                { PowerTag.Energy1, "Energy I" },
+                { PowerTag.Energy2, "Energy II" },
+                { PowerTag.Immunity1, "Immunity I" },
+                { PowerTag.Immunity2, "Immunity II" },
+                { PowerTag.Damage1, "Damage I" },
+                { PowerTag.Damage2, "Damage II" },
+                { PowerTag.Poison1, "Poison I" },
+                { PowerTag.Poison2, "Poison II" }
+            };
         }
 
         private bool PCHasPower(PowerTag tag, out bool isActive)

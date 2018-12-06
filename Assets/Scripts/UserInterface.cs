@@ -15,12 +15,8 @@ namespace Fungus.Render
     {
         private DungeonBoard board;
         private GameColor color;
-        private int current;
         private UIDict getUI;
-        private int lineNumber;
-        private int max;
         private GameObject pc;
-        private string printText;
         private StringBuilder sb;
 
         private delegate GameObject UIDict(UITag tag);
@@ -59,7 +55,7 @@ namespace Fungus.Render
 
         private void UpdateDamage()
         {
-            current = pc.GetComponent<Attack>().GetCurrentDamage();
+            int current = pc.GetComponent<Attack>().GetCurrentDamage();
 
             getUI(UITag.DamageData).GetComponent<Text>().text
                 = current.ToString();
@@ -94,7 +90,6 @@ namespace Fungus.Render
                 }
                 sb.Append("Fog");
             }
-
             sb.Append(" ]");
 
             getUI(UITag.Terrain).GetComponent<Text>().text = sb.ToString();
@@ -102,24 +97,33 @@ namespace Fungus.Render
 
         private void UpdateHP()
         {
-            current = pc.GetComponent<HP>().CurrentHP;
-            max = pc.GetComponent<HP>().MaxHP;
+            int current = pc.GetComponent<HP>().CurrentHP;
+            int max = pc.GetComponent<HP>().MaxHP;
 
             getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
         }
 
         private void UpdateInfection()
         {
-            lineNumber = -1;
+            int lineNumber = -1;
+            int current;
+            string name;
+            string duration;
+            UITag tagName;
+            UITag tagDuration;
 
             getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
 
             for (int i = 0; i < 2; i++)
             {
-                getUI((UITag)Enum.Parse(typeof(UITag), "InfectionName" + i))
-                    .GetComponent<Text>().text = "";
-                getUI((UITag)Enum.Parse(typeof(UITag), "InfectionDuration" + i))
-                    .GetComponent<Text>().text = "";
+                name = "InfectionName" + i;
+                duration = "InfectionDuration" + i;
+
+                tagName = (UITag)Enum.Parse(typeof(UITag), name);
+                tagDuration = (UITag)Enum.Parse(typeof(UITag), duration);
+
+                getUI(tagName).GetComponent<Text>().text = "";
+                getUI(tagDuration).GetComponent<Text>().text = "";
             }
 
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
@@ -128,12 +132,14 @@ namespace Fungus.Render
                 {
                     lineNumber++;
 
-                    getUI((UITag)Enum.Parse(typeof(UITag),
-                        "InfectionName" + lineNumber)).GetComponent<Text>().text
-                        = tag.ToString();
-                    getUI((UITag)Enum.Parse(typeof(UITag),
-                        "InfectionDuration" + lineNumber))
-                        .GetComponent<Text>().text
+                    name = "InfectionName" + lineNumber;
+                    duration = "InfectionDuration" + lineNumber;
+
+                    tagName = (UITag)Enum.Parse(typeof(UITag), name);
+                    tagDuration = (UITag)Enum.Parse(typeof(UITag), duration);
+
+                    getUI(tagName).GetComponent<Text>().text = tag.ToString();
+                    getUI(tagDuration).GetComponent<Text>().text
                         = current.ToString();
                 }
             }
@@ -147,7 +153,7 @@ namespace Fungus.Render
 
         private void UpdatePotion()
         {
-            current = pc.GetComponent<Potion>().CurrentPotion;
+            int current = pc.GetComponent<Potion>().CurrentPotion;
 
             getUI(UITag.PotionData).GetComponent<Text>().text
                 = current.ToString();
@@ -155,40 +161,48 @@ namespace Fungus.Render
 
         private void UpdatePower()
         {
-            for (int i = 0; i < pc.GetComponent<Stress>().MaxStress; i++)
+            int max = pc.GetComponent<Stress>().MaxStress;
+            string power;
+            UITag tagPower;
+
+            for (int i = 0; i < max; i++)
             {
-                getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
-                    .GetComponent<Text>().text
+                power = "PowerData" + i;
+                tagPower = (UITag)Enum.Parse(typeof(UITag), power);
+
+                getUI(tagPower).GetComponent<Text>().text
                     = pc.GetComponent<Power>().GetPowerName((PowerSlotTag)i);
 
-                getUI((UITag)Enum.Parse(typeof(UITag), "PowerData" + i))
-                    .GetComponent<Text>().color
+                getUI(tagPower).GetComponent<Text>().color
                     = pc.GetComponent<Power>().SlotIsActive((PowerSlotTag)i)
                     ? color.PickColor(ColorName.White)
                     : color.PickColor(ColorName.Grey);
+            }
+
+            if (pc.GetComponent<Power>().HasPower())
+            {
+                getUI(UITag.PowerLabel).GetComponent<Text>().text = "[ Powers ]";
             }
         }
 
         private void UpdateSeed()
         {
-            int textLength;
-
-            printText = FindObjects.GameLogic.GetComponent<RandomNumber>()
+            string seed = FindObjects.GameLogic.GetComponent<RandomNumber>()
                 .RootSeed.ToString();
-            textLength = printText.Length;
+            int seedLength = seed.Length;
 
-            for (int i = 1; textLength > i * 3; i++)
+            for (int i = 1; seedLength > i * 3; i++)
             {
-                printText = printText.Insert(i * 4 - 1, "-");
+                seed = seed.Insert(i * 4 - 1, "-");
             }
 
-            getUI(UITag.Seed).GetComponent<Text>().text = printText;
+            getUI(UITag.Seed).GetComponent<Text>().text = seed;
         }
 
         private void UpdateStress()
         {
-            current = pc.GetComponent<Stress>().CurrentStress;
-            max = pc.GetComponent<Stress>().MaxStress;
+            int current = pc.GetComponent<Stress>().CurrentStress;
+            int max = pc.GetComponent<Stress>().MaxStress;
 
             getUI(UITag.StressData).GetComponent<Text>().text
                 = current + "/" + max;
@@ -196,8 +210,8 @@ namespace Fungus.Render
 
         private void UpdateTurn()
         {
-            current = pc.GetComponent<TurnIndicator>().CurrentTurn;
-            max = pc.GetComponent<TurnIndicator>().Seperator;
+            int current = pc.GetComponent<TurnIndicator>().CurrentTurn;
+            int max = pc.GetComponent<TurnIndicator>().Seperator;
             sb = sb.Remove(0, sb.Length);
 
             sb.Append("[ ");
