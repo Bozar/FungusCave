@@ -17,12 +17,12 @@ namespace Fungus.Render
 
         public void ChangeColor(Color32 newColor)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = newColor;
+            GetComponent<SpriteRenderer>().color = newColor;
         }
 
         private void Awake()
         {
-            defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
+            defaultColor = GetComponent<SpriteRenderer>().color;
         }
 
         private void HideSprite()
@@ -50,7 +50,7 @@ namespace Fungus.Render
                     break;
 
                 case FOVStatus.Visited:
-                    switch (gameObject.GetComponent<ObjectMetaInfo>().MainTag)
+                    switch (GetComponent<ObjectMetaInfo>().MainTag)
                     {
                         case MainObjectTag.Building:
                             RememberSprite();

@@ -22,7 +22,7 @@ namespace Fungus.Actor.Turn
         private void Update()
         {
             checkSchedule = schedule.IsCurrentActor(gameObject);
-            checkEnergy = gameObject.GetComponent<Energy>().HasEnoughEnergy();
+            checkEnergy = GetComponent<Energy>().HasEnoughEnergy();
 
             //position = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
             //    .Convert(gameObject.transform.position);
@@ -38,15 +38,15 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
-            if (gameObject.GetComponent<FieldOfView>() != null)
+            if (GetComponent<FieldOfView>() != null)
             {
-                gameObject.GetComponent<FieldOfView>().UpdateFOV();
+                GetComponent<FieldOfView>().UpdateFOV();
             }
 
-            switch (gameObject.GetComponent<ActorAI>().DummyAI())
+            switch (GetComponent<ActorAI>().DummyAI())
             {
                 case Command.Wait:
-                    gameObject.GetComponent<Move>().MoveActor(Command.Wait);
+                    GetComponent<Move>().MoveActor(Command.Wait);
                     //FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
                     //    "Dummy (" + position[0] + "," + position[1] + ") waits.");
                     break;

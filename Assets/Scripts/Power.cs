@@ -115,7 +115,7 @@ namespace Fungus.Actor
             }
 
             int currentSlot = (int)slot + 1;
-            int currentStress = gameObject.GetComponent<Stress>().CurrentStress;
+            int currentStress = GetComponent<Stress>().CurrentStress;
 
             return currentSlot <= currentStress;
         }
@@ -152,7 +152,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            isPC = gameObject.GetComponent<ObjectMetaInfo>().SubTag
+            isPC = GetComponent<ObjectMetaInfo>().SubTag
                 == SubObjectTag.PC;
 
             if (isPC)

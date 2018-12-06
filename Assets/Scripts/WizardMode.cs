@@ -22,7 +22,7 @@ namespace Fungus.GameSystem
         {
             //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
 
-            int[] pos = gameObject.GetComponent<ConvertCoordinates>()
+            int[] pos = GetComponent<ConvertCoordinates>()
                 .Convert(schedule.CurrentActor.transform.position);
 
             schedule.CurrentActor.GetComponent<Attack>().MeleeAttack(

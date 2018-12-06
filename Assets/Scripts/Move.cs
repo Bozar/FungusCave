@@ -46,7 +46,7 @@ namespace Fungus.Actor
             useDiagonalFactor = direction.CheckDirection(
                 RelativePosition.Diagonal, startPosition, targetX, targetY);
 
-            if (!gameObject.GetComponent<Energy>().HasEnoughEnergy())
+            if (!GetComponent<Energy>().HasEnoughEnergy())
             {
                 return;
             }
@@ -59,7 +59,7 @@ namespace Fungus.Actor
 
             if (actorBoard.HasActor(targetX, targetY))
             {
-                gameObject.GetComponent<Attack>().MeleeAttack(targetX, targetY);
+                GetComponent<Attack>().MeleeAttack(targetX, targetY);
                 return;
             }
 
@@ -74,7 +74,7 @@ namespace Fungus.Actor
             actorBoard.AddActor(gameObject, targetX, targetY);
 
             gameObject.transform.position = coordinates.Convert(targetX, targetY);
-            gameObject.GetComponent<Energy>().LoseEnergy(GetEnergyCost());
+            GetComponent<Energy>().LoseEnergy(GetEnergyCost());
         }
 
         private void Awake()
@@ -142,9 +142,9 @@ namespace Fungus.Actor
                 ? direction.DiagonalFactor
                 : direction.CardinalFactor;
 
-            slow = gameObject.GetComponent<Infection>()
+            slow = GetComponent<Infection>()
                 .HasInfection(InfectionTag.Slow)
-                ? gameObject.GetComponent<Infection>().ModEnergy : 0;
+                ? GetComponent<Infection>().ModEnergy : 0;
 
             totalEnergy = (int)Math.Floor(
                 (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));

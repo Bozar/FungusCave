@@ -1,5 +1,4 @@
 ﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
 using UnityEngine;
 
 namespace Fungus.Actor.WorldBuilding
@@ -69,7 +68,7 @@ namespace Fungus.Actor.WorldBuilding
 
         private void Start()
         {
-            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            dungeon = GetComponent<DungeonBoard>();
             board = new GameObject[dungeon.Width, dungeon.Height];
         }
     }

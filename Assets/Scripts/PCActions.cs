@@ -17,7 +17,7 @@ namespace Fungus.Actor.Turn
 
         private void Start()
         {
-            input = gameObject.GetComponent<PlayerInput>();
+            input = GetComponent<PlayerInput>();
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             init = FindObjects.GameLogic.GetComponent<Initialize>();
@@ -26,7 +26,7 @@ namespace Fungus.Actor.Turn
         private void Update()
         {
             checkSchedule = schedule.IsCurrentActor(gameObject);
-            checkEnergy = gameObject.GetComponent<Energy>().HasEnoughEnergy();
+            checkEnergy = GetComponent<Energy>().HasEnoughEnergy();
 
             if (!checkSchedule || !init.Initialized)
             {
@@ -39,9 +39,9 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
-            if (gameObject.GetComponent<FieldOfView>() != null)
+            if (GetComponent<FieldOfView>() != null)
             {
-                gameObject.GetComponent<FieldOfView>().UpdateFOV();
+                GetComponent<FieldOfView>().UpdateFOV();
             }
 
             if (input.GameCommand() != Command.INVALID)
@@ -49,23 +49,23 @@ namespace Fungus.Actor.Turn
                 FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
             }
 
-            if (gameObject.GetComponent<AutoExplore>().ContinueAutoExplore)
+            if (GetComponent<AutoExplore>().ContinueAutoExplore)
             {
-                gameObject.GetComponent<AutoExplore>().AutoAction();
+                GetComponent<AutoExplore>().AutoAction();
                 return;
             }
 
             if (input.IsMovementCommand())
             {
-                gameObject.GetComponent<Move>().MoveActor(input.GameCommand());
+                GetComponent<Move>().MoveActor(input.GameCommand());
                 return;
             }
 
             switch (input.GameCommand())
             {
                 case Command.AutoExplore:
-                    gameObject.GetComponent<AutoExplore>().Initialize();
-                    gameObject.GetComponent<AutoExplore>().AutoAction();
+                    GetComponent<AutoExplore>().Initialize();
+                    GetComponent<AutoExplore>().AutoAction();
                     return;
             }
 

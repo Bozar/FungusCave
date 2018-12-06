@@ -32,7 +32,7 @@ namespace Fungus.Actor
 
             if (IsDead())
             {
-                gameObject.GetComponent<Die>().Bury();
+                GetComponent<Die>().Bury();
                 return true;
             }
             return false;
@@ -46,7 +46,7 @@ namespace Fungus.Actor
         private void Start()
         {
             MaxHP = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
-                gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.HP);
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.HP);
             CurrentHP = MaxHP;
 
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();

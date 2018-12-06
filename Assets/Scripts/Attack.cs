@@ -31,14 +31,13 @@ namespace Fungus.Actor
 
             // TODO: Change damage.
 
-            weak = gameObject.GetComponent<Infection>()
-                .HasInfection(InfectionTag.Weak)
+            weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
                 ? weakDamage : 0;
 
-            power = gameObject.GetComponent<Power>()
-                .PowerIsActive(PowerTag.Damage1) ? powerDamage1 : 0;
-            power += gameObject.GetComponent<Power>()
-                .PowerIsActive(PowerTag.Damage2) ? powerDamage2 : 0;
+            power = GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
+                ? powerDamage1 : 0;
+            power += GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
+                ? powerDamage2 : 0;
 
             finalDamage = baseDamage + power - weak;
             finalDamage = Math.Max(0, finalDamage);
@@ -52,16 +51,15 @@ namespace Fungus.Actor
             bool targetIsDead;
             GameObject target;
 
-            if (!gameObject.GetComponent<Energy>().HasEnoughEnergy()
+            if (!GetComponent<Energy>().HasEnoughEnergy()
                 || !actorBoard.HasActor(x, y))
             {
                 return;
             }
 
-            gameObject.GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
+            GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-            hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-               PowerTag.Poison2);
+            hasPower = GetComponent<Power>().PowerIsActive(PowerTag.Poison2);
             target = actorBoard.GetActor(x, y);
 
             if (hasPower)
@@ -74,13 +72,11 @@ namespace Fungus.Actor
             if (targetIsDead)
             {
                 RestoreEnergy();
-                gameObject.GetComponent<Stress>().LoseStress(
-                    relieveStressAfterKill);
+                GetComponent<Stress>().LoseStress(relieveStressAfterKill);
             }
             else
             {
-                hasPower = gameObject.GetComponent<Power>().PowerIsActive(
-                    PowerTag.Poison1);
+                hasPower = GetComponent<Power>().PowerIsActive(PowerTag.Poison1);
                 target.GetComponent<Infection>().GainInfection(hasPower);
             }
         }
@@ -114,14 +110,13 @@ namespace Fungus.Actor
                 ? direction.CardinalFactor
                 : direction.DiagonalFactor;
 
-            slow = gameObject.GetComponent<Infection>()
-                .HasInfection(InfectionTag.Slow)
-                ? gameObject.GetComponent<Infection>().ModEnergy : 0;
+            slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
+                ? GetComponent<Infection>().ModEnergy : 0;
 
             attack = 0;
             foreach (PowerTag tag in attackPowers)
             {
-                if (gameObject.GetComponent<Power>().PowerIsActive(tag))
+                if (GetComponent<Power>().PowerIsActive(tag))
                 {
                     attack += attackPowerEnergy;
                 }
@@ -143,9 +138,9 @@ namespace Fungus.Actor
 
         private void RestoreEnergy()
         {
-            if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
+            if (GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
             {
-                gameObject.GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+                GetComponent<Energy>().GainEnergy(powerEnergy2, false);
             }
         }
 
@@ -163,7 +158,7 @@ namespace Fungus.Actor
 
             baseDamage
                 = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
-                gameObject.GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
         }
     }
 }

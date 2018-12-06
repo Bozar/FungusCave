@@ -70,8 +70,8 @@ namespace Fungus.Actor.FOV
             // 2) In `FOVSimple.cs`, set `fovTest` to `true`.
             // 3) Uncomment the following line.
 
-            //gameObject.GetComponent<FOVSimple>().UpdateFOV();
-            gameObject.GetComponent<FOVRhombus>().UpdateFOV();
+            //GetComponent<FOVSimple>().UpdateFOV();
+            GetComponent<FOVRhombus>().UpdateFOV();
         }
 
         private void Awake()

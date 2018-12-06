@@ -35,7 +35,7 @@ namespace Fungus.Actor.AI
 
         public void AutoAction()
         {
-            if (gameObject.GetComponent<AIVision>().CanSeeTarget(
+            if (GetComponent<AIVision>().CanSeeTarget(
                 MainObjectTag.Actor))
             {
                 StopAutoExplore();
@@ -222,8 +222,8 @@ namespace Fungus.Actor.AI
 
         private void Start()
         {
-            fov = gameObject.GetComponent<FieldOfView>();
-            move = gameObject.GetComponent<Move>();
+            fov = GetComponent<FieldOfView>();
+            move = GetComponent<Move>();
 
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();

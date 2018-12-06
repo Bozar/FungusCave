@@ -14,19 +14,19 @@ namespace Fungus.Actor
             int restoreFull;
             int restoreHalf;
 
-            restoreFull = gameObject.GetComponent<HP>().MaxHP;
+            restoreFull = GetComponent<HP>().MaxHP;
             restoreHalf = (int)Math.Floor(restoreFull * 0.5);
 
-            if (gameObject.GetComponent<Infection>().HasInfection(
+            if (GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutate))
             {
-                gameObject.GetComponent<HP>().GainHP(restoreHalf);
+                GetComponent<HP>().GainHP(restoreHalf);
             }
             else
             {
                 // TODO: Lose stress. Gain energy.
-                gameObject.GetComponent<HP>().GainHP(restoreFull);
-                gameObject.GetComponent<Infection>().ResetInfection();
+                GetComponent<HP>().GainHP(restoreFull);
+                GetComponent<Infection>().ResetInfection();
             }
 
             LosePotion(1);

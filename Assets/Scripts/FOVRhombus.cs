@@ -122,7 +122,7 @@ namespace Fungus.Actor.FOV
         {
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            fov = gameObject.GetComponent<FieldOfView>();
+            fov = GetComponent<FieldOfView>();
 
             distanceBoard = new int[board.Width, board.Height];
             maxRange = fov.MaxRange;

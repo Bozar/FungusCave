@@ -36,7 +36,7 @@ namespace Fungus.Actor.FOV
         {
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            fov = gameObject.GetComponent<FieldOfView>();
+            fov = GetComponent<FieldOfView>();
 
             maxRange = fov.MaxRange;
         }

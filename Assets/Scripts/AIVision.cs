@@ -43,7 +43,7 @@ namespace Fungus.Actor.AI
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
-            fov = gameObject.GetComponent<FieldOfView>();
+            fov = GetComponent<FieldOfView>();
         }
     }
 }

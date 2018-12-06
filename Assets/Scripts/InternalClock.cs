@@ -12,30 +12,30 @@ namespace Fungus.Actor.Turn
 
         public void EndTurn()
         {
-            gameObject.GetComponent<Infection>().Count();
+            GetComponent<Infection>().Count();
 
             // TODO: Update after Unity 2018.3.
-            if (gameObject.GetComponent<TurnIndicator>() != null)
+            if (GetComponent<TurnIndicator>() != null)
             {
-                gameObject.GetComponent<TurnIndicator>().Count();
+                GetComponent<TurnIndicator>().Count();
             }
         }
 
         public void StartTurn()
         {
-            gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
+            GetComponent<Energy>().GainEnergy(energyTurn, true);
 
-            if (gameObject.GetComponent<Power>().PowerIsActive(
+            if (GetComponent<Power>().PowerIsActive(
                 PowerTag.Energy1))
             {
-                gameObject.GetComponent<Energy>().GainEnergy(
+                GetComponent<Energy>().GainEnergy(
                     powerEnergy1, false);
             }
 
             // TODO: Update after Unity 2018.3.
-            if (gameObject.GetComponent<AutoExplore>() != null)
+            if (GetComponent<AutoExplore>() != null)
             {
-                gameObject.GetComponent<AutoExplore>().Count();
+                GetComponent<AutoExplore>().Count();
             }
         }
 

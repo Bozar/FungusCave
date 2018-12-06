@@ -28,7 +28,7 @@ namespace Fungus.Actor
         private void Start()
         {
             MaxStress = FindObjects.GameLogic.GetComponent<ObjectData>()
-                .GetIntData(gameObject.GetComponent<ObjectMetaInfo>().SubTag,
+                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.Stress);
             CurrentStress = 0;
         }

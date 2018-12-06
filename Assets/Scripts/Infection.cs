@@ -62,16 +62,16 @@ namespace Fungus.Actor
 
             for (int i = 0; i < count; i++)
             {
-                hasPower = gameObject.GetComponent<Power>().HasPower(
+                hasPower = GetComponent<Power>().HasPower(
                     PowerTag.Immunity2);
 
-                if (!gameObject.GetComponent<Stress>().HasMaxStress())
+                if (!GetComponent<Stress>().HasMaxStress())
                 {
-                    gameObject.GetComponent<Stress>().GainStress(1);
+                    GetComponent<Stress>().GainStress(1);
                 }
                 else if (countInfections >= maxInfections)
                 {
-                    gameObject.GetComponent<Energy>().LoseEnergy(
+                    GetComponent<Energy>().LoseEnergy(
                         energyInfectionOverflow);
                 }
                 else
@@ -80,7 +80,7 @@ namespace Fungus.Actor
 
                     if (hasPower)
                     {
-                        gameObject.GetComponent<HP>().GainHP(powerImmunity2);
+                        GetComponent<HP>().GainHP(powerImmunity2);
                     }
                 }
             }
@@ -186,7 +186,7 @@ namespace Fungus.Actor
             int sumFactor;
             int finalRate;
 
-            currentHP = gameObject.GetComponent<HP>().CurrentHP;
+            currentHP = GetComponent<HP>().CurrentHP;
             currentPosition = gameObject.transform.position;
 
             hp = (int)Math.Floor(
@@ -200,9 +200,9 @@ namespace Fungus.Actor
             attPower = attackerHasPower ? modPowerPoison1 : 0;
 
             hasPower
-                = gameObject.GetComponent<Power>().HasPower(PowerTag.Immunity1);
+                = GetComponent<Power>().HasPower(PowerTag.Immunity1);
             stress
-                = (hasPower && gameObject.GetComponent<Stress>().HasMaxStress())
+                = (hasPower && GetComponent<Stress>().HasMaxStress())
                 ? modPowerImmunity1 : 0;
 
             poison = HasInfection(InfectionTag.Poison) ? modInfectionPoison : 0;
@@ -242,7 +242,7 @@ namespace Fungus.Actor
         private void Start()
         {
             maxInfections = FindObjects.GameLogic.GetComponent<ObjectData>()
-                .GetIntData(gameObject.GetComponent<ObjectMetaInfo>().SubTag,
+                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.MaxInfections);
 
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
