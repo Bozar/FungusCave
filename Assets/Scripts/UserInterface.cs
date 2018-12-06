@@ -44,6 +44,7 @@ namespace Fungus.Render
             UpdateSeed();
             UpdateInfection();
             UpdatePower();
+            UpdateTurn();
 
             FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
         }
@@ -188,6 +189,11 @@ namespace Fungus.Render
 
             getUI(UITag.StressData).GetComponent<Text>().text
                 = current + "/" + max;
+        }
+
+        private void UpdateTurn()
+        {
+            getUI(UITag.Turn).GetComponent<Text>().text = "[ + + + ]";
         }
     }
 }

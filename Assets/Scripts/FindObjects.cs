@@ -8,7 +8,8 @@ namespace Fungus.GameSystem
     public enum UITag
     {
         NONE, Seed, Message, Modeline,
-        HPData, StressData, PotionData, DamageData, Terrain,
+        HPData, StressData, PotionData, DamageData,
+        Turn, Terrain,
         PowerData0, PowerData1, PowerData2,
         InfectionLabel,
         InfectionName0, InfectionDuration0,
