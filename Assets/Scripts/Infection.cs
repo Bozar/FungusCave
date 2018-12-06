@@ -11,7 +11,7 @@ namespace Fungus.Actor
 {
     public enum InfectionTag { Mutate, Weak, Slow, Poison };
 
-    public class Infection : MonoBehaviour, ICountDown
+    public class Infection : MonoBehaviour, ITurnCounter
     {
         private bool attacker;
         private DungeonBoard board;
@@ -34,7 +34,7 @@ namespace Fungus.Actor
 
         public int ModEnergy { get; private set; }
 
-        public void CountDown()
+        public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {

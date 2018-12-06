@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Fungus.Actor.AI
 {
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
-    public class AutoExplore : MonoBehaviour, ICountDown
+    public class AutoExplore : MonoBehaviour, ITurnCounter
     {
         private readonly int NotChecked = 9999;
         private int[,] board;
@@ -47,7 +47,7 @@ namespace Fungus.Actor.AI
             AutoMove();
         }
 
-        public void CountDown()
+        public void Count()
         {
             if (countAutoExplore > 0)
             {

@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.AI;
 using Fungus.Actor.ObjectManager;
+using Fungus.Actor.Turn;
 using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
 using System;
@@ -60,7 +61,8 @@ namespace Fungus.Render
         {
             current = pc.GetComponent<Attack>().GetCurrentDamage();
 
-            getUI(UITag.DamageData).GetComponent<Text>().text = current.ToString();
+            getUI(UITag.DamageData).GetComponent<Text>().text
+                = current.ToString();
         }
 
         private void UpdateEnvironment()
@@ -147,7 +149,8 @@ namespace Fungus.Render
         {
             current = pc.GetComponent<Potion>().CurrentPotion;
 
-            getUI(UITag.PotionData).GetComponent<Text>().text = current.ToString();
+            getUI(UITag.PotionData).GetComponent<Text>().text
+                = current.ToString();
         }
 
         private void UpdatePower()
@@ -193,7 +196,31 @@ namespace Fungus.Render
 
         private void UpdateTurn()
         {
-            getUI(UITag.Turn).GetComponent<Text>().text = "[ + + + ]";
+            current = pc.GetComponent<TurnIndicator>().CurrentTurn;
+            max = pc.GetComponent<TurnIndicator>().Seperator;
+            sb = sb.Remove(0, sb.Length);
+
+            sb.Append("[ ");
+
+            if (current > 0)
+            {
+                for (int i = 0; i < current; i++)
+                {
+                    sb.Append("X ");
+
+                    if ((current > max) && (i + 1 == max))
+                    {
+                        sb.Append("| ");
+                    }
+                }
+                sb.Append("]");
+            }
+            else
+            {
+                sb.Append(" ]");
+            }
+
+            getUI(UITag.Turn).GetComponent<Text>().text = sb.ToString();
         }
     }
 }

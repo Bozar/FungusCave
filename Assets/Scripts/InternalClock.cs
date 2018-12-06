@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public interface ICountDown { void CountDown(); }
+    public interface ITurnCounter { void Count(); }
 
     public class InternalClock : MonoBehaviour
     {
@@ -12,22 +12,30 @@ namespace Fungus.Actor.Turn
 
         public void EndTurn()
         {
-            gameObject.GetComponent<Infection>().CountDown();
+            gameObject.GetComponent<Infection>().Count();
+
+            // TODO: Update after Unity 2018.3.
+            if (gameObject.GetComponent<TurnIndicator>() != null)
+            {
+                gameObject.GetComponent<TurnIndicator>().Count();
+            }
         }
 
         public void StartTurn()
         {
             gameObject.GetComponent<Energy>().GainEnergy(energyTurn, true);
 
-            if (gameObject.GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
+            if (gameObject.GetComponent<Power>().PowerIsActive(
+                PowerTag.Energy1))
             {
-                gameObject.GetComponent<Energy>().GainEnergy(powerEnergy1, false);
+                gameObject.GetComponent<Energy>().GainEnergy(
+                    powerEnergy1, false);
             }
 
             // TODO: Update after Unity 2018.3.
             if (gameObject.GetComponent<AutoExplore>() != null)
             {
-                gameObject.GetComponent<AutoExplore>().CountDown();
+                gameObject.GetComponent<AutoExplore>().Count();
             }
         }
 

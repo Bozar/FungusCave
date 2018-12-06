@@ -104,6 +104,7 @@ namespace Fungus.Actor.ObjectManager
                     go.AddComponent<PCActions>();
                     go.AddComponent<AutoExplore>();
                     go.AddComponent<Potion>();
+                    go.AddComponent<TurnIndicator>();
                 }
                 else
                 {
