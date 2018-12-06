@@ -39,7 +39,7 @@ namespace Fungus.Render
             }
 
             position = coordinate.GetComponent<ConvertCoordinates>().Convert(
-                gameObject.transform.position);
+                transform.position);
             x = position[0];
             y = position[1];
 

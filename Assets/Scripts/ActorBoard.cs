@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using UnityEngine;
 
 namespace Fungus.Actor.WorldBuilding
@@ -33,10 +34,10 @@ namespace Fungus.Actor.WorldBuilding
                 return false;
             }
 
-            checkMainTag
-                = actor.GetComponent<ObjectMetaInfo>().MainTag.Equals(actorTag);
-            checkSubTag
-                = actor.GetComponent<ObjectMetaInfo>().SubTag.Equals(actorTag);
+            checkMainTag = actor.GetComponent<ObjectMetaInfo>().MainTag
+                .Equals(actorTag);
+            checkSubTag = actor.GetComponent<ObjectMetaInfo>().SubTag
+                .Equals(actorTag);
 
             return checkMainTag || checkSubTag;
         }
@@ -68,7 +69,7 @@ namespace Fungus.Actor.WorldBuilding
 
         private void Start()
         {
-            dungeon = GetComponent<DungeonBoard>();
+            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             board = new GameObject[dungeon.Width, dungeon.Height];
         }
     }

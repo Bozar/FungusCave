@@ -25,11 +25,9 @@ namespace Fungus.Actor.Turn
         {
             GetComponent<Energy>().GainEnergy(energyTurn, true);
 
-            if (GetComponent<Power>().PowerIsActive(
-                PowerTag.Energy1))
+            if (GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
             {
-                GetComponent<Energy>().GainEnergy(
-                    powerEnergy1, false);
+                GetComponent<Energy>().GainEnergy(powerEnergy1, false);
             }
 
             // TODO: Update after Unity 2018.3.

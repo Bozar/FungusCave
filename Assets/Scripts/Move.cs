@@ -142,8 +142,7 @@ namespace Fungus.Actor
                 ? direction.DiagonalFactor
                 : direction.CardinalFactor;
 
-            slow = GetComponent<Infection>()
-                .HasInfection(InfectionTag.Slow)
+            slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
                 ? GetComponent<Infection>().ModEnergy : 0;
 
             totalEnergy = (int)Math.Floor(

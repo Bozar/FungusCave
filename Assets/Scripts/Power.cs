@@ -152,8 +152,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            isPC = GetComponent<ObjectMetaInfo>().SubTag
-                == SubObjectTag.PC;
+            isPC = GetComponent<ObjectMetaInfo>().SubTag == SubObjectTag.PC;
 
             if (isPC)
             {

@@ -35,8 +35,7 @@ namespace Fungus.Actor.AI
 
         public void AutoAction()
         {
-            if (GetComponent<AIVision>().CanSeeTarget(
-                MainObjectTag.Actor))
+            if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
             {
                 StopAutoExplore();
                 modeline.PrintText("There are enemies nearby.");
