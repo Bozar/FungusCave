@@ -1,9 +1,9 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.FOV;
-using Fungus.Actor.ObjectManager;
-using Fungus.Actor.Turn;
-using Fungus.Actor.WorldBuilding;
-using Fungus.Render;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
+using Fungus.GameSystem.WorldBuilding;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;

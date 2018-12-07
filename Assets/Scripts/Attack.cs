@@ -1,7 +1,8 @@
 ﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using UnityEngine;
 
@@ -102,7 +103,7 @@ namespace Fungus.Actor
             int totalEnergy;
             int slow;
 
-            position = coordinate.Convert(gameObject.transform.position);
+            position = coordinate.Convert(transform.position);
             isCardinal = direction.CheckDirection(
                 RelativePosition.Cardinal, position, x, y);
 

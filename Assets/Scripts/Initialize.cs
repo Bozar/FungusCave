@@ -1,5 +1,5 @@
-﻿using Fungus.Actor.WorldBuilding;
-using Fungus.Render;
+﻿using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,17 +20,17 @@ namespace Fungus.GameSystem
 
             Initialized = true;
 
-            FindObjects.GameLogic.GetComponent<RandomNumber>().InitializeSeeds();
+            GetComponent<RandomNumber>().InitializeSeeds();
 
-            Debug.Log(FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed);
+            Debug.Log(GetComponent<RandomNumber>().RootSeed);
 
-            FindObjects.GameLogic.GetComponent<BlueprintSponge>().DrawBlueprint();
-            FindObjects.GameLogic.GetComponent<BlueprintPool>().DrawBlueprint();
-            FindObjects.GameLogic.GetComponent<BlueprintFungus>().DrawBlueprint();
-            FindObjects.GameLogic.GetComponent<CreateWorld>().Initialize();
+            GetComponent<BlueprintSponge>().DrawBlueprint();
+            GetComponent<BlueprintPool>().DrawBlueprint();
+            GetComponent<BlueprintFungus>().DrawBlueprint();
+            GetComponent<CreateWorld>().Initialize();
 
-            FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-                FindObjects.GameLogic.GetComponent<RandomNumber>().RootSeed.ToString());
+            GetComponent<UIMessage>().StoreText(
+                GetComponent<RandomNumber>().RootSeed.ToString());
         }
 
         private void Update()

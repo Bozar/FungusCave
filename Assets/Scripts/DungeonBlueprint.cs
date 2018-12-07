@@ -1,15 +1,15 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
-namespace Fungus.Actor.WorldBuilding
+namespace Fungus.GameSystem.WorldBuilding
 {
     public interface IIsEmptyArea
     {
         bool IsEmptyArea(int x, int y, int width, int height);
     }
 
-    // Change the 2D array's content, which is defined in DungeonBoard.
+    // Change the 2D array's content, which is defined in
+    // Fungus.GameSystem.WorldBuilding.
     public class DungeonBlueprint : MonoBehaviour
     {
         protected DungeonBoard board;
@@ -68,8 +68,8 @@ namespace Fungus.Actor.WorldBuilding
 
         private void Start()
         {
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            random = FindObjects.GameLogic.GetComponent<RandomNumber>();
+            board = GetComponent<DungeonBoard>();
+            random = GetComponent<RandomNumber>();
         }
     }
 }

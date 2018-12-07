@@ -1,6 +1,6 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -188,7 +188,7 @@ namespace Fungus.Actor.FOV
 
         private void UpdatePosition()
         {
-            source = coordinate.Convert(gameObject.transform.position);
+            source = coordinate.Convert(transform.position);
             checkPosition.Push(source);
         }
 

@@ -1,10 +1,11 @@
 ﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+using Fungus.Actor.Turn;
+using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fungus.Actor.Turn
+namespace Fungus.GameSystem.Turn
 {
     public class SchedulingSystem : MonoBehaviour
     {
@@ -57,9 +58,8 @@ namespace Fungus.Actor.Turn
 
             foreach (var actor in schedule)
             {
-                position
-                    = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-                    .Convert(actor.transform.position);
+                position = GetComponent<ConvertCoordinates>().Convert(
+                    actor.transform.position);
 
                 Debug.Log(actorIndex
                     + ": [" + position[0] + "," + position[1] + "] "

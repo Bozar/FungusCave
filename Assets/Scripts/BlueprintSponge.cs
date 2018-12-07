@@ -1,10 +1,9 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fungus.Actor.WorldBuilding
+namespace Fungus.GameSystem.WorldBuilding
 {
     public class BlueprintSponge : DungeonBlueprint, IIsEmptyArea
     {

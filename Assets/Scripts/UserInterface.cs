@@ -1,16 +1,26 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.AI;
-using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Turn;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Fungus.Render
+namespace Fungus.GameSystem.Render
 {
+    public enum UITag
+    {
+        NONE, Seed, Message, Modeline,
+        HPData, StressData, PotionData, DamageData,
+        Turn, Terrain,
+        PowerLabel, PowerData0, PowerData1, PowerData2,
+        InfectionLabel,
+        InfectionName0, InfectionDuration0,
+        InfectionName1, InfectionDuration1
+    };
+
     public class UserInterface : MonoBehaviour
     {
         private DungeonBoard board;
@@ -43,13 +53,13 @@ namespace Fungus.Render
             UpdatePower();
             UpdateTurn();
 
-            FindObjects.GameLogic.GetComponent<UIMessage>().PrintText();
+            GetComponent<UIMessage>().PrintText();
         }
 
         private void Start()
         {
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            color = FindObjects.GameLogic.GetComponent<GameColor>();
+            board = GetComponent<DungeonBoard>();
+            color = GetComponent<GameColor>();
             getUI = FindObjects.GetUIObject;
         }
 

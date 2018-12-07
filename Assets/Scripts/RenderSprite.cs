@@ -1,9 +1,11 @@
 ﻿using Fungus.Actor.FOV;
 using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using UnityEngine;
 
-namespace Fungus.Render
+namespace Fungus.Actor.Render
 {
     public class RenderSprite : MonoBehaviour
     {

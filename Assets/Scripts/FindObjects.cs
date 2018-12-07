@@ -1,21 +1,11 @@
-﻿using System;
+﻿using Fungus.GameSystem.Render;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
-    public enum UITag
-    {
-        NONE, Seed, Message, Modeline,
-        HPData, StressData, PotionData, DamageData,
-        Turn, Terrain,
-        PowerLabel, PowerData0, PowerData1, PowerData2,
-        InfectionLabel,
-        InfectionName0, InfectionDuration0,
-        InfectionName1, InfectionDuration1
-    };
-
     // A helper class that stores references to other game objects. The ONLY game
     // object which it CAN be and MUST be attached to is GameLogic.
     public class FindObjects : MonoBehaviour

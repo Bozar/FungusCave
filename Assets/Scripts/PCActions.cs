@@ -1,7 +1,8 @@
 ﻿using Fungus.Actor.AI;
 using Fungus.Actor.FOV;
 using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn

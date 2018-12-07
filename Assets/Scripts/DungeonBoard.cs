@@ -1,10 +1,9 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fungus.Actor.WorldBuilding
+namespace Fungus.GameSystem.WorldBuilding
 {
     public enum FOVShape { Rhombus };
 
@@ -155,7 +154,7 @@ namespace Fungus.Actor.WorldBuilding
 
         private void Start()
         {
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coordinate = GetComponent<ConvertCoordinates>();
 
             blueprint = new SubObjectTag[Width, Height];
             blocks = new GameObject[Width, Height];

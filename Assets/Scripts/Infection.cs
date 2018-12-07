@@ -1,8 +1,9 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Turn;
-using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -186,7 +187,7 @@ namespace Fungus.Actor
             int finalRate;
 
             currentHP = GetComponent<HP>().CurrentHP;
-            currentPosition = gameObject.transform.position;
+            currentPosition = transform.position;
 
             hp = (int)Math.Floor(
                 Math.Max(0, defaultMaxHP - currentHP) / hpFactor * 10);

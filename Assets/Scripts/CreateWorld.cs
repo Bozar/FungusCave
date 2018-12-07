@@ -1,8 +1,7 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
-namespace Fungus.Actor.WorldBuilding
+namespace Fungus.GameSystem.WorldBuilding
 {
     public class CreateWorld : MonoBehaviour
     {
@@ -64,10 +63,10 @@ namespace Fungus.Actor.WorldBuilding
 
         private void Start()
         {
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            blueprint = FindObjects.GameLogic.GetComponent<DungeonBlueprint>();
-            oPool = FindObjects.GameLogic.GetComponent<ObjectPool>();
+            board = GetComponent<DungeonBoard>();
+            actor = GetComponent<ActorBoard>();
+            blueprint = GetComponent<DungeonBlueprint>();
+            oPool = GetComponent<ObjectPool>();
         }
     }
 }

@@ -26,8 +26,7 @@ namespace Fungus.GameSystem
         public void InitializeSeeds()
         {
             List<SeedTag> tagList;
-            RootSeed
-                = FindObjects.GameLogic.GetComponent<SaveLoad>().SaveFile.Seed;
+            RootSeed = GetComponent<SaveLoad>().SaveFile.Seed;
 
             if (RootSeed == 0)
             {

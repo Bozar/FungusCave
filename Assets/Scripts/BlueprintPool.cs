@@ -1,8 +1,7 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem.ObjectManager;
 using System.Collections.Generic;
 
-namespace Fungus.Actor.WorldBuilding
+namespace Fungus.GameSystem.WorldBuilding
 {
     public class BlueprintPool : DungeonBlueprint
     {
@@ -53,8 +52,8 @@ namespace Fungus.Actor.WorldBuilding
             nextX = index[0];
             nextY = index[1];
 
-            surround = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-                .SurroundCoord(Surround.Cardinal, nextX, nextY);
+            surround = GetComponent<ConvertCoordinates>().SurroundCoord(
+                Surround.Cardinal, nextX, nextY);
 
             board.ChangeBlueprint(SubObjectTag.Pool, nextX, nextY);
             countPools--;

@@ -1,6 +1,6 @@
 ﻿using Fungus.Actor.FOV;
-using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
@@ -13,7 +13,7 @@ namespace Fungus.Actor.AI
 
         public bool CanSeeTarget<T>(T targetTag)
         {
-            int[] position = coordinate.Convert(gameObject.transform.position);
+            int[] position = coordinate.Convert(transform.position);
             int x = position[0];
             int y = position[1];
             int range = fov.MaxRange;

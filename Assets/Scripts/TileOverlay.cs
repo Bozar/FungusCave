@@ -1,9 +1,9 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
-namespace Fungus.Render
+namespace Fungus.Actor.Render
 {
     public class TileOverlay : MonoBehaviour
     {
@@ -37,7 +37,7 @@ namespace Fungus.Render
 
         private void LateUpdate()
         {
-            currentPosition = gameObject.transform.position;
+            currentPosition = transform.position;
             CheckTile();
         }
 

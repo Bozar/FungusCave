@@ -1,5 +1,5 @@
-﻿using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor.FOV

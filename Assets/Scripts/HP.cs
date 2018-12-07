@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using System;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace Fungus.Actor
 
             int[] position;
 
-            position = coordinate.Convert(gameObject.transform.position);
+            position = coordinate.Convert(transform.position);
             message.StoreText(position[0] + "," + position[1] + " is hit.");
 
             if (IsDead())

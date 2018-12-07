@@ -1,9 +1,9 @@
 ﻿using Fungus.Actor.FOV;
-using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Turn;
-using Fungus.Actor.WorldBuilding;
 using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,7 +75,7 @@ namespace Fungus.Actor.AI
                 return;
             }
 
-            pcPosition = coordinate.Convert(gameObject.transform.position);
+            pcPosition = coordinate.Convert(transform.position);
             ResetBoard();
             MarkDistance();
             position = ChooseNextGrid();

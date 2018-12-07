@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fungus.Actor.ObjectManager
+namespace Fungus.GameSystem.ObjectManager
 {
     public enum DataTag { HP, Stress, Damage, MaxInfections }
 

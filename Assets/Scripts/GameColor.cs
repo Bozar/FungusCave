@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fungus.Render
+namespace Fungus.GameSystem.Render
 {
     public enum ColorName { TEST, White, Black, Grey }
 

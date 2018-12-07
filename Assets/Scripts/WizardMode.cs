@@ -1,6 +1,6 @@
 ﻿using Fungus.Actor;
-using Fungus.Actor.Turn;
-using Fungus.Render;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
 using UnityEngine;
 
 namespace Fungus.GameSystem
@@ -44,7 +44,7 @@ namespace Fungus.GameSystem
 
         public void Initialize()
         {
-            FindObjects.GameLogic.GetComponent<Initialize>().InitializeGame();
+            GetComponent<Initialize>().InitializeGame();
         }
 
         public void LoseHP()
@@ -68,7 +68,7 @@ namespace Fungus.GameSystem
         {
             PrintEnergyCost = !PrintEnergyCost;
 
-            FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
+            GetComponent<UIModeline>().PrintText(
                 "Print energy cost: " + PrintEnergyCost);
         }
 
@@ -86,7 +86,7 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+            schedule = GetComponent<SchedulingSystem>();
         }
     }
 }

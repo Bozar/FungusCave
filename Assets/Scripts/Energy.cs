@@ -1,5 +1,5 @@
 ﻿using Fungus.GameSystem;
-using Fungus.Render;
+using Fungus.GameSystem.Render;
 using System;
 using System.Text;
 using UnityEngine;
@@ -38,7 +38,7 @@ namespace Fungus.Actor
             StringBuilder printText = new StringBuilder();
             int[] testPosition
                 = FindObjects.GameLogic.GetComponent<ConvertCoordinates>()
-                .Convert(gameObject.transform.position);
+                .Convert(transform.position);
 
             printText.Remove(0, printText.Length);
             printText.Append("[");

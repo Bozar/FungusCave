@@ -1,8 +1,8 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.Turn;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
-using Fungus.Render;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using UnityEngine;
 
@@ -33,7 +33,7 @@ namespace Fungus.Actor
 
         public void MoveActor(Command direction)
         {
-            startPosition = coordinates.Convert(gameObject.transform.position);
+            startPosition = coordinates.Convert(transform.position);
             targetPosition = DirectionToPosition(direction,
                 startPosition[0], startPosition[1]);
 
@@ -42,7 +42,7 @@ namespace Fungus.Actor
 
         public void MoveActor(int targetX, int targetY)
         {
-            startPosition = coordinates.Convert(gameObject.transform.position);
+            startPosition = coordinates.Convert(transform.position);
             useDiagonalFactor = direction.CheckDirection(
                 RelativePosition.Diagonal, startPosition, targetX, targetY);
 
@@ -73,7 +73,7 @@ namespace Fungus.Actor
             actorBoard.RemoveActor(startPosition[0], startPosition[1]);
             actorBoard.AddActor(gameObject, targetX, targetY);
 
-            gameObject.transform.position = coordinates.Convert(targetX, targetY);
+            transform.position = coordinates.Convert(targetX, targetY);
             GetComponent<Energy>().LoseEnergy(GetEnergyCost());
         }
 

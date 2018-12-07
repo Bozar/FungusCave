@@ -1,6 +1,6 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,7 +61,7 @@ namespace Fungus.Actor.FOV
             {
                 if (!board.IsInsideRange(FOVShape.Rhombus,
                     maxRange,
-                    coordinate.Convert(gameObject.transform.position),
+                    coordinate.Convert(transform.position),
                     grid))
                 {
                     continue;
@@ -94,7 +94,7 @@ namespace Fungus.Actor.FOV
 
         private void UpdatePosition()
         {
-            position = coordinate.Convert(gameObject.transform.position);
+            position = coordinate.Convert(transform.position);
             checkPosition.Push(position);
         }
     }

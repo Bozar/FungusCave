@@ -1,7 +1,7 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.Actor.WorldBuilding;
-using Fungus.GameSystem;
-using Fungus.Render;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor
