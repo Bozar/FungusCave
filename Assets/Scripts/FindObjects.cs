@@ -11,8 +11,30 @@ namespace Fungus.GameSystem
     public class FindObjects : MonoBehaviour
     {
         private static Dictionary<UITag, GameObject> mainUIDict;
+        private static GameObject pcActor;
 
         public static GameObject GameLogic { get; private set; }
+
+        public static GameObject PC
+        {
+            get
+            {
+                if (pcActor == null)
+                {
+                    throw new Exception("PC is null.");
+                }
+                return pcActor;
+            }
+
+            set
+            {
+                if (pcActor != null)
+                {
+                    throw new Exception("PC already exists.");
+                }
+                pcActor = value;
+            }
+        }
 
         public static GameObject GetUIObject(UITag tag)
         {

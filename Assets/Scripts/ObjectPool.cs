@@ -2,11 +2,11 @@
 using Fungus.Actor.AI;
 using Fungus.Actor.FOV;
 using Fungus.Actor.ObjectManager;
+using Fungus.Actor.Render;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
-using Fungus.Actor.Render;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -108,6 +108,8 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<AutoExplore>();
                     go.AddComponent<Potion>();
                     go.AddComponent<TurnIndicator>();
+
+                    FindObjects.PC = go;
                 }
                 else
                 {

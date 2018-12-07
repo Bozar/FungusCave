@@ -88,7 +88,7 @@ namespace Fungus.Actor.Render
         {
             gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-            pc = GameObject.FindGameObjectWithTag("PC");
+            pc = FindObjects.PC;
         }
     }
 }
