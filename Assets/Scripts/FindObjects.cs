@@ -21,7 +21,7 @@ namespace Fungus.GameSystem
             {
                 if (pcActor == null)
                 {
-                    throw new Exception("PC is null.");
+                    Debug.Log("PC is null.");
                 }
                 return pcActor;
             }
@@ -30,7 +30,8 @@ namespace Fungus.GameSystem
             {
                 if (pcActor != null)
                 {
-                    throw new Exception("PC already exists.");
+                    Debug.Log("PC already exists.");
+                    return;
                 }
                 pcActor = value;
             }

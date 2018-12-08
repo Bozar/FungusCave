@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fungus.GameSystem
+namespace Fungus.Actor
 {
     public enum Command
     {
