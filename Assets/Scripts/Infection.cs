@@ -124,6 +124,10 @@ namespace Fungus.Actor
             countInfections = 0;
         }
 
+        public void Trigger()
+        {
+        }
+
         private void Awake()
         {
             ModEnergy = 60;

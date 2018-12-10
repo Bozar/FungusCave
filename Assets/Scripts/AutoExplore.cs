@@ -60,6 +60,10 @@ namespace Fungus.Actor.AI
             ContinueAutoExplore = true;
         }
 
+        public void Trigger()
+        {
+        }
+
         private void AutoMove()
         {
             FindStartPoint();

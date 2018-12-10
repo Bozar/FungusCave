@@ -16,6 +16,10 @@ namespace Fungus.Actor.Turn
             CurrentTurn = (CurrentTurn > maxTurn) ? minTurn : CurrentTurn;
         }
 
+        public void Trigger()
+        {
+        }
+
         private void Awake()
         {
             maxTurn = 5;

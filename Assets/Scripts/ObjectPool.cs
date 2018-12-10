@@ -114,11 +114,11 @@ namespace Fungus.GameSystem.ObjectManager
                 else
                 {
                     go.AddComponent<ActorAI>();
+                    go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
 
                     go.GetComponent<RenderSprite>().ChangeColor(
-                        GetComponent<GameColor>().PickColor(
-                            ColorName.Black));
+                        GetComponent<GameColor>().PickColor(ColorName.Black));
 
                     // NOTE: Change sprite.
                     //UnityEngine.Object[] test

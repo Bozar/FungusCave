@@ -3,7 +3,12 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public interface ITurnCounter { void Count(); }
+    public interface ITurnCounter
+    {
+        void Count();
+
+        void Trigger();
+    }
 
     public class InternalClock : MonoBehaviour
     {
@@ -34,6 +39,12 @@ namespace Fungus.Actor.Turn
             if (GetComponent<AutoExplore>() != null)
             {
                 GetComponent<AutoExplore>().Count();
+            }
+
+            if (GetComponent<NPCMemory>() != null)
+            {
+                GetComponent<NPCMemory>().Trigger();
+                GetComponent<NPCMemory>().Count();
             }
         }
 

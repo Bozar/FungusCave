@@ -1,5 +1,4 @@
-﻿using Fungus.GameSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus.Actor.AI
 {

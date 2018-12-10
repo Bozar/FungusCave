@@ -42,8 +42,8 @@ namespace Fungus.GameSystem.Turn
 
             NextNode();
 
-            EnableComponent(true);
             CurrentActor.GetComponent<InternalClock>().StartTurn();
+            EnableComponent(true);
         }
 
         public void PrintSchedule()
