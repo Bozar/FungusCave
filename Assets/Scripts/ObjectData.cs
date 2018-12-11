@@ -3,7 +3,12 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
 {
-    public enum DataTag { HP, Stress, Damage, MaxInfections }
+    public enum DataTag
+    {
+        HP, Stress, Damage,
+        EnergyAttack, EnergyMove, EnergyRestore,
+        MaxInfections
+    }
 
     public class ObjectData : MonoBehaviour
     {
@@ -59,6 +64,13 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
 
             AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
+
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyAttack, 1200);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyMove, 1000);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 2000);
+
+            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.MaxInfections, 1);
         }
     }
 }

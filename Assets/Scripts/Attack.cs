@@ -16,6 +16,7 @@ namespace Fungus.Actor
         private int baseDamage;
         private int baseEnergy;
         private ConvertCoordinates coordinate;
+        private ObjectData data;
         private Direction direction;
         private int powerDamage1;
         private int powerDamage2;
@@ -84,7 +85,6 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            baseEnergy = 1200;
             weakDamage = 1;
             powerEnergy2 = 400;
             powerPoison2 = 400;
@@ -141,7 +141,7 @@ namespace Fungus.Actor
         {
             if (GetComponent<Power>().PowerIsActive(PowerTag.Energy2))
             {
-                GetComponent<Energy>().GainEnergy(powerEnergy2, false);
+                GetComponent<Energy>().GainEnergy(powerEnergy2);
             }
         }
 
@@ -150,6 +150,7 @@ namespace Fungus.Actor
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
+            data = FindObjects.GameLogic.GetComponent<ObjectData>();
 
             attackPowers = new PowerTag[]
             {
@@ -157,9 +158,10 @@ namespace Fungus.Actor
             PowerTag.Poison1, PowerTag.Poison2
             };
 
-            baseDamage
-                = FindObjects.GameLogic.GetComponent<ObjectData>().GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.Damage);
+            baseDamage = data.GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.Damage);
+            baseEnergy = data.GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.EnergyAttack);
         }
     }
 }

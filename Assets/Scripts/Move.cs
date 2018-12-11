@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
@@ -79,7 +80,6 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            baseEnergy = 1000;
             poolEnergy = 200;
         }
 
@@ -172,6 +172,10 @@ namespace Fungus.Actor
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
+
+            baseEnergy = FindObjects.GameLogic.GetComponent<ObjectData>().
+                GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.EnergyMove);
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using Fungus.Actor.AI;
+using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn
@@ -28,11 +31,11 @@ namespace Fungus.Actor.Turn
 
         public void StartTurn()
         {
-            GetComponent<Energy>().GainEnergy(energyTurn, true);
+            GetComponent<Energy>().GainEnergy(energyTurn);
 
             if (GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
             {
-                GetComponent<Energy>().GainEnergy(powerEnergy1, false);
+                GetComponent<Energy>().GainEnergy(powerEnergy1);
             }
 
             // TODO: Update after Unity 2018.3.
@@ -50,8 +53,14 @@ namespace Fungus.Actor.Turn
 
         private void Awake()
         {
-            energyTurn = 2000;
             powerEnergy1 = 200;
+        }
+
+        private void Start()
+        {
+            energyTurn = FindObjects.GameLogic.GetComponent<ObjectData>()
+                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.EnergyRestore);
         }
     }
 }

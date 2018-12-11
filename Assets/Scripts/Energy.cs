@@ -12,13 +12,8 @@ namespace Fungus.Actor
 
         public int CurrentEnergy { get; private set; }
 
-        public void GainEnergy(int energy, bool checkCurrentEnergy)
+        public void GainEnergy(int energy)
         {
-            if (checkCurrentEnergy && HasEnoughEnergy())
-            {
-                return;
-            }
-
             CurrentEnergy += energy;
             CurrentEnergy = Math.Min(CurrentEnergy, actionThreshold * 3);
         }

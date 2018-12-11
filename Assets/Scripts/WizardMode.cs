@@ -15,7 +15,7 @@ namespace Fungus.GameSystem
 
         public void AddEnergy()
         {
-            schedule.CurrentActor.GetComponent<Energy>().GainEnergy(2000, false);
+            schedule.CurrentActor.GetComponent<Energy>().GainEnergy(2000);
         }
 
         public void DrinkPotion()
