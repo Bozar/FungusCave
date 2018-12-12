@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor.FOV;
+using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
@@ -13,23 +14,24 @@ namespace Fungus.Actor.AI
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
     public class AutoExplore : MonoBehaviour, ITurnCounter
     {
-        private readonly int NotChecked = 9999;
+        private readonly int gridSize = 10;
+        private readonly int notChecked = 9999;
+        private ActorBoard actor;
         private int[,] board;
         private Stack<int[]> checkPosition;
-        private ConvertCoordinates coordinate;
+        private ConvertCoordinates coord;
         private int countAutoExplore;
+        private int[] currentPosition;
         private DungeonBoard dungeon;
         private FieldOfView fov;
+        private bool isPC;
         private int maxCount;
         private int minDistance;
         private UIModeline modeline;
         private Move move;
-        private int[] pcPosition;
-        private int[] position;
+        private int[] newPosition;
         private RandomNumber random;
         private List<int[]> surround;
-        private int x;
-        private int y;
 
         public bool ContinueAutoExplore { get; private set; }
 
@@ -43,18 +45,24 @@ namespace Fungus.Actor.AI
 
         public int[] GetDestination()
         {
-            if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
+            if (isPC)
             {
-                StopAutoExplore();
-                modeline.PrintText("There are enemies nearby.");
-                return null;
+                if (!GetStartPointForPC())
+                {
+                    return null;
+                }
             }
-            else if (countAutoExplore < 1)
+            else
             {
-                StopAutoExplore();
-                return null;
+                GetStartPointForNPC();
             }
-            return AutoMove();
+
+            currentPosition = coord.Convert(transform.position);
+            ResetBoard();
+            MarkDistance();
+            newPosition = ChooseNextGrid();
+
+            return newPosition;
         }
 
         public void Initialize()
@@ -67,25 +75,6 @@ namespace Fungus.Actor.AI
         {
         }
 
-        private int[] AutoMove()
-        {
-            FindStartPoint();
-
-            if (checkPosition.Count < 1)
-            {
-                StopAutoExplore();
-                modeline.PrintText("You have explored everywhere.");
-                return null;
-            }
-
-            pcPosition = coordinate.Convert(transform.position);
-            ResetBoard();
-            MarkDistance();
-            position = ChooseNextGrid();
-
-            return position;
-        }
-
         private void Awake()
         {
             checkPosition = new Stack<int[]>();
@@ -95,10 +84,9 @@ namespace Fungus.Actor.AI
             ContinueAutoExplore = false;
         }
 
-        // TODO: Move some methods to AI class?
         private int[] ChooseNextGrid()
         {
-            surround = coordinate.SurroundCoord(Surround.Diagonal, pcPosition);
+            surround = coord.SurroundCoord(Surround.Diagonal, currentPosition);
             surround = dungeon.FilterPositions(surround);
 
             minDistance = board[surround[0][0], surround[0][1]];
@@ -125,32 +113,10 @@ namespace Fungus.Actor.AI
                 surround.Add(checkPosition.Pop());
             }
 
+            // TODO: Use another RNG for NPC.
             return (surround.Count > 1)
                 ? surround[random.Next(SeedTag.AutoExplore, 0, surround.Count)]
                 : surround[0];
-        }
-
-        private void FindStartPoint()
-        {
-            bool isUnknown;
-            bool isPassable;
-
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    isUnknown = fov.CheckFOV(FOVStatus.Unknown, i, j);
-                    isPassable = move.IsPassable(i, j);
-
-                    if (isUnknown && isPassable)
-                    {
-                        position = new int[] { i, j };
-                        checkPosition.Push(position);
-
-                        break;
-                    }
-                }
-            }
         }
 
         private int GetMinDistance()
@@ -165,13 +131,71 @@ namespace Fungus.Actor.AI
                 }
             }
 
-            minDistance = minDistance == NotChecked ? 0 : (minDistance + 1);
-
+            minDistance = (minDistance == notChecked)
+                ? 0 : (minDistance + gridSize);
             return minDistance;
+        }
+
+        private void GetStartPointForNPC()
+        {
+            newPosition = coord.Convert(FindObjects.PC.transform.position);
+            checkPosition.Push(newPosition);
+        }
+
+        private bool GetStartPointForPC()
+        {
+            if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
+            {
+                StopAutoExplore();
+                modeline.PrintText("There are enemies nearby.");
+                return false;
+            }
+            else if (countAutoExplore < 1)
+            {
+                StopAutoExplore();
+                return false;
+            }
+
+            GetUnknownPosition();
+
+            if (checkPosition.Count < 1)
+            {
+                StopAutoExplore();
+                modeline.PrintText("You have explored everywhere.");
+                return false;
+            }
+            return true;
+        }
+
+        private void GetUnknownPosition()
+        {
+            bool isUnknown;
+            bool isPassable;
+
+            for (int i = 0; i < dungeon.Width; i++)
+            {
+                for (int j = 0; j < dungeon.Height; j++)
+                {
+                    isUnknown = fov.CheckFOV(FOVStatus.Unknown, i, j);
+                    isPassable = move.IsPassable(i, j);
+
+                    if (isUnknown && isPassable)
+                    {
+                        newPosition = new int[] { i, j };
+                        checkPosition.Push(newPosition);
+                        return;
+                    }
+                }
+            }
+
+            newPosition = new int[2];
+            checkPosition.Clear();
+            return;
         }
 
         private void MarkDistance()
         {
+            int x, y;
             bool isPassable;
             bool isVaildDistance;
 
@@ -180,27 +204,41 @@ namespace Fungus.Actor.AI
                 return;
             }
 
-            position = checkPosition.Pop();
-            x = position[0];
-            y = position[1];
+            newPosition = checkPosition.Pop();
+            x = newPosition[0];
+            y = newPosition[1];
 
-            surround = coordinate.SurroundCoord(Surround.Diagonal, position);
+            surround = coord.SurroundCoord(Surround.Diagonal, newPosition);
             surround = dungeon.FilterPositions(surround);
 
-            if (fov.CheckFOV(FOVStatus.Unknown, position))
+            if (isPC)
             {
-                board[x, y] = 0;
+                if (fov.CheckFOV(FOVStatus.Unknown, newPosition))
+                {
+                    board[x, y] = 0;
+                }
+                else
+                {
+                    board[x, y] = GetMinDistance();
+                }
             }
             else
             {
-                board[x, y] = GetMinDistance();
+                if (actor.CheckActorTag(SubObjectTag.PC, x, y))
+                {
+                    board[x, y] = 0;
+                }
+                else
+                {
+                    board[x, y] = GetMinDistance();
+                }
             }
 
             foreach (var pos in surround)
             {
                 isPassable = move.IsPassable(pos[0], pos[1]);
                 isVaildDistance
-                    = Math.Abs(board[x, y] - board[pos[0], pos[1]]) <= 1;
+                    = Math.Abs(board[x, y] - board[pos[0], pos[1]]) <= gridSize;
 
                 if (isPassable && !isVaildDistance)
                 {
@@ -213,26 +251,28 @@ namespace Fungus.Actor.AI
 
         private void ResetBoard()
         {
-            for (int i = 0; i < board.GetLength(0); i++)
+            for (int i = 0; i < dungeon.Width; i++)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
+                for (int j = 0; j < dungeon.Height; j++)
                 {
-                    board[i, j] = NotChecked;
+                    board[i, j] = notChecked;
                 }
             }
         }
 
         private void Start()
         {
-            fov = GetComponent<FieldOfView>();
-            move = GetComponent<Move>();
-
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
 
+            fov = GetComponent<FieldOfView>();
+            move = GetComponent<Move>();
+
             board = new int[dungeon.Width, dungeon.Height];
+            isPC = GetComponent<ObjectMetaInfo>().SubTag == SubObjectTag.PC;
         }
 
         private void StopAutoExplore()
