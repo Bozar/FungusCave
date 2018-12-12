@@ -33,25 +33,28 @@ namespace Fungus.Actor.AI
 
         public bool ContinueAutoExplore { get; private set; }
 
-        public void AutoAction()
-        {
-            if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
-            {
-                StopAutoExplore();
-                modeline.PrintText("There are enemies nearby.");
-
-                return;
-            }
-
-            AutoMove();
-        }
-
         public void Count()
         {
             if (countAutoExplore > 0)
             {
                 countAutoExplore--;
             }
+        }
+
+        public int[] GetDestination()
+        {
+            if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
+            {
+                StopAutoExplore();
+                modeline.PrintText("There are enemies nearby.");
+                return null;
+            }
+            else if (countAutoExplore < 1)
+            {
+                StopAutoExplore();
+                return null;
+            }
+            return AutoMove();
         }
 
         public void Initialize()
@@ -64,19 +67,15 @@ namespace Fungus.Actor.AI
         {
         }
 
-        private void AutoMove()
+        private int[] AutoMove()
         {
             FindStartPoint();
 
-            if ((countAutoExplore < 1) || (checkPosition.Count < 1))
+            if (checkPosition.Count < 1)
             {
                 StopAutoExplore();
-
-                if (checkPosition.Count < 1)
-                {
-                    modeline.PrintText("You have explored everywhere.");
-                }
-                return;
+                modeline.PrintText("You have explored everywhere.");
+                return null;
             }
 
             pcPosition = coordinate.Convert(transform.position);
@@ -84,7 +83,7 @@ namespace Fungus.Actor.AI
             MarkDistance();
             position = ChooseNextGrid();
 
-            move.MoveActor(position[0], position[1]);
+            return position;
         }
 
         private void Awake()

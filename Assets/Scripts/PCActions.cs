@@ -9,6 +9,7 @@ namespace Fungus.Actor.Turn
 {
     public class PCActions : MonoBehaviour
     {
+        private int[] autoMove;
         private bool checkEnergy;
         private bool checkSchedule;
         private Initialize init;
@@ -52,7 +53,12 @@ namespace Fungus.Actor.Turn
 
             if (GetComponent<AutoExplore>().ContinueAutoExplore)
             {
-                GetComponent<AutoExplore>().AutoAction();
+                autoMove = GetComponent<AutoExplore>().GetDestination();
+
+                if (autoMove != null)
+                {
+                    GetComponent<Move>().MoveActor(autoMove);
+                }
                 return;
             }
 
@@ -66,7 +72,7 @@ namespace Fungus.Actor.Turn
             {
                 case Command.AutoExplore:
                     GetComponent<AutoExplore>().Initialize();
-                    GetComponent<AutoExplore>().AutoAction();
+                    GetComponent<AutoExplore>().GetDestination();
                     return;
             }
 

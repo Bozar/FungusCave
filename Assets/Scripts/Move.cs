@@ -16,10 +16,14 @@ namespace Fungus.Actor
         private DungeonBoard board;
         private ConvertCoordinates coordinates;
         private Direction direction;
+        private UIMessage message;
+        private UIModeline modeline;
         private int poolEnergy;
+        private SchedulingSystem schedule;
         private int[] startPosition;
         private int[] targetPosition;
         private bool useDiagonalFactor;
+        private WizardMode wizard;
 
         public bool IsPassable(int x, int y)
         {
@@ -41,6 +45,11 @@ namespace Fungus.Actor
             MoveActor(targetPosition[0], targetPosition[1]);
         }
 
+        public void MoveActor(int[] position)
+        {
+            MoveActor(position[0], position[1]);
+        }
+
         public void MoveActor(int targetX, int targetY)
         {
             startPosition = coordinates.Convert(transform.position);
@@ -54,7 +63,7 @@ namespace Fungus.Actor
 
             if (IsWait(targetX, targetY))
             {
-                FindObjects.GameLogic.GetComponent<SchedulingSystem>().NextActor();
+                schedule.NextActor();
                 return;
             }
 
@@ -66,8 +75,7 @@ namespace Fungus.Actor
 
             if (!IsPassable(targetX, targetY))
             {
-                FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-                    "You are blocked");
+                modeline.PrintText("You are blocked");
                 return;
             }
 
@@ -148,11 +156,10 @@ namespace Fungus.Actor
             totalEnergy = (int)Math.Floor(
                 (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));
 
-            if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
+            if (wizard.PrintEnergyCost
                 && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
             {
-                FindObjects.GameLogic.GetComponent<UIMessage>()
-                    .StoreText("Move energy: " + totalEnergy);
+                message.StoreText("Move energy: " + totalEnergy);
             }
 
             return totalEnergy;
@@ -172,6 +179,10 @@ namespace Fungus.Actor
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
+            schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+            modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+            message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
 
             baseEnergy = FindObjects.GameLogic.GetComponent<ObjectData>().
                 GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
