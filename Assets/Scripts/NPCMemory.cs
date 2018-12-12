@@ -8,16 +8,21 @@ namespace Fungus.Actor.AI
 {
     public class NPCMemory : MonoBehaviour, ITurnCounter
     {
+        private int forgetCounter;
         private int increaseMemory;
         private int maxMemory;
 
-        public int ForgetCounter { get; private set; }
         public int[] PCPosition { get; private set; }
 
         public void Count()
         {
-            ForgetCounter--;
-            ForgetCounter = Math.Max(0, ForgetCounter);
+            forgetCounter--;
+            forgetCounter = Math.Max(0, forgetCounter);
+        }
+
+        public bool RememberPC()
+        {
+            return forgetCounter > 0;
         }
 
         public void Trigger()
@@ -28,8 +33,8 @@ namespace Fungus.Actor.AI
                     .GetComponent<ConvertCoordinates>().Convert(
                     FindObjects.PC.transform.position);
 
-                ForgetCounter += increaseMemory;
-                ForgetCounter = Math.Min(maxMemory, ForgetCounter);
+                forgetCounter += increaseMemory;
+                forgetCounter = Math.Min(maxMemory, forgetCounter);
             }
         }
 
@@ -39,7 +44,7 @@ namespace Fungus.Actor.AI
             maxMemory = 6;
 
             PCPosition = new int[2];
-            ForgetCounter = 0;
+            forgetCounter = 0;
         }
     }
 }

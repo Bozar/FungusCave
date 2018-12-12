@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.FOV;
 using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -11,7 +12,17 @@ namespace Fungus.Actor.AI
         private ConvertCoordinates coordinate;
         private FieldOfView fov;
 
-        public bool CanSeeTarget<T>(T targetTag)
+        public bool CanSeeTarget(MainObjectTag targetTag)
+        {
+            return CanSeeTarget<MainObjectTag>(targetTag);
+        }
+
+        public bool CanSeeTarget(SubObjectTag targetTag)
+        {
+            return CanSeeTarget<SubObjectTag>(targetTag);
+        }
+
+        private bool CanSeeTarget<T>(T targetTag)
         {
             int[] position = coordinate.Convert(transform.position);
             int x = position[0];
@@ -34,7 +45,6 @@ namespace Fungus.Actor.AI
                     }
                 }
             }
-
             return false;
         }
 

@@ -113,6 +113,14 @@ namespace Fungus.GameSystem.WorldBuilding
             return Math.Max(x, y);
         }
 
+        public int GetDistance(GameObject source, GameObject target)
+        {
+            int[] sourcePos = coordinate.Convert(source.transform.position);
+            int[] targetPos = coordinate.Convert(target.transform.position);
+
+            return GetDistance(sourcePos, targetPos);
+        }
+
         public bool IndexOutOfRange(int x, int y)
         {
             bool checkWidth = (x < 0) || (x > Width - 1);
