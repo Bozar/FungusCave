@@ -33,7 +33,7 @@ namespace Fungus.Actor.AI
         private RandomNumber random;
         private List<int[]> surround;
 
-        public bool ContinueAutoExplore { get; private set; }
+        public bool ContinueAutoExplore { get { return countAutoExplore > 0; } }
 
         public void Count()
         {
@@ -60,7 +60,7 @@ namespace Fungus.Actor.AI
             currentPosition = coord.Convert(transform.position);
             ResetBoard();
             MarkDistance();
-            newPosition = ChooseNextGrid();
+            newPosition = GetNewPosition();
 
             return newPosition;
         }
@@ -68,7 +68,6 @@ namespace Fungus.Actor.AI
         public void Initialize()
         {
             countAutoExplore = maxCount;
-            ContinueAutoExplore = true;
         }
 
         public void Trigger()
@@ -80,12 +79,29 @@ namespace Fungus.Actor.AI
             checkPosition = new Stack<int[]>();
             surround = new List<int[]>();
             maxCount = 20;
-
-            ContinueAutoExplore = false;
         }
 
-        private int[] ChooseNextGrid()
+        private int GetMinDistance()
         {
+            minDistance = board[surround[0][0], surround[0][1]];
+
+            foreach (var pos in surround)
+            {
+                if (board[pos[0], pos[1]] < minDistance)
+                {
+                    minDistance = board[pos[0], pos[1]];
+                }
+            }
+
+            minDistance = (minDistance == notChecked)
+                ? 0 : (minDistance + gridSize);
+            return minDistance;
+        }
+
+        private int[] GetNewPosition()
+        {
+            SeedTag tag = isPC ? SeedTag.AutoExplore : SeedTag.NPCAction;
+
             surround = coord.SurroundCoord(Surround.Diagonal, currentPosition);
             surround = dungeon.FilterPositions(surround);
 
@@ -113,27 +129,9 @@ namespace Fungus.Actor.AI
                 surround.Add(checkPosition.Pop());
             }
 
-            // TODO: Use another RNG for NPC.
             return (surround.Count > 1)
-                ? surround[random.Next(SeedTag.AutoExplore, 0, surround.Count)]
+                ? surround[random.Next(tag, 0, surround.Count)]
                 : surround[0];
-        }
-
-        private int GetMinDistance()
-        {
-            minDistance = board[surround[0][0], surround[0][1]];
-
-            foreach (var pos in surround)
-            {
-                if (board[pos[0], pos[1]] < minDistance)
-                {
-                    minDistance = board[pos[0], pos[1]];
-                }
-            }
-
-            minDistance = (minDistance == notChecked)
-                ? 0 : (minDistance + gridSize);
-            return minDistance;
         }
 
         private void GetStartPointForNPC()
@@ -278,7 +276,6 @@ namespace Fungus.Actor.AI
         private void StopAutoExplore()
         {
             countAutoExplore = 0;
-            ContinueAutoExplore = false;
         }
     }
 }

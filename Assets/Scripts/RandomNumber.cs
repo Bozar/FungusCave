@@ -10,7 +10,8 @@ namespace Fungus.GameSystem
         Root, Dungeon,
 
         PERSISTENT,
-        AutoExplore, Infection
+        AutoExplore, Infection,
+        NPCAction
     }
 
     public class RandomNumber : MonoBehaviour
