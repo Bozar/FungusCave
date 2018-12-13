@@ -18,6 +18,11 @@ namespace Fungus.Actor.AI
         {
             forgetCounter--;
             forgetCounter = Math.Max(0, forgetCounter);
+
+            if (forgetCounter == 0)
+            {
+                PCPosition = new int[2];
+            }
         }
 
         public bool RememberPC()

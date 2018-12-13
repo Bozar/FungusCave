@@ -16,8 +16,7 @@ namespace Fungus.Actor.AI
             {
                 if (GetComponent<NPCMemory>().RememberPC())
                 {
-                    Debug.Log("Chase.");
-                    return Command.Wait;
+                    return Command.Approach;
                 }
                 return Command.Wait;
             }
@@ -25,8 +24,7 @@ namespace Fungus.Actor.AI
             {
                 if (board.GetDistance(gameObject, FindObjects.PC) > meleeRange)
                 {
-                    Debug.Log("Approach.");
-                    return Command.Wait;
+                    return Command.Approach;
                 }
                 Debug.Log("Attack.");
                 return Command.Wait;

@@ -16,7 +16,6 @@ namespace Fungus.Actor.AI
     {
         private readonly int gridSize = 10;
         private readonly int notChecked = 9999;
-        private ActorBoard actor;
         private int[,] board;
         private Stack<int[]> checkPosition;
         private ConvertCoordinates coord;
@@ -54,7 +53,10 @@ namespace Fungus.Actor.AI
             }
             else
             {
-                GetStartPointForNPC();
+                if (!GetStartPointForNPC())
+                {
+                    return null;
+                }
             }
 
             currentPosition = coord.Convert(transform.position);
@@ -134,10 +136,16 @@ namespace Fungus.Actor.AI
                 : surround[0];
         }
 
-        private void GetStartPointForNPC()
+        private bool GetStartPointForNPC()
         {
-            newPosition = coord.Convert(FindObjects.PC.transform.position);
+            if (GetComponent<NPCMemory>().PCPosition == null)
+            {
+                return false;
+            }
+
+            newPosition = GetComponent<NPCMemory>().PCPosition;
             checkPosition.Push(newPosition);
+            return true;
         }
 
         private bool GetStartPointForPC()
@@ -193,7 +201,7 @@ namespace Fungus.Actor.AI
 
         private void MarkDistance()
         {
-            int x, y;
+            int x, y, pcX, pcY;
             bool isPassable;
             bool isVaildDistance;
 
@@ -211,25 +219,16 @@ namespace Fungus.Actor.AI
 
             if (isPC)
             {
-                if (fov.CheckFOV(FOVStatus.Unknown, newPosition))
-                {
-                    board[x, y] = 0;
-                }
-                else
-                {
-                    board[x, y] = GetMinDistance();
-                }
+                board[x, y] = fov.CheckFOV(FOVStatus.Unknown, newPosition)
+                    ? 0 : GetMinDistance();
             }
             else
             {
-                if (actor.CheckActorTag(SubObjectTag.PC, x, y))
-                {
-                    board[x, y] = 0;
-                }
-                else
-                {
-                    board[x, y] = GetMinDistance();
-                }
+                pcX = GetComponent<NPCMemory>().PCPosition[0];
+                pcY = GetComponent<NPCMemory>().PCPosition[1];
+
+                board[x, y] = ((x == pcX) && (y == pcY))
+                    ? 0 : GetMinDistance();
             }
 
             foreach (var pos in surround)
@@ -261,7 +260,6 @@ namespace Fungus.Actor.AI
         private void Start()
         {
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();

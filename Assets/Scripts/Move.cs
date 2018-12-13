@@ -29,11 +29,13 @@ namespace Fungus.Actor
         {
             bool isFloor;
             bool isPool;
+            bool noActor;
 
             isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
             isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
+            noActor = !actorBoard.HasActor(x, y);
 
-            return isFloor || isPool;
+            return noActor && (isFloor || isPool);
         }
 
         public void MoveActor(Command direction)

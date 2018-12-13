@@ -11,8 +11,13 @@ namespace Fungus.Actor.Turn
         private bool checkEnergy;
         private bool checkSchedule;
         private Initialize init;
+        private int[] position;
         private SchedulingSystem schedule;
-        //private int[] position;
+
+        private void Awake()
+        {
+            position = new int[2];
+        }
 
         private void Start()
         {
@@ -48,9 +53,12 @@ namespace Fungus.Actor.Turn
             {
                 case Command.Wait:
                     GetComponent<Move>().MoveActor(Command.Wait);
-                    //FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
-                    //    "Dummy (" + position[0] + "," + position[1] + ") waits.");
-                    break;
+                    return;
+
+                case Command.Approach:
+                    position = GetComponent<AutoExplore>().GetDestination();
+                    GetComponent<Move>().MoveActor(position);
+                    return;
             }
         }
     }

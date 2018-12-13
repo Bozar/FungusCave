@@ -10,6 +10,10 @@ namespace Fungus.Actor
         Wait, AutoExplore,
         Confirm, Cancel,
 
+        // NPC actions:
+
+        Approach,
+
         // Debug commands:
 
         EndTurn, Initialize, RenderAll, PrintEnergy, AddEnergy, PrintSchedule,

@@ -94,6 +94,7 @@ namespace Fungus.GameSystem.ObjectManager
                 go.AddComponent<Stress>();
                 go.AddComponent<Infection>();
 
+                go.AddComponent<AutoExplore>();
                 go.AddComponent<Move>();
                 go.AddComponent<Attack>();
                 go.AddComponent<Die>();
@@ -105,7 +106,6 @@ namespace Fungus.GameSystem.ObjectManager
                 {
                     go.AddComponent<PlayerInput>();
                     go.AddComponent<PCActions>();
-                    go.AddComponent<AutoExplore>();
                     go.AddComponent<Potion>();
                     go.AddComponent<TurnIndicator>();
 
