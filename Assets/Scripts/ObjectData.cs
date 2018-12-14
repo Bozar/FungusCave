@@ -69,6 +69,7 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyMove, 1000);
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 2000);
 
+            AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.MaxInfections, 1);
         }

@@ -12,7 +12,7 @@ namespace Fungus.Actor
 
         // NPC actions:
 
-        Approach,
+        Approach, Attack,
 
         // Debug commands:
 

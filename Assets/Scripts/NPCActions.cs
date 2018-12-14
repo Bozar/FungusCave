@@ -59,6 +59,11 @@ namespace Fungus.Actor.Turn
                     position = GetComponent<AutoExplore>().GetDestination();
                     GetComponent<Move>().MoveActor(position);
                     return;
+
+                case Command.Attack:
+                    position = GetComponent<NPCMemory>().PCPosition;
+                    GetComponent<Attack>().MeleeAttack(position[0], position[1]);
+                    return;
             }
         }
     }

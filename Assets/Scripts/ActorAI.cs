@@ -26,8 +26,7 @@ namespace Fungus.Actor.AI
                 {
                     return Command.Approach;
                 }
-                Debug.Log("Attack.");
-                return Command.Wait;
+                return Command.Attack;
             }
         }
 
