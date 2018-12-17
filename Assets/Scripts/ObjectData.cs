@@ -7,7 +7,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         HP, Stress, Damage,
         EnergyAttack, EnergyMove, EnergyRestore,
-        MaxInfections
+        MaxInfections, MaxEnergy
     }
 
     public class ObjectData : MonoBehaviour
@@ -62,6 +62,7 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
             AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
             AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
+            AddIntData(SubObjectTag.PC, DataTag.MaxEnergy, 6000);
 
             AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
 
@@ -72,6 +73,7 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.MaxInfections, 1);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.MaxEnergy, 4000);
         }
     }
 }

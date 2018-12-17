@@ -1,4 +1,6 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using System;
 using System.Text;
@@ -9,13 +11,14 @@ namespace Fungus.Actor
     public class Energy : MonoBehaviour
     {
         private int actionThreshold;
+        private int maxEnergy;
 
         public int CurrentEnergy { get; private set; }
 
         public void GainEnergy(int energy)
         {
             CurrentEnergy += energy;
-            CurrentEnergy = Math.Min(CurrentEnergy, actionThreshold * 3);
+            CurrentEnergy = Math.Min(CurrentEnergy, maxEnergy);
         }
 
         public bool HasEnoughEnergy()
@@ -52,6 +55,13 @@ namespace Fungus.Actor
         {
             actionThreshold = 2000;
             CurrentEnergy = actionThreshold;
+        }
+
+        private void Start()
+        {
+            maxEnergy = FindObjects.GameLogic.GetComponent<ObjectData>()
+                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.MaxEnergy);
         }
     }
 }
