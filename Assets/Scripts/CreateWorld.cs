@@ -54,9 +54,9 @@ namespace Fungus.GameSystem.WorldBuilding
             do
             {
                 pos = blueprint.RandomIndex();
-            } while (actor.HasActor(pos)
-            || board.CheckBlock(SubObjectTag.Wall, pos)
-            || board.CheckBlock(SubObjectTag.Fungus, pos));
+            } while (board.CheckBlock(SubObjectTag.Wall, pos)
+            || board.CheckBlock(SubObjectTag.Fungus, pos)
+            || actor.HasActor(pos));
 
             return pos;
         }

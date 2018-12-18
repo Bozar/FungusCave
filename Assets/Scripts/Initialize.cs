@@ -28,6 +28,7 @@ namespace Fungus.GameSystem
             GetComponent<BlueprintPool>().DrawBlueprint();
             GetComponent<BlueprintFungus>().DrawBlueprint();
             GetComponent<CreateWorld>().Initialize();
+            GetComponent<DungeonTerrain>().Initialize();
 
             GetComponent<UIMessage>().StoreText(
                 GetComponent<RandomNumber>().RootSeed.ToString());

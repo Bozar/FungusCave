@@ -31,7 +31,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<ObjectData>();
             gameObject.AddComponent<ObjectPool>();
 
-            gameObject.AddComponent<PassableTerrian>();
+            gameObject.AddComponent<DungeonTerrain>();
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();

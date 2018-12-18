@@ -22,21 +22,9 @@ namespace Fungus.Actor
         private SchedulingSystem schedule;
         private int[] startPosition;
         private int[] targetPosition;
+        private DungeonTerrain terrain;
         private bool useDiagonalFactor;
         private WizardMode wizard;
-
-        public bool IsPassable(int x, int y)
-        {
-            bool isFloor;
-            bool isPool;
-            bool noActor;
-
-            isFloor = board.CheckBlock(SubObjectTag.Floor, x, y);
-            isPool = board.CheckBlock(SubObjectTag.Pool, x, y);
-            noActor = !actorBoard.HasActor(x, y);
-
-            return noActor && (isFloor || isPool);
-        }
 
         public void MoveActor(Command direction)
         {
@@ -75,11 +63,14 @@ namespace Fungus.Actor
                 return;
             }
 
-            if (!IsPassable(targetX, targetY))
+            if (!terrain.IsPassable(targetX, targetY))
             {
                 modeline.PrintText("You are blocked");
                 return;
             }
+
+            terrain.ChangeStatus(true, startPosition[0], startPosition[1]);
+            terrain.ChangeStatus(false, targetX, targetY);
 
             actorBoard.RemoveActor(startPosition[0], startPosition[1]);
             actorBoard.AddActor(gameObject, targetX, targetY);
@@ -185,6 +176,7 @@ namespace Fungus.Actor
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
+            terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
 
             baseEnergy = FindObjects.GameLogic.GetComponent<ObjectData>().
                 GetIntData(GetComponent<ObjectMetaInfo>().SubTag,

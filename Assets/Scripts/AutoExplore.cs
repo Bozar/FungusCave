@@ -27,10 +27,10 @@ namespace Fungus.Actor.AI
         private int maxCount;
         private int minDistance;
         private UIModeline modeline;
-        private Move move;
         private int[] newPosition;
         private RandomNumber random;
         private List<int[]> surround;
+        private DungeonTerrain terrain;
 
         public bool ContinueAutoExplore { get { return countAutoExplore > 0; } }
 
@@ -183,7 +183,7 @@ namespace Fungus.Actor.AI
                 for (int j = 0; j < dungeon.Height; j++)
                 {
                     isUnknown = fov.CheckFOV(FOVStatus.Unknown, i, j);
-                    isPassable = move.IsPassable(i, j);
+                    isPassable = terrain.IsPassable(i, j);
 
                     if (isUnknown && isPassable)
                     {
@@ -233,7 +233,7 @@ namespace Fungus.Actor.AI
 
             foreach (var pos in surround)
             {
-                isPassable = move.IsPassable(pos[0], pos[1]);
+                isPassable = terrain.IsPassable(pos[0], pos[1]);
                 isVaildDistance
                     = Math.Abs(board[x, y] - board[pos[0], pos[1]]) <= gridSize;
 
@@ -263,12 +263,12 @@ namespace Fungus.Actor.AI
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+            terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
 
             fov = GetComponent<FieldOfView>();
-            move = GetComponent<Move>();
 
-            board = new int[dungeon.Width, dungeon.Height];
             isPC = GetComponent<ObjectMetaInfo>().SubTag == SubObjectTag.PC;
+            board = new int[dungeon.Width, dungeon.Height];
         }
 
         private void StopAutoExplore()
