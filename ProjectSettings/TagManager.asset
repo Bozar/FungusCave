@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameLogic
   - UI
+  - PC
   layers:
   - Default
   - TransparentFX
