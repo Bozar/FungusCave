@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
 {
-    public class UIModeline : MonoBehaviour
+    public class UIModeline : MonoBehaviour, IUpdateUI
     {
         private UIDict getUI;
         private Queue<string> inputText;

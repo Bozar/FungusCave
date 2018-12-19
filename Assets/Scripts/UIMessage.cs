@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
 {
-    public class UIMessage : MonoBehaviour
+    public class UIMessage : MonoBehaviour, IUpdateUI
     {
         private int accumulatedHeight;
         private Stack<int> checkLength;

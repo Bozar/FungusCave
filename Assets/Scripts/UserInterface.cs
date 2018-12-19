@@ -22,6 +22,8 @@ namespace Fungus.GameSystem.Render
         InfectionName1, InfectionDuration1
     };
 
+    public interface IUpdateUI { void PrintText(); }
+
     public class UserInterface : MonoBehaviour
     {
         private DungeonBoard board;
@@ -55,6 +57,7 @@ namespace Fungus.GameSystem.Render
             UpdateTurn();
 
             GetComponent<UIMessage>().PrintText();
+            GetComponent<UIExamine>().PrintText();
         }
 
         private void Start()

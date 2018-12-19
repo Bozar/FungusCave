@@ -2,8 +2,12 @@
 
 namespace Fungus.GameSystem.Render
 {
-    public class UIExamine : MonoBehaviour
+    public class UIExamine : MonoBehaviour, IUpdateUI
     {
+        public void PrintText()
+        {
+        }
+
         public void SwitchExamineMode(bool isExamine)
         {
             FindObjects.GetUIObject(UITag.ExamineMessage).SetActive(isExamine);
