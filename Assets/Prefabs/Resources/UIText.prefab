@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114245535195958476}
   m_Layer: 5
   m_Name: UIText
-  m_TagString: MainUI
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

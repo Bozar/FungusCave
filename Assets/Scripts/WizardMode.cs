@@ -20,13 +20,14 @@ namespace Fungus.GameSystem
 
         public void DrinkPotion()
         {
+            FindObjects.GameLogic.GetComponent<UIExamine>().SwitchExamineMode(true);
             //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
 
-            int[] pos = GetComponent<ConvertCoordinates>()
-                .Convert(schedule.CurrentActor.transform.position);
+            //int[] pos = GetComponent<ConvertCoordinates>()
+            //    .Convert(schedule.CurrentActor.transform.position);
 
-            schedule.CurrentActor.GetComponent<Attack>().MeleeAttack(
-                pos[0], pos[1]);
+            //schedule.CurrentActor.GetComponent<Attack>().MeleeAttack(
+            //    pos[0], pos[1]);
 
             //if (schedule.CurrentActor.GetComponent<Potion>().HasEnoughPotion(1))
             //{

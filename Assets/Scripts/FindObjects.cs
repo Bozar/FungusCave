@@ -54,7 +54,7 @@ namespace Fungus.GameSystem
             // UITags, it can be found in MainUIDict.
             UITag tempDictKey;
             GameObject[] tempGOArray
-                = GameObject.FindGameObjectsWithTag("MainUI");
+                = GameObject.FindGameObjectsWithTag("UI");
 
             foreach (var go in tempGOArray)
             {

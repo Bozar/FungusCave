@@ -4,12 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
-  - MainUI
   - GameLogic
-  - NPC
-  - PC
-  - Pool
+  - UI
   layers:
   - Default
   - TransparentFX

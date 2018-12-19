@@ -13,6 +13,7 @@ namespace Fungus.GameSystem.Render
     public enum UITag
     {
         NONE, Seed, Message, Modeline,
+        ExamineMessage, ExamineModeline,
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
@@ -61,6 +62,13 @@ namespace Fungus.GameSystem.Render
             board = GetComponent<DungeonBoard>();
             color = GetComponent<GameColor>();
             getUI = FindObjects.GetUIObject;
+
+            TurnOffUIElements();
+        }
+
+        private void TurnOffUIElements()
+        {
+            getUI(UITag.ExamineMessage).SetActive(false);
         }
 
         private void UpdateDamage()

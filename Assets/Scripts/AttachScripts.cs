@@ -36,6 +36,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();
 
+            gameObject.AddComponent<UIExamine>();
             gameObject.AddComponent<UIMessage>();
             gameObject.AddComponent<UIModeline>();
             gameObject.AddComponent<UserInterface>();
