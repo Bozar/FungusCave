@@ -13,7 +13,7 @@ namespace Fungus.GameSystem.Render
     public enum UITag
     {
         NONE, Seed, Message, Modeline,
-        ExamineMessage, ExamineModeline,
+        ExamineMessage,
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
