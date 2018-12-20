@@ -44,11 +44,11 @@ namespace Fungus.Actor.Turn
                 GetComponent<AutoExplore>().Count();
             }
 
-            if (GetComponent<NPCMemory>() != null)
-            {
-                GetComponent<NPCMemory>().Trigger();
-                GetComponent<NPCMemory>().Count();
-            }
+            //if (GetComponent<NPCMemory>() != null)
+            //{
+            //    GetComponent<NPCMemory>().Trigger();
+            //    GetComponent<NPCMemory>().Count();
+            //}
         }
 
         private void Awake()

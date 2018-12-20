@@ -114,7 +114,7 @@ namespace Fungus.GameSystem.ObjectManager
                 else
                 {
                     go.AddComponent<ActorAI>();
-                    go.AddComponent<NPCMemory>();
+                    //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
 
                     go.GetComponent<RenderSprite>().ChangeColor(

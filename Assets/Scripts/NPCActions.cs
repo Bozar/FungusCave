@@ -10,6 +10,7 @@ namespace Fungus.Actor.Turn
     {
         private bool checkEnergy;
         private bool checkSchedule;
+        private ConvertCoordinates coord;
         private Initialize init;
         private int[] position;
         private SchedulingSystem schedule;
@@ -23,6 +24,7 @@ namespace Fungus.Actor.Turn
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             init = FindObjects.GameLogic.GetComponent<Initialize>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         }
 
         private void Update()
@@ -61,7 +63,8 @@ namespace Fungus.Actor.Turn
                     return;
 
                 case Command.Attack:
-                    position = GetComponent<NPCMemory>().PCPosition;
+                    //position = GetComponent<NPCMemory>().PCPosition;
+                    position = coord.Convert(FindObjects.PC.transform.position);
                     GetComponent<Attack>().MeleeAttack(position[0], position[1]);
                     return;
             }

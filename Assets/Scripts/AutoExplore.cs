@@ -16,6 +16,7 @@ namespace Fungus.Actor.AI
     {
         private readonly int gridSize = 10;
         private readonly int notChecked = 9999;
+        private ActorBoard actor;
         private int[,] board;
         private Stack<int[]> checkPosition;
         private ConvertCoordinates coord;
@@ -138,12 +139,13 @@ namespace Fungus.Actor.AI
 
         private bool GetStartPointForNPC()
         {
-            if (GetComponent<NPCMemory>().PCPosition == null)
-            {
-                return false;
-            }
+            //if (GetComponent<NPCMemory>().PCPosition == null)
+            //{
+            //    return false;
+            //}
 
-            newPosition = GetComponent<NPCMemory>().PCPosition;
+            newPosition = coord.Convert(FindObjects.PC.transform.position);
+            //newPosition = GetComponent<NPCMemory>().PCPosition;
             checkPosition.Push(newPosition);
             return true;
         }
@@ -201,7 +203,8 @@ namespace Fungus.Actor.AI
 
         private void MarkDistance()
         {
-            int x, y, pcX, pcY;
+            //int x, y, pcX, pcY;
+            int x, y;
             bool isPassable;
             bool isVaildDistance;
 
@@ -224,10 +227,14 @@ namespace Fungus.Actor.AI
             }
             else
             {
-                pcX = GetComponent<NPCMemory>().PCPosition[0];
-                pcY = GetComponent<NPCMemory>().PCPosition[1];
+                //pcX = GetComponent<NPCMemory>().PCPosition[0];
+                //pcY = GetComponent<NPCMemory>().PCPosition[1];
 
-                board[x, y] = ((x == pcX) && (y == pcY))
+                //board[x, y] = ((x == pcX) && (y == pcY))
+                //    ? 0 : GetMinDistance();
+
+                board[x, y]
+                    = actor.CheckActorTag(SubObjectTag.PC, actor.GetActor(x, y))
                     ? 0 : GetMinDistance();
             }
 
@@ -264,6 +271,7 @@ namespace Fungus.Actor.AI
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
             fov = GetComponent<FieldOfView>();
 

@@ -12,15 +12,24 @@ namespace Fungus.Actor.AI
 
         public Command DummyAI()
         {
-            if (!GetComponent<AIVision>().CanSeeTarget(SubObjectTag.PC))
-            {
-                if (GetComponent<NPCMemory>().RememberPC())
-                {
-                    return Command.Approach;
-                }
-                return Command.Wait;
-            }
-            else
+            //if (!GetComponent<AIVision>().CanSeeTarget(SubObjectTag.PC))
+            //{
+            //    if (GetComponent<NPCMemory>().RememberPC())
+            //    {
+            //        return Command.Approach;
+            //    }
+            //    return Command.Wait;
+            //}
+            //else
+            //{
+            //    if (board.GetDistance(gameObject, FindObjects.PC) > meleeRange)
+            //    {
+            //        return Command.Approach;
+            //    }
+            //    return Command.Attack;
+            //}
+
+            if (GetComponent<AIVision>().CanSeeTarget(SubObjectTag.PC))
             {
                 if (board.GetDistance(gameObject, FindObjects.PC) > meleeRange)
                 {
@@ -28,6 +37,7 @@ namespace Fungus.Actor.AI
                 }
                 return Command.Attack;
             }
+            return Command.Wait;
         }
 
         private void Awake()
