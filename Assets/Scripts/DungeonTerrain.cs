@@ -10,25 +10,14 @@ namespace Fungus.GameSystem
         private bool[,] board;
         private DungeonBoard dungeon;
 
-        public void ChangeStatus(bool isPassable, int x, int y)
-        {
-            if (dungeon.IndexOutOfRange(x, y))
-            {
-                return;
-            }
-            board[x, y] = isPassable;
-            return;
-        }
-
         public void Initialize()
         {
             for (int i = 0; i < dungeon.Width; i++)
             {
                 for (int j = 0; j < dungeon.Height; j++)
                 {
-                    if (!actor.CheckActorTag(MainObjectTag.Actor, i, j)
-                        && (dungeon.CheckBlock(SubObjectTag.Floor, i, j)
-                        || dungeon.CheckBlock(SubObjectTag.Pool, i, j)))
+                    if (dungeon.CheckBlock(SubObjectTag.Floor, i, j)
+                        || dungeon.CheckBlock(SubObjectTag.Pool, i, j))
                     {
                         board[i, j] = true;
                     }
@@ -42,7 +31,7 @@ namespace Fungus.GameSystem
             {
                 return false;
             }
-            return board[x, y];
+            return board[x, y] && !actor.HasActor(x, y);
         }
 
         private void Start()
