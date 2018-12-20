@@ -29,7 +29,7 @@ namespace Fungus.Actor
         public void MoveActor(Command direction)
         {
             startPosition = coordinates.Convert(transform.position);
-            targetPosition = DirectionToPosition(direction,
+            targetPosition = coordinates.Convert(direction,
                 startPosition[0], startPosition[1]);
 
             MoveActor(targetPosition[0], targetPosition[1]);
@@ -82,51 +82,6 @@ namespace Fungus.Actor
         private void Awake()
         {
             poolEnergy = 200;
-        }
-
-        private int[] DirectionToPosition(Command direction,
-            int startX, int startY)
-        {
-            switch (direction)
-            {
-                case Command.Left:
-                    startX -= 1;
-                    break;
-
-                case Command.Right:
-                    startX += 1;
-                    break;
-
-                case Command.Up:
-                    startY += 1;
-                    break;
-
-                case Command.Down:
-                    startY -= 1;
-                    break;
-
-                case Command.UpLeft:
-                    startX -= 1;
-                    startY += 1;
-                    break;
-
-                case Command.UpRight:
-                    startX += 1;
-                    startY += 1;
-                    break;
-
-                case Command.DownLeft:
-                    startX -= 1;
-                    startY -= 1;
-                    break;
-
-                case Command.DownRight:
-                    startX += 1;
-                    startY -= 1;
-                    break;
-            }
-
-            return new int[] { startX, startY };
         }
 
         private int GetEnergyCost()

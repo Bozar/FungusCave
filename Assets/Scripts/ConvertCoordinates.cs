@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus.Actor;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,49 +12,76 @@ namespace Fungus.GameSystem
         private readonly float index2Vector = 0.5f;
         private readonly float vector2Index = 2.0f;
 
-        private int[] arrayPosition;
-        private int indexX;
-        private int indexXorY;
-        private int indexY;
-        private List<int[]> surround;
-        private List<int[]> temp;
-        private Vector3 vectorPosition;
-        private float vectorX;
-        private float vectorY;
-
         public Vector3 Convert(int x, int y)
         {
-            vectorX = x * index2Vector;
-            vectorY = y * index2Vector;
+            float vectorX = x * index2Vector;
+            float vectorY = y * index2Vector;
 
-            vectorPosition = new Vector3(vectorX, vectorY);
-
-            return vectorPosition;
+            return new Vector3(vectorX, vectorY);
         }
 
         public Vector3 Convert(int[] position)
         {
-            vectorX = position[0] * index2Vector;
-            vectorY = position[1] * index2Vector;
+            float vectorX = position[0] * index2Vector;
+            float vectorY = position[1] * index2Vector;
 
-            vectorPosition = new Vector3(vectorX, vectorY);
+            return new Vector3(vectorX, vectorY);
+        }
 
-            return vectorPosition;
+        public int[] Convert(Command direction, int x, int y)
+        {
+            switch (direction)
+            {
+                case Command.Left:
+                    x -= 1;
+                    break;
+
+                case Command.Right:
+                    x += 1;
+                    break;
+
+                case Command.Up:
+                    y += 1;
+                    break;
+
+                case Command.Down:
+                    y -= 1;
+                    break;
+
+                case Command.UpLeft:
+                    x -= 1;
+                    y += 1;
+                    break;
+
+                case Command.UpRight:
+                    x += 1;
+                    y += 1;
+                    break;
+
+                case Command.DownLeft:
+                    x -= 1;
+                    y -= 1;
+                    break;
+
+                case Command.DownRight:
+                    x += 1;
+                    y -= 1;
+                    break;
+            }
+            return new int[] { x, y };
         }
 
         public int[] Convert(Vector3 position)
         {
-            indexX = (int)Math.Floor(position.x * vector2Index);
-            indexY = (int)Math.Floor(position.y * vector2Index);
+            int indexX = (int)Math.Floor(position.x * vector2Index);
+            int indexY = (int)Math.Floor(position.y * vector2Index);
 
-            arrayPosition = new int[] { indexX, indexY };
-
-            return arrayPosition;
+            return new int[] { indexX, indexY };
         }
 
         public int Convert(float position)
         {
-            indexXorY = (int)Math.Floor(position * vector2Index);
+            int indexXorY = (int)Math.Floor(position * vector2Index);
 
             return indexXorY;
         }
@@ -68,8 +96,8 @@ namespace Fungus.GameSystem
 
         public List<int[]> SurroundCoord(Surround neighbor, int x, int y)
         {
-            surround = new List<int[]>();
-            temp = new List<int[]>();
+            List<int[]> surround = new List<int[]>();
+            List<int[]> temp = new List<int[]>();
 
             for (int i = -1; i < 2; i++)
             {
@@ -88,10 +116,8 @@ namespace Fungus.GameSystem
                         temp.Add(coord);
                     }
                 }
-
                 surround = temp;
             }
-
             return surround;
         }
     }
