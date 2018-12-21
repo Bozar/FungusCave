@@ -28,6 +28,13 @@ namespace Fungus.GameSystem
             return new Vector3(vectorX, vectorY);
         }
 
+        public int[] Convert(Command direction, Vector3 position)
+        {
+            int[] start = Convert(position);
+
+            return Convert(direction, start[0], start[1]);
+        }
+
         public int[] Convert(Command direction, int x, int y)
         {
             switch (direction)

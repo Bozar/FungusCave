@@ -3,19 +3,35 @@ using Fungus.Actor.FOV;
 using Fungus.GameSystem;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
     public class PCActions : MonoBehaviour
     {
-        private int[] autoMove;
+        private ActorBoard actor;
         private bool checkEnergy;
         private bool checkSchedule;
+        private ConvertCoordinates coord;
         private Initialize init;
         private PlayerInput input;
         private SchedulingSystem schedule;
         private WizardMode wizard;
+
+        private void MoveOrAttack(Command direction)
+        {
+            int[] target = coord.Convert(
+                direction, FindObjects.PC.transform.position);
+
+            if (actor.HasActor(target))
+            {
+                GetComponent<Attack>().MeleeAttack(target[0], target[1]);
+                return;
+            }
+            GetComponent<Move>().MoveActor(target[0], target[1]);
+            return;
+        }
 
         private void Start()
         {
@@ -23,6 +39,8 @@ namespace Fungus.Actor.Turn
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             init = FindObjects.GameLogic.GetComponent<Initialize>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }
 
         private void Update()
@@ -53,11 +71,11 @@ namespace Fungus.Actor.Turn
 
             if (GetComponent<AutoExplore>().ContinueAutoExplore)
             {
-                autoMove = GetComponent<AutoExplore>().GetDestination();
+                int[] target = GetComponent<AutoExplore>().GetDestination();
 
-                if (autoMove != null)
+                if (target != null)
                 {
-                    GetComponent<Move>().MoveActor(autoMove);
+                    GetComponent<Move>().MoveActor(target);
                 }
                 return;
             }
@@ -72,7 +90,7 @@ namespace Fungus.Actor.Turn
                 case Command.UpRight:
                 case Command.DownLeft:
                 case Command.DownRight:
-                    GetComponent<Move>().MoveActor(input.GameCommand());
+                    MoveOrAttack(input.GameCommand());
                     return;
 
                 case Command.Wait:
