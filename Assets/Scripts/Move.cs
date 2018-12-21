@@ -18,8 +18,6 @@ namespace Fungus.Actor
         private UIMessage message;
         private UIModeline modeline;
         private int poolEnergy;
-        private int[] startPosition;
-        private int[] targetPosition;
         private DungeonTerrain terrain;
         private bool useDiagonalFactor;
         private WizardMode wizard;
@@ -31,9 +29,9 @@ namespace Fungus.Actor
 
         public void MoveActor(int targetX, int targetY)
         {
-            startPosition = coord.Convert(transform.position);
+            int[] start = coord.Convert(transform.position);
             useDiagonalFactor = direction.CheckDirection(
-                RelativePosition.Diagonal, startPosition, targetX, targetY);
+                RelativePosition.Diagonal, start, targetX, targetY);
 
             if (!GetComponent<Energy>().HasEnoughEnergy())
             {
@@ -46,11 +44,11 @@ namespace Fungus.Actor
                 return;
             }
 
-            actor.RemoveActor(startPosition[0], startPosition[1]);
+            actor.RemoveActor(start[0], start[1]);
             actor.AddActor(gameObject, targetX, targetY);
 
             transform.position = coord.Convert(targetX, targetY);
-            GetComponent<Energy>().LoseEnergy(GetEnergyCost());
+            GetComponent<Energy>().LoseEnergy(GetEnergyCost(start));
         }
 
         private void Awake()
@@ -58,19 +56,18 @@ namespace Fungus.Actor
             poolEnergy = 200;
         }
 
-        private int GetEnergyCost()
+        private int GetEnergyCost(int[] startPoint)
         {
             int totalEnergy;
             int pool;
             int slow;
             int directionFactor;
 
-            pool = board.CheckBlock(SubObjectTag.Pool, startPosition)
+            pool = board.CheckBlock(SubObjectTag.Pool, startPoint)
                 ? poolEnergy : 0;
 
             directionFactor = useDiagonalFactor
-                ? direction.DiagonalFactor
-                : direction.CardinalFactor;
+                ? direction.DiagonalFactor : direction.CardinalFactor;
 
             slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
                 ? GetComponent<Infection>().ModEnergy : 0;
