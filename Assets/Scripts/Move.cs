@@ -44,6 +44,9 @@ namespace Fungus.Actor
                 return;
             }
 
+            terrain.ChangeStatus(true, start[0], start[1]);
+            terrain.ChangeStatus(false, targetX, targetY);
+
             actor.RemoveActor(start[0], start[1]);
             actor.AddActor(gameObject, targetX, targetY);
 
