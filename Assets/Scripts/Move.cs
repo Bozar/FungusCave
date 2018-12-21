@@ -11,10 +11,10 @@ namespace Fungus.Actor
 {
     public class Move : MonoBehaviour
     {
-        private ActorBoard actorBoard;
+        private ActorBoard actor;
         private int baseEnergy;
         private DungeonBoard board;
-        private ConvertCoordinates coordinates;
+        private ConvertCoordinates coord;
         private Direction direction;
         private UIMessage message;
         private UIModeline modeline;
@@ -28,8 +28,8 @@ namespace Fungus.Actor
 
         public void MoveActor(Command direction)
         {
-            startPosition = coordinates.Convert(transform.position);
-            targetPosition = coordinates.Convert(direction,
+            startPosition = coord.Convert(transform.position);
+            targetPosition = coord.Convert(direction,
                 startPosition[0], startPosition[1]);
 
             MoveActor(targetPosition[0], targetPosition[1]);
@@ -42,7 +42,7 @@ namespace Fungus.Actor
 
         public void MoveActor(int targetX, int targetY)
         {
-            startPosition = coordinates.Convert(transform.position);
+            startPosition = coord.Convert(transform.position);
             useDiagonalFactor = direction.CheckDirection(
                 RelativePosition.Diagonal, startPosition, targetX, targetY);
 
@@ -51,13 +51,7 @@ namespace Fungus.Actor
                 return;
             }
 
-            if (IsWait(targetX, targetY))
-            {
-                schedule.NextActor();
-                return;
-            }
-
-            if (actorBoard.HasActor(targetX, targetY))
+            if (actor.HasActor(targetX, targetY))
             {
                 GetComponent<Attack>().MeleeAttack(targetX, targetY);
                 return;
@@ -69,10 +63,10 @@ namespace Fungus.Actor
                 return;
             }
 
-            actorBoard.RemoveActor(startPosition[0], startPosition[1]);
-            actorBoard.AddActor(gameObject, targetX, targetY);
+            actor.RemoveActor(startPosition[0], startPosition[1]);
+            actor.AddActor(gameObject, targetX, targetY);
 
-            transform.position = coordinates.Convert(targetX, targetY);
+            transform.position = coord.Convert(targetX, targetY);
             GetComponent<Energy>().LoseEnergy(GetEnergyCost());
         }
 
@@ -102,7 +96,7 @@ namespace Fungus.Actor
                 (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));
 
             if (wizard.PrintEnergyCost
-                && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+                && actor.CheckActorTag(SubObjectTag.PC, gameObject))
             {
                 message.StoreText("Move energy: " + totalEnergy);
             }
@@ -110,19 +104,11 @@ namespace Fungus.Actor
             return totalEnergy;
         }
 
-        private bool IsWait(int x, int y)
-        {
-            bool checkX = startPosition[0] == x;
-            bool checkY = startPosition[1] == y;
-
-            return checkX && checkY;
-        }
-
         private void Start()
         {
-            coordinates = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();

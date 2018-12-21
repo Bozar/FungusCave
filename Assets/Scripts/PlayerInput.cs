@@ -156,24 +156,5 @@ namespace Fungus.Actor
 
             return Command.INVALID;
         }
-
-        public bool IsMovementCommand()
-        {
-            switch (GameCommand())
-            {
-                case Command.Left:
-                case Command.Right:
-                case Command.Up:
-                case Command.Down:
-                case Command.UpLeft:
-                case Command.UpRight:
-                case Command.DownLeft:
-                case Command.DownRight:
-                case Command.Wait:
-                    return true;
-            }
-
-            return false;
-        }
     }
 }

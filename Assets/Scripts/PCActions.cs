@@ -62,14 +62,23 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
-            if (input.IsMovementCommand())
-            {
-                GetComponent<Move>().MoveActor(input.GameCommand());
-                return;
-            }
-
             switch (input.GameCommand())
             {
+                case Command.Left:
+                case Command.Right:
+                case Command.Up:
+                case Command.Down:
+                case Command.UpLeft:
+                case Command.UpRight:
+                case Command.DownLeft:
+                case Command.DownRight:
+                    GetComponent<Move>().MoveActor(input.GameCommand());
+                    return;
+
+                case Command.Wait:
+                    schedule.NextActor();
+                    return;
+
                 case Command.AutoExplore:
                     GetComponent<AutoExplore>().Initialize();
                     GetComponent<AutoExplore>().GetDestination();

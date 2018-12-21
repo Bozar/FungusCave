@@ -54,7 +54,7 @@ namespace Fungus.Actor.Turn
             switch (GetComponent<ActorAI>().DummyAI())
             {
                 case Command.Wait:
-                    GetComponent<Move>().MoveActor(Command.Wait);
+                    schedule.NextActor();
                     return;
 
                 case Command.Approach:
