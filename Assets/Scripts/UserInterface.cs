@@ -13,13 +13,15 @@ namespace Fungus.GameSystem.Render
     public enum UITag
     {
         NONE, Seed, Message, Modeline,
-        ExamineMessage,
+
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
         InfectionLabel,
         InfectionName0, InfectionDuration0,
-        InfectionName1, InfectionDuration1
+        InfectionName1, InfectionDuration1,
+
+        ExamineMessage, ExamineName, ExamineData
     };
 
     public interface IUpdateUI { void PrintText(); }
@@ -76,7 +78,7 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateDamage()
         {
-            int current = pc.GetComponent<Attack>().GetCurrentDamage();
+            int current = pc.GetComponent<Attack>().CurrentDamage;
 
             getUI(UITag.DamageData).GetComponent<Text>().text
                 = current.ToString();

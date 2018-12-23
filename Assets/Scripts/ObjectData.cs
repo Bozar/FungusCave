@@ -5,7 +5,7 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public enum DataTag
     {
-        HP, Stress, Damage,
+        HP, Stress, Damage, DropPotion,
         EnergyAttack, EnergyMove, EnergyRestore,
         MaxInfections, MaxEnergy
     }
@@ -68,11 +68,12 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyAttack, 1200);
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyMove, 1000);
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 1000);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.MaxEnergy, 3000);
 
             AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.DropPotion, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.MaxInfections, 1);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.MaxEnergy, 3000);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
         }
     }
 }

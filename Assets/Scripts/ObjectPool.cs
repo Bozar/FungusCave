@@ -27,6 +27,8 @@ namespace Fungus.GameSystem.ObjectManager
         private Dictionary<SubObjectTag, Stack<GameObject>> pool;
         private int[] position;
 
+        public GameObject TESTDUMMY { get; private set; }
+
         public GameObject CreateObject(
             MainObjectTag mainTag, SubObjectTag subTag, int[] position)
         {
@@ -119,6 +121,11 @@ namespace Fungus.GameSystem.ObjectManager
 
                     go.GetComponent<RenderSprite>().ChangeColor(
                         GetComponent<GameColor>().PickColor(ColorName.Black));
+
+                    if (TESTDUMMY == null)
+                    {
+                        TESTDUMMY = go;
+                    }
 
                     // NOTE: Change sprite.
                     //UnityEngine.Object[] test

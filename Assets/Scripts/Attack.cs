@@ -25,26 +25,29 @@ namespace Fungus.Actor
         private int relieveStressAfterKill;
         private int weakDamage;
 
-        public int GetCurrentDamage()
+        public int CurrentDamage
         {
-            int weak;
-            int power;
-            int finalDamage;
+            get
+            {
+                int weak;
+                int power;
+                int finalDamage;
 
-            // TODO: Change damage.
+                // TODO: Change damage.
 
-            weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
-                ? weakDamage : 0;
+                weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
+                    ? weakDamage : 0;
 
-            power = GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
-                ? powerDamage1 : 0;
-            power += GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
-                ? powerDamage2 : 0;
+                power = GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
+                    ? powerDamage1 : 0;
+                power += GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
+                    ? powerDamage2 : 0;
 
-            finalDamage = baseDamage + power - weak;
-            finalDamage = Math.Max(0, finalDamage);
+                finalDamage = baseDamage + power - weak;
+                finalDamage = Math.Max(0, finalDamage);
 
-            return finalDamage;
+                return finalDamage;
+            }
         }
 
         public void MeleeAttack(int x, int y)
@@ -69,7 +72,7 @@ namespace Fungus.Actor
                 target.GetComponent<Energy>().LoseEnergy(powerPoison2);
             }
 
-            targetIsDead = target.GetComponent<HP>().LoseHP(GetCurrentDamage());
+            targetIsDead = target.GetComponent<HP>().LoseHP(CurrentDamage);
 
             if (targetIsDead)
             {
