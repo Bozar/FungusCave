@@ -143,6 +143,10 @@ namespace Fungus.Actor.Turn
                     case Command.PrintEnergyCost:
                         wizard.SwitchPrintEnergyCost();
                         return;
+
+                    case Command.Cancel:
+                        wizard.ExitExamineMode();
+                        return;
                 }
             }
         }

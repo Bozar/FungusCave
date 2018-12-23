@@ -35,6 +35,11 @@ namespace Fungus.GameSystem
             //}
         }
 
+        public void ExitExamineMode()
+        {
+            GetComponent<UIExamine>().SwitchExamineMode(false);
+        }
+
         public void GainHP()
         {
             //schedule.CurrentActor.GetComponent<Potion>().GainPotion(90);

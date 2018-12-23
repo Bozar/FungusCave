@@ -113,9 +113,9 @@ namespace Fungus.Actor
             {
                 return Command.Up;
             }
-            else if (Input.GetKeyDown(KeyCode.End))
+            else if (Input.GetKeyDown(KeyCode.Escape))
             {
-                return Command.EndTurn;
+                return Command.Cancel;
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
