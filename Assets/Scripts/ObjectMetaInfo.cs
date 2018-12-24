@@ -8,6 +8,7 @@ namespace Fungus.Actor.ObjectManager
     {
         public int DropPotion { get; private set; }
         public MainObjectTag MainTag { get; private set; }
+        public string Name { get; private set; }
         public SubObjectTag SubTag { get; private set; }
 
         public void SetMainTag(MainObjectTag tag)
@@ -18,12 +19,10 @@ namespace Fungus.Actor.ObjectManager
         public void SetSubTag(SubObjectTag tag)
         {
             SubTag = tag;
-        }
 
-        private void Start()
-        {
             DropPotion = FindObjects.GameLogic.GetComponent<ObjectData>()
                 .GetIntData(SubTag, DataTag.DropPotion);
+            Name = SubTag.ToString();
         }
     }
 }

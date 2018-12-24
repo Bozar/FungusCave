@@ -24,7 +24,7 @@ namespace Fungus.GameSystem.Render
                 .text = ActorData(actor);
 
             FindObjects.GetUIObject(UITag.ExamineName).GetComponent<Text>()
-                .text = "[ Goblin | Lurker ]";
+                .text = ActorName(actor);
         }
 
         public void SwitchExamineMode(bool isExamine)
@@ -53,6 +53,20 @@ namespace Fungus.GameSystem.Render
             sb.Append(potion);
             sb.Append("$");
             sb.Append(infection);
+            sb.Append(" ]");
+
+            return sb.ToString();
+        }
+
+        private string ActorName(GameObject go)
+        {
+            string name = go.GetComponent<ObjectMetaInfo>().Name;
+
+            //> [ Dummy ]
+            sb.Remove(0, sb.Length);
+
+            sb.Append("[ ");
+            sb.Append(name);
             sb.Append(" ]");
 
             return sb.ToString();
