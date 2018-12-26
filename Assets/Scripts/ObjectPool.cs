@@ -102,7 +102,7 @@ namespace Fungus.GameSystem.ObjectManager
                 go.AddComponent<Infection>();
 
                 go.AddComponent<AutoExplore>();
-                go.AddComponent<Move>();
+                go.AddComponent<MoveActor>();
                 go.AddComponent<Attack>();
                 go.AddComponent<Die>();
                 go.AddComponent<Power>();

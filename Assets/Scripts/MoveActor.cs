@@ -8,7 +8,14 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Move : MonoBehaviour
+    public interface IMove
+    {
+        void MoveGameObject(int targetX, int targetY);
+
+        void MoveGameObject(int[] position);
+    }
+
+    public class MoveActor : MonoBehaviour, IMove
     {
         private ActorBoard actor;
         private int baseEnergy;
@@ -22,12 +29,12 @@ namespace Fungus.Actor
         private bool useDiagonalFactor;
         private WizardMode wizard;
 
-        public void MoveActor(int[] position)
+        public void MoveGameObject(int[] position)
         {
-            MoveActor(position[0], position[1]);
+            MoveGameObject(position[0], position[1]);
         }
 
-        public void MoveActor(int targetX, int targetY)
+        public void MoveGameObject(int targetX, int targetY)
         {
             int[] start = coord.Convert(transform.position);
             useDiagonalFactor = direction.CheckDirection(
