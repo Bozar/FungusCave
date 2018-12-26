@@ -203,6 +203,7 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 case SubObjectTag.Examiner:
                     go.AddComponent<ExaminerActions>();
+                    go.AddComponent<MoveExamineMarker>();
 
                     FindObjects.Examiner = go;
                     break;

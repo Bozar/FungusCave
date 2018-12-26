@@ -17,7 +17,7 @@ namespace Fungus.Actor.Turn
                 case Command.UpRight:
                 case Command.DownLeft:
                 case Command.DownRight:
-                    Debug.Log(GetComponent<PlayerInput>().GameCommand());
+                    GetComponent<MoveExamineMarker>().MoveGameObject(0, 0);
                     break;
 
                 case Command.Cancel:
