@@ -13,13 +13,15 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
 {
-    public enum MainObjectTag { NONE, Building, Actor };
+    // Dopplegangers are substitutions for PC under certain situations: examine
+    // mode, help menu, etc.
+    public enum MainObjectTag { NONE, Building, Actor, Doppleganger };
 
     public enum SubObjectTag
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Dummy
+        PC, Examiner, Dummy
     };
 
     public class ObjectPool : MonoBehaviour
@@ -45,6 +47,9 @@ namespace Fungus.GameSystem.ObjectManager
 
                 case MainObjectTag.Building:
                     return CreateBuilding(subTag, x, y);
+
+                case MainObjectTag.Doppleganger:
+                    return CreateDoppleganger(subTag, x, y);
 
                 default:
                     return null;
@@ -178,6 +183,25 @@ namespace Fungus.GameSystem.ObjectManager
             return go;
         }
 
+        private GameObject CreateDoppleganger(SubObjectTag tag, int x, int y)
+        {
+            GameObject go;
+
+            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
+            go.transform.position
+               = GetComponent<ConvertCoordinates>().Convert(x, y);
+            go.SetActive(false);
+
+            switch (tag)
+            {
+                case SubObjectTag.Examiner:
+                    FindObjects.Examiner = go;
+                    break;
+            }
+
+            return go;
+        }
+
         private void Start()
         {
             pool = new Dictionary<SubObjectTag, Stack<GameObject>>();
@@ -216,6 +240,12 @@ namespace Fungus.GameSystem.ObjectManager
 
             pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
 
+            go.SetActive(false);
+        }
+
+        private void StoreDoppleganger(GameObject go)
+        {
+            pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
             go.SetActive(false);
         }
     }

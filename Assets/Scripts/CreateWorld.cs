@@ -15,6 +15,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             CreateBuildings();
             CreateActors();
+            CreateDopplegangers();
         }
 
         // TODO: Create actors based on dungeon level.
@@ -45,6 +46,12 @@ namespace Fungus.GameSystem.WorldBuilding
                     }
                 }
             }
+        }
+
+        private void CreateDopplegangers()
+        {
+            oPool.CreateObject(
+                MainObjectTag.Doppleganger, SubObjectTag.Examiner, 0, 0);
         }
 
         private int[] GetPassablePosition()

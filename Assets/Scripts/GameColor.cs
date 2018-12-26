@@ -2,39 +2,33 @@
 
 namespace Fungus.GameSystem.Render
 {
-    public enum ColorName { TEST, White, Black, Grey }
+    public enum ColorName { TEST, White, Black, Grey, Orange }
 
     // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
     public class GameColor : MonoBehaviour
     {
         public Color PickColor(ColorName name)
         {
-            Color32 color;
-
             switch (name)
             {
                 case ColorName.White:
-                    color = new Color32(171, 178, 191, 255);
-                    break;
+                    return new Color32(171, 178, 191, 255);
 
                 case ColorName.Black:
-                    color = new Color32(40, 44, 52, 0);
-                    break;
+                    return new Color32(40, 44, 52, 0);
 
                 case ColorName.Grey:
-                    color = new Color32(73, 81, 98, 255);
-                    break;
+                    return new Color32(73, 81, 98, 255);
+
+                case ColorName.Orange:
+                    return new Color32(229, 192, 123, 255);
 
                 case ColorName.TEST:
-                    color = new Color32(255, 0, 0, 255);
-                    break;
+                    return new Color32(255, 0, 0, 255);
 
                 default:
-                    color = new Color32();
-                    break;
+                    return new Color32();
             }
-
-            return color;
         }
     }
 }

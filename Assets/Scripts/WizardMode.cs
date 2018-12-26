@@ -21,6 +21,9 @@ namespace Fungus.GameSystem
         public void DrinkPotion()
         {
             FindObjects.GameLogic.GetComponent<UIExamine>().SwitchExamineMode(true);
+            FindObjects.GameLogic.GetComponent<SchedulingSystem>().CurrentActor
+                .SetActive(false);
+            FindObjects.Examiner.SetActive(true);
             //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
 
             //int[] pos = GetComponent<ConvertCoordinates>()

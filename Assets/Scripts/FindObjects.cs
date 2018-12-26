@@ -10,8 +10,31 @@ namespace Fungus.GameSystem
     // object which it CAN be and MUST be attached to is GameLogic.
     public class FindObjects : MonoBehaviour
     {
+        private static GameObject examiner;
         private static Dictionary<UITag, GameObject> mainUIDict;
         private static GameObject pcActor;
+
+        public static GameObject Examiner
+        {
+            get
+            {
+                if (examiner == null)
+                {
+                    Debug.Log("Examiner is null.");
+                }
+                return examiner;
+            }
+
+            set
+            {
+                if (examiner != null)
+                {
+                    Debug.Log("Examiner already exists.");
+                    return;
+                }
+                examiner = value;
+            }
+        }
 
         public static GameObject GameLogic { get; private set; }
 
