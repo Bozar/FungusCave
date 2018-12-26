@@ -188,6 +188,13 @@ namespace Fungus.GameSystem.ObjectManager
             GameObject go;
 
             go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
+
+            go.AddComponent<ObjectMetaInfo>();
+            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
+            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
+
+            go.AddComponent<PlayerInput>();
+
             go.transform.position
                = GetComponent<ConvertCoordinates>().Convert(x, y);
             go.SetActive(false);
@@ -195,6 +202,8 @@ namespace Fungus.GameSystem.ObjectManager
             switch (tag)
             {
                 case SubObjectTag.Examiner:
+                    go.AddComponent<ExaminerActions>();
+
                     FindObjects.Examiner = go;
                     break;
             }

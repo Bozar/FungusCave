@@ -27,12 +27,6 @@ namespace Fungus.GameSystem.Render
                 .text = ActorName(actor);
         }
 
-        public void SwitchExamineMode(bool isExamine)
-        {
-            FindObjects.GetUIObject(UITag.ExamineMessage).SetActive(isExamine);
-            FindObjects.GetUIObject(UITag.Message).SetActive(!isExamine);
-        }
-
         private string ActorData(GameObject go)
         {
             int hp = go.GetComponent<HP>().CurrentHP;

@@ -7,7 +7,7 @@ namespace Fungus.Actor
         INVALID,
         Left, Right, Up, Down,
         UpLeft, UpRight, DownLeft, DownRight,
-        Wait, AutoExplore,
+        Wait, AutoExplore, Examine,
         Confirm, Cancel,
 
         // NPC actions:
@@ -106,6 +106,10 @@ namespace Fungus.Actor
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 return Command.AutoExplore;
+            }
+            else if (Input.GetKeyDown(KeyCode.X))
+            {
+                return Command.Examine;
             }
             // Test key combinations.
             else if (Input.GetKey(KeyCode.LeftControl)

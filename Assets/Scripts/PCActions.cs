@@ -101,6 +101,11 @@ namespace Fungus.Actor.Turn
                     GetComponent<AutoExplore>().Initialize();
                     GetComponent<AutoExplore>().GetDestination();
                     return;
+
+                case Command.Examine:
+                    FindObjects.GameLogic.GetComponent<SubGameMode>()
+                        .SwitchExamineMode(true);
+                    return;
             }
 
             // Test commands.
@@ -142,10 +147,6 @@ namespace Fungus.Actor.Turn
 
                     case Command.PrintEnergyCost:
                         wizard.SwitchPrintEnergyCost();
-                        return;
-
-                    case Command.Cancel:
-                        wizard.ExitExamineMode();
                         return;
                 }
             }

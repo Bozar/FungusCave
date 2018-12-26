@@ -21,17 +21,19 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<ConvertCoordinates>();
             gameObject.AddComponent<CreateWorld>();
+
             gameObject.AddComponent<Direction>();
             gameObject.AddComponent<DungeonBlueprint>();
             gameObject.AddComponent<DungeonBoard>();
+            gameObject.AddComponent<DungeonTerrain>();
 
+            gameObject.AddComponent<SubGameMode>();
             gameObject.AddComponent<FindObjects>();
             gameObject.AddComponent<GameColor>();
             gameObject.AddComponent<Initialize>();
+
             gameObject.AddComponent<ObjectData>();
             gameObject.AddComponent<ObjectPool>();
-
-            gameObject.AddComponent<DungeonTerrain>();
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();

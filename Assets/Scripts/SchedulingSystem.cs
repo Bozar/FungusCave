@@ -46,6 +46,11 @@ namespace Fungus.GameSystem.Turn
             EnableComponent(true);
         }
 
+        public void PauseTurn(bool pause)
+        {
+            EnableComponent(!pause);
+        }
+
         public void PrintSchedule()
         {
             int actorIndex = 1;
