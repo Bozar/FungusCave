@@ -40,15 +40,15 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
+            if (GetComponent<FieldOfView>() != null)
+            {
+                GetComponent<FieldOfView>().UpdateFOV();
+            }
+
             if (!checkEnergy)
             {
                 schedule.NextActor();
                 return;
-            }
-
-            if (GetComponent<FieldOfView>() != null)
-            {
-                GetComponent<FieldOfView>().UpdateFOV();
             }
 
             switch (GetComponent<ActorAI>().DummyAI())
