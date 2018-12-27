@@ -3,19 +3,24 @@ using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor.Render
 {
     public class RenderSprite : MonoBehaviour
     {
-        private ConvertCoordinates coordinate;
+        private ActorBoard actor;
+        private ConvertCoordinates coord;
         private Color32 defaultColor;
+        private GameObject examiner;
         private GameColor gameColor;
         private GameObject pc;
-        private int[] position;
-        private int x;
-        private int y;
+
+        public void ChangeColor(ColorName newColor)
+        {
+            GetComponent<SpriteRenderer>().color = gameColor.PickColor(newColor);
+        }
 
         public void ChangeColor(Color32 newColor)
         {
@@ -29,7 +34,7 @@ namespace Fungus.Actor.Render
 
         private void HideSprite()
         {
-            ChangeColor(gameColor.PickColor(ColorName.Black));
+            GetComponent<SpriteRenderer>().enabled = false;
         }
 
         private void LateUpdate()
@@ -40,55 +45,86 @@ namespace Fungus.Actor.Render
                 return;
             }
 
-            position = coordinate.GetComponent<ConvertCoordinates>().Convert(
-                transform.position);
-            x = position[0];
-            y = position[1];
+            int[] goPos = coord.Convert(transform.position);
+            int[] exPos = coord.Convert(examiner.transform.position);
+            int x = goPos[0];
+            int y = goPos[1];
+
+            if (examiner.activeSelf && (x == exPos[0]) && (y == exPos[1]))
+            {
+                HideSprite();
+                return;
+            }
 
             switch (pc.GetComponent<FieldOfView>().GetFOVStatus(x, y))
             {
                 case FOVStatus.Unknown:
                     HideSprite();
-                    break;
+                    return;
 
                 case FOVStatus.Visited:
                     switch (GetComponent<ObjectMetaInfo>().MainTag)
                     {
                         case MainObjectTag.Building:
                             RememberSprite();
-                            break;
+                            return;
 
                         case MainObjectTag.Actor:
                             HideSprite();
-                            break;
+                            return;
+
+                        default:
+                            return;
                     }
-                    break;
 
                 case FOVStatus.Insight:
-                    ShowSprite();
-                    break;
+                    switch (GetComponent<ObjectMetaInfo>().MainTag)
+                    {
+                        case MainObjectTag.Building:
+                            if (actor.HasActor(x, y))
+                            {
+                                HideSprite();
+                            }
+                            else
+                            {
+                                ShowSprite();
+                            }
+                            return;
+
+                        case MainObjectTag.Actor:
+                            ShowSprite();
+                            return;
+
+                        default:
+                            return;
+                    }
 
                 case FOVStatus.TEST:
-                    ChangeColor(gameColor.PickColor(ColorName.TEST));
-                    break;
+                    ChangeColor(ColorName.TEST);
+                    return;
             }
         }
 
         private void RememberSprite()
         {
-            ChangeColor(gameColor.PickColor(ColorName.Grey));
+            GetComponent<SpriteRenderer>().enabled = true;
+            ChangeColor(ColorName.Grey);
         }
 
         private void ShowSprite()
         {
+            GetComponent<SpriteRenderer>().enabled = true;
             ChangeColor(defaultColor);
         }
 
         private void Start()
         {
             gameColor = FindObjects.GameLogic.GetComponent<GameColor>();
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+
             pc = FindObjects.PC;
+            examiner = FindObjects.Examiner;
         }
     }
 }

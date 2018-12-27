@@ -4,7 +4,6 @@ using Fungus.Actor.FOV;
 using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Render;
 using Fungus.Actor.Turn;
-using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using System;
@@ -67,6 +66,10 @@ namespace Fungus.GameSystem.ObjectManager
                 case MainObjectTag.Building:
                     StoreBuilding(go);
                     break;
+
+                case MainObjectTag.Doppleganger:
+                    StoreDoppleganger(go);
+                    break;
             }
         }
 
@@ -84,16 +87,14 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
 
-                go.AddComponent<ObjectMetaInfo>();
-                go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
-                go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
+                SetTags(MainObjectTag.Actor, tag, go);
 
                 go.AddComponent<FieldOfView>();
                 go.AddComponent<FOVRhombus>();
                 //go.AddComponent<FOVSimple>();
                 go.AddComponent<RenderSprite>();
 
-                go.AddComponent<TileOverlay>();
+                //go.AddComponent<TileOverlay>();
                 go.AddComponent<InternalClock>();
 
                 go.AddComponent<Energy>();
@@ -123,9 +124,6 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<ActorAI>();
                     //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
-
-                    go.GetComponent<RenderSprite>().ChangeColor(
-                        GetComponent<GameColor>().PickColor(ColorName.Black));
 
                     if (TESTDUMMY == null)
                     {
@@ -162,20 +160,13 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
 
-                go.AddComponent<ObjectMetaInfo>();
-                go.GetComponent<ObjectMetaInfo>().SetMainTag(
-                    MainObjectTag.Building);
-                go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
-
+                SetTags(MainObjectTag.Building, tag, go);
                 go.AddComponent<RenderSprite>();
             }
 
             // ObjectPool is attached to GameLogic.
             go.transform.position
                 = GetComponent<ConvertCoordinates>().Convert(x, y);
-
-            go.GetComponent<RenderSprite>().ChangeColor(
-                GetComponent<GameColor>().PickColor(ColorName.Black));
 
             GetComponent<DungeonBoard>().ChangeBlock(go, x, y);
             GetComponent<DungeonBoard>().ChangeBlueprint(tag, x, y);
@@ -189,10 +180,7 @@ namespace Fungus.GameSystem.ObjectManager
 
             go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
 
-            go.AddComponent<ObjectMetaInfo>();
-            go.GetComponent<ObjectMetaInfo>().SetMainTag(MainObjectTag.Actor);
-            go.GetComponent<ObjectMetaInfo>().SetSubTag(tag);
-
+            SetTags(MainObjectTag.Actor, tag, go);
             go.AddComponent<PlayerInput>();
 
             go.transform.position
@@ -210,6 +198,13 @@ namespace Fungus.GameSystem.ObjectManager
             }
 
             return go;
+        }
+
+        private void SetTags(MainObjectTag main, SubObjectTag sub, GameObject go)
+        {
+            go.AddComponent<ObjectMetaInfo>();
+            go.GetComponent<ObjectMetaInfo>().SetMainTag(main);
+            go.GetComponent<ObjectMetaInfo>().SetSubTag(sub);
         }
 
         private void Start()
