@@ -13,6 +13,9 @@ namespace Fungus.GameSystem
 
             FindObjects.GameLogic.GetComponent<SchedulingSystem>()
                 .PauseTurn(examine);
+
+            FindObjects.Examiner.transform.position
+                = FindObjects.PC.transform.position;
             FindObjects.Examiner.SetActive(examine);
         }
     }

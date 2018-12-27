@@ -5,6 +5,24 @@ namespace Fungus.Actor.Turn
 {
     public class ExaminerActions : MonoBehaviour
     {
+        private ConvertCoordinates coord;
+        private SubGameMode mode;
+
+        private void MoveExaminer()
+        {
+            int[] target = coord.Convert(
+                GetComponent<PlayerInput>().GameCommand(),
+                FindObjects.Examiner.transform.position);
+
+            GetComponent<MoveExamineMarker>().MoveGameObject(target);
+        }
+
+        private void Start()
+        {
+            mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+        }
+
         private void Update()
         {
             switch (GetComponent<PlayerInput>().GameCommand())
@@ -17,12 +35,11 @@ namespace Fungus.Actor.Turn
                 case Command.UpRight:
                 case Command.DownLeft:
                 case Command.DownRight:
-                    GetComponent<MoveExamineMarker>().MoveGameObject(0, 0);
+                    MoveExaminer();
                     break;
 
                 case Command.Cancel:
-                    FindObjects.GameLogic.GetComponent<SubGameMode>()
-                        .SwitchExamineMode(false);
+                    mode.SwitchExamineMode(false);
                     break;
             }
         }
