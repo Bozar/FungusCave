@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
-    public enum FOVShape { Rhombus };
+    public enum FOVShape { Rhombus, Square };
 
     // Create a 2D array. Provide methods to inspect and change its content.
     public class DungeonBoard : MonoBehaviour
@@ -132,7 +132,7 @@ namespace Fungus.GameSystem.WorldBuilding
         public bool IsInsideRange(FOVShape shape, int maxRange,
             int[] source, int[] target)
         {
-            bool check;
+            int distance;
 
             if (IndexOutOfRange(target[0], target[1]))
             {
@@ -142,16 +142,20 @@ namespace Fungus.GameSystem.WorldBuilding
             switch (shape)
             {
                 case FOVShape.Rhombus:
-                    check = Math.Abs(target[0] - source[0])
-                        + Math.Abs(target[1] - source[1])
-                        <= maxRange;
+                    distance = Math.Abs(target[0] - source[0])
+                        + Math.Abs(target[1] - source[1]);
+                    break;
+
+                case FOVShape.Square:
+                    distance = Math.Max(
+                        Math.Abs(target[0] - source[0]),
+                        Math.Abs(target[1] - source[1]));
                     break;
 
                 default:
-                    check = false;
-                    break;
+                    return false;
             }
-            return check;
+            return distance <= maxRange;
         }
 
         private void Awake()
