@@ -38,6 +38,10 @@ namespace Fungus.GameSystem
 
         public static GameObject GameLogic { get; private set; }
 
+        public static string IconEnemy { get { return "@"; } }
+        public static string IconFog { get { return "%"; } }
+        public static string IconPool { get { return "="; } }
+
         public static GameObject PC
         {
             get

@@ -87,13 +87,14 @@ namespace Fungus.GameSystem.Render
         private void UpdateEnvironment()
         {
             // TODO: check the weather.
+            //bool hasFog = true;
             bool hasFog = false;
             sb = sb.Remove(0, sb.Length);
             sb.Append("[ ");
 
             if (pc.GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
             {
-                sb.Append("@");
+                sb.Append(FindObjects.IconEnemy);
             }
 
             if (board.CheckBlock(SubObjectTag.Pool, pc.transform.position))
@@ -102,7 +103,7 @@ namespace Fungus.GameSystem.Render
                 {
                     sb.Append(" | ");
                 }
-                sb.Append("Pool");
+                sb.Append(FindObjects.IconPool);
             }
 
             if (hasFog)
@@ -111,7 +112,7 @@ namespace Fungus.GameSystem.Render
                 {
                     sb.Append(" | ");
                 }
-                sb.Append("Fog");
+                sb.Append(FindObjects.IconFog);
             }
             sb.Append(" ]");
 

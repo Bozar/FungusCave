@@ -4006,7 +4006,7 @@ Prefab:
     - target: {fileID: 114245535195958476, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 2}
       propertyPath: m_Text
-      value: '[ Pool | Fog ]'
+      value: '[ @ | = | % ]'
       objectReference: {fileID: 0}
     - target: {fileID: 114245535195958476, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 2}

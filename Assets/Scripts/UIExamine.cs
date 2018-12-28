@@ -1,5 +1,7 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,7 @@ namespace Fungus.GameSystem.Render
 {
     public class UIExamine : MonoBehaviour, IUpdateUI
     {
+        private DungeonBoard board;
         private StringBuilder sb;
 
         public void PrintText()
@@ -54,12 +57,28 @@ namespace Fungus.GameSystem.Render
         private string ActorName(GameObject go)
         {
             string name = go.GetComponent<ObjectMetaInfo>().Name;
+            //bool hasFog = true;
+            bool hasFog = false;
 
-            //> [ Dummy ]
+            //> [ Dummy | = | % ]
             sb.Remove(0, sb.Length);
 
             sb.Append("[ ");
             sb.Append(name);
+
+            if (board.CheckBlock(SubObjectTag.Pool,
+                FindObjects.Examiner.transform.position))
+            {
+                sb.Append(" | ");
+                sb.Append(FindObjects.IconPool);
+            }
+
+            if (hasFog)
+            {
+                sb.Append(" | ");
+                sb.Append(FindObjects.IconFog);
+            }
+
             sb.Append(" ]");
 
             return sb.ToString();
@@ -68,6 +87,11 @@ namespace Fungus.GameSystem.Render
         private void Awake()
         {
             sb = new StringBuilder();
+        }
+
+        private void Start()
+        {
+            board = GetComponent<DungeonBoard>();
         }
     }
 }
