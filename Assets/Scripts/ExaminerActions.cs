@@ -39,7 +39,7 @@ namespace Fungus.Actor.Turn
                     break;
 
                 case Command.Cancel:
-                    mode.SwitchExamineMode(false);
+                    mode.SwitchModeExamine(false);
                     break;
             }
         }

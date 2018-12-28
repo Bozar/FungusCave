@@ -28,8 +28,6 @@ namespace Fungus.GameSystem.ObjectManager
         private Dictionary<SubObjectTag, Stack<GameObject>> pool;
         private int[] position;
 
-        public GameObject TESTDUMMY { get; private set; }
-
         public GameObject CreateObject(
             MainObjectTag mainTag, SubObjectTag subTag, int[] position)
         {
@@ -124,11 +122,6 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<ActorAI>();
                     //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
-
-                    if (TESTDUMMY == null)
-                    {
-                        TESTDUMMY = go;
-                    }
 
                     // NOTE: Change sprite.
                     //UnityEngine.Object[] test

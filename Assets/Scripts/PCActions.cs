@@ -104,7 +104,7 @@ namespace Fungus.Actor.Turn
 
                 case Command.Examine:
                     FindObjects.GameLogic.GetComponent<SubGameMode>()
-                        .SwitchExamineMode(true);
+                        .SwitchModeExamine(true);
                     return;
             }
 

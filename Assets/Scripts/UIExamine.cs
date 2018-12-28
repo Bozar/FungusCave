@@ -1,6 +1,5 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem.ObjectManager;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,12 +12,12 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            if (GetComponent<ObjectPool>().TESTDUMMY == null)
+            if (GetComponent<SubGameMode>().ExamineTarget == null)
             {
                 return;
             }
 
-            GameObject actor = GetComponent<ObjectPool>().TESTDUMMY;
+            GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
 
             FindObjects.GetUIObject(UITag.ExamineData).GetComponent<Text>()
                 .text = ActorData(actor);
