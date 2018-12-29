@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.FOV;
 using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -7,8 +8,11 @@ namespace Fungus.Actor
 {
     public class MoveExamineMarker : MonoBehaviour, IMove
     {
-        private DungeonBoard board;
+        private ActorBoard actor;
         private ConvertCoordinates coord;
+        private DungeonBoard dungeon;
+        private FieldOfView fov;
+        private SubGameMode mode;
 
         public void MoveGameObject(int targetX, int targetY)
         {
@@ -16,10 +20,28 @@ namespace Fungus.Actor
             int[] source = coord.Convert(FindObjects.PC.transform.position);
             int[] target = new int[] { targetX, targetY };
 
-            if (board.IsInsideRange(FOVShape.Square, range, source, target))
+            if (dungeon.IsInsideRange(FOVShape.Square, range, source, target))
             {
                 transform.position = coord.Convert(targetX, targetY);
             }
+            else
+            {
+                return;
+            }
+
+            if (fov.CheckFOV(FOVStatus.Insight, target)
+                && actor.HasActor(target)
+                && !actor.CheckActorTag(SubObjectTag.PC, target[0], target[1]))
+            {
+                mode.SwitchUIExamineMessage(true);
+                mode.ExamineTarget = actor.GetActor(target[0], target[1]);
+            }
+            else
+            {
+                mode.SwitchUIExamineMessage(false);
+                mode.ExamineTarget = null;
+            }
+            return;
         }
 
         public void MoveGameObject(int[] position)
@@ -30,7 +52,11 @@ namespace Fungus.Actor
         private void Start()
         {
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+
+            fov = FindObjects.PC.GetComponent<FieldOfView>();
         }
     }
 }
