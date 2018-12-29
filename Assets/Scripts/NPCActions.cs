@@ -59,7 +59,7 @@ namespace Fungus.Actor.Turn
 
                 case Command.Approach:
                     position = GetComponent<AutoExplore>().GetDestination();
-                    GetComponent<MoveActor>().MoveGameObject(position);
+                    GetComponent<IMove>().MoveGameObject(position);
                     return;
 
                 case Command.Attack:

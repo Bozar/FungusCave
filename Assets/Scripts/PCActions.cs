@@ -29,7 +29,7 @@ namespace Fungus.Actor.Turn
                 GetComponent<Attack>().MeleeAttack(target[0], target[1]);
                 return;
             }
-            GetComponent<MoveActor>().MoveGameObject(target[0], target[1]);
+            GetComponent<IMove>().MoveGameObject(target[0], target[1]);
             return;
         }
 
@@ -75,7 +75,7 @@ namespace Fungus.Actor.Turn
 
                 if (target != null)
                 {
-                    GetComponent<MoveActor>().MoveGameObject(target);
+                    GetComponent<IMove>().MoveGameObject(target);
                 }
                 return;
             }

@@ -14,7 +14,7 @@ namespace Fungus.Actor.Turn
                 GetComponent<PlayerInput>().GameCommand(),
                 FindObjects.Examiner.transform.position);
 
-            GetComponent<MoveExamineMarker>().MoveGameObject(target);
+            GetComponent<IMove>().MoveGameObject(target);
         }
 
         private void Start()
