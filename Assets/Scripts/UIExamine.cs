@@ -15,12 +15,15 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            if (GetComponent<SubGameMode>().ExamineTarget == null)
+            FindObjects.GetUIObject(UITag.ExamineModeline).GetComponent<Text>()
+                .text = "[ Examine | Esc ]";
+
+            GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
+
+            if (actor == null)
             {
                 return;
             }
-
-            GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
 
             FindObjects.GetUIObject(UITag.ExamineData).GetComponent<Text>()
                 .text = ActorData(actor);

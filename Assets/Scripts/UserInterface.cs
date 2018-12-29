@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.Render
         InfectionName0, InfectionDuration0,
         InfectionName1, InfectionDuration1,
 
-        ExamineMessage, ExamineName, ExamineData
+        ExamineMessage, ExamineName, ExamineData, ExamineModeline
     };
 
     public interface IUpdateUI { void PrintText(); }
@@ -74,6 +74,7 @@ namespace Fungus.GameSystem.Render
         private void TurnOffUIElements()
         {
             getUI(UITag.ExamineMessage).SetActive(false);
+            getUI(UITag.ExamineModeline).SetActive(false);
         }
 
         private void UpdateDamage()

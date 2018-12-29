@@ -15,10 +15,7 @@ namespace Fungus.GameSystem
 
         public void SwitchModeExamine(bool switchOn)
         {
-            if (!switchOn)
-            {
-                SwitchUIExamine(switchOn);
-            }
+            SwitchUIExamine(switchOn, true);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
@@ -37,12 +34,12 @@ namespace Fungus.GameSystem
                 if (actor.HasActor(pos)
                     && !actor.CheckActorTag(SubObjectTag.PC, pos[0], pos[1]))
                 {
-                    SwitchUIExamine(true);
+                    SwitchUIExamine(true, false);
                     ExamineTarget = actor.GetActor(pos[0], pos[1]);
                 }
                 else
                 {
-                    SwitchUIExamine(false);
+                    SwitchUIExamine(false, false);
                     ExamineTarget = null;
                 }
             }
@@ -54,10 +51,16 @@ namespace Fungus.GameSystem
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }
 
-        private void SwitchUIExamine(bool switchOn)
+        private void SwitchUIExamine(bool switchOn, bool switchModeline)
         {
             FindObjects.GetUIObject(UITag.ExamineMessage).SetActive(switchOn);
             FindObjects.GetUIObject(UITag.Message).SetActive(!switchOn);
+
+            if (switchModeline)
+            {
+                FindObjects.GetUIObject(UITag.ExamineModeline).SetActive(
+                    switchOn);
+            }
         }
     }
 }
