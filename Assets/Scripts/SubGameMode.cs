@@ -1,12 +1,25 @@
 ﻿using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
+using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.GameSystem
 {
     public class SubGameMode : MonoBehaviour
     {
-        public GameObject ExamineTarget { get; set; }
+        private ActorBoard actor;
+        private ConvertCoordinates coord;
+
+        public GameObject ExamineTarget
+        {
+            get
+            {
+                int[] pos = coord.Convert(
+                    FindObjects.Examiner.transform.position);
+
+                return actor.GetActor(pos[0], pos[1]);
+            }
+        }
 
         public void SwitchModeExamine(bool switchOn)
         {
@@ -29,6 +42,12 @@ namespace Fungus.GameSystem
         public void SwitchUIExamineModeline(bool switchOn)
         {
             FindObjects.GetUIObject(UITag.ExamineModeline).SetActive(switchOn);
+        }
+
+        private void Start()
+        {
+            actor = GetComponent<ActorBoard>();
+            coord = GetComponent<ConvertCoordinates>();
         }
     }
 }

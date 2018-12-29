@@ -34,12 +34,10 @@ namespace Fungus.Actor
                 && !actor.CheckActorTag(SubObjectTag.PC, target[0], target[1]))
             {
                 mode.SwitchUIExamineMessage(true);
-                mode.ExamineTarget = actor.GetActor(target[0], target[1]);
             }
             else
             {
                 mode.SwitchUIExamineMessage(false);
-                mode.ExamineTarget = null;
             }
             return;
         }
