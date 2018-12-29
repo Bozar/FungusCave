@@ -2,15 +2,30 @@
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
 {
+    public interface ITargetsInSight { List<GameObject> GetTargetsList(); }
+
     public class AIVision : MonoBehaviour
     {
         private ActorBoard actor;
         private ConvertCoordinates coordinate;
         private FieldOfView fov;
+
+        public List<GameObject> TargetsList
+        {
+            get
+            {
+                if (GetComponent<ITargetsInSight>() != null)
+                {
+                    return GetComponent<ITargetsInSight>().GetTargetsList();
+                }
+                return null;
+            }
+        }
 
         public bool CanSeeTarget(MainObjectTag targetTag)
         {
