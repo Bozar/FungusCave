@@ -14,10 +14,11 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
+        private ActorBoard actor;
         private bool attacker;
-        private DungeonBoard board;
         private int countInfections;
         private int defaultMaxHP;
+        private DungeonBoard dungeon;
         private int energyInfectionOverflow;
         private bool hasPower;
         private double hpFactor;
@@ -196,7 +197,7 @@ namespace Fungus.Actor
             hp = (int)Math.Floor(
                 Math.Max(0, defaultMaxHP - currentHP) / hpFactor * 10);
 
-            pool = board.CheckBlock(SubObjectTag.Pool, currentPosition)
+            pool = dungeon.CheckBlock(SubObjectTag.Pool, currentPosition)
                 ? modPool : 0;
 
             // TODO: Check weather.
@@ -235,7 +236,10 @@ namespace Fungus.Actor
 
             if (totalInfections > 0)
             {
-                message.StoreText("You are infected.");
+                if (actor.CheckActorTag(SubObjectTag.PC, gameObject))
+                {
+                    message.StoreText("You are infected.");
+                }
                 return true;
             }
             return false;
@@ -249,7 +253,8 @@ namespace Fungus.Actor
 
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }
     }
 }
