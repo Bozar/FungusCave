@@ -30,8 +30,8 @@ namespace Fungus.GameSystem
             {
                 Debug.Log("You are blocked.");
                 message.text = "You are blocked";
-                FindObjects.GameLogic.GetComponent<UIModeline>().PrintText(
-                    message.text);
+                FindObjects.GameLogic.GetComponent<UIModeline>()
+                    .PrintStaticText(message.text);
                 return;
             }
 

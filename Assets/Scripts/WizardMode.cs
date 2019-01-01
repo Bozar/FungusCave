@@ -68,7 +68,7 @@ namespace Fungus.GameSystem
         {
             PrintEnergyCost = !PrintEnergyCost;
 
-            GetComponent<UIModeline>().PrintText(
+            GetComponent<UIModeline>().PrintStaticText(
                 "Print energy cost: " + PrintEnergyCost);
         }
 

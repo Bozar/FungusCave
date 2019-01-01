@@ -13,6 +13,16 @@ namespace Fungus.GameSystem.Render
         private DungeonBoard board;
         private StringBuilder sb;
 
+        public void PrintStaticText()
+        {
+            return;
+        }
+
+        public void PrintStaticText(string text)
+        {
+            return;
+        }
+
         public void PrintText()
         {
             FindObjects.GetUIObject(UITag.ExamineModeline).GetComponent<Text>()

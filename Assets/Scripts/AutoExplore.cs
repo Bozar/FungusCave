@@ -160,7 +160,7 @@ namespace Fungus.Actor.AI
             else if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
             {
                 StopAutoExplore();
-                modeline.PrintText("There are enemies nearby.");
+                modeline.PrintStaticText("There are enemies nearby.");
                 return false;
             }
 
@@ -169,7 +169,7 @@ namespace Fungus.Actor.AI
             if (checkPosition.Count < 1)
             {
                 StopAutoExplore();
-                modeline.PrintText("You have explored everywhere.");
+                modeline.PrintStaticText("You have explored everywhere.");
                 return false;
             }
             return true;

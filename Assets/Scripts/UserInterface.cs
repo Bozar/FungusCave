@@ -24,7 +24,15 @@ namespace Fungus.GameSystem.Render
         ExamineMessage, ExamineName, ExamineData, ExamineModeline
     };
 
-    public interface IUpdateUI { void PrintText(); }
+    public interface IUpdateUI
+    {
+        // Static text does not update automatically.
+        void PrintStaticText();
+
+        void PrintStaticText(string text);
+
+        void PrintText();
+    }
 
     public class UserInterface : MonoBehaviour
     {
@@ -58,8 +66,10 @@ namespace Fungus.GameSystem.Render
             UpdatePower();
             UpdateTurn();
 
-            GetComponent<UIMessage>().PrintText();
-            GetComponent<UIExamine>().PrintText();
+            foreach (IUpdateUI ui in GetComponents<IUpdateUI>())
+            {
+                ui.PrintText();
+            }
         }
 
         private void Start()

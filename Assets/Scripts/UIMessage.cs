@@ -23,6 +23,16 @@ namespace Fungus.GameSystem.Render
 
         private delegate GameObject UIDict(UITag tag);
 
+        public void PrintStaticText()
+        {
+            return;
+        }
+
+        public void PrintStaticText(string text)
+        {
+            return;
+        }
+
         public void PrintText()
         {
             CheckLineCount();

@@ -12,17 +12,22 @@ namespace Fungus.GameSystem.Render
 
         private delegate GameObject UIDict(UITag tag);
 
-        public void PrintText()
+        public void PrintStaticText()
         {
-            PrintText("");
+            PrintStaticText("");
         }
 
-        public void PrintText(string text)
+        public void PrintStaticText(string text)
         {
             StoreText(text);
             CheckLineCount();
 
             getUI(UITag.Modeline).GetComponent<Text>().text = newLine;
+        }
+
+        public void PrintText()
+        {
+            return;
         }
 
         private void Awake()

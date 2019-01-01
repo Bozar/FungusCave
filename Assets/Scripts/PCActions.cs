@@ -66,7 +66,7 @@ namespace Fungus.Actor.Turn
 
             if (input.GameCommand() != Command.INVALID)
             {
-                FindObjects.GameLogic.GetComponent<UIModeline>().PrintText();
+                FindObjects.GameLogic.GetComponent<UIModeline>().PrintStaticText();
             }
 
             if (GetComponent<AutoExplore>().ContinueAutoExplore)

@@ -47,7 +47,7 @@ namespace Fungus.Actor
 
             if (!terrain.IsPassable(targetX, targetY))
             {
-                modeline.PrintText("You are blocked");
+                modeline.PrintStaticText("You are blocked");
                 return;
             }
 
