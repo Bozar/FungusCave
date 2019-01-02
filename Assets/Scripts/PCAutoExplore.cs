@@ -1,15 +1,11 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.FOV;
+using Fungus.GameSystem;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
 {
     public class PCAutoExplore : MonoBehaviour, IAutoExplore
     {
-        public int GetDistance()
-        {
-            return 0;
-        }
-
         public SeedTag GetSeedTag()
         {
             return SeedTag.AutoExplore;
@@ -19,6 +15,12 @@ namespace Fungus.Actor.AI
         {
             startPoint = new int[2];
             return false;
+        }
+
+        public bool IsStartPoint(int[] position)
+        {
+            return GetComponent<FieldOfView>().CheckFOV(
+                FOVStatus.Unknown, position);
         }
     }
 }

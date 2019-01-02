@@ -13,11 +13,11 @@ namespace Fungus.Actor.AI
 {
     public interface IAutoExplore
     {
-        int GetDistance();
-
         SeedTag GetSeedTag();
 
         bool GetStartPoint(out int[] startPoint);
+
+        bool IsStartPoint(int[] position);
     }
 
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
@@ -25,7 +25,6 @@ namespace Fungus.Actor.AI
     {
         private readonly int gridSize = 10;
         private readonly int notChecked = 9999;
-        private ActorBoard actor;
         private int[,] board;
         private Stack<int[]> checkPosition;
         private ConvertCoordinates coord;
@@ -71,7 +70,7 @@ namespace Fungus.Actor.AI
 
             currentPosition = coord.Convert(transform.position);
             ResetBoard();
-            MarkDistance();
+            SetDistance(checkPosition);
             newPosition = GetNewPosition();
 
             return newPosition;
@@ -93,21 +92,20 @@ namespace Fungus.Actor.AI
             maxCount = 20;
         }
 
-        private int GetMinDistance()
+        private int GetDistance(List<int[]> surround)
         {
-            minDistance = board[surround[0][0], surround[0][1]];
+            int distance = board[surround[0][0], surround[0][1]];
 
             foreach (var pos in surround)
             {
-                if (board[pos[0], pos[1]] < minDistance)
+                if (board[pos[0], pos[1]] < distance)
                 {
-                    minDistance = board[pos[0], pos[1]];
+                    distance = board[pos[0], pos[1]];
                 }
             }
 
-            minDistance = (minDistance == notChecked)
-                ? 0 : (minDistance + gridSize);
-            return minDistance;
+            distance = (distance == notChecked) ? 0 : (distance + gridSize);
+            return distance;
         }
 
         private int[] GetNewPosition()
@@ -210,58 +208,6 @@ namespace Fungus.Actor.AI
             return;
         }
 
-        private void MarkDistance()
-        {
-            //int x, y, pcX, pcY;
-            int x, y;
-            bool isPassable;
-            bool isVaildDistance;
-
-            if (checkPosition.Count < 1)
-            {
-                return;
-            }
-
-            newPosition = checkPosition.Pop();
-            x = newPosition[0];
-            y = newPosition[1];
-
-            surround = coord.SurroundCoord(Surround.Diagonal, newPosition);
-            surround = dungeon.FilterPositions(surround);
-
-            if (isPC)
-            {
-                board[x, y] = fov.CheckFOV(FOVStatus.Unknown, newPosition)
-                    ? 0 : GetMinDistance();
-            }
-            else
-            {
-                //pcX = GetComponent<NPCMemory>().PCPosition[0];
-                //pcY = GetComponent<NPCMemory>().PCPosition[1];
-
-                //board[x, y] = ((x == pcX) && (y == pcY))
-                //    ? 0 : GetMinDistance();
-
-                board[x, y]
-                    = actor.CheckActorTag(SubObjectTag.PC, actor.GetActor(x, y))
-                    ? 0 : GetMinDistance();
-            }
-
-            foreach (var pos in surround)
-            {
-                isPassable = terrain.IsPassable(pos[0], pos[1]);
-                isVaildDistance
-                    = Math.Abs(board[x, y] - board[pos[0], pos[1]]) <= gridSize;
-
-                if (isPassable && !isVaildDistance)
-                {
-                    checkPosition.Push(pos);
-                }
-            }
-
-            MarkDistance();
-        }
-
         private void ResetBoard()
         {
             for (int i = 0; i < dungeon.Width; i++)
@@ -273,6 +219,40 @@ namespace Fungus.Actor.AI
             }
         }
 
+        private void SetDistance(Stack<int[]> uncheckedGrids)
+        {
+            if (uncheckedGrids.Count < 1)
+            {
+                return;
+            }
+
+            int[] position = uncheckedGrids.Pop();
+            int x = position[0];
+            int y = position[1];
+
+            List<int[]> surround = coord.SurroundCoord(
+                Surround.Diagonal, position);
+            surround = dungeon.FilterPositions(surround);
+
+            board[x, y] = GetComponent<IAutoExplore>().IsStartPoint(position)
+                  ? 0 : GetDistance(surround);
+
+            foreach (var pos in surround)
+            {
+                bool isPassable = terrain.IsPassable(pos[0], pos[1]);
+                bool isVaildDistance
+                    = Math.Abs(board[x, y] - board[pos[0], pos[1]])
+                    <= gridSize;
+
+                if (isPassable && !isVaildDistance)
+                {
+                    uncheckedGrids.Push(pos);
+                }
+            }
+
+            SetDistance(uncheckedGrids);
+        }
+
         private void Start()
         {
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
@@ -280,7 +260,6 @@ namespace Fungus.Actor.AI
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
-            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
             fov = GetComponent<FieldOfView>();
 
