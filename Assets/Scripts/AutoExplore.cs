@@ -11,6 +11,15 @@ using UnityEngine;
 
 namespace Fungus.Actor.AI
 {
+    public interface IAutoExplore
+    {
+        int GetDistance();
+
+        SeedTag GetSeedTag();
+
+        bool GetStartPoint(out int[] startPoint);
+    }
+
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
     public class AutoExplore : MonoBehaviour, ITurnCounter
     {
@@ -103,7 +112,7 @@ namespace Fungus.Actor.AI
 
         private int[] GetNewPosition()
         {
-            SeedTag tag = isPC ? SeedTag.AutoExplore : SeedTag.NPCAction;
+            SeedTag tag = GetComponent<IAutoExplore>().GetSeedTag();
 
             surround = coord.SurroundCoord(Surround.Diagonal, currentPosition);
             surround = dungeon.FilterPositions(surround);

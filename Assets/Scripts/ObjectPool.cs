@@ -114,12 +114,14 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<PCActions>();
                     go.AddComponent<Potion>();
                     go.AddComponent<TurnIndicator>();
+                    go.AddComponent<PCAutoExplore>();
 
                     FindObjects.PC = go;
                 }
                 else
                 {
                     go.AddComponent<ActorAI>();
+                    go.AddComponent<NPCAutoExplore>();
                     //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
 
