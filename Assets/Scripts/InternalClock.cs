@@ -39,9 +39,9 @@ namespace Fungus.Actor.Turn
             }
 
             // TODO: Update after Unity 2018.3.
-            if (GetComponent<AutoExplore>() != null)
+            if (GetComponent<PCAutoExplore>() != null)
             {
-                GetComponent<AutoExplore>().Count();
+                GetComponent<PCAutoExplore>().Count();
             }
 
             //if (GetComponent<NPCMemory>() != null)

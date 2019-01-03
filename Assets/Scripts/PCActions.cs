@@ -14,33 +14,38 @@ namespace Fungus.Actor.Turn
         private bool checkEnergy;
         private bool checkSchedule;
         private ConvertCoordinates coord;
+        private SubGameMode gameMode;
         private Initialize init;
         private PlayerInput input;
+        private UIModeline modeline;
         private SchedulingSystem schedule;
         private WizardMode wizard;
 
         private void MoveOrAttack(Command direction)
         {
-            int[] target = coord.Convert(
-                direction, FindObjects.PC.transform.position);
+            int[] target = coord.Convert(direction, transform.position);
 
             if (actor.HasActor(target))
             {
                 GetComponent<Attack>().MeleeAttack(target[0], target[1]);
                 return;
             }
+
             GetComponent<IMove>().MoveGameObject(target[0], target[1]);
             return;
         }
 
         private void Start()
         {
-            input = GetComponent<PlayerInput>();
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             init = FindObjects.GameLogic.GetComponent<Initialize>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            gameMode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+
+            input = GetComponent<PlayerInput>();
         }
 
         private void Update()
@@ -66,10 +71,10 @@ namespace Fungus.Actor.Turn
 
             if (input.GameCommand() != Command.INVALID)
             {
-                FindObjects.GameLogic.GetComponent<UIModeline>().PrintStaticText();
+                modeline.PrintStaticText();
             }
 
-            if (GetComponent<AutoExplore>().ContinueAutoExplore)
+            if (GetComponent<PCAutoExplore>().ContinueAutoExplore)
             {
                 int[] target = GetComponent<AutoExplore>().GetDestination();
 
@@ -98,13 +103,11 @@ namespace Fungus.Actor.Turn
                     return;
 
                 case Command.AutoExplore:
-                    GetComponent<AutoExplore>().Initialize();
-                    GetComponent<AutoExplore>().GetDestination();
+                    GetComponent<PCAutoExplore>().Trigger();
                     return;
 
                 case Command.Examine:
-                    FindObjects.GameLogic.GetComponent<SubGameMode>()
-                        .SwitchModeExamine(true);
+                    gameMode.SwitchModeExamine(true);
                     return;
             }
 

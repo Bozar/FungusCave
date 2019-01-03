@@ -1,6 +1,7 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
@@ -8,16 +9,21 @@ namespace Fungus.Actor.AI
     public class NPCAutoExplore : MonoBehaviour, IAutoExplore
     {
         private ActorBoard actor;
+        private ConvertCoordinates coord;
 
         public SeedTag GetSeedTag()
         {
             return SeedTag.NPCAction;
         }
 
-        public bool GetStartPoint(out int[] startPoint)
+        public bool GetStartPoint(out Stack<int[]> startPoint)
         {
-            startPoint = new int[2];
-            return false;
+            int[] pcPosition = coord.Convert(FindObjects.PC.transform.position);
+
+            startPoint = new Stack<int[]>();
+            startPoint.Push(pcPosition);
+
+            return true;
         }
 
         public bool IsStartPoint(int[] position)
@@ -31,6 +37,7 @@ namespace Fungus.Actor.AI
         private void Start()
         {
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
         }
     }
 }
