@@ -34,11 +34,9 @@ namespace Fungus.Actor.AI
         private FieldOfView fov;
         private bool isPC;
         private int maxCount;
-        private int minDistance;
         private UIModeline modeline;
         private int[] newPosition;
         private RandomNumber random;
-        private List<int[]> surround;
         private DungeonTerrain terrain;
 
         public bool ContinueAutoExplore { get { return countAutoExplore > 0; } }
@@ -71,7 +69,7 @@ namespace Fungus.Actor.AI
             currentPosition = coord.Convert(transform.position);
             ResetBoard();
             SetDistance(checkPosition);
-            newPosition = GetNewPosition();
+            int[] newPosition = GetNewPosition(currentPosition);
 
             return newPosition;
         }
@@ -88,7 +86,6 @@ namespace Fungus.Actor.AI
         private void Awake()
         {
             checkPosition = new Stack<int[]>();
-            surround = new List<int[]>();
             maxCount = 20;
         }
 
@@ -108,40 +105,34 @@ namespace Fungus.Actor.AI
             return distance;
         }
 
-        private int[] GetNewPosition()
+        private int[] GetNewPosition(int[] currentPosition)
         {
             SeedTag tag = GetComponent<IAutoExplore>().GetSeedTag();
 
-            surround = coord.SurroundCoord(Surround.Diagonal, currentPosition);
+            List<int[]> surround = coord.SurroundCoord(
+                Surround.Diagonal, currentPosition);
             surround = dungeon.FilterPositions(surround);
 
-            minDistance = board[surround[0][0], surround[0][1]];
-            checkPosition.Clear();
-            checkPosition.Push(surround[0]);
+            int minDistance = board[surround[0][0], surround[0][1]];
+            List<int[]> destination = new List<int[]>();
 
-            foreach (var pos in surround)
+            foreach (int[] pos in surround)
             {
                 if (board[pos[0], pos[1]] < minDistance)
                 {
                     minDistance = board[pos[0], pos[1]];
-                    checkPosition.Clear();
-                    checkPosition.Push(pos);
+                    destination.Clear();
+                    destination.Add(pos);
                 }
                 else if (board[pos[0], pos[1]] == minDistance)
                 {
-                    checkPosition.Push(pos);
+                    destination.Add(pos);
                 }
             }
 
-            surround = new List<int[]>();
-            while (checkPosition.Count > 0)
-            {
-                surround.Add(checkPosition.Pop());
-            }
-
-            return (surround.Count > 1)
-                ? surround[random.Next(tag, 0, surround.Count)]
-                : surround[0];
+            return (destination.Count > 1)
+                ? destination[random.Next(tag, 0, destination.Count)]
+                : destination[0];
         }
 
         private bool GetStartPointForNPC()
