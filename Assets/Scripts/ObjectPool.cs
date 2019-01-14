@@ -115,6 +115,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<Potion>();
                     go.AddComponent<TurnIndicator>();
                     go.AddComponent<PCAutoExplore>();
+                    go.AddComponent<PCSortTargets>();
 
                     FindObjects.PC = go;
                 }

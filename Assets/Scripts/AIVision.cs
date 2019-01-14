@@ -2,30 +2,15 @@
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
 {
-    public interface ITargetsInSight { List<GameObject> GetTargetsList(); }
-
     public class AIVision : MonoBehaviour
     {
         private ActorBoard actor;
-        private ConvertCoordinates coordinate;
+        private ConvertCoordinates coord;
         private FieldOfView fov;
-
-        public List<GameObject> TargetsList
-        {
-            get
-            {
-                if (GetComponent<ITargetsInSight>() != null)
-                {
-                    return GetComponent<ITargetsInSight>().GetTargetsList();
-                }
-                return null;
-            }
-        }
 
         public bool CanSeeTarget(MainObjectTag targetTag)
         {
@@ -39,7 +24,7 @@ namespace Fungus.Actor.AI
 
         private bool CanSeeTarget<T>(T targetTag)
         {
-            int[] position = coordinate.Convert(transform.position);
+            int[] position = coord.Convert(transform.position);
             int x = position[0];
             int y = position[1];
             int range = fov.MaxRange;
@@ -65,7 +50,7 @@ namespace Fungus.Actor.AI
 
         private void Start()
         {
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
             fov = GetComponent<FieldOfView>();
