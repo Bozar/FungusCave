@@ -1,14 +1,16 @@
 ﻿using Fungus.Actor.FOV;
 using Fungus.GameSystem;
 using Fungus.GameSystem.WorldBuilding;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
 {
     public interface ISortTargets
     {
-        List<GameObject> GetTargetsInSight();
+        List<GameObject> SortActorsInSight();
     }
 
     public class PCSortTargets : MonoBehaviour, ISortTargets
@@ -17,13 +19,11 @@ namespace Fungus.Actor.AI
         private ConvertCoordinates coord;
         private FieldOfView fov;
 
-        public List<GameObject> GetTargetsInSight()
+        private enum Side { Left, Right };
+
+        public List<GameObject> SortActorsInSight()
         {
-            //> Sort actors.
-            //> Combine lists and return the result.
-
             List<GameObject> targets = FindTargets();
-
             if (targets.Count < 2)
             {
                 return targets;
@@ -33,6 +33,10 @@ namespace Fungus.Actor.AI
             List<GameObject> left = splitted[0];
             List<GameObject> right = splitted[1];
 
+            left.Sort(SortLeft);
+            right.Sort(SortRight);
+
+            targets = (List<GameObject>)left.Concat(right);
             return targets;
         }
 
@@ -61,6 +65,86 @@ namespace Fungus.Actor.AI
             }
 
             return targets;
+        }
+
+        private int SortLeft(GameObject previous, GameObject next)
+        {
+            return SortLeftOrRight(Side.Left, previous, next);
+        }
+
+        private int SortLeftOrRight(Side relativePosition,
+            GameObject previous, GameObject next)
+        {
+            int[] prePos = coord.Convert(previous.transform.position);
+            int[] nextPos = coord.Convert(next.transform.position);
+            int[] sourcePos = coord.Convert(gameObject.transform.position);
+
+            int preX = prePos[0];
+            int preY = prePos[1];
+            int nextX = nextPos[0];
+            int nextY = nextPos[1];
+            int sourceY = sourcePos[1];
+
+            int preAbs;
+            int nextAbs;
+
+            // (0, 0) is at the bottom left corner. Actors farther away from the
+            // source is greater.
+            if (preX != nextX)
+            {
+                switch (relativePosition)
+                {
+                    case Side.Left:
+                        if (preX < nextX)
+                        {
+                            return 1;
+                        }
+                        else if (preX > nextX)
+                        {
+                            return -1;
+                        }
+                        break;
+
+                    case Side.Right:
+                        if (preX > nextX)
+                        {
+                            return 1;
+                        }
+                        else if (preX < nextX)
+                        {
+                            return -1;
+                        }
+                        break;
+                }
+            }
+            else if (preX == nextX)
+            {
+                preAbs = Math.Abs(preY - sourceY);
+                nextAbs = Math.Abs(nextY - sourceY);
+
+                if (preAbs > nextAbs)
+                {
+                    return 1;
+                }
+                else if (preAbs < nextAbs)
+                {
+                    return -1;
+                }
+                else if (preAbs == nextAbs)
+                {
+                    if (preY < 0)
+                    {
+                        return 1;
+                    }
+                    return -1;
+                }
+            }
+            return 0;
+        }
+
+        private int SortRight(GameObject previous, GameObject next)
+        {
+            return SortLeftOrRight(Side.Right, previous, next);
         }
 
         private List<GameObject>[] SplitTargets(List<GameObject> targets)
