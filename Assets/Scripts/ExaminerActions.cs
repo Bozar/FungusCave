@@ -41,6 +41,14 @@ namespace Fungus.Actor.Turn
                 case Command.Cancel:
                     mode.SwitchModeExamine(false);
                     break;
+
+                case Command.Next:
+                    Debug.Log("Next");
+                    break;
+
+                case Command.Previous:
+                    Debug.Log("Previous");
+                    break;
             }
         }
     }

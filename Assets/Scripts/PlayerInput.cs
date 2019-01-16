@@ -9,6 +9,7 @@ namespace Fungus.Actor
         UpLeft, UpRight, DownLeft, DownRight,
         Wait, AutoExplore, Examine,
         Confirm, Cancel,
+        Next, Previous,
 
         // NPC actions:
 
@@ -29,6 +30,8 @@ namespace Fungus.Actor
         private bool downLeft;
         private bool downRight;
         private bool left;
+        private bool next;
+        private bool previous;
         private bool right;
         private bool up;
         private bool upLeft;
@@ -67,6 +70,12 @@ namespace Fungus.Actor
 
             wait = Input.GetKeyDown(KeyCode.Period);
 
+            next = Input.GetKeyDown(KeyCode.PageDown)
+                || Input.GetKeyDown(KeyCode.Equals);
+
+            previous = Input.GetKeyDown(KeyCode.PageUp)
+                || Input.GetKeyDown(KeyCode.Minus);
+
             if (left)
             {
                 return Command.Left;
@@ -102,6 +111,14 @@ namespace Fungus.Actor
             else if (wait)
             {
                 return Command.Wait;
+            }
+            else if (next)
+            {
+                return Command.Next;
+            }
+            else if (previous)
+            {
+                return Command.Previous;
             }
             else if (Input.GetKeyDown(KeyCode.O))
             {
