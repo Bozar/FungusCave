@@ -78,7 +78,7 @@ namespace Fungus.Actor.AI
         {
             int[] prePos = coord.Convert(previous.transform.position);
             int[] nextPos = coord.Convert(next.transform.position);
-            int[] sourcePos = coord.Convert(gameObject.transform.position);
+            int[] sourcePos = coord.Convert(FindObjects.PC.transform.position);
 
             int preX = prePos[0];
             int preY = prePos[1];
@@ -150,7 +150,7 @@ namespace Fungus.Actor.AI
 
         private List<GameObject>[] SplitTargets(List<GameObject> targets)
         {
-            int sourceX = coord.Convert(gameObject.transform.position)[0];
+            int sourceX = coord.Convert(FindObjects.PC.transform.position)[0];
 
             int targetX;
             List<GameObject> left = new List<GameObject>();

@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.AI;
 using Fungus.GameSystem;
+using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,19 +8,41 @@ namespace Fungus.Actor.Turn
 {
     public class ExaminerActions : MonoBehaviour
     {
+        private ActorBoard actor;
         private ConvertCoordinates coord;
         private SubGameMode mode;
 
-        private void LockTarget()
+        private void LockTarget(Command direction)
         {
             List<GameObject> targets
                 = GetComponent<ISortTargets>().SortActorsInSight();
 
-            foreach (GameObject target in targets)
+            if (targets.Count < 1)
             {
-                int[] pos = coord.Convert(target.transform.position);
-                Debug.Log(pos[0] + "," + pos[1]);
+                return;
             }
+
+            int[] examiner = coord.Convert(transform.position);
+            GameObject currentTarget = actor.GetActor(examiner[0], examiner[1]);
+            int currentIndex = targets.IndexOf(currentTarget);
+
+            int newIndex;
+            switch (direction)
+            {
+                case Command.Next:
+                    newIndex = ((currentIndex + 1) >= targets.Count)
+                        ? 0 : (currentIndex + 1);
+                    break;
+
+                case Command.Previous:
+                    newIndex = ((currentIndex - 1) < 0)
+                        ? (targets.Count - 1) : (currentIndex - 1);
+                    break;
+
+                default:
+                    return;
+            }
+            transform.position = targets[newIndex].transform.position;
         }
 
         private void MoveExaminer()
@@ -35,6 +58,7 @@ namespace Fungus.Actor.Turn
         {
             mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }
 
         private void Update()
@@ -57,12 +81,11 @@ namespace Fungus.Actor.Turn
                     break;
 
                 case Command.Next:
-                    Debug.Log("Next");
-                    LockTarget();
+                    LockTarget(Command.Next);
                     break;
 
                 case Command.Previous:
-                    Debug.Log("Previous");
+                    LockTarget(Command.Previous);
                     break;
             }
         }
