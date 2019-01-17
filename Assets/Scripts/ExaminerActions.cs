@@ -1,4 +1,6 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.AI;
+using Fungus.GameSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn
@@ -7,6 +9,18 @@ namespace Fungus.Actor.Turn
     {
         private ConvertCoordinates coord;
         private SubGameMode mode;
+
+        private void LockTarget()
+        {
+            List<GameObject> targets
+                = GetComponent<ISortTargets>().SortActorsInSight();
+
+            foreach (GameObject target in targets)
+            {
+                int[] pos = coord.Convert(target.transform.position);
+                Debug.Log(pos[0] + "," + pos[1]);
+            }
+        }
 
         private void MoveExaminer()
         {
@@ -44,6 +58,7 @@ namespace Fungus.Actor.Turn
 
                 case Command.Next:
                     Debug.Log("Next");
+                    LockTarget();
                     break;
 
                 case Command.Previous:

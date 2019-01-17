@@ -3,7 +3,6 @@ using Fungus.GameSystem;
 using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
@@ -36,13 +35,17 @@ namespace Fungus.Actor.AI
             left.Sort(SortLeft);
             right.Sort(SortRight);
 
-            targets = (List<GameObject>)left.Concat(right);
+            targets = left;
+            foreach (GameObject target in right)
+            {
+                targets.Add(target);
+            }
             return targets;
         }
 
         private List<GameObject> FindTargets()
         {
-            int[] position = coord.Convert(transform.position);
+            int[] position = coord.Convert(FindObjects.PC.transform.position);
             int x = position[0];
             int y = position[1];
             int range = fov.MaxRange;
@@ -59,11 +62,9 @@ namespace Fungus.Actor.AI
                     {
                         continue;
                     }
-
                     targets.Add(actor.GetActor(i, j));
                 }
             }
-
             return targets;
         }
 
@@ -176,8 +177,7 @@ namespace Fungus.Actor.AI
         {
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-
-            fov = GetComponent<FieldOfView>();
+            fov = FindObjects.PC.GetComponent<FieldOfView>();
         }
     }
 }
