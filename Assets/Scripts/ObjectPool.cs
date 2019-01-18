@@ -115,6 +115,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<Potion>();
                     go.AddComponent<TurnIndicator>();
                     go.AddComponent<PCAutoExplore>();
+                    go.AddComponent<InputNormal>();
 
                     FindObjects.PC = go;
                 }
@@ -188,6 +189,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<ExaminerActions>();
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
+                    go.AddComponent<InputExamine>();
 
                     FindObjects.Examiner = go;
                     break;
