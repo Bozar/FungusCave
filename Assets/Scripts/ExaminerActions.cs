@@ -42,7 +42,9 @@ namespace Fungus.Actor.Turn
                 default:
                     return;
             }
-            transform.position = targets[newIndex].transform.position;
+
+            int[] newPos = coord.Convert(targets[newIndex].transform.position);
+            GetComponent<IMove>().MoveGameObject(newPos);
         }
 
         private void MoveExaminer()
