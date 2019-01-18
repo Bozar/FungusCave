@@ -1,4 +1,4 @@
-﻿using Fungus.Actor;
+﻿using Fungus.Actor.InputManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

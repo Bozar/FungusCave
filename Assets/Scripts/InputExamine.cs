@@ -1,30 +1,32 @@
-﻿using Fungus.Actor;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InputExamine : MonoBehaviour, IConvertInput
+namespace Fungus.Actor.InputManager
 {
-    public Command Input2Command()
+    public class InputExamine : MonoBehaviour, IConvertInput
     {
-        bool next = Input.GetKeyDown(KeyCode.PageDown)
-            || Input.GetKeyDown(KeyCode.N)
-            || Input.GetKeyDown(KeyCode.O);
+        public Command Input2Command()
+        {
+            bool next = Input.GetKeyDown(KeyCode.PageDown)
+                || Input.GetKeyDown(KeyCode.N)
+                || Input.GetKeyDown(KeyCode.O);
 
-        bool previous = Input.GetKeyDown(KeyCode.PageUp)
-            || Input.GetKeyDown(KeyCode.I)
-            || Input.GetKeyDown(KeyCode.P);
+            bool previous = Input.GetKeyDown(KeyCode.PageUp)
+                || Input.GetKeyDown(KeyCode.I)
+                || Input.GetKeyDown(KeyCode.P);
 
-        if (next)
-        {
-            return Command.Next;
+            if (next)
+            {
+                return Command.Next;
+            }
+            else if (previous)
+            {
+                return Command.Previous;
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                return Command.Cancel;
+            }
+            return Command.INVALID;
         }
-        else if (previous)
-        {
-            return Command.Previous;
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            return Command.Cancel;
-        }
-        return Command.INVALID;
     }
 }
