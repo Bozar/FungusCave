@@ -50,7 +50,7 @@ namespace Fungus.Actor
         private void Awake()
         {
             CurrentPotion = 0;
-            maxPotion = 99;
+            maxPotion = 9;
         }
     }
 }

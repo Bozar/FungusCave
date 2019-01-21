@@ -78,6 +78,8 @@ namespace Fungus.Actor
             {
                 RestoreEnergy();
                 GetComponent<Stress>().LoseStress(relieveStressAfterKill);
+                GetComponent<Potion>().GainPotion(
+                    target.GetComponent<ObjectMetaInfo>().DropPotion);
             }
             else
             {
