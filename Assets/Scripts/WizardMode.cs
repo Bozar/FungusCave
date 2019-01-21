@@ -20,7 +20,7 @@ namespace Fungus.GameSystem
 
         public void DrinkPotion()
         {
-            //schedule.CurrentActor.GetComponent<Infection>().GainInfection();
+            schedule.CurrentActor.GetComponent<Infection>().GainInfection(true);
 
             //int[] pos = GetComponent<ConvertCoordinates>()
             //    .Convert(schedule.CurrentActor.transform.position);

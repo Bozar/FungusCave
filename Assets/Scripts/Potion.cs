@@ -6,6 +6,8 @@ namespace Fungus.Actor
     public class Potion : MonoBehaviour
     {
         private int maxPotion;
+        private int relieveStress;
+        private int restoreEnergy;
 
         public int CurrentPotion { get; private set; }
 
@@ -17,18 +19,17 @@ namespace Fungus.Actor
             restoreFull = GetComponent<HP>().MaxHP;
             restoreHalf = (int)Math.Floor(restoreFull * 0.5);
 
-            if (GetComponent<Infection>().HasInfection(
-                InfectionTag.Mutate))
+            if (GetComponent<Infection>().HasInfection(InfectionTag.Mutate))
             {
                 GetComponent<HP>().GainHP(restoreHalf);
             }
             else
             {
-                // TODO: Lose stress. Gain energy.
                 GetComponent<HP>().GainHP(restoreFull);
                 GetComponent<Infection>().ResetInfection();
+                GetComponent<Stress>().LoseStress(relieveStress);
+                GetComponent<Energy>().GainEnergy(restoreEnergy);
             }
-
             LosePotion(1);
         }
 
@@ -51,6 +52,8 @@ namespace Fungus.Actor
         {
             CurrentPotion = 0;
             maxPotion = 9;
+            relieveStress = 1;
+            restoreEnergy = 2000;
         }
     }
 }

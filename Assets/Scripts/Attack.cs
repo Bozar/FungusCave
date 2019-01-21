@@ -78,8 +78,12 @@ namespace Fungus.Actor
             {
                 RestoreEnergy();
                 GetComponent<Stress>().LoseStress(relieveStressAfterKill);
-                GetComponent<Potion>().GainPotion(
-                    target.GetComponent<ObjectMetaInfo>().DropPotion);
+
+                if (GetComponent<Potion>() != null)
+                {
+                    GetComponent<Potion>().GainPotion(
+                        target.GetComponent<ObjectMetaInfo>().DropPotion);
+                }
             }
             else
             {
@@ -96,7 +100,7 @@ namespace Fungus.Actor
             powerDamage1 = 1;
             powerDamage2 = 1;
             attackPowerEnergy = 200;
-            relieveStressAfterKill = 2;
+            relieveStressAfterKill = 1;
         }
 
         private int GetMeleeEnergy(int x, int y)

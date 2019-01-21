@@ -33,6 +33,12 @@ namespace Fungus.Actor
 
             if (IsDead())
             {
+                if ((GetComponent<Potion>() != null)
+                    && GetComponent<Potion>().HasEnoughPotion())
+                {
+                    GetComponent<Potion>().DrinkPotion();
+                    return false;
+                }
                 GetComponent<Die>().Bury();
                 return true;
             }
