@@ -11,6 +11,7 @@ namespace Fungus.GameSystem
     public class FindObjects : MonoBehaviour
     {
         private static GameObject examiner;
+        private static GameObject guide;
         private static Dictionary<UITag, GameObject> mainUIDict;
         private static GameObject pcActor;
 
@@ -37,6 +38,28 @@ namespace Fungus.GameSystem
         }
 
         public static GameObject GameLogic { get; private set; }
+
+        public static GameObject Guide
+        {
+            get
+            {
+                if (guide == null)
+                {
+                    Debug.Log("Guide is null.");
+                }
+                return guide;
+            }
+
+            set
+            {
+                if (guide != null)
+                {
+                    Debug.Log("Guide already exists.");
+                    return;
+                }
+                guide = value;
+            }
+        }
 
         public static string IconEnemy { get { return "@"; } }
         public static string IconFog { get { return "%"; } }

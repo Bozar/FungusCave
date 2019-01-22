@@ -21,7 +21,8 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Dummy
+        PC, Examiner, Guide,
+        Dummy
     };
 
     public class ObjectPool : MonoBehaviour
@@ -186,6 +187,7 @@ namespace Fungus.GameSystem.ObjectManager
 
             switch (tag)
             {
+                // Examine mode.
                 case SubObjectTag.Examiner:
                     go.AddComponent<ExaminerActions>();
                     go.AddComponent<MoveExamineMarker>();
@@ -193,6 +195,14 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<InputExamine>();
 
                     FindObjects.Examiner = go;
+                    break;
+
+                // Load screen.
+                case SubObjectTag.Guide:
+                    go.AddComponent<GuideActions>();
+                    go.AddComponent<InputGuide>();
+
+                    FindObjects.Guide = go;
                     break;
             }
 

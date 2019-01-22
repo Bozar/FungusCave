@@ -1,6 +1,7 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -11,7 +12,9 @@ namespace Fungus.Actor
         private ActorBoard actor;
         private ConvertCoordinates coord;
         private UIMessage message;
+        private UIModeline modeline;
         private ObjectPool pool;
+        private SchedulingSystem schedule;
         private DungeonTerrain terrain;
 
         public void Bury()
@@ -20,6 +23,14 @@ namespace Fungus.Actor
             {
                 // TODO: Kill PC.
                 message.StoreText("PC is dead.");
+                modeline.PrintStaticText("Press Space to reload.");
+
+                schedule.PauseTurn(true);
+                FindObjects.PC.SetActive(false);
+
+                FindObjects.Guide.transform.position
+                    = FindObjects.PC.transform.position;
+                FindObjects.Guide.SetActive(true);
             }
             else
             {
@@ -36,9 +47,11 @@ namespace Fungus.Actor
         {
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             pool = FindObjects.GameLogic.GetComponent<ObjectPool>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
+            schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
         }
     }
 }

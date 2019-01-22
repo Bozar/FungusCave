@@ -52,6 +52,8 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             oPool.CreateObject(
                 MainObjectTag.Doppleganger, SubObjectTag.Examiner, 0, 0);
+            oPool.CreateObject(
+                MainObjectTag.Doppleganger, SubObjectTag.Guide, 0, 0);
         }
 
         private int[] GetPassablePosition()
