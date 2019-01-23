@@ -24,7 +24,9 @@ namespace Fungus.GameSystem.WorldBuilding
             position = GetPassablePosition();
             oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
 
-            for (int i = 0; i < 2; i++)
+            int maxDummies = 10;
+
+            for (int i = 0; i < maxDummies; i++)
             {
                 position = GetPassablePosition();
                 oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.Dummy,

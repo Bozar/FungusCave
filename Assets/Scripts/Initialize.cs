@@ -14,7 +14,7 @@ namespace Fungus.GameSystem
             if (Initialized)
             {
                 SceneManager.LoadSceneAsync(0);
-                SceneManager.UnloadSceneAsync(0);
+                //SceneManager.UnloadSceneAsync(0);
                 return;
             }
 
