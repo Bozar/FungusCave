@@ -15,6 +15,8 @@ namespace Fungus.GameSystem.ObjectManager
         private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
         private int invalidData;
 
+        public string Version { get; private set; }
+
         public int GetIntData(SubObjectTag oTag, DataTag dTag)
         {
             Dictionary<SubObjectTag, int> dataDict;
@@ -54,6 +56,8 @@ namespace Fungus.GameSystem.ObjectManager
             intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
 
             InitializeData();
+
+            Version = "0.0.1";
         }
 
         private void InitializeData()

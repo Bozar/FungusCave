@@ -18,6 +18,10 @@ namespace Fungus.Actor.InputManager
             bool downRight = Input.GetKeyDown(KeyCode.N)
                 || Input.GetKeyDown(KeyCode.Keypad3);
 
+            bool help = Input.GetKeyDown(KeyCode.Slash)
+                || (Input.GetKeyDown(KeyCode.LeftShift)
+                && Input.GetKeyDown(KeyCode.Question));
+
             if (upLeft)
             {
                 return Command.UpLeft;
@@ -45,6 +49,10 @@ namespace Fungus.Actor.InputManager
             else if (Input.GetKeyDown(KeyCode.X))
             {
                 return Command.Examine;
+            }
+            else if (help)
+            {
+                return Command.Help;
             }
             // Test key combinations.
             else if (Input.GetKey(KeyCode.LeftControl)

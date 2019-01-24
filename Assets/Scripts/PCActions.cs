@@ -110,6 +110,10 @@ namespace Fungus.Actor.Turn
                 case Command.Examine:
                     gameMode.SwitchModeExamine(true);
                     return;
+
+                case Command.Help:
+                    modeline.PrintStaticText("Help is unavailable for now.");
+                    return;
             }
 
             // Test commands.
