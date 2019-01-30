@@ -14,7 +14,6 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private ActorBoard actor;
         private bool attacker;
         private int countInfections;
         private int defaultMaxHP;
@@ -236,7 +235,7 @@ namespace Fungus.Actor
 
             if (totalInfections > 0)
             {
-                if (actor.CheckActorTag(SubObjectTag.PC, gameObject))
+                if (GetComponent<ObjectMetaInfo>().IsPC)
                 {
                     message.StoreText("You are infected.");
                 }
@@ -254,7 +253,6 @@ namespace Fungus.Actor
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
-            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }
     }
 }

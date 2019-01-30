@@ -1,15 +1,14 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
-using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
     public class Die : MonoBehaviour
     {
-        private ActorBoard actor;
         private ConvertCoordinates coord;
         private UIMessage message;
         private UIModeline modeline;
@@ -19,7 +18,7 @@ namespace Fungus.Actor
 
         public void Bury()
         {
-            if (actor.CheckActorTag(SubObjectTag.PC, gameObject))
+            if (GetComponent<ObjectMetaInfo>().IsPC)
             {
                 // TODO: Kill PC.
                 message.StoreText("PC is dead.");
@@ -45,7 +44,6 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             pool = FindObjects.GameLogic.GetComponent<ObjectPool>();

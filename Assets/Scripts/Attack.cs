@@ -137,7 +137,7 @@ namespace Fungus.Actor
                 (baseEnergy + attack) * ((100 + directionFactor + slow) * 0.01));
 
             if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
-                && actorBoard.CheckActorTag(SubObjectTag.PC, gameObject))
+                && GetComponent<ObjectMetaInfo>().IsPC)
             {
                 FindObjects.GameLogic.GetComponent<UIMessage>()
                     .StoreText("Melee energy: " + totalEnergy);

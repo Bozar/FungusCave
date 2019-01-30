@@ -7,6 +7,15 @@ namespace Fungus.Actor.ObjectManager
     public class ObjectMetaInfo : MonoBehaviour
     {
         public int DropPotion { get; private set; }
+
+        public bool IsPC
+        {
+            get
+            {
+                return SubTag == SubObjectTag.PC;
+            }
+        }
+
         public MainObjectTag MainTag { get; private set; }
         public string Name { get; private set; }
         public SubObjectTag SubTag { get; private set; }

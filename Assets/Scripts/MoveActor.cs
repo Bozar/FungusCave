@@ -85,8 +85,7 @@ namespace Fungus.Actor
             totalEnergy = (int)Math.Floor(
                 (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));
 
-            if (wizard.PrintEnergyCost
-                && actor.CheckActorTag(SubObjectTag.PC, gameObject))
+            if (wizard.PrintEnergyCost && GetComponent<ObjectMetaInfo>().IsPC)
             {
                 message.StoreText("Move energy: " + totalEnergy);
             }

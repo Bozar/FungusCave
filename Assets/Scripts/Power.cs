@@ -1,5 +1,4 @@
 ﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -153,7 +152,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            isPC = GetComponent<ObjectMetaInfo>().SubTag == SubObjectTag.PC;
+            isPC = GetComponent<ObjectMetaInfo>().IsPC;
 
             if (isPC)
             {
