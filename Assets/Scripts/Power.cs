@@ -23,6 +23,9 @@ namespace Fungus.Actor
         private Dictionary<PowerTag, bool> npcPowerDict;
         private Dictionary<PowerSlotTag, PowerTag> pcPowerDict;
 
+        public int Damage1 { get; private set; }
+        public int Damage2 { get; private set; }
+
         public void GainPower(PowerSlotTag slot, PowerTag power)
         {
             if (isPC)
@@ -133,6 +136,10 @@ namespace Fungus.Actor
                 { PowerTag.Poison1, "Poison I" },
                 { PowerTag.Poison2, "Poison II" }
             };
+
+            // Damage increased by power.
+            Damage1 = 1;
+            Damage2 = 1;
         }
 
         private bool PCHasPower(PowerTag tag, out bool isActive)

@@ -118,6 +118,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<TurnIndicator>();
                     go.AddComponent<PCAutoExplore>();
                     go.AddComponent<InputNormal>();
+                    go.AddComponent<PCDamage>();
 
                     FindObjects.PC = go;
                 }
@@ -125,6 +126,7 @@ namespace Fungus.GameSystem.ObjectManager
                 {
                     go.AddComponent<ActorAI>();
                     go.AddComponent<NPCAutoExplore>();
+                    go.AddComponent<NPCDamage>();
                     //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
 

@@ -89,7 +89,7 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateDamage()
         {
-            int current = pc.GetComponent<Attack>().CurrentDamage;
+            int current = pc.GetComponent<IDamage>().CurrentDamage;
 
             getUI(UITag.DamageData).GetComponent<Text>().text
                 = current.ToString();

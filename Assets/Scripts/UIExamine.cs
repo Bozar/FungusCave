@@ -45,7 +45,7 @@ namespace Fungus.GameSystem.Render
         private string ActorData(GameObject go)
         {
             int hp = go.GetComponent<HP>().CurrentHP;
-            int damage = go.GetComponent<Attack>().CurrentDamage;
+            int damage = go.GetComponent<IDamage>().CurrentDamage;
             int potion = go.GetComponent<ObjectMetaInfo>().DropPotion;
             string infection = go.GetComponent<Infection>().HasInfection()
                 ? " | #" : "";

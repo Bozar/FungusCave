@@ -13,42 +13,13 @@ namespace Fungus.Actor
         private ActorBoard actorBoard;
         private int attackPowerEnergy;
         private PowerTag[] attackPowers;
-        private int baseDamage;
         private int baseEnergy;
         private ConvertCoordinates coordinate;
         private ObjectData data;
         private Direction direction;
-        private int powerDamage1;
-        private int powerDamage2;
         private int powerEnergy2;
         private int powerPoison2;
         private int relieveStressAfterKill;
-        private int weakDamage;
-
-        public int CurrentDamage
-        {
-            get
-            {
-                int weak;
-                int power;
-                int finalDamage;
-
-                // TODO: Change damage.
-
-                weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
-                    ? weakDamage : 0;
-
-                power = GetComponent<Power>().PowerIsActive(PowerTag.Damage1)
-                    ? powerDamage1 : 0;
-                power += GetComponent<Power>().PowerIsActive(PowerTag.Damage2)
-                    ? powerDamage2 : 0;
-
-                finalDamage = baseDamage + power - weak;
-                finalDamage = Math.Max(0, finalDamage);
-
-                return finalDamage;
-            }
-        }
 
         public void MeleeAttack(int x, int y)
         {
@@ -72,7 +43,8 @@ namespace Fungus.Actor
                 target.GetComponent<Energy>().LoseEnergy(powerPoison2);
             }
 
-            targetIsDead = target.GetComponent<HP>().LoseHP(CurrentDamage);
+            targetIsDead = target.GetComponent<HP>().LoseHP(
+                GetComponent<IDamage>().CurrentDamage);
 
             if (targetIsDead)
             {
@@ -94,11 +66,8 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            weakDamage = 1;
             powerEnergy2 = 400;
             powerPoison2 = 400;
-            powerDamage1 = 1;
-            powerDamage2 = 1;
             attackPowerEnergy = 200;
             relieveStressAfterKill = 1;
         }
@@ -167,8 +136,6 @@ namespace Fungus.Actor
             PowerTag.Poison1, PowerTag.Poison2
             };
 
-            baseDamage = data.GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.Damage);
             baseEnergy = data.GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.EnergyAttack);
         }

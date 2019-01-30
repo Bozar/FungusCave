@@ -33,7 +33,6 @@ namespace Fungus.GameSystem.ObjectManager
                     return gameData;
                 }
             }
-
             return invalidData;
         }
 

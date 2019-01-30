@@ -34,6 +34,7 @@ namespace Fungus.Actor
         private RandomNumber random;
 
         public int ModEnergy { get; private set; }
+        public int WeakDamage { get; private set; }
 
         public void Count()
         {
@@ -131,6 +132,7 @@ namespace Fungus.Actor
         private void Awake()
         {
             ModEnergy = 60;
+            WeakDamage = 1;
 
             countInfections = 0;
             maxDuration = 5;
