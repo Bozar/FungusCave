@@ -10,10 +10,14 @@ namespace Fungus.Actor
     public enum PowerTag
     {
         INVALID,
-        Energy1, Energy2,
-        Immunity1, Immunity2,
-        Damage1, Damage2,
-        Poison1, Poison2
+
+        DefEnergy1, DefEnergy2,
+        DefInfection1, DefInfection2,
+        DefHP1, DefHP2,
+
+        AttEnergy1, AttEnergy2,
+        AttInfection1, AttInfection2,
+        AttDamage1, AttDamage2
     }
 
     public class Power : MonoBehaviour
@@ -127,14 +131,19 @@ namespace Fungus.Actor
         {
             nameDict = new Dictionary<PowerTag, string>
             {
-                { PowerTag.Energy1, "Energy I" },
-                { PowerTag.Energy2, "Energy II" },
-                { PowerTag.Immunity1, "Immunity I" },
-                { PowerTag.Immunity2, "Immunity II" },
-                { PowerTag.Damage1, "Damage I" },
-                { PowerTag.Damage2, "Damage II" },
-                { PowerTag.Poison1, "Poison I" },
-                { PowerTag.Poison2, "Poison II" }
+                { PowerTag.DefEnergy1, "Vigor I" },
+                { PowerTag.DefEnergy2, "Vigor II" },
+                { PowerTag.DefInfection1, "Immunity I" },
+                { PowerTag.DefInfection2, "Immunity II" },
+                { PowerTag.DefHP1, "Health I" },
+                { PowerTag.DefHP2, "Health II" },
+
+                { PowerTag.AttEnergy1, "Siphon I" },
+                { PowerTag.AttEnergy2, "Siphon II" },
+                { PowerTag.AttInfection1, "Poison I" },
+                { PowerTag.AttInfection2, "Poison II" },
+                { PowerTag.AttDamage1, "Damage I" },
+                { PowerTag.AttDamage2, "Damage II" }
             };
 
             // Damage increased by power.

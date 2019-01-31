@@ -64,7 +64,7 @@ namespace Fungus.Actor
 
             for (int i = 0; i < count; i++)
             {
-                hasPower = GetComponent<Power>().HasPower(PowerTag.Immunity2);
+                hasPower = GetComponent<Power>().HasPower(PowerTag.DefInfection2);
 
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
@@ -205,7 +205,7 @@ namespace Fungus.Actor
             fog = modFog * 0;
             attPower = attackerHasPower ? modPowerPoison1 : 0;
 
-            hasPower = GetComponent<Power>().HasPower(PowerTag.Immunity1);
+            hasPower = GetComponent<Power>().HasPower(PowerTag.DefInfection1);
             stress = (hasPower && GetComponent<Stress>().HasMaxStress())
                 ? modPowerImmunity1 : 0;
 

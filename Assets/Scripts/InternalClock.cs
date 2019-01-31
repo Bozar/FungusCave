@@ -33,7 +33,7 @@ namespace Fungus.Actor.Turn
         {
             GetComponent<Energy>().GainEnergy(energyTurn);
 
-            if (GetComponent<Power>().PowerIsActive(PowerTag.Energy1))
+            if (GetComponent<Power>().PowerIsActive(PowerTag.DefEnergy1))
             {
                 GetComponent<Energy>().GainEnergy(powerEnergy1);
             }
