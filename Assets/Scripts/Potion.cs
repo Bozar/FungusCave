@@ -13,23 +13,10 @@ namespace Fungus.Actor
 
         public void DrinkPotion()
         {
-            int restoreFull;
-            int restoreHalf;
-
-            restoreFull = GetComponent<HP>().MaxHP;
-            restoreHalf = (int)Math.Floor(restoreFull * 0.5);
-
-            if (GetComponent<Infection>().HasInfection(InfectionTag.Mutate))
-            {
-                GetComponent<HP>().GainHP(restoreHalf);
-            }
-            else
-            {
-                GetComponent<HP>().GainHP(restoreFull);
-                GetComponent<Infection>().ResetInfection();
-                GetComponent<Stress>().LoseStress(relieveStress);
-                GetComponent<Energy>().GainEnergy(restoreEnergy);
-            }
+            GetComponent<HP>().GainHP(GetComponent<HP>().MaxHP);
+            GetComponent<Infection>().ResetInfection();
+            GetComponent<Stress>().LoseStress(relieveStress);
+            GetComponent<Energy>().GainEnergy(restoreEnergy);
             LosePotion(1);
         }
 

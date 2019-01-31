@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public enum InfectionTag { Mutate, Weak, Slow, Poison };
+    public enum InfectionTag { Weak, Slow, Poison };
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
