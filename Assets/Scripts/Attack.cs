@@ -15,7 +15,7 @@ namespace Fungus.Actor
         private PowerTag[] attackPowers;
         private int baseEnergy;
         private ConvertCoordinates coordinate;
-        private ObjectData data;
+        private ActorData data;
         private Direction direction;
         private int powerEnergy2;
         private int powerPoison2;
@@ -128,7 +128,7 @@ namespace Fungus.Actor
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
-            data = FindObjects.GameLogic.GetComponent<ObjectData>();
+            data = FindObjects.GameLogic.GetComponent<ActorData>();
 
             attackPowers = new PowerTag[]
             {

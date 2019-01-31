@@ -29,7 +29,7 @@ namespace Fungus.Actor.ObjectManager
         {
             SubTag = tag;
 
-            DropPotion = FindObjects.GameLogic.GetComponent<ObjectData>()
+            DropPotion = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(SubTag, DataTag.DropPotion);
             Name = SubTag.ToString();
         }

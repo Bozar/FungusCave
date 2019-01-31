@@ -59,7 +59,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            maxEnergy = FindObjects.GameLogic.GetComponent<ObjectData>()
+            maxEnergy = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.MaxEnergy);
         }

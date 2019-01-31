@@ -248,7 +248,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            maxInfections = FindObjects.GameLogic.GetComponent<ObjectData>()
+            maxInfections = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.MaxInfections);
 

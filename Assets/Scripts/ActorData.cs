@@ -10,7 +10,7 @@ namespace Fungus.GameSystem.ObjectManager
         MaxInfections, MaxEnergy
     }
 
-    public class ObjectData : MonoBehaviour
+    public class ActorData : MonoBehaviour
     {
         private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
         private int invalidData;

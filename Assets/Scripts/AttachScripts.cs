@@ -32,7 +32,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<GameColor>();
             gameObject.AddComponent<Initialize>();
 
-            gameObject.AddComponent<ObjectData>();
+            gameObject.AddComponent<ActorData>();
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PowerData>();
             gameObject.AddComponent<RandomNumber>();

@@ -104,7 +104,7 @@ namespace Fungus.Actor
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
 
-            baseEnergy = FindObjects.GameLogic.GetComponent<ObjectData>().
+            baseEnergy = FindObjects.GameLogic.GetComponent<ActorData>().
                 GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.EnergyMove);
         }

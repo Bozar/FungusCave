@@ -29,7 +29,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            baseDamage = FindObjects.GameLogic.GetComponent<ObjectData>()
+            baseDamage = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.Damage);
 

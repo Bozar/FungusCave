@@ -58,7 +58,7 @@ namespace Fungus.Actor.Turn
 
         private void Start()
         {
-            energyTurn = FindObjects.GameLogic.GetComponent<ObjectData>()
+            energyTurn = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
                 DataTag.EnergyRestore);
         }
