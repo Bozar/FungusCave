@@ -199,6 +199,7 @@ namespace Fungus.GameSystem.Render
             int max = pc.GetComponent<Stress>().MaxStress;
             string power;
             UITag tagPower;
+            PowerTag tag;
 
             for (int i = 0; i < max; i++)
             {
@@ -206,7 +207,10 @@ namespace Fungus.GameSystem.Render
                 tagPower = (UITag)Enum.Parse(typeof(UITag), power);
 
                 getUI(tagPower).GetComponent<Text>().text
-                    = pc.GetComponent<Power>().GetPowerName((PowerSlotTag)i);
+                    = pc.GetComponent<Power>().HasPower(
+                        PowerSlotTag.Slot1, out tag)
+                        ? GetComponent<PowerData>().GetPowerName(tag)
+                        : "";
 
                 getUI(tagPower).GetComponent<Text>().color
                     = pc.GetComponent<Power>().SlotIsActive((PowerSlotTag)i)

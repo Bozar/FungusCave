@@ -34,6 +34,7 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<ObjectData>();
             gameObject.AddComponent<ObjectPool>();
+            gameObject.AddComponent<PowerData>();
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();
