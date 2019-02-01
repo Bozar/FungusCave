@@ -15,7 +15,6 @@ namespace Fungus.Actor
     {
         private int baseDamage;
         private int powerDamage;
-        private int powerDamage2;
         private int weakDamage;
 
         public int CurrentDamage

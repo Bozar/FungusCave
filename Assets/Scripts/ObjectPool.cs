@@ -101,6 +101,7 @@ namespace Fungus.GameSystem.ObjectManager
                 go.AddComponent<HP>();
                 go.AddComponent<Stress>();
                 go.AddComponent<Infection>();
+                go.AddComponent<InfectionRate>();
 
                 go.AddComponent<AutoExplore>();
                 go.AddComponent<MoveActor>();
@@ -119,6 +120,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<PCAutoExplore>();
                     go.AddComponent<InputNormal>();
                     go.AddComponent<PCDamage>();
+                    go.AddComponent<PCInfection>();
 
                     FindObjects.PC = go;
                 }
@@ -127,6 +129,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<ActorAI>();
                     go.AddComponent<NPCAutoExplore>();
                     go.AddComponent<NPCDamage>();
+                    go.AddComponent<NPCInfection>();
                     //go.AddComponent<NPCMemory>();
                     go.AddComponent<NPCActions>().enabled = false;
 

@@ -3,36 +3,37 @@ using Fungus.Actor.Turn;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
-using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public enum InfectionTag { Weak, Slow, Poison };
+    public enum InfectionTag { Weak, Slow, Poisoned };
+
+    public interface IInfection
+    {
+        int GetInfectionRate(GameObject attacker);
+
+        int GetInfectionRate();
+    }
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private bool attacker;
+        private GameObject attacker;
         private int countInfections;
-        private int defaultMaxHP;
-        private DungeonBoard dungeon;
+        private ActorData data;
         private int energyInfectionOverflow;
         private bool hasPower;
-        private double hpFactor;
+        private IInfection infectionComponent;
         private Dictionary<InfectionTag, int> infectionsDict;
         private int maxDuration;
         private int maxInfections;
         private UIMessage message;
-        private int modFog;
-        private int modInfectionPoison;
-        private int modPool;
-        private int modPowerImmunity1;
-        private int modPowerPoison1;
         private int powerImmunity2;
         private RandomNumber random;
-
+        public int ImmunityRate { get; private set; }
+        public int InfectionRate { get; private set; }
         public int ModEnergy { get; private set; }
         public int WeakDamage { get; private set; }
 
@@ -55,7 +56,6 @@ namespace Fungus.Actor
         public void GainInfection(bool attackerHasPower)
         {
             int count;
-            attacker = attackerHasPower;
 
             if (!IsInfected(out count))
             {
@@ -138,13 +138,6 @@ namespace Fungus.Actor
             maxDuration = 5;
             energyInfectionOverflow = 200;
             powerImmunity2 = 2;
-            defaultMaxHP = 10;
-            hpFactor = 3.0;
-            modFog = 40;
-            modPool = 20;
-            modInfectionPoison = 60;
-            modPowerImmunity1 = 20;
-            modPowerPoison1 = 30;
 
             infectionsDict = new Dictionary<InfectionTag, int>();
 
@@ -178,50 +171,9 @@ namespace Fungus.Actor
             }
         }
 
-        private int GetInfectionRate(bool attackerHasPower)
-        {
-            int currentHP;
-            Vector3 currentPosition;
-            int hp;
-            int pool;
-            int fog;
-            int attPower;
-            int stress;
-            int poison;
-            int sumMod;
-            int sumFactor;
-            int finalRate;
-
-            currentHP = GetComponent<HP>().CurrentHP;
-            currentPosition = transform.position;
-
-            hp = (int)Math.Floor(
-                Math.Max(0, defaultMaxHP - currentHP) / hpFactor * 10);
-
-            pool = dungeon.CheckBlock(SubObjectTag.Pool, currentPosition)
-                ? modPool : 0;
-
-            // TODO: Check weather.
-            fog = modFog * 0;
-            attPower = attackerHasPower ? modPowerPoison1 : 0;
-
-            hasPower = GetComponent<Power>().HasPower(PowerTag.DefInfection1);
-            stress = (hasPower && GetComponent<Stress>().HasMaxStress())
-                ? modPowerImmunity1 : 0;
-
-            poison = HasInfection(InfectionTag.Poison) ? modInfectionPoison : 0;
-
-            sumMod = Math.Max(0, hp + pool + fog + attPower - stress);
-            sumFactor = poison + 100;
-
-            finalRate = (int)Math.Floor(sumMod * (sumFactor * 0.01));
-
-            return finalRate;
-        }
-
         private bool IsInfected(out int totalInfections)
         {
-            int rate = GetInfectionRate(attacker);
+            int rate = infectionComponent.GetInfectionRate(attacker);
             totalInfections = 0;
 
             while (rate > 100)
@@ -254,7 +206,16 @@ namespace Fungus.Actor
 
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            data = FindObjects.GameLogic.GetComponent<ActorData>();
+
+            infectionComponent = GetComponent<ObjectMetaInfo>().IsPC
+                ? (GetComponent<PCInfection>() as IInfection)
+                : (GetComponent<NPCInfection>() as IInfection);
+
+            InfectionRate = data.GetIntData(
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionRate);
+            ImmunityRate = data.GetIntData(
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.ImmunityRate);
         }
     }
 }

@@ -49,10 +49,10 @@ namespace Fungus.GameSystem.ObjectManager
 
                 { PowerTag.AttEnergy1, "Siphon I" },
                 { PowerTag.AttEnergy2, "Siphon II" },
-                { PowerTag.AttInfection1, "Poison I" },
-                { PowerTag.AttInfection2, "Poison II" },
-                { PowerTag.AttDamage1, "Damage I" },
-                { PowerTag.AttDamage2, "Damage II" }
+                { PowerTag.AttInfection1, "Plague I" },
+                { PowerTag.AttInfection2, "Plague II" },
+                { PowerTag.AttDamage1, "Bleed I" },
+                { PowerTag.AttDamage2, "Bleed II" }
             };
         }
     }

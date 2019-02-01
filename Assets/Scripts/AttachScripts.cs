@@ -15,6 +15,7 @@ namespace Fungus.GameSystem
             //gameObject.AddComponent<TestMove>();
 
             gameObject.AddComponent<ActorBoard>();
+            gameObject.AddComponent<ActorData>();
             gameObject.AddComponent<BlueprintFungus>();
             gameObject.AddComponent<BlueprintPool>();
             gameObject.AddComponent<BlueprintSponge>();
@@ -27,17 +28,17 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<DungeonBoard>();
             gameObject.AddComponent<DungeonTerrain>();
 
-            gameObject.AddComponent<SubGameMode>();
             gameObject.AddComponent<FindObjects>();
             gameObject.AddComponent<GameColor>();
+            gameObject.AddComponent<InfectionData>();
             gameObject.AddComponent<Initialize>();
 
-            gameObject.AddComponent<ActorData>();
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PowerData>();
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();
+            gameObject.AddComponent<SubGameMode>();
 
             gameObject.AddComponent<UIExamine>();
             gameObject.AddComponent<UIMessage>();
