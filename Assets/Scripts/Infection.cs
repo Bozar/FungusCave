@@ -20,7 +20,6 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private GameObject attacker;
         private int countInfections;
         private ActorData data;
         private int energyInfectionOverflow;
@@ -53,11 +52,11 @@ namespace Fungus.Actor
             }
         }
 
-        public void GainInfection(bool attackerHasPower)
+        public void GainInfection(GameObject attacker)
         {
             int count;
 
-            if (!IsInfected(out count))
+            if (!IsInfected(attacker, out count))
             {
                 return;
             }
@@ -171,10 +170,15 @@ namespace Fungus.Actor
             }
         }
 
-        private bool IsInfected(out int totalInfections)
+        private bool IsInfected(GameObject attacker, out int totalInfections)
         {
             int rate = infectionComponent.GetInfectionRate(attacker);
             totalInfections = 0;
+
+            if (rate < 1)
+            {
+                return false;
+            }
 
             while (rate > 100)
             {
@@ -200,10 +204,6 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            maxInfections = FindObjects.GameLogic.GetComponent<ActorData>()
-                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.MaxInfections);
-
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             data = FindObjects.GameLogic.GetComponent<ActorData>();
@@ -212,6 +212,8 @@ namespace Fungus.Actor
                 ? (GetComponent<PCInfection>() as IInfection)
                 : (GetComponent<NPCInfection>() as IInfection);
 
+            maxInfections = data.GetIntData(
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.MaxInfections);
             InfectionRate = data.GetIntData(
                 GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionRate);
             ImmunityRate = data.GetIntData(

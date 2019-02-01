@@ -59,8 +59,7 @@ namespace Fungus.Actor
             }
             else
             {
-                hasPower = GetComponent<Power>().PowerIsActive(PowerTag.AttInfection1);
-                target.GetComponent<Infection>().GainInfection(hasPower);
+                target.GetComponent<Infection>().GainInfection(gameObject);
             }
         }
 
