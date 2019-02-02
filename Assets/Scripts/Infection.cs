@@ -9,10 +9,14 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
+    public enum InfectionStatus { Stressed, Infected, Overflowed };
+
     public enum InfectionTag { Weak, Slow, Poisoned };
 
     public interface IInfection
     {
+        string GetHealthReport(InfectionStatus status);
+
         int GetInfectionRate(GameObject attacker);
 
         int GetInfectionRate();
@@ -68,15 +72,21 @@ namespace Fungus.Actor
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
                     GetComponent<Stress>().GainStress(1);
+                    message.StoreText(infectionComponent.GetHealthReport(
+                        InfectionStatus.Stressed));
                 }
                 else if (countInfections >= maxInfections)
                 {
                     GetComponent<Energy>().LoseEnergy(
                         energyInfectionOverflow);
+                    message.StoreText(infectionComponent.GetHealthReport(
+                        InfectionStatus.Overflowed));
                 }
                 else
                 {
                     ChooseInfection();
+                    message.StoreText(infectionComponent.GetHealthReport(
+                       InfectionStatus.Infected));
 
                     if (hasPower)
                     {
@@ -191,15 +201,7 @@ namespace Fungus.Actor
                 totalInfections++;
             }
 
-            if (totalInfections > 0)
-            {
-                if (GetComponent<ObjectMetaInfo>().IsPC)
-                {
-                    message.StoreText("You are infected.");
-                }
-                return true;
-            }
-            return false;
+            return totalInfections > 0;
         }
 
         private void Start()

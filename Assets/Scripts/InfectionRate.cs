@@ -15,6 +15,11 @@ namespace Fungus.Actor
         private int lowRate;
         private int mediumRate;
 
+        public string GetHealthReport(InfectionStatus status)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetInfectionRate(GameObject attacker)
         {
             throw new NotImplementedException();

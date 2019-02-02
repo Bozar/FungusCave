@@ -8,6 +8,24 @@ namespace Fungus.Actor
     {
         private int mediumRate;
 
+        public string GetHealthReport(InfectionStatus status)
+        {
+            switch (status)
+            {
+                case InfectionStatus.Stressed:
+                    return "You feel stressed.";
+
+                case InfectionStatus.Infected:
+                    return "You are infected.";
+
+                case InfectionStatus.Overflowed:
+                    return "You feel exhausted.";
+
+                default:
+                    return "";
+            }
+        }
+
         public int GetInfectionRate(GameObject attacker)
         {
             int baseRate = GetComponent<InfectionRate>().GetInfectionRate();
