@@ -8,17 +8,17 @@ namespace Fungus.Actor
     {
         private int mediumRate;
 
-        public string GetHealthReport(InfectionStatus status)
+        public string GetHealthReport(HealthTag status)
         {
             switch (status)
             {
-                case InfectionStatus.Stressed:
+                case HealthTag.Stressed:
                     return "You feel stressed.";
 
-                case InfectionStatus.Infected:
+                case HealthTag.Infected:
                     return "You are infected.";
 
-                case InfectionStatus.Overflowed:
+                case HealthTag.Overflowed:
                     return "You feel exhausted.";
 
                 default:

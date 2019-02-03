@@ -9,13 +9,13 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public enum InfectionStatus { Stressed, Infected, Overflowed };
+    public enum HealthTag { Stressed, Infected, Overflowed };
 
     public enum InfectionTag { Weak, Slow, Poisoned };
 
     public interface IInfection
     {
-        string GetHealthReport(InfectionStatus status);
+        string GetHealthReport(HealthTag status);
 
         int GetInfectionRate(GameObject attacker);
 
@@ -73,20 +73,20 @@ namespace Fungus.Actor
                 {
                     GetComponent<Stress>().GainStress(1);
                     message.StoreText(infectionComponent.GetHealthReport(
-                        InfectionStatus.Stressed));
+                        HealthTag.Stressed));
                 }
                 else if (countInfections >= maxInfections)
                 {
                     GetComponent<Energy>().LoseEnergy(
                         energyInfectionOverflow);
                     message.StoreText(infectionComponent.GetHealthReport(
-                        InfectionStatus.Overflowed));
+                        HealthTag.Overflowed));
                 }
                 else
                 {
                     ChooseInfection();
                     message.StoreText(infectionComponent.GetHealthReport(
-                       InfectionStatus.Infected));
+                       HealthTag.Infected));
 
                     if (hasPower)
                     {

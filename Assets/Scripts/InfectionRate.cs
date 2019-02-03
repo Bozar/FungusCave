@@ -15,7 +15,7 @@ namespace Fungus.Actor
         private int lowRate;
         private int mediumRate;
 
-        public string GetHealthReport(InfectionStatus status)
+        public string GetHealthReport(HealthTag status)
         {
             throw new NotImplementedException();
         }
