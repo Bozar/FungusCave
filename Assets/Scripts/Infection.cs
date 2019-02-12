@@ -15,10 +15,13 @@ namespace Fungus.Actor
 
     public interface IInfection
     {
+        // Describe actor's status in the message board.
         string GetHealthReport(HealthTag status);
 
+        // The actor specific infection rate: PCInfections.cs, NPCInfections.cs.
         int GetInfectionRate(GameObject attacker);
 
+        // The universal infection rate: InfectionRate.cs.
         int GetInfectionRate();
     }
 
@@ -35,8 +38,7 @@ namespace Fungus.Actor
         private UIMessage message;
         private int powerImmunity2;
         private RandomNumber random;
-        public int ImmunityRate { get; private set; }
-        public int InfectionRate { get; private set; }
+
         public int ModEnergy { get; private set; }
         public int WeakDamage { get; private set; }
 
@@ -216,10 +218,6 @@ namespace Fungus.Actor
 
             maxInfections = data.GetIntData(
                 GetComponent<ObjectMetaInfo>().SubTag, DataTag.MaxInfections);
-            InfectionRate = data.GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionRate);
-            ImmunityRate = data.GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.ImmunityRate);
         }
     }
 }

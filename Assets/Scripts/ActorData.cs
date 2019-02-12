@@ -7,7 +7,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         HP, Stress, Damage, DropPotion,
         EnergyAttack, EnergyMove, EnergyRestore, MaxEnergy,
-        MaxInfections, InfectionRate, ImmunityRate
+        MaxInfections, InfectionAttack, InfectionDefend
     }
 
     public class ActorData : MonoBehaviour
@@ -77,8 +77,8 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.DEFAULT, DataTag.DropPotion, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.MaxInfections, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionRate, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.ImmunityRate, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
         }
     }
 }

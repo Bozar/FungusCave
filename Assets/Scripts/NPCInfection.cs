@@ -25,9 +25,15 @@ namespace Fungus.Actor
 
         public int GetInfectionRate(GameObject attacker)
         {
+            // The universal base rate is decided by actor's current HP and
+            // environment.
             int baseRate = GetComponent<InfectionRate>().GetInfectionRate();
-            int defend = GetComponent<Infection>().ImmunityRate;
 
+            // NPC's defending power, which is a static value.
+            int defend = GetComponent<InfectionRate>().Defend;
+
+            // PC's attacking power, which is optional and can be purchased by
+            // potions.
             int attack
                 = attacker.GetComponent<Power>().PowerIsActive(
                     PowerTag.AttInfection1)

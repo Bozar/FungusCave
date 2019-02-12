@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using System;
@@ -8,12 +9,16 @@ namespace Fungus.Actor
 {
     public class InfectionRate : MonoBehaviour, IInfection
     {
+        private ActorData actorData;
         private ConvertCoordinates coords;
-        private InfectionData data;
         private DungeonBoard dungeon;
         private int highRate;
+        private InfectionData infectionData;
         private int lowRate;
         private int mediumRate;
+
+        public int Attack { get; private set; }
+        public int Defend { get; private set; }
 
         public string GetHealthReport(HealthTag status)
         {
@@ -31,7 +36,7 @@ namespace Fungus.Actor
             hp = Math.Max(lowRate, hp);
             hp = Math.Min(mediumRate, hp);
 
-            int infection
+            int poisoned
                 = GetComponent<Infection>().HasInfection(InfectionTag.Poisoned)
                 ? highRate : 0;
 
@@ -43,19 +48,25 @@ namespace Fungus.Actor
             // TODO: Check weather.
             int fog = 0;
 
-            int final = hp + infection + pool + fog;
+            int final = hp + poisoned + pool + fog;
             return final;
         }
 
         private void Start()
         {
-            data = FindObjects.GameLogic.GetComponent<InfectionData>();
+            infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             coords = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
 
-            highRate = data.HighInfectionRate;
-            mediumRate = data.MediumInfectionRate;
-            lowRate = data.LowInfectionRate;
+            highRate = infectionData.HighInfectionRate;
+            mediumRate = infectionData.MediumInfectionRate;
+            lowRate = infectionData.LowInfectionRate;
+
+            Attack = actorData.GetIntData(
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionAttack);
+            Defend = actorData.GetIntData(
+                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionDefend);
         }
     }
 }
