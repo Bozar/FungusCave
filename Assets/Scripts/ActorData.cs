@@ -64,7 +64,6 @@ namespace Fungus.GameSystem.ObjectManager
             AddIntData(SubObjectTag.PC, DataTag.HP, 10);
             AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
             AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
-            AddIntData(SubObjectTag.PC, DataTag.MaxInfections, 2);
 
             AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
 

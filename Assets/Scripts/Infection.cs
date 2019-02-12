@@ -27,16 +27,15 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
+        private ActorData actorData;
         private int countInfections;
-        private ActorData data;
+        private EnergyData energyData;
         private int energyInfectionOverflow;
-        private bool hasPower;
         private IInfection infectionComponent;
         private Dictionary<InfectionTag, int> infectionsDict;
         private int maxDuration;
         private int maxInfections;
         private UIMessage message;
-        private int powerImmunity2;
         private RandomNumber random;
 
         public int ModEnergy { get; private set; }
@@ -69,8 +68,6 @@ namespace Fungus.Actor
 
             for (int i = 0; i < count; i++)
             {
-                hasPower = GetComponent<Power>().HasPower(PowerTag.DefInfection2);
-
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
                     GetComponent<Stress>().GainStress(1);
@@ -79,8 +76,7 @@ namespace Fungus.Actor
                 }
                 else if (countInfections >= maxInfections)
                 {
-                    GetComponent<Energy>().LoseEnergy(
-                        energyInfectionOverflow);
+                    GetComponent<Energy>().LoseEnergy(energyInfectionOverflow);
                     message.StoreText(infectionComponent.GetHealthReport(
                         HealthTag.Overflowed));
                 }
@@ -89,14 +85,8 @@ namespace Fungus.Actor
                     ChooseInfection();
                     message.StoreText(infectionComponent.GetHealthReport(
                        HealthTag.Infected));
-
-                    if (hasPower)
-                    {
-                        GetComponent<HP>().GainHP(powerImmunity2);
-                    }
                 }
             }
-
             return;
         }
 
@@ -147,8 +137,6 @@ namespace Fungus.Actor
 
             countInfections = 0;
             maxDuration = 5;
-            energyInfectionOverflow = 200;
-            powerImmunity2 = 2;
 
             infectionsDict = new Dictionary<InfectionTag, int>();
 
@@ -210,14 +198,17 @@ namespace Fungus.Actor
         {
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            data = FindObjects.GameLogic.GetComponent<ActorData>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 
             infectionComponent = GetComponent<ObjectMetaInfo>().IsPC
                 ? (GetComponent<PCInfection>() as IInfection)
                 : (GetComponent<NPCInfection>() as IInfection);
 
-            maxInfections = data.GetIntData(
+            maxInfections = actorData.GetIntData(
                 GetComponent<ObjectMetaInfo>().SubTag, DataTag.MaxInfections);
+
+            energyInfectionOverflow = energyData.InfectionOverflowed;
         }
     }
 }

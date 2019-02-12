@@ -27,6 +27,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<DungeonBlueprint>();
             gameObject.AddComponent<DungeonBoard>();
             gameObject.AddComponent<DungeonTerrain>();
+            gameObject.AddComponent<EnergyData>();
 
             gameObject.AddComponent<FindObjects>();
             gameObject.AddComponent<GameColor>();
