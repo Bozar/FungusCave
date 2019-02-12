@@ -15,8 +15,8 @@ namespace Fungus.Actor
         private PowerTag[] attackPowers;
         private int baseEnergy;
         private ConvertCoordinates coordinate;
-        private ActorData data;
         private Direction direction;
+        private EnergyData energyData;
         private int powerEnergy2;
         private int powerPoison2;
         private int relieveStressAfterKill;
@@ -127,16 +127,15 @@ namespace Fungus.Actor
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
-            data = FindObjects.GameLogic.GetComponent<ActorData>();
+            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 
             attackPowers = new PowerTag[]
             {
-            PowerTag.AttDamage1, PowerTag.AttDamage2,
-            PowerTag.AttInfection1, PowerTag.AttInfection2
+                PowerTag.AttDamage1, PowerTag.AttDamage2,
+                PowerTag.AttInfection1, PowerTag.AttInfection2
             };
 
-            baseEnergy = data.GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.EnergyAttack);
+            baseEnergy = energyData.Attack;
         }
     }
 }

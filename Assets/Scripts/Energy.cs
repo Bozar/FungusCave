@@ -1,5 +1,4 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using System;
@@ -59,9 +58,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            maxEnergy = FindObjects.GameLogic.GetComponent<ActorData>()
-                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.MaxEnergy);
+            maxEnergy = FindObjects.GameLogic.GetComponent<EnergyData>().Maximum;
         }
     }
 }

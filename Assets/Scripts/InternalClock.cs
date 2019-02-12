@@ -1,5 +1,4 @@
 ﻿using Fungus.Actor.AI;
-using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
@@ -58,9 +57,8 @@ namespace Fungus.Actor.Turn
 
         private void Start()
         {
-            energyTurn = FindObjects.GameLogic.GetComponent<ActorData>()
-                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.EnergyRestore);
+            energyTurn
+                = FindObjects.GameLogic.GetComponent<EnergyData>().Restore;
         }
     }
 }
