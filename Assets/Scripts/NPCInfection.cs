@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Fungus.Actor
     public class NPCInfection : MonoBehaviour, IInfection
     {
         private int mediumRate;
+
+        public int InfectionDuration { get; private set; }
 
         public string GetHealthReport(HealthTag status)
         {
@@ -52,6 +55,10 @@ namespace Fungus.Actor
         {
             mediumRate = FindObjects.GameLogic.GetComponent<InfectionData>()
                 .MediumInfectionRate;
+
+            InfectionDuration = FindObjects.GameLogic.GetComponent<ActorData>()
+                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
+                DataTag.InfectionDuration);
         }
     }
 }

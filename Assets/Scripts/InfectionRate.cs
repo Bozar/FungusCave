@@ -20,6 +20,14 @@ namespace Fungus.Actor
         public int Attack { get; private set; }
         public int Defend { get; private set; }
 
+        public int InfectionDuration
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public string GetHealthReport(HealthTag status)
         {
             throw new NotImplementedException();

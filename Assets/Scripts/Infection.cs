@@ -15,6 +15,8 @@ namespace Fungus.Actor
 
     public interface IInfection
     {
+        int InfectionDuration { get; }
+
         // Describe actor's status in the message board.
         string GetHealthReport(HealthTag status);
 
@@ -27,13 +29,12 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private ActorData actorData;
         private int countInfections;
         private EnergyData energyData;
         private int energyInfectionOverflow;
         private IInfection infectionComponent;
+        private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionsDict;
-        private int maxDuration;
         private int maxInfections;
         private UIMessage message;
         private RandomNumber random;
@@ -128,6 +129,7 @@ namespace Fungus.Actor
 
         public void Trigger()
         {
+            throw new NotImplementedException();
         }
 
         private void Awake()
@@ -136,10 +138,8 @@ namespace Fungus.Actor
             WeakDamage = 1;
 
             countInfections = 0;
-            maxDuration = 5;
 
             infectionsDict = new Dictionary<InfectionTag, int>();
-
             foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
             {
                 infectionsDict.Add((InfectionTag)tag, 0);
@@ -164,7 +164,8 @@ namespace Fungus.Actor
             {
                 index = random.Next(SeedTag.Infection, 0, candidates.Count);
                 newInfection = candidates[index];
-                infectionsDict[newInfection] = maxDuration;
+                infectionsDict[newInfection]
+                    = infectionComponent.InfectionDuration;
 
                 countInfections++;
             }
@@ -198,16 +199,14 @@ namespace Fungus.Actor
         {
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
+            infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
 
             infectionComponent = GetComponent<ObjectMetaInfo>().IsPC
                 ? (GetComponent<PCInfection>() as IInfection)
                 : (GetComponent<NPCInfection>() as IInfection);
 
-            maxInfections = actorData.GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.MaxInfections);
-
+            maxInfections = infectionData.MaxInfections;
             energyInfectionOverflow = energyData.InfectionOverflowed;
         }
     }

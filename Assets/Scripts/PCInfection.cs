@@ -6,7 +6,20 @@ namespace Fungus.Actor
 {
     public class PCInfection : MonoBehaviour, IInfection
     {
-        private int mediumRate;
+        private InfectionData data;
+        private int lowRate;
+        private int normalDuration;
+        private int shortDuration;
+
+        public int InfectionDuration
+        {
+            get
+            {
+                return GetComponent<Power>().PowerIsActive(
+                    PowerTag.DefInfection2)
+                    ? shortDuration : normalDuration;
+            }
+        }
 
         public string GetHealthReport(HealthTag status)
         {
@@ -36,7 +49,7 @@ namespace Fungus.Actor
             // potions.
             int defend
                 = GetComponent<Power>().PowerIsActive(PowerTag.DefInfection1)
-                ? mediumRate : 0;
+                ? lowRate : 0;
 
             // NPC's attacking power, which is a static value.
             int attack = attacker.GetComponent<InfectionRate>().Attack;
@@ -52,8 +65,11 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            mediumRate = FindObjects.GameLogic.GetComponent<InfectionData>()
-                .MediumInfectionRate;
+            data = FindObjects.GameLogic.GetComponent<InfectionData>();
+
+            lowRate = data.LowInfectionRate;
+            normalDuration = data.NormalDuration;
+            shortDuration = data.ShortDuration;
         }
     }
 }
