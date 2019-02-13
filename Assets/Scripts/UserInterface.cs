@@ -18,8 +18,7 @@ namespace Fungus.GameSystem.Render
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
         InfectionLabel,
-        InfectionName0, InfectionDuration0,
-        InfectionName1, InfectionDuration1,
+        InfectionName, InfectionDuration,
 
         ExamineMessage, ExamineName, ExamineData, ExamineModeline
     };
@@ -53,7 +52,7 @@ namespace Fungus.GameSystem.Render
         {
             if (pc == null)
             {
-                pc = GameObject.FindGameObjectWithTag("PC");
+                pc = FindObjects.PC;
             }
 
             UpdateHP();
@@ -140,50 +139,30 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateInfection()
         {
-            int lineNumber = -1;
             int current;
-            string name;
-            string duration;
-            UITag tagName;
-            UITag tagDuration;
 
-            getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
-
-            for (int i = 0; i < 2; i++)
+            if (!pc.GetComponent<Infection>().HasInfection())
             {
-                name = "InfectionName" + i;
-                duration = "InfectionDuration" + i;
+                getUI(UITag.InfectionName).GetComponent<Text>().text = "";
+                getUI(UITag.InfectionDuration).GetComponent<Text>().text = "";
+                getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
 
-                tagName = (UITag)Enum.Parse(typeof(UITag), name);
-                tagDuration = (UITag)Enum.Parse(typeof(UITag), duration);
-
-                getUI(tagName).GetComponent<Text>().text = "";
-                getUI(tagDuration).GetComponent<Text>().text = "";
+                return;
             }
 
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {
                 if (pc.GetComponent<Infection>().HasInfection(tag, out current))
                 {
-                    lineNumber++;
-
-                    name = "InfectionName" + lineNumber;
-                    duration = "InfectionDuration" + lineNumber;
-
-                    tagName = (UITag)Enum.Parse(typeof(UITag), name);
-                    tagDuration = (UITag)Enum.Parse(typeof(UITag), duration);
-
-                    getUI(tagName).GetComponent<Text>().text = tag.ToString();
-                    getUI(tagDuration).GetComponent<Text>().text
+                    getUI(UITag.InfectionName).GetComponent<Text>().text
+                        = tag.ToString();
+                    getUI(UITag.InfectionDuration).GetComponent<Text>().text
                         = current.ToString();
+                    getUI(UITag.InfectionLabel).GetComponent<Text>().text
+                        = "[ Infections ]";
                 }
             }
-
-            if (lineNumber > -1)
-            {
-                getUI(UITag.InfectionLabel).GetComponent<Text>().text
-                    = "[ Infections ]";
-            }
+            return;
         }
 
         private void UpdatePotion()
