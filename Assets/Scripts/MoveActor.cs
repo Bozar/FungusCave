@@ -22,9 +22,11 @@ namespace Fungus.Actor
         private DungeonBoard board;
         private ConvertCoordinates coord;
         private Direction direction;
+        private EnergyData energyData;
         private UIMessage message;
         private UIModeline modeline;
         private int poolEnergy;
+        private int slowEnergy;
         private DungeonTerrain terrain;
         private bool useDiagonalFactor;
         private WizardMode wizard;
@@ -80,10 +82,10 @@ namespace Fungus.Actor
                 ? direction.DiagonalFactor : direction.CardinalFactor;
 
             slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
-                ? GetComponent<Infection>().ModEnergy : 0;
+                ? slowEnergy : 0;
 
             totalEnergy = (int)Math.Floor(
-                (baseEnergy + pool) * ((100 + directionFactor + slow) * 0.01));
+                (baseEnergy + pool + slow) * ((100 + directionFactor) * 0.01));
 
             if (wizard.PrintEnergyCost && GetComponent<ObjectMetaInfo>().IsPC)
             {
@@ -103,8 +105,10 @@ namespace Fungus.Actor
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
+            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 
-            baseEnergy = FindObjects.GameLogic.GetComponent<EnergyData>().Move;
+            baseEnergy = energyData.Move;
+            slowEnergy = energyData.InfectionSlow;
         }
     }
 }

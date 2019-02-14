@@ -20,6 +20,7 @@ namespace Fungus.Actor
         private int powerEnergy2;
         private int powerPoison2;
         private int relieveStressAfterKill;
+        private int slowEnergy;
 
         public void MeleeAttack(int x, int y)
         {
@@ -89,7 +90,7 @@ namespace Fungus.Actor
                 : direction.DiagonalFactor;
 
             slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
-                ? GetComponent<Infection>().ModEnergy : 0;
+                ? slowEnergy : 0;
 
             attack = 0;
             foreach (PowerTag tag in attackPowers)
@@ -102,7 +103,7 @@ namespace Fungus.Actor
 
             // TODO: Attack in fog.
             totalEnergy = (int)Math.Floor(
-                (baseEnergy + attack) * ((100 + directionFactor + slow) * 0.01));
+                (baseEnergy + attack + slow) * ((100 + directionFactor) * 0.01));
 
             if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
                 && GetComponent<ObjectMetaInfo>().IsPC)
@@ -136,6 +137,7 @@ namespace Fungus.Actor
             };
 
             baseEnergy = energyData.Attack;
+            slowEnergy = energyData.InfectionSlow;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Fungus.Actor
 
         public int GetInfectionRate(GameObject attacker)
         {
-            // The universal base rate is decided by actor's current HP and
+            // The universal base rate is decided by victim's current HP and
             // environment.
             int baseRate = GetComponent<InfectionRate>().GetInfectionRate();
 
@@ -51,8 +52,11 @@ namespace Fungus.Actor
                 = GetComponent<Power>().PowerIsActive(PowerTag.DefInfection1)
                 ? lowRate : 0;
 
-            // NPC's attacking power, which is a static value.
-            int attack = attacker.GetComponent<InfectionRate>().Attack;
+            // NPC's attacking power (attack) is a static value.
+            int attack
+                = FindObjects.GameLogic.GetComponent<ActorData>().GetIntData(
+                    attacker.GetComponent<ObjectMetaInfo>().SubTag,
+                    DataTag.InfectionAttack);
 
             int final = baseRate + attack - defend;
             return final;

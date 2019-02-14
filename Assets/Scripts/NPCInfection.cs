@@ -7,6 +7,10 @@ namespace Fungus.Actor
 {
     public class NPCInfection : MonoBehaviour, IInfection
     {
+        private ActorData actorData;
+        private SubObjectTag actorTag;
+        private int defend;
+        private InfectionData infectionData;
         private int mediumRate;
 
         public int InfectionDuration { get; private set; }
@@ -28,12 +32,9 @@ namespace Fungus.Actor
 
         public int GetInfectionRate(GameObject attacker)
         {
-            // The universal base rate is decided by actor's current HP and
+            // The universal base rate is decided by victim's current HP and
             // environment.
             int baseRate = GetComponent<InfectionRate>().GetInfectionRate();
-
-            // NPC's defending power, which is a static value.
-            int defend = GetComponent<InfectionRate>().Defend;
 
             // PC's attacking power, which is optional and can be purchased by
             // potions.
@@ -42,6 +43,7 @@ namespace Fungus.Actor
                     PowerTag.AttInfection1)
                     ? mediumRate : 0;
 
+            // NPC's defending power (defend) is a static value.
             int final = baseRate + attack - defend;
             return final;
         }
@@ -53,12 +55,16 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            mediumRate = FindObjects.GameLogic.GetComponent<InfectionData>()
-                .MediumInfectionRate;
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+            infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
+            actorTag = GetComponent<ObjectMetaInfo>().SubTag;
 
-            InfectionDuration = FindObjects.GameLogic.GetComponent<ActorData>()
-                .GetIntData(GetComponent<ObjectMetaInfo>().SubTag,
-                DataTag.InfectionDuration);
+            mediumRate = infectionData.MediumInfectionRate;
+
+            InfectionDuration = actorData.GetIntData(
+                actorTag, DataTag.InfectionDuration);
+            defend = actorData.GetIntData(
+                actorTag, DataTag.InfectionDefend);
         }
     }
 }

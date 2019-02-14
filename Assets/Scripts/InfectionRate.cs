@@ -1,5 +1,4 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using System;
@@ -9,16 +8,12 @@ namespace Fungus.Actor
 {
     public class InfectionRate : MonoBehaviour, IInfection
     {
-        private ActorData actorData;
         private ConvertCoordinates coords;
         private DungeonBoard dungeon;
         private int highRate;
         private InfectionData infectionData;
         private int lowRate;
         private int mediumRate;
-
-        public int Attack { get; private set; }
-        public int Defend { get; private set; }
 
         public int InfectionDuration
         {
@@ -63,18 +58,12 @@ namespace Fungus.Actor
         private void Start()
         {
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
-            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             coords = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
 
             highRate = infectionData.HighInfectionRate;
             mediumRate = infectionData.MediumInfectionRate;
             lowRate = infectionData.LowInfectionRate;
-
-            Attack = actorData.GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionAttack);
-            Defend = actorData.GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.InfectionDefend);
         }
     }
 }
