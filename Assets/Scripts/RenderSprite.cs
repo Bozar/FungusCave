@@ -63,7 +63,7 @@ namespace Fungus.Actor.Render
                     return;
 
                 case FOVStatus.Visited:
-                    switch (GetComponent<ObjectMetaInfo>().MainTag)
+                    switch (GetComponent<MetaInfo>().MainTag)
                     {
                         case MainObjectTag.Building:
                             RememberSprite();
@@ -78,7 +78,7 @@ namespace Fungus.Actor.Render
                     }
 
                 case FOVStatus.Insight:
-                    switch (GetComponent<ObjectMetaInfo>().MainTag)
+                    switch (GetComponent<MetaInfo>().MainTag)
                     {
                         case MainObjectTag.Building:
                             if (actor.HasActor(x, y))

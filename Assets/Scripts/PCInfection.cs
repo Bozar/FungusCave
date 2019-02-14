@@ -55,7 +55,7 @@ namespace Fungus.Actor
             // NPC's attacking power (attack) is a static value.
             int attack
                 = FindObjects.GameLogic.GetComponent<ActorData>().GetIntData(
-                    attacker.GetComponent<ObjectMetaInfo>().SubTag,
+                    attacker.GetComponent<MetaInfo>().SubTag,
                     DataTag.InfectionAttack);
 
             int final = baseRate + attack - defend;

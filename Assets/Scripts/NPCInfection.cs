@@ -57,7 +57,7 @@ namespace Fungus.Actor
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
-            actorTag = GetComponent<ObjectMetaInfo>().SubTag;
+            actorTag = GetComponent<MetaInfo>().SubTag;
 
             mediumRate = infectionData.MediumInfectionRate;
 

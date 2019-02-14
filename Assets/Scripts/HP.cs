@@ -53,7 +53,7 @@ namespace Fungus.Actor
         private void Start()
         {
             MaxHP = FindObjects.GameLogic.GetComponent<ActorData>().GetIntData(
-                GetComponent<ObjectMetaInfo>().SubTag, DataTag.HP);
+                GetComponent<MetaInfo>().SubTag, DataTag.HP);
             CurrentHP = MaxHP;
 
             coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();

@@ -124,7 +124,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            isPC = GetComponent<ObjectMetaInfo>().IsPC;
+            isPC = GetComponent<MetaInfo>().IsPC;
 
             if (isPC)
             {

@@ -59,7 +59,7 @@ namespace Fungus.GameSystem.Turn
             Debug.Log("==========");
             Debug.Log("Total actors: " + schedule.Count);
             Debug.Log("Current actor: "
-                + CurrentActor.GetComponent<ObjectMetaInfo>().SubTag);
+                + CurrentActor.GetComponent<MetaInfo>().SubTag);
 
             foreach (var actor in schedule)
             {
@@ -68,7 +68,7 @@ namespace Fungus.GameSystem.Turn
 
                 Debug.Log(actorIndex
                     + ": [" + position[0] + "," + position[1] + "] "
-                    + actor.GetComponent<ObjectMetaInfo>().SubTag);
+                    + actor.GetComponent<MetaInfo>().SubTag);
 
                 actorIndex++;
             }
@@ -100,16 +100,16 @@ namespace Fungus.GameSystem.Turn
 
         private void CheckErrors(GameObject actor)
         {
-            if (actor.GetComponent<ObjectMetaInfo>().MainTag
+            if (actor.GetComponent<MetaInfo>().MainTag
                 != MainObjectTag.Actor)
             {
                 throw new Exception("Invalid actor tag: "
-                    + actor.GetComponent<ObjectMetaInfo>().MainTag);
+                    + actor.GetComponent<MetaInfo>().MainTag);
             }
             else if (schedule.Contains(actor))
             {
                 throw new Exception("Actor already exists in the schedule: "
-                    + actor.GetComponent<ObjectMetaInfo>().SubTag);
+                    + actor.GetComponent<MetaInfo>().SubTag);
             }
         }
 

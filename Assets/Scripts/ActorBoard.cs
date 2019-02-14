@@ -33,9 +33,9 @@ namespace Fungus.GameSystem.WorldBuilding
                 return false;
             }
 
-            checkMainTag = actor.GetComponent<ObjectMetaInfo>().MainTag
+            checkMainTag = actor.GetComponent<MetaInfo>().MainTag
                 .Equals(actorTag);
-            checkSubTag = actor.GetComponent<ObjectMetaInfo>().SubTag
+            checkSubTag = actor.GetComponent<MetaInfo>().SubTag
                 .Equals(actorTag);
 
             return checkMainTag || checkSubTag;

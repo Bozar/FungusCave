@@ -200,7 +200,7 @@ namespace Fungus.Actor
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
 
-            infectionComponent = GetComponent<ObjectMetaInfo>().IsPC
+            infectionComponent = GetComponent<MetaInfo>().IsPC
                 ? (GetComponent<PCInfection>() as IInfection)
                 : (GetComponent<NPCInfection>() as IInfection);
 

@@ -57,7 +57,7 @@ namespace Fungus.GameSystem.ObjectManager
 
         public void StoreObject(GameObject go)
         {
-            switch (go.GetComponent<ObjectMetaInfo>().MainTag)
+            switch (go.GetComponent<MetaInfo>().MainTag)
             {
                 case MainObjectTag.Actor:
                     StoreActor(go);
@@ -216,9 +216,9 @@ namespace Fungus.GameSystem.ObjectManager
 
         private void SetTags(MainObjectTag main, SubObjectTag sub, GameObject go)
         {
-            go.AddComponent<ObjectMetaInfo>();
-            go.GetComponent<ObjectMetaInfo>().SetMainTag(main);
-            go.GetComponent<ObjectMetaInfo>().SetSubTag(sub);
+            go.AddComponent<MetaInfo>();
+            go.GetComponent<MetaInfo>().SetMainTag(main);
+            go.GetComponent<MetaInfo>().SetSubTag(sub);
         }
 
         private void Start()
@@ -241,7 +241,7 @@ namespace Fungus.GameSystem.ObjectManager
             GetComponent<ActorBoard>().RemoveActor(
                 position[0], position[1]);
 
-            pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
+            pool[go.GetComponent<MetaInfo>().SubTag].Push(go);
 
             go.SetActive(false);
         }
@@ -257,14 +257,14 @@ namespace Fungus.GameSystem.ObjectManager
             GetComponent<DungeonBoard>().ChangeBlueprint(
                 SubObjectTag.Floor, position[0], position[1]);
 
-            pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
+            pool[go.GetComponent<MetaInfo>().SubTag].Push(go);
 
             go.SetActive(false);
         }
 
         private void StoreDoppleganger(GameObject go)
         {
-            pool[go.GetComponent<ObjectMetaInfo>().SubTag].Push(go);
+            pool[go.GetComponent<MetaInfo>().SubTag].Push(go);
             go.SetActive(false);
         }
     }

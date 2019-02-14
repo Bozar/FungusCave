@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.ObjectManager
 {
-    public class ObjectMetaInfo : MonoBehaviour
+    public class MetaInfo : MonoBehaviour
     {
         public int DropPotion { get; private set; }
 

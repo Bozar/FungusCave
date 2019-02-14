@@ -55,7 +55,7 @@ namespace Fungus.Actor
                 if (GetComponent<Potion>() != null)
                 {
                     GetComponent<Potion>().GainPotion(
-                        target.GetComponent<ObjectMetaInfo>().DropPotion);
+                        target.GetComponent<MetaInfo>().DropPotion);
                 }
             }
             else
@@ -106,7 +106,7 @@ namespace Fungus.Actor
                 (baseEnergy + attack + slow) * ((100 + directionFactor) * 0.01));
 
             if (FindObjects.GameLogic.GetComponent<WizardMode>().PrintEnergyCost
-                && GetComponent<ObjectMetaInfo>().IsPC)
+                && GetComponent<MetaInfo>().IsPC)
             {
                 FindObjects.GameLogic.GetComponent<UIMessage>()
                     .StoreText("Melee energy: " + totalEnergy);

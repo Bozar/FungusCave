@@ -18,7 +18,7 @@ namespace Fungus.Actor
 
         public void Bury()
         {
-            if (GetComponent<ObjectMetaInfo>().IsPC)
+            if (GetComponent<MetaInfo>().IsPC)
             {
                 // TODO: Kill PC.
                 message.StoreText("PC is dead.");
