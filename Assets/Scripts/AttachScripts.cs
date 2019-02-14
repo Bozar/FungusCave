@@ -23,12 +23,13 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<ConvertCoordinates>();
             gameObject.AddComponent<CreateWorld>();
 
+            gameObject.AddComponent<DamageData>();
             gameObject.AddComponent<Direction>();
             gameObject.AddComponent<DungeonBlueprint>();
             gameObject.AddComponent<DungeonBoard>();
             gameObject.AddComponent<DungeonTerrain>();
-            gameObject.AddComponent<EnergyData>();
 
+            gameObject.AddComponent<EnergyData>();
             gameObject.AddComponent<FindObjects>();
             gameObject.AddComponent<GameColor>();
             gameObject.AddComponent<InfectionData>();

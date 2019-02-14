@@ -9,7 +9,7 @@ namespace Fungus.Actor
     public class NPCDamage : MonoBehaviour, IDamage
     {
         private int baseDamage;
-        private int weakDamage;
+        private int infectionDamage;
 
         public int CurrentDamage
         {
@@ -18,7 +18,7 @@ namespace Fungus.Actor
                 int weak, finalDamage;
 
                 weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
-                    ? weakDamage : 0;
+                    ? infectionDamage : 0;
 
                 finalDamage = baseDamage - weak;
                 finalDamage = Math.Max(0, finalDamage);
@@ -32,8 +32,8 @@ namespace Fungus.Actor
             baseDamage = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<MetaInfo>().SubTag,
                 DataTag.Damage);
-
-            weakDamage = GetComponent<Infection>().WeakDamage;
+            infectionDamage = FindObjects.GameLogic.GetComponent<DamageData>()
+               .InfectionWeak;
         }
     }
 }

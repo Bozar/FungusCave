@@ -26,8 +26,6 @@ namespace Fungus.GameSystem.ObjectManager
     {
         private Dictionary<PowerTag, string> powerNames;
 
-        public int AttDamage1 { get; private set; }
-
         public string GetPowerName(PowerTag tag)
         {
             return powerNames[tag];
@@ -35,9 +33,6 @@ namespace Fungus.GameSystem.ObjectManager
 
         private void Awake()
         {
-            // Damage increased by power AttDamage1.
-            AttDamage1 = 1;
-
             powerNames = new Dictionary<PowerTag, string>
             {
                 { PowerTag.DefEnergy1, "Vigor I" },

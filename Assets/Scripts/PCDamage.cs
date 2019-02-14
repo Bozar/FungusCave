@@ -14,8 +14,8 @@ namespace Fungus.Actor
     public class PCDamage : MonoBehaviour, IDamage
     {
         private int baseDamage;
+        private int infectionDamage;
         private int powerDamage;
-        private int weakDamage;
 
         public int CurrentDamage
         {
@@ -24,7 +24,7 @@ namespace Fungus.Actor
                 int weak, power, finalDamage;
 
                 weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
-                    ? weakDamage : 0;
+                    ? infectionDamage : 0;
                 power = GetComponent<Power>().PowerIsActive(PowerTag.AttDamage1)
                     ? powerDamage : 0;
 
@@ -40,10 +40,10 @@ namespace Fungus.Actor
             baseDamage = FindObjects.GameLogic.GetComponent<ActorData>()
                 .GetIntData(GetComponent<MetaInfo>().SubTag,
                 DataTag.Damage);
-            powerDamage = FindObjects.GameLogic.GetComponent<PowerData>()
-                .AttDamage1;
-
-            weakDamage = GetComponent<Infection>().WeakDamage;
+            powerDamage = FindObjects.GameLogic.GetComponent<DamageData>()
+                .PowerAttDamage1;
+            infectionDamage = FindObjects.GameLogic.GetComponent<DamageData>()
+               .InfectionWeak;
         }
     }
 }

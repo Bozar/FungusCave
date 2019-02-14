@@ -39,8 +39,6 @@ namespace Fungus.Actor
         private UIMessage message;
         private RandomNumber random;
 
-        public int WeakDamage { get; private set; }
-
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
@@ -133,8 +131,6 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            WeakDamage = 1;
-
             countInfections = 0;
 
             infectionsDict = new Dictionary<InfectionTag, int>();
