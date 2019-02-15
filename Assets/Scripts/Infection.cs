@@ -29,17 +29,31 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private int countInfections;
         private EnergyData energyData;
-        private int energyInfectionOverflow;
         private IInfection infectionComponent;
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionsDict;
-        private int maxInfections;
         private int maxRepeat;
         private UIMessage message;
         private Stack<InfectionTag> previousInfections;
         private RandomNumber random;
+
+        public int ActiveInfections
+        {
+            get
+            {
+                int count = 0;
+
+                foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+                {
+                    if (infectionsDict[tag] > 0)
+                    {
+                        count++;
+                    }
+                }
+                return count;
+            }
+        }
 
         public void Count()
         {
@@ -48,11 +62,6 @@ namespace Fungus.Actor
                 if (infectionsDict[tag] > 0)
                 {
                     infectionsDict[tag] -= 1;
-
-                    if (infectionsDict[tag] == 0)
-                    {
-                        countInfections--;
-                    }
                 }
             }
         }
@@ -74,9 +83,10 @@ namespace Fungus.Actor
                     message.StoreText(infectionComponent.GetHealthReport(
                         HealthTag.Stressed));
                 }
-                else if (countInfections >= maxInfections)
+                else if (ActiveInfections >= infectionData.MaxInfections)
                 {
-                    GetComponent<Energy>().LoseEnergy(energyInfectionOverflow);
+                    GetComponent<Energy>().LoseEnergy(
+                        energyData.InfectionOverflowed);
                     message.StoreText(infectionComponent.GetHealthReport(
                         HealthTag.Overflowed));
                 }
@@ -92,20 +102,13 @@ namespace Fungus.Actor
 
         public bool HasInfection()
         {
-            foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
-            {
-                if (infectionsDict[tag] > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return ActiveInfections > 0;
         }
 
         public bool HasInfection(InfectionTag tag, out int duration)
         {
             duration = infectionsDict[tag];
-            return HasInfection(tag);
+            return duration > 0;
         }
 
         public bool HasInfection(InfectionTag tag)
@@ -117,13 +120,8 @@ namespace Fungus.Actor
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {
-                if (infectionsDict[tag] > 0)
-                {
-                    infectionsDict[tag] = 0;
-                }
+                infectionsDict[tag] = 0;
             }
-
-            countInfections = 0;
         }
 
         public void Trigger()
@@ -133,7 +131,6 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            countInfections = 0;
             maxRepeat = 2;
             previousInfections = new Stack<InfectionTag>();
 
@@ -149,6 +146,7 @@ namespace Fungus.Actor
             bool repeat;
             InfectionTag newInfection;
 
+            // The same infection should not appear 3 times (maxRepeat) in a row.
             do
             {
                 repeat = false;
@@ -182,7 +180,6 @@ namespace Fungus.Actor
             } while (repeat);
 
             infectionsDict[newInfection] = infectionComponent.InfectionDuration;
-            countInfections++;
         }
 
         private bool IsInfected(GameObject attacker, out int totalInfections)
@@ -219,9 +216,6 @@ namespace Fungus.Actor
             infectionComponent = GetComponent<MetaInfo>().IsPC
                 ? (GetComponent<PCInfection>() as IInfection)
                 : (GetComponent<NPCInfection>() as IInfection);
-
-            maxInfections = infectionData.MaxInfections;
-            energyInfectionOverflow = energyData.InfectionOverflowed;
         }
     }
 }
