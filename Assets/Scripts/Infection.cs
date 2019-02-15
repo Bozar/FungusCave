@@ -36,7 +36,9 @@ namespace Fungus.Actor
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionsDict;
         private int maxInfections;
+        private int maxRepeat;
         private UIMessage message;
+        private Stack<InfectionTag> previousInfections;
         private RandomNumber random;
 
         public void Count()
@@ -132,6 +134,8 @@ namespace Fungus.Actor
         private void Awake()
         {
             countInfections = 0;
+            maxRepeat = 2;
+            previousInfections = new Stack<InfectionTag>();
 
             infectionsDict = new Dictionary<InfectionTag, int>();
             foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
@@ -142,27 +146,43 @@ namespace Fungus.Actor
 
         private void ChooseInfection()
         {
-            List<InfectionTag> candidates = new List<InfectionTag>();
+            bool repeat;
             InfectionTag newInfection;
-            int index;
 
-            foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+            do
             {
-                if (!HasInfection(tag))
+                repeat = false;
+                newInfection = (InfectionTag)random.Next(
+                    SeedTag.Infection,
+                    0, Enum.GetNames(typeof(InfectionTag)).Length);
+
+                if (previousInfections.Count == 0)
                 {
-                    candidates.Add(tag);
+                    previousInfections.Push(newInfection);
+                    break;
                 }
-            }
+                else if (previousInfections.Peek() == newInfection)
+                {
+                    if (previousInfections.Count < maxRepeat)
+                    {
+                        previousInfections.Push(newInfection);
+                        break;
+                    }
+                    else
+                    {
+                        repeat = true;
+                    }
+                }
+                else
+                {
+                    previousInfections = new Stack<InfectionTag>();
+                    previousInfections.Push(newInfection);
+                    break;
+                }
+            } while (repeat);
 
-            if (candidates.Count > 0)
-            {
-                index = random.Next(SeedTag.Infection, 0, candidates.Count);
-                newInfection = candidates[index];
-                infectionsDict[newInfection]
-                    = infectionComponent.InfectionDuration;
-
-                countInfections++;
-            }
+            infectionsDict[newInfection] = infectionComponent.InfectionDuration;
+            countInfections++;
         }
 
         private bool IsInfected(GameObject attacker, out int totalInfections)
