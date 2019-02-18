@@ -36,7 +36,8 @@ namespace Fungus.Actor
 
             GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-            hasPower = GetComponent<Power>().PowerIsActive(PowerTag.AttInfection2);
+            hasPower = (GetComponent<Power>() != null)
+                && GetComponent<Power>().PowerIsActive(PowerTag.AttInfection2);
             target = actorBoard.GetActor(x, y);
 
             if (hasPower)
@@ -95,7 +96,8 @@ namespace Fungus.Actor
             attack = 0;
             foreach (PowerTag tag in attackPowers)
             {
-                if (GetComponent<Power>().PowerIsActive(tag))
+                if ((GetComponent<Power>() != null)
+                    && GetComponent<Power>().PowerIsActive(tag))
                 {
                     attack += attackPowerEnergy;
                 }
@@ -117,7 +119,8 @@ namespace Fungus.Actor
 
         private void RestoreEnergy()
         {
-            if (GetComponent<Power>().PowerIsActive(PowerTag.DefEnergy2))
+            if ((GetComponent<Power>() != null)
+                && GetComponent<Power>().PowerIsActive(PowerTag.DefEnergy2))
             {
                 GetComponent<Energy>().GainEnergy(powerEnergy2);
             }

@@ -89,38 +89,39 @@ namespace Fungus.GameSystem.ObjectManager
 
                 SetTags(MainObjectTag.Actor, tag, go);
 
+                go.AddComponent<AIVision>();
+                go.AddComponent<AutoExplore>();
+                go.AddComponent<Attack>();
+                go.AddComponent<Die>();
+
+                go.AddComponent<Energy>();
                 go.AddComponent<FieldOfView>();
                 go.AddComponent<FOVRhombus>();
                 //go.AddComponent<FOVSimple>();
-                go.AddComponent<RenderSprite>();
 
-                //go.AddComponent<TileOverlay>();
-                go.AddComponent<InternalClock>();
-
-                go.AddComponent<Energy>();
                 go.AddComponent<HP>();
-                go.AddComponent<Stress>();
                 go.AddComponent<Infection>();
                 go.AddComponent<InfectionRate>();
+                go.AddComponent<InternalClock>();
 
-                go.AddComponent<AutoExplore>();
                 go.AddComponent<MoveActor>();
-                go.AddComponent<Attack>();
-                go.AddComponent<Die>();
-                go.AddComponent<Power>();
-
-                go.AddComponent<AIVision>();
+                go.AddComponent<RenderSprite>();
+                go.AddComponent<Stress>();
+                //go.AddComponent<TileOverlay>();
 
                 if (tag == SubObjectTag.PC)
                 {
-                    go.AddComponent<PlayerInput>();
-                    go.AddComponent<PCActions>();
-                    go.AddComponent<Potion>();
-                    go.AddComponent<TurnIndicator>();
-                    go.AddComponent<PCAutoExplore>();
                     go.AddComponent<InputNormal>();
+
+                    go.AddComponent<PCActions>();
+                    go.AddComponent<PCAutoExplore>();
                     go.AddComponent<PCDamage>();
                     go.AddComponent<PCInfection>();
+
+                    go.AddComponent<PlayerInput>();
+                    go.AddComponent<Power>();
+                    go.AddComponent<Potion>();
+                    go.AddComponent<TurnIndicator>();
 
                     FindObjects.PC = go;
                 }
@@ -131,6 +132,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<NPCDamage>();
                     go.AddComponent<NPCInfection>();
                     //go.AddComponent<NPCMemory>();
+
                     go.AddComponent<NPCActions>().enabled = false;
 
                     // NOTE: Change sprite.
