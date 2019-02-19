@@ -26,7 +26,7 @@ namespace Fungus.Actor
                     GetComponent<MetaInfo>().SubTag, DataTag.Damage);
                 weak = GetComponent<Infection>().HasInfection(InfectionTag.Weak)
                     ? damageData.InfectionWeak : 0;
-                power = GetComponent<Power>().PowerIsActive(PowerTag.AttDamage1)
+                power = GetComponent<Power>().IsActive(PowerTag.AttDamage1)
                     ? damageData.PowerAttDamage1 : 0;
 
                 finalDamage = baseDamage + power - weak;

@@ -38,10 +38,9 @@ namespace Fungus.Actor
 
             // PC's attacking power, which is optional and can be purchased by
             // potions.
-            int attack
-                = attacker.GetComponent<Power>().PowerIsActive(
-                    PowerTag.AttInfection1)
-                    ? mediumRate : 0;
+            int attack = attacker.GetComponent<Power>().IsActive(
+                PowerTag.AttInfection1)
+                ? mediumRate : 0;
 
             // NPC's defending power (defend) is a static value.
             int final = baseRate + attack - defend;

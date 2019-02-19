@@ -159,7 +159,7 @@ namespace Fungus.GameSystem.Render
                     getUI(UITag.InfectionDuration).GetComponent<Text>().text
                         = current.ToString();
                     getUI(UITag.InfectionLabel).GetComponent<Text>().text
-                        = "[ Infections ]";
+                        = "[ Infection ]";
                 }
             }
             return;
@@ -175,31 +175,33 @@ namespace Fungus.GameSystem.Render
 
         private void UpdatePower()
         {
-            int max = pc.GetComponent<Stress>().MaxStress;
-            string power;
-            UITag tagPower;
-            PowerTag tag;
+            PowerTag power;
+            bool isActive;
+            bool hasPower = false;
+            string uiName = "PowerData";
+            UITag uiTag;
 
-            for (int i = 0; i < max; i++)
+            foreach (PowerSlotTag slot in Enum.GetValues(typeof(PowerSlotTag)))
             {
-                power = "PowerData" + i;
-                tagPower = (UITag)Enum.Parse(typeof(UITag), power);
+                if (pc.GetComponent<Power>().HasPower(slot,
+                    out power, out isActive))
+                {
+                    hasPower = true;
 
-                getUI(tagPower).GetComponent<Text>().text
-                    = pc.GetComponent<Power>().HasPower(
-                        PowerSlotTag.Slot1, out tag)
-                        ? GetComponent<PowerData>().GetPowerName(tag)
-                        : "";
+                    uiTag = (UITag)Enum.Parse(typeof(UITag), uiName + (int)slot);
 
-                getUI(tagPower).GetComponent<Text>().color
-                    = pc.GetComponent<Power>().SlotIsActive((PowerSlotTag)i)
-                    ? color.PickColor(ColorName.White)
-                    : color.PickColor(ColorName.Grey);
+                    getUI(uiTag).GetComponent<Text>().text
+                        = GetComponent<PowerData>().GetPowerName(power);
+
+                    getUI(uiTag).GetComponent<Text>().color = isActive
+                        ? color.PickColor(ColorName.White)
+                        : color.PickColor(ColorName.Grey);
+                }
             }
 
-            if (pc.GetComponent<Power>().HasPower())
+            if (hasPower)
             {
-                getUI(UITag.PowerLabel).GetComponent<Text>().text = "[ Powers ]";
+                getUI(UITag.PowerLabel).GetComponent<Text>().text = "[ Power ]";
             }
         }
 

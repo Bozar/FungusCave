@@ -38,7 +38,7 @@ namespace Fungus.GameSystem.ObjectManager
                 { PowerTag.DefEnergy1, "Vigor" },
                 { PowerTag.DefEnergy2, "Unstoppable" },
                 { PowerTag.DefInfection1, "Immunity" },
-                { PowerTag.DefInfection2, "Quick Recovery" },
+                { PowerTag.DefInfection2, "Fast Heal" },
                 { PowerTag.DefHP1, "First Aid" },
                 { PowerTag.DefHP2, "Reaper" },
 
