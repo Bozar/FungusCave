@@ -39,8 +39,8 @@ namespace Fungus.Actor
         {
             CurrentPotion = 0;
             maxPotion = 9;
-            relieveStress = 1;
-            restoreEnergy = 2000;
+            relieveStress = 3;
+            restoreEnergy = 4000;
         }
     }
 }

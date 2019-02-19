@@ -52,7 +52,7 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            actionThreshold = 2000;
+            actionThreshold = 3000;
             CurrentEnergy = actionThreshold;
         }
 

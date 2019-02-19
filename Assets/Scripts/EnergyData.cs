@@ -19,7 +19,7 @@ namespace Fungus.GameSystem.ObjectManager
             Attack = 1200;
             Move = 1000;
             Restore = 1000;
-            Maximum = 3000;
+            Maximum = 5000;
         }
     }
 }
