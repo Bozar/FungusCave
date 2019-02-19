@@ -117,6 +117,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<PCAutoExplore>();
                     go.AddComponent<PCDamage>();
                     go.AddComponent<PCInfection>();
+                    go.AddComponent<PCEnergy>();
 
                     go.AddComponent<PlayerInput>();
                     go.AddComponent<Power>();
@@ -131,6 +132,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<NPCAutoExplore>();
                     go.AddComponent<NPCDamage>();
                     go.AddComponent<NPCInfection>();
+                    go.AddComponent<NPCEnergy>();
                     //go.AddComponent<NPCMemory>();
 
                     go.AddComponent<NPCActions>().enabled = false;

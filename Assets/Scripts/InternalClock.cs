@@ -1,6 +1,4 @@
 ﻿using Fungus.Actor.AI;
-using Fungus.GameSystem;
-using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn
@@ -14,9 +12,6 @@ namespace Fungus.Actor.Turn
 
     public class InternalClock : MonoBehaviour
     {
-        private int energyTurn;
-        private int powerEnergy1;
-
         public void EndTurn()
         {
             GetComponent<Infection>().Count();
@@ -30,13 +25,7 @@ namespace Fungus.Actor.Turn
 
         public void StartTurn()
         {
-            GetComponent<Energy>().GainEnergy(energyTurn);
-
-            if ((GetComponent<Power>() != null)
-                && GetComponent<Power>().IsActive(PowerTag.DefEnergy1))
-            {
-                GetComponent<Energy>().GainEnergy(powerEnergy1);
-            }
+            GetComponent<Energy>().Trigger();
 
             // TODO: Update after Unity 2018.3.
             if (GetComponent<PCAutoExplore>() != null)
@@ -49,17 +38,6 @@ namespace Fungus.Actor.Turn
             //    GetComponent<NPCMemory>().Trigger();
             //    GetComponent<NPCMemory>().Count();
             //}
-        }
-
-        private void Awake()
-        {
-            powerEnergy1 = 200;
-        }
-
-        private void Start()
-        {
-            energyTurn
-                = FindObjects.GameLogic.GetComponent<EnergyData>().Restore;
         }
     }
 }

@@ -6,7 +6,8 @@ namespace Fungus.GameSystem.ObjectManager
     public enum DataTag
     {
         HP, Stress, Damage, DropPotion,
-        InfectionDuration, InfectionAttack, InfectionDefend
+        InfectionDuration, InfectionAttack, InfectionDefend,
+        EnergyRestore
     }
 
     public class ActorData : MonoBehaviour
@@ -50,19 +51,23 @@ namespace Fungus.GameSystem.ObjectManager
 
         private void InitializeData()
         {
+            AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
+            AddIntData(SubObjectTag.PC, DataTag.EnergyRestore, 400);
             AddIntData(SubObjectTag.PC, DataTag.HP, 10);
             AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
-            AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
 
             AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
 
             AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.DropPotion, 1);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 0);
+
             AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionDuration,
                 GetComponent<InfectionData>().NormalDuration);
+
+            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
         }
 
         private void Start()

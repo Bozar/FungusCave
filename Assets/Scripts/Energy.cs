@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.Turn;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using System;
@@ -7,17 +8,27 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Energy : MonoBehaviour
+    public interface IEnergy
+    {
+        int RestoreEveryTurn { get; }
+    }
+
+    public class Energy : MonoBehaviour, ITurnCounter
     {
         private int actionThreshold;
-        private int maxEnergy;
+        private EnergyData energyData;
 
         public int CurrentEnergy { get; private set; }
+
+        public void Count()
+        {
+            throw new NotImplementedException();
+        }
 
         public void GainEnergy(int energy)
         {
             CurrentEnergy += energy;
-            CurrentEnergy = Math.Min(CurrentEnergy, maxEnergy);
+            CurrentEnergy = Math.Min(CurrentEnergy, energyData.Maximum);
         }
 
         public bool HasEnoughEnergy()
@@ -50,6 +61,16 @@ namespace Fungus.Actor
                 printText.ToString());
         }
 
+        public void Trigger()
+        {
+            // An actor gains 1000 energy at the start of every turn under any
+            // cirsumstances.
+            GainEnergy(energyData.Restore);
+            // The actor might gain bonus energy from PC's power or NPC's innate
+            // ability.
+            GainEnergy(GetComponent<IEnergy>().RestoreEveryTurn);
+        }
+
         private void Awake()
         {
             actionThreshold = 3000;
@@ -58,7 +79,7 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            maxEnergy = FindObjects.GameLogic.GetComponent<EnergyData>().Maximum;
+            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
         }
     }
 }
