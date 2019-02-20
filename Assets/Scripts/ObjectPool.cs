@@ -92,7 +92,6 @@ namespace Fungus.GameSystem.ObjectManager
                 go.AddComponent<AIVision>();
                 go.AddComponent<AutoExplore>();
                 go.AddComponent<Attack>();
-                go.AddComponent<Die>();
 
                 go.AddComponent<Energy>();
                 go.AddComponent<FieldOfView>();
@@ -116,8 +115,10 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<PCActions>();
                     go.AddComponent<PCAutoExplore>();
                     go.AddComponent<PCDamage>();
-                    go.AddComponent<PCInfection>();
+                    go.AddComponent<PCDeath>();
+
                     go.AddComponent<PCEnergy>();
+                    go.AddComponent<PCInfection>();
 
                     go.AddComponent<PlayerInput>();
                     go.AddComponent<Power>();
@@ -131,8 +132,10 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<ActorAI>();
                     go.AddComponent<NPCAutoExplore>();
                     go.AddComponent<NPCDamage>();
-                    go.AddComponent<NPCInfection>();
+                    go.AddComponent<NPCDeath>();
+
                     go.AddComponent<NPCEnergy>();
+                    go.AddComponent<NPCInfection>();
                     //go.AddComponent<NPCMemory>();
 
                     go.AddComponent<NPCActions>().enabled = false;
@@ -241,12 +244,11 @@ namespace Fungus.GameSystem.ObjectManager
                 go.transform.position);
 
             GetComponent<SchedulingSystem>().RemoveActor(go);
-
-            GetComponent<ActorBoard>().RemoveActor(
+            GetComponent<ActorBoard>().RemoveActor(position[0], position[1]);
+            GetComponent<DungeonTerrain>().ChangeStatus(true,
                 position[0], position[1]);
 
             pool[go.GetComponent<MetaInfo>().SubTag].Push(go);
-
             go.SetActive(false);
         }
 

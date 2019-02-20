@@ -13,21 +13,22 @@ namespace Fungus.Actor
 
         public void DrinkPotion()
         {
+            if (CurrentPotion < 1)
+            {
+                return;
+            }
+
             GetComponent<HP>().GainHP(GetComponent<HP>().MaxHP);
             GetComponent<Infection>().ResetInfection();
             GetComponent<Stress>().LoseStress(relieveStress);
             GetComponent<Energy>().GainEnergy(restoreEnergy);
             LosePotion(1);
+            return;
         }
 
         public void GainPotion(int potion)
         {
             CurrentPotion = Math.Min(maxPotion, CurrentPotion + potion);
-        }
-
-        public bool HasEnoughPotion(int min = 1)
-        {
-            return CurrentPotion >= min;
         }
 
         public void LosePotion(int potion)

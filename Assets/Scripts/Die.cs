@@ -5,6 +5,7 @@ using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
 
+// NOTE: !!! Die is obsolete. Use PCDeath & NPCDeath. !!!
 namespace Fungus.Actor
 {
     public class Die : MonoBehaviour

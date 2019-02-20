@@ -9,11 +9,20 @@ namespace Fungus.Actor
 {
     public class HP : MonoBehaviour
     {
-        private ConvertCoordinates coordinate;
+        private ActorData actorData;
+        private ConvertCoordinates coord;
         private UIMessage message;
 
         public int CurrentHP { get; private set; }
-        public int MaxHP { get; private set; }
+
+        public int MaxHP
+        {
+            get
+            {
+                return actorData.GetIntData(
+                    GetComponent<MetaInfo>().SubTag, DataTag.HP);
+            }
+        }
 
         public void GainHP(int hp)
         {
@@ -24,40 +33,30 @@ namespace Fungus.Actor
         {
             CurrentHP = Math.Max(0, CurrentHP - hp);
 
-            // TODO: Check if actor is dead.
-
-            int[] position;
-
-            position = coordinate.Convert(transform.position);
+            // TODO: Either remove these lines or change them later.
+            int[] position = coord.Convert(transform.position);
             message.StoreText(position[0] + "," + position[1] + " is hit.");
 
-            if (IsDead())
+            if (CurrentHP < 1)
             {
-                if ((GetComponent<Potion>() != null)
-                    && GetComponent<Potion>().HasEnoughPotion())
-                {
-                    GetComponent<Potion>().DrinkPotion();
-                    return false;
-                }
-                GetComponent<Die>().Bury();
+                GetComponent<IDeath>().Revive();
+            }
+
+            if (CurrentHP < 1)
+            {
+                GetComponent<IDeath>().Bury();
                 return true;
             }
             return false;
         }
 
-        private bool IsDead()
-        {
-            return CurrentHP < 1;
-        }
-
         private void Start()
         {
-            MaxHP = FindObjects.GameLogic.GetComponent<ActorData>().GetIntData(
-                GetComponent<MetaInfo>().SubTag, DataTag.HP);
-            CurrentHP = MaxHP;
-
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+
+            CurrentHP = MaxHP;
         }
     }
 }
