@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
@@ -13,7 +14,6 @@ namespace Fungus.GameSystem.ObjectManager
     public class ActorData : MonoBehaviour
     {
         private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
-        private int invalidData;
 
         public string Version { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Fungus.GameSystem.ObjectManager
                     return gameData;
                 }
             }
-            return invalidData;
+            throw new MemberAccessException();
         }
 
         private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
@@ -72,9 +72,7 @@ namespace Fungus.GameSystem.ObjectManager
 
         private void Start()
         {
-            invalidData = -99999;
             intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
-
             InitializeData();
 
             Version = "0.0.1";

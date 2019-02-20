@@ -36,7 +36,7 @@ namespace Fungus.GameSystem.ObjectManager
             powerNames = new Dictionary<PowerTag, string>
             {
                 { PowerTag.DefEnergy1, "Vigor" },
-                { PowerTag.DefEnergy2, "Unstoppable" },
+                { PowerTag.DefEnergy2, "Adrenaline" },
                 { PowerTag.DefInfection1, "Immunity" },
                 { PowerTag.DefInfection2, "Fast Heal" },
                 { PowerTag.DefHP1, "First Aid" },

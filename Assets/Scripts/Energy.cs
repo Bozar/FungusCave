@@ -15,7 +15,6 @@ namespace Fungus.Actor
 
     public class Energy : MonoBehaviour, ITurnCounter
     {
-        private int actionThreshold;
         private EnergyData energyData;
 
         public int CurrentEnergy { get; private set; }
@@ -33,7 +32,7 @@ namespace Fungus.Actor
 
         public bool HasEnoughEnergy()
         {
-            return CurrentEnergy >= actionThreshold;
+            return CurrentEnergy >= energyData.ActionThreshold;
         }
 
         public void LoseEnergy(int energy)
@@ -66,20 +65,15 @@ namespace Fungus.Actor
             // An actor gains 1000 energy at the start of every turn under any
             // cirsumstances.
             GainEnergy(energyData.Restore);
-            // The actor might gain bonus energy from PC's power or NPC's innate
+            // An actor might gain bonus energy from PC's power or NPC's innate
             // ability.
             GainEnergy(GetComponent<IEnergy>().RestoreEveryTurn);
-        }
-
-        private void Awake()
-        {
-            actionThreshold = 3000;
-            CurrentEnergy = actionThreshold;
         }
 
         private void Start()
         {
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
+            CurrentEnergy = energyData.ActionThreshold;
         }
     }
 }
