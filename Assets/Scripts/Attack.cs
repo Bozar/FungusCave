@@ -14,10 +14,9 @@ namespace Fungus.Actor
         private int attackPowerEnergy;
         private PowerTag[] attackPowers;
         private int baseEnergy;
-        private ConvertCoordinates coordinate;
+        private ConvertCoordinates coord;
         private Direction direction;
         private EnergyData energyData;
-        private int powerEnergy2;
         private int powerPoison2;
         private int relieveStressAfterKill;
         private int slowEnergy;
@@ -50,11 +49,10 @@ namespace Fungus.Actor
 
             if (targetIsDead)
             {
-                RestoreEnergy();
-                GetComponent<Stress>().LoseStress(relieveStressAfterKill);
-
-                if (GetComponent<Potion>() != null)
+                if (GetComponent<MetaInfo>().IsPC)
                 {
+                    GetComponent<IHP>().RestoreAfterKill();
+                    GetComponent<Stress>().LoseStress(relieveStressAfterKill);
                     GetComponent<Potion>().GainPotion(
                         target.GetComponent<MetaInfo>().DropPotion);
                 }
@@ -67,10 +65,9 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            powerEnergy2 = 400;
             powerPoison2 = 400;
             attackPowerEnergy = 200;
-            relieveStressAfterKill = 1;
+            relieveStressAfterKill = 2;
         }
 
         private int GetMeleeEnergy(int x, int y)
@@ -82,7 +79,7 @@ namespace Fungus.Actor
             int totalEnergy;
             int slow;
 
-            position = coordinate.Convert(transform.position);
+            position = coord.Convert(transform.position);
             isCardinal = direction.CheckDirection(
                 RelativePosition.Cardinal, position, x, y);
 
@@ -117,19 +114,10 @@ namespace Fungus.Actor
             return totalEnergy;
         }
 
-        private void RestoreEnergy()
-        {
-            if ((GetComponent<Power>() != null)
-                && GetComponent<Power>().IsActive(PowerTag.DefEnergy2))
-            {
-                GetComponent<Energy>().GainEnergy(powerEnergy2);
-            }
-        }
-
         private void Start()
         {
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            coordinate = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 

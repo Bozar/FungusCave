@@ -6,7 +6,15 @@ namespace Fungus.Actor.ObjectManager
 {
     public class MetaInfo : MonoBehaviour
     {
-        public int DropPotion { get; private set; }
+        private ActorData actorData;
+
+        public int DropPotion
+        {
+            get
+            {
+                return actorData.GetIntData(SubTag, DataTag.DropPotion);
+            }
+        }
 
         public bool IsPC
         {
@@ -17,7 +25,15 @@ namespace Fungus.Actor.ObjectManager
         }
 
         public MainObjectTag MainTag { get; private set; }
-        public string Name { get; private set; }
+
+        public string Name
+        {
+            get
+            {
+                return SubTag.ToString();
+            }
+        }
+
         public SubObjectTag SubTag { get; private set; }
 
         public void SetMainTag(MainObjectTag tag)
@@ -28,10 +44,11 @@ namespace Fungus.Actor.ObjectManager
         public void SetSubTag(SubObjectTag tag)
         {
             SubTag = tag;
+        }
 
-            DropPotion = FindObjects.GameLogic.GetComponent<ActorData>()
-                .GetIntData(SubTag, DataTag.DropPotion);
-            Name = SubTag.ToString();
+        private void Start()
+        {
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Fungus.Actor
     {
         private ActorData actorData;
 
-        public int RestoreEveryTurn
+        public int RestoreTurn
         {
             get
             {

@@ -10,7 +10,7 @@ namespace Fungus.Actor
 {
     public interface IEnergy
     {
-        int RestoreEveryTurn { get; }
+        int RestoreTurn { get; }
     }
 
     public class Energy : MonoBehaviour, ITurnCounter
@@ -67,7 +67,7 @@ namespace Fungus.Actor
             GainEnergy(energyData.Restore);
             // An actor might gain bonus energy from PC's power or NPC's innate
             // ability.
-            GainEnergy(GetComponent<IEnergy>().RestoreEveryTurn);
+            GainEnergy(GetComponent<IEnergy>().RestoreTurn);
         }
 
         private void Start()
