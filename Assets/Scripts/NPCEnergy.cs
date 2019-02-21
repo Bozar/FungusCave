@@ -9,6 +9,15 @@ namespace Fungus.Actor
     {
         private ActorData actorData;
 
+        public int Drain
+        {
+            get
+            {
+                return actorData.GetIntData(
+                    GetComponent<MetaInfo>().SubTag, DataTag.EnergyDrain);
+            }
+        }
+
         public int RestoreTurn
         {
             get

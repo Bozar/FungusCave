@@ -17,13 +17,11 @@ namespace Fungus.Actor
         private ConvertCoordinates coord;
         private Direction direction;
         private EnergyData energyData;
-        private int powerPoison2;
         private int relieveStressAfterKill;
         private int slowEnergy;
 
         public void MeleeAttack(int x, int y)
         {
-            bool hasPower;
             bool targetIsDead;
             GameObject target;
 
@@ -35,14 +33,7 @@ namespace Fungus.Actor
 
             GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-            hasPower = (GetComponent<Power>() != null)
-                && GetComponent<Power>().IsActive(PowerTag.AttInfection2);
             target = actorBoard.GetActor(x, y);
-
-            if (hasPower)
-            {
-                target.GetComponent<Energy>().LoseEnergy(powerPoison2);
-            }
 
             targetIsDead = target.GetComponent<HP>().LoseHP(
                 GetComponent<IDamage>().CurrentDamage);
@@ -60,12 +51,13 @@ namespace Fungus.Actor
             else
             {
                 target.GetComponent<Infection>().GainInfection(gameObject);
+                target.GetComponent<Energy>().LoseEnergy(
+                    GetComponent<IEnergy>().Drain);
             }
         }
 
         private void Awake()
         {
-            powerPoison2 = 400;
             attackPowerEnergy = 200;
             relieveStressAfterKill = 2;
         }

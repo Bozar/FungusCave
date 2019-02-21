@@ -57,8 +57,8 @@ namespace Fungus.Actor
             }
 
             // TODO: Delete these lines.
-            GainPower(PowerSlotTag.Slot1, PowerTag.DefHP1);
-            GainPower(PowerSlotTag.Slot2, PowerTag.DefHP2);
+            GainPower(PowerSlotTag.Slot1, PowerTag.AttEnergy1);
+            GainPower(PowerSlotTag.Slot2, PowerTag.AttDamage1);
             GainPower(PowerSlotTag.Slot3, PowerTag.DefInfection2);
         }
     }

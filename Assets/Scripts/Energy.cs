@@ -10,6 +10,7 @@ namespace Fungus.Actor
 {
     public interface IEnergy
     {
+        int Drain { get; }
         int RestoreTurn { get; }
     }
 
