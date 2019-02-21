@@ -26,6 +26,7 @@ namespace Fungus.Actor.Turn
         public void StartTurn()
         {
             GetComponent<Energy>().Trigger();
+            GetComponent<IHP>().Trigger();
 
             // TODO: Update after Unity 2018.3.
             if (GetComponent<PCAutoExplore>() != null)

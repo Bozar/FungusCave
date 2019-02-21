@@ -118,6 +118,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<PCDeath>();
 
                     go.AddComponent<PCEnergy>();
+                    go.AddComponent<PCHP>();
                     go.AddComponent<PCInfection>();
 
                     go.AddComponent<PlayerInput>();
@@ -135,6 +136,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<NPCDeath>();
 
                     go.AddComponent<NPCEnergy>();
+                    go.AddComponent<NPCHP>();
                     go.AddComponent<NPCInfection>();
                     //go.AddComponent<NPCMemory>();
 
