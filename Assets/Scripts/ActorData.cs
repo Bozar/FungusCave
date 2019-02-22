@@ -84,7 +84,7 @@ namespace Fungus.GameSystem.ObjectManager
             intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
             InitializeData();
 
-            Version = "0.0.1";
+            Version = "0.0.2";
         }
     }
 }
