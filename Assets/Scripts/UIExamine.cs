@@ -2,6 +2,7 @@
 using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace Fungus.GameSystem.Render
     {
         private ActorData actorData;
         private DungeonBoard board;
+        private PotionData potionData;
         private StringBuilder sb;
 
         public void PrintStaticText()
@@ -47,10 +49,16 @@ namespace Fungus.GameSystem.Render
         {
             int hp = go.GetComponent<HP>().CurrentHP;
             int damage = go.GetComponent<IDamage>().CurrentDamage;
+
             int potion = actorData.GetIntData(
                 go.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
-            string infection = go.GetComponent<Infection>().HasInfection()
-                ? " | #" : "";
+            int bonusPotion = go.GetComponent<Infection>().HasInfection(
+                InfectionTag.Mutated) ? potionData.BonusPotion : 0;
+
+            List<InfectionTag> infectionNames
+                = go.GetComponent<Infection>().InfectionNames;
+            string infection = (infectionNames.Count > 0)
+                ? (" | " + infectionNames[0]) : "";
 
             //> [ 3+ | 5! | 1$ | # ]
             //> [ HP | Damage | Drop | Infected ]
@@ -61,7 +69,7 @@ namespace Fungus.GameSystem.Render
             sb.Append("+ | ");
             sb.Append(damage);
             sb.Append("! | ");
-            sb.Append(potion);
+            sb.Append(potion + bonusPotion);
             sb.Append("$");
             sb.Append(infection);
             sb.Append(" ]");
@@ -108,6 +116,7 @@ namespace Fungus.GameSystem.Render
         {
             board = GetComponent<DungeonBoard>();
             actorData = GetComponent<ActorData>();
+            potionData = GetComponent<PotionData>();
         }
     }
 }

@@ -55,6 +55,23 @@ namespace Fungus.Actor
             }
         }
 
+        public List<InfectionTag> InfectionNames
+        {
+            get
+            {
+                List<InfectionTag> infectionNames = new List<InfectionTag>();
+
+                foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
+                {
+                    if (infectionsDict[tag] > 0)
+                    {
+                        infectionNames.Add(tag);
+                    }
+                }
+                return infectionNames;
+            }
+        }
+
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
