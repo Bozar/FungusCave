@@ -11,7 +11,7 @@ namespace Fungus.Actor
 {
     public enum HealthTag { Stressed, Infected, Overflowed };
 
-    public enum InfectionTag { Weak, Slow, Poisoned };
+    public enum InfectionTag { Weak, Slow, Poisoned, Mutated };
 
     public interface IInfection
     {

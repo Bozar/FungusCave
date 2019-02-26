@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
+using System;
 using UnityEngine;
 
 namespace Fungus.Actor
@@ -6,6 +8,7 @@ namespace Fungus.Actor
     public class Potion : MonoBehaviour
     {
         private int maxPotion;
+        private PotionData potionData;
         private int relieveStress;
         private int restoreEnergy;
 
@@ -18,7 +21,15 @@ namespace Fungus.Actor
                 return;
             }
 
-            GetComponent<HP>().GainHP(GetComponent<HP>().MaxHP);
+            if (GetComponent<Infection>().HasInfection(InfectionTag.Mutated))
+            {
+                GetComponent<HP>().GainHP(potionData.ReducedHP);
+            }
+            else
+            {
+                GetComponent<HP>().GainHP(GetComponent<HP>().MaxHP);
+            }
+
             GetComponent<Infection>().ResetInfection();
             GetComponent<Stress>().LoseStress(relieveStress);
             GetComponent<Energy>().GainEnergy(restoreEnergy);
@@ -42,6 +53,11 @@ namespace Fungus.Actor
             maxPotion = 9;
             relieveStress = 3;
             restoreEnergy = 4000;
+        }
+
+        private void Start()
+        {
+            potionData = FindObjects.GameLogic.GetComponent<PotionData>();
         }
     }
 }

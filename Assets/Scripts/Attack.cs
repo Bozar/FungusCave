@@ -18,14 +18,12 @@ namespace Fungus.Actor
         private ConvertCoordinates coord;
         private Direction direction;
         private EnergyData energyData;
+        private PotionData potionData;
         private int relieveStressAfterKill;
         private int slowEnergy;
 
         public void MeleeAttack(int x, int y)
         {
-            bool targetIsDead;
-            GameObject target;
-
             if (!GetComponent<Energy>().HasEnoughEnergy()
                 || !actorBoard.HasActor(x, y))
             {
@@ -34,12 +32,14 @@ namespace Fungus.Actor
 
             GetComponent<Energy>().LoseEnergy(GetMeleeEnergy(x, y));
 
-            target = actorBoard.GetActor(x, y);
+            GameObject target = actorBoard.GetActor(x, y);
+            bool targetIsDead = target.GetComponent<HP>().LoseHP(
+                 GetComponent<IDamage>().CurrentDamage);
 
-            targetIsDead = target.GetComponent<HP>().LoseHP(
-                GetComponent<IDamage>().CurrentDamage);
             int potion = actorData.GetIntData(
                 target.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
+            int bonusPotion = target.GetComponent<Infection>().HasInfection(
+                InfectionTag.Mutated) ? potionData.BonusPotion : 0;
 
             if (targetIsDead)
             {
@@ -47,7 +47,7 @@ namespace Fungus.Actor
                 {
                     GetComponent<IHP>().RestoreAfterKill();
                     GetComponent<Stress>().LoseStress(relieveStressAfterKill);
-                    GetComponent<Potion>().GainPotion(potion);
+                    GetComponent<Potion>().GainPotion(potion + bonusPotion);
                 }
             }
             else
@@ -115,6 +115,7 @@ namespace Fungus.Actor
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
+            potionData = FindObjects.GameLogic.GetComponent<PotionData>();
 
             attackPowers = new PowerTag[]
             {

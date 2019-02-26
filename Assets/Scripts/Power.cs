@@ -89,7 +89,7 @@ namespace Fungus.Actor
             }
 
             // TODO: Delete these lines.
-            GainRandomPowers();
+            //GainRandomPowers();
         }
     }
 }
