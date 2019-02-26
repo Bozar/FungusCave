@@ -11,6 +11,7 @@ namespace Fungus.Actor
     public class Attack : MonoBehaviour
     {
         private ActorBoard actorBoard;
+        private ActorData actorData;
         private int attackPowerEnergy;
         private PowerTag[] attackPowers;
         private int baseEnergy;
@@ -37,6 +38,8 @@ namespace Fungus.Actor
 
             targetIsDead = target.GetComponent<HP>().LoseHP(
                 GetComponent<IDamage>().CurrentDamage);
+            int potion = actorData.GetIntData(
+                target.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
 
             if (targetIsDead)
             {
@@ -44,8 +47,7 @@ namespace Fungus.Actor
                 {
                     GetComponent<IHP>().RestoreAfterKill();
                     GetComponent<Stress>().LoseStress(relieveStressAfterKill);
-                    GetComponent<Potion>().GainPotion(
-                        target.GetComponent<MetaInfo>().DropPotion);
+                    GetComponent<Potion>().GainPotion(potion);
                 }
             }
             else
@@ -109,6 +111,7 @@ namespace Fungus.Actor
         private void Start()
         {
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();

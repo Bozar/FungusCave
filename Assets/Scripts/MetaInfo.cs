@@ -1,21 +1,10 @@
-﻿using Fungus.GameSystem;
-using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
 namespace Fungus.Actor.ObjectManager
 {
     public class MetaInfo : MonoBehaviour
     {
-        private ActorData actorData;
-
-        public int DropPotion
-        {
-            get
-            {
-                return actorData.GetIntData(SubTag, DataTag.DropPotion);
-            }
-        }
-
         public bool IsPC
         {
             get
@@ -44,11 +33,6 @@ namespace Fungus.Actor.ObjectManager
         public void SetSubTag(SubObjectTag tag)
         {
             SubTag = tag;
-        }
-
-        private void Start()
-        {
-            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
         }
     }
 }

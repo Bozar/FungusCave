@@ -10,6 +10,7 @@ namespace Fungus.GameSystem.Render
 {
     public class UIExamine : MonoBehaviour, IUpdateUI
     {
+        private ActorData actorData;
         private DungeonBoard board;
         private StringBuilder sb;
 
@@ -46,7 +47,8 @@ namespace Fungus.GameSystem.Render
         {
             int hp = go.GetComponent<HP>().CurrentHP;
             int damage = go.GetComponent<IDamage>().CurrentDamage;
-            int potion = go.GetComponent<MetaInfo>().DropPotion;
+            int potion = actorData.GetIntData(
+                go.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
             string infection = go.GetComponent<Infection>().HasInfection()
                 ? " | #" : "";
 
@@ -105,6 +107,7 @@ namespace Fungus.GameSystem.Render
         private void Start()
         {
             board = GetComponent<DungeonBoard>();
+            actorData = GetComponent<ActorData>();
         }
     }
 }
