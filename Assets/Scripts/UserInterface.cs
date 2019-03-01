@@ -231,7 +231,7 @@ namespace Fungus.GameSystem.Render
         private void UpdateTurn()
         {
             int current = pc.GetComponent<TurnIndicator>().CurrentTurn;
-            int max = pc.GetComponent<TurnIndicator>().Seperator;
+            int max = pc.GetComponent<TurnIndicator>().BarSpearator;
             sb = sb.Remove(0, sb.Length);
 
             sb.Append("[ ");

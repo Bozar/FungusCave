@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿using Fungus.GameSystem;
+using Fungus.GameSystem.Render;
+using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
     public class TurnIndicator : MonoBehaviour, ITurnCounter
     {
+        private string lineSeparator;
         private int maxTurn;
+        private UIMessage message;
         private int minTurn;
 
+        public int BarSpearator { get; private set; }
         public int CurrentTurn { get; private set; }
-        public int Seperator { get; private set; }
 
         public void Count()
         {
@@ -18,6 +22,10 @@ namespace Fungus.Actor.Turn
 
         public void Trigger()
         {
+            if (message.LastLine != lineSeparator)
+            {
+                message.StoreText(lineSeparator);
+            }
         }
 
         private void Awake()
@@ -27,7 +35,15 @@ namespace Fungus.Actor.Turn
 
             // [ X X X | X X ]
             CurrentTurn = minTurn;
-            Seperator = 3;
+            BarSpearator = 3;
+
+            // ----------
+            lineSeparator = new string('-', 40);
+        }
+
+        private void Start()
+        {
+            message = FindObjects.GameLogic.GetComponent<UIMessage>();
         }
     }
 }

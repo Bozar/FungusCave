@@ -23,6 +23,8 @@ namespace Fungus.GameSystem.Render
 
         private delegate GameObject UIDict(UITag tag);
 
+        public string LastLine { get; private set; }
+
         public void PrintStaticText()
         {
             return;
@@ -61,6 +63,8 @@ namespace Fungus.GameSystem.Render
         {
             inputText.Enqueue(text);
             inputLength.Enqueue(length);
+
+            LastLine = text;
         }
 
         private void Awake()

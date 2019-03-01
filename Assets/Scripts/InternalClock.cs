@@ -20,6 +20,7 @@ namespace Fungus.Actor.Turn
             if (GetComponent<TurnIndicator>() != null)
             {
                 GetComponent<TurnIndicator>().Count();
+                GetComponent<TurnIndicator>().Trigger();
             }
         }
 
