@@ -108,7 +108,7 @@ namespace Fungus.Actor
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 
             baseEnergy = energyData.Move;
-            slowEnergy = energyData.InfectionSlow;
+            slowEnergy = energyData.DrainMedium;
         }
     }
 }

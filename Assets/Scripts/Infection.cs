@@ -102,8 +102,7 @@ namespace Fungus.Actor
                 }
                 else if (ActiveInfections >= infectionData.MaxInfections)
                 {
-                    GetComponent<Energy>().LoseEnergy(
-                        energyData.InfectionOverflowed);
+                    GetComponent<Energy>().LoseEnergy(energyData.DrainLow);
                     message.StoreText(infectionComponent.GetHealthReport(
                         HealthTag.Overflowed));
                 }

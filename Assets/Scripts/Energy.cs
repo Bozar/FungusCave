@@ -28,7 +28,7 @@ namespace Fungus.Actor
         public void GainEnergy(int energy)
         {
             CurrentEnergy += energy;
-            CurrentEnergy = Math.Min(CurrentEnergy, energyData.Maximum);
+            CurrentEnergy = Math.Min(energyData.Maximum, CurrentEnergy);
         }
 
         public bool HasEnoughEnergy()
@@ -39,6 +39,7 @@ namespace Fungus.Actor
         public void LoseEnergy(int energy)
         {
             CurrentEnergy -= energy;
+            CurrentEnergy = Math.Max(energyData.Minimum, CurrentEnergy);
         }
 
         public void PrintEnergy()

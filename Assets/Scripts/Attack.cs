@@ -124,7 +124,7 @@ namespace Fungus.Actor
             };
 
             baseEnergy = energyData.Attack;
-            slowEnergy = energyData.InfectionSlow;
+            slowEnergy = energyData.DrainMedium;
         }
     }
 }
