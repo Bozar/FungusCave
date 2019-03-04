@@ -1,9 +1,6 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
-using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.WorldBuilding;
-using System;
 using UnityEngine;
 
 namespace Fungus.Actor
@@ -18,18 +15,9 @@ namespace Fungus.Actor
     public class MoveActor : MonoBehaviour, IMove
     {
         private ActorBoard actor;
-        private int baseEnergy;
-        private DungeonBoard board;
         private ConvertCoordinates coord;
-        private Direction direction;
-        private EnergyData energyData;
-        private UIMessage message;
         private UIModeline modeline;
-        private int poolEnergy;
-        private int slowEnergy;
         private DungeonTerrain terrain;
-        private bool useDiagonalFactor;
-        private WizardMode wizard;
 
         public void MoveGameObject(int[] position)
         {
@@ -39,8 +27,6 @@ namespace Fungus.Actor
         public void MoveGameObject(int targetX, int targetY)
         {
             int[] start = coord.Convert(transform.position);
-            useDiagonalFactor = direction.CheckDirection(
-                RelativePosition.Diagonal, start, targetX, targetY);
 
             if (!GetComponent<Energy>().HasEnoughEnergy())
             {
@@ -60,55 +46,18 @@ namespace Fungus.Actor
             actor.AddActor(gameObject, targetX, targetY);
 
             transform.position = coord.Convert(targetX, targetY);
-            GetComponent<Energy>().LoseEnergy(GetEnergyCost(start));
-        }
 
-        private void Awake()
-        {
-            poolEnergy = 200;
-        }
-
-        private int GetEnergyCost(int[] startPoint)
-        {
-            int totalEnergy;
-            int pool;
-            int slow;
-            int directionFactor;
-
-            pool = board.CheckBlock(SubObjectTag.Pool, startPoint)
-                ? poolEnergy : 0;
-
-            directionFactor = useDiagonalFactor
-                ? direction.DiagonalFactor : direction.CardinalFactor;
-
-            slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
-                ? slowEnergy : 0;
-
-            totalEnergy = (int)Math.Floor(
-                (baseEnergy + pool + slow) * ((100 + directionFactor) * 0.01));
-
-            if (wizard.PrintEnergyCost && GetComponent<MetaInfo>().IsPC)
-            {
-                message.StoreText("Move energy: " + totalEnergy);
-            }
-
-            return totalEnergy;
+            int moveEnergy = GetComponent<Energy>().GetMoveEnergy(
+                start, new int[2] { targetX, targetY });
+            GetComponent<Energy>().LoseEnergy(moveEnergy);
         }
 
         private void Start()
         {
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            direction = FindObjects.GameLogic.GetComponent<Direction>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
-            message = FindObjects.GameLogic.GetComponent<UIMessage>();
-            wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
-            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
-
-            baseEnergy = energyData.Move;
-            slowEnergy = energyData.DrainMedium;
         }
     }
 }

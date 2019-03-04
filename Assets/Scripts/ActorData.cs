@@ -8,7 +8,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         Stress, Damage, DropPotion,
         InfectionDuration, InfectionAttack, InfectionDefend,
-        EnergyRestore, EnergyDrain,
+        EnergyMove, EnergyAttack, EnergyRestore, EnergyDrain,
         HP, HPRestore
     }
 
@@ -67,8 +67,12 @@ namespace Fungus.GameSystem.ObjectManager
             // Default
             AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.DropPotion, 1);
+
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyMove, 1000);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyAttack, 1400);
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyDrain, 0);
+
             AddIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
 
             AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);

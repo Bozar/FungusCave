@@ -11,9 +11,6 @@ namespace Fungus.GameSystem
         private bool checkY;
         private int[] position;
 
-        public int CardinalFactor { get; private set; }
-        public int DiagonalFactor { get; private set; }
-
         public bool CheckDirection(RelativePosition checkType,
            int[] source, int targetX, int targetY)
         {
@@ -36,12 +33,6 @@ namespace Fungus.GameSystem
                 default:
                     return false;
             }
-        }
-
-        private void Awake()
-        {
-            CardinalFactor = 0;
-            DiagonalFactor = 40;
         }
 
         private bool CheckCardinal(int[] source, int[] target)
