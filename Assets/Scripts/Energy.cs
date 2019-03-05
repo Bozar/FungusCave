@@ -18,7 +18,6 @@ namespace Fungus.Actor
 
     public class Energy : MonoBehaviour, ITurnCounter
     {
-        private ActorData actorData;
         private DungeonBoard board;
         private Direction direction;
         private EnergyData energyData;
@@ -41,8 +40,7 @@ namespace Fungus.Actor
         public int GetAttackEnergy(int[] start, int[] end)
         {
             int baseEnergy = GetBaseEnergy(start, end);
-            int attack = actorData.GetIntData(
-                GetComponent<MetaInfo>().SubTag, DataTag.EnergyAttack);
+            int attack = energyData.Attack;
             // TODO: Implement fog.
             int fog = 0;
 
@@ -59,8 +57,7 @@ namespace Fungus.Actor
         public int GetMoveEnergy(int[] start, int[] end)
         {
             int baseEnergy = GetBaseEnergy(start, end);
-            int move = actorData.GetIntData(
-                GetComponent<MetaInfo>().SubTag, DataTag.EnergyMove);
+            int move = energyData.Move;
             int pool = board.CheckBlock(SubObjectTag.Pool, start)
                 ? energyData.DrainMedium : 0;
 
@@ -130,7 +127,6 @@ namespace Fungus.Actor
         private void Start()
         {
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
-            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             direction = FindObjects.GameLogic.GetComponent<Direction>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
