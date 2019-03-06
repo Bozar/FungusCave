@@ -54,7 +54,8 @@ namespace Fungus.GameSystem.ObjectManager
         {
             // PC
             AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
-            AddIntData(SubObjectTag.PC, DataTag.EnergyRestore, 400);
+            AddIntData(SubObjectTag.PC, DataTag.EnergyRestore,
+                GetComponent<EnergyData>().BonusRestoreNormal);
 
             AddIntData(SubObjectTag.PC, DataTag.HP, 10);
             AddIntData(SubObjectTag.PC, DataTag.HPRestore, 1);

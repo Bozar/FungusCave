@@ -6,6 +6,8 @@ namespace Fungus.GameSystem.ObjectManager
     {
         public int ActionThreshold { get; private set; }
         public int Attack { get; private set; }
+        public int BonusRestoreHigh { get; private set; }
+        public int BonusRestoreNormal { get; private set; }
         public int DrainHigh { get; private set; }
         public int DrainLow { get; private set; }
         public int DrainMedium { get; private set; }
@@ -25,6 +27,8 @@ namespace Fungus.GameSystem.ObjectManager
 
             ActionThreshold = 3000;
             Restore = 1000;
+            BonusRestoreNormal = 400;
+            BonusRestoreHigh = 800;
 
             Move = 1000;
             Attack = 1400;
