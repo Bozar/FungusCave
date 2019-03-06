@@ -29,7 +29,10 @@ namespace Fungus.GameSystem.WorldBuilding
             for (int i = 0; i < maxDummies; i++)
             {
                 position = GetPassablePosition();
-                oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.Dummy,
+                oPool.CreateObject(
+                    MainObjectTag.Actor,
+                    SubObjectTag.BloodFly,
+                    //SubObjectTag.Dummy,
                     position);
             }
         }
