@@ -6,6 +6,7 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public enum DataTag
     {
+        ActorName,
         Stress, Damage, DropPotion,
         InfectionDuration, InfectionAttack, InfectionDefend,
         EnergyRestore, EnergyDrain,
@@ -15,6 +16,7 @@ namespace Fungus.GameSystem.ObjectManager
     public class ActorData : MonoBehaviour
     {
         private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
+        private Dictionary<DataTag, Dictionary<SubObjectTag, string>> stringData;
 
         public string Version { get; private set; }
 
@@ -24,6 +26,25 @@ namespace Fungus.GameSystem.ObjectManager
             int gameData;
 
             if (intData.TryGetValue(dTag, out dataDict))
+            {
+                if (dataDict.TryGetValue(oTag, out gameData))
+                {
+                    return gameData;
+                }
+                else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
+                {
+                    return gameData;
+                }
+            }
+            throw new MemberAccessException();
+        }
+
+        public string GetStringData(SubObjectTag oTag, DataTag dTag)
+        {
+            Dictionary<SubObjectTag, string> dataDict;
+            string gameData;
+
+            if (stringData.TryGetValue(dTag, out dataDict))
             {
                 if (dataDict.TryGetValue(oTag, out gameData))
                 {
@@ -50,6 +71,19 @@ namespace Fungus.GameSystem.ObjectManager
             }
         }
 
+        private void AddStringData(SubObjectTag oTag, DataTag dTag, string data)
+        {
+            if (!stringData.ContainsKey(dTag))
+            {
+                stringData.Add(dTag, new Dictionary<SubObjectTag, string>());
+            }
+
+            if (!stringData[dTag].ContainsKey(oTag))
+            {
+                stringData[dTag].Add(oTag, data);
+            }
+        }
+
         private void InitializeData()
         {
             // PC
@@ -64,8 +98,9 @@ namespace Fungus.GameSystem.ObjectManager
 
             // Dummy
             AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
+            AddStringData(SubObjectTag.Dummy, DataTag.ActorName, "Dummy");
 
-            // Default
+            // Default: int
             AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
             AddIntData(SubObjectTag.DEFAULT, DataTag.DropPotion, 1);
 
@@ -81,11 +116,16 @@ namespace Fungus.GameSystem.ObjectManager
                 GetComponent<InfectionData>().NormalDuration);
 
             AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+
+            // Default: string
+            AddStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
         }
 
         private void Start()
         {
             intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
+            stringData = new Dictionary<DataTag,
+                Dictionary<SubObjectTag, string>>();
             InitializeData();
 
             Version = "0.0.2";

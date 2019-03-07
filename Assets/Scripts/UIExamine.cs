@@ -79,7 +79,8 @@ namespace Fungus.GameSystem.Render
 
         private string ActorName(GameObject go)
         {
-            string name = go.GetComponent<MetaInfo>().Name;
+            string name = actorData.GetStringData(
+                go.GetComponent<MetaInfo>().SubTag, DataTag.ActorName);
             //bool hasFog = true;
             bool hasFog = false;
 

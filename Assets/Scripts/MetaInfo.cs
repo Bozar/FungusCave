@@ -15,14 +15,6 @@ namespace Fungus.Actor.ObjectManager
 
         public MainObjectTag MainTag { get; private set; }
 
-        public string Name
-        {
-            get
-            {
-                return SubTag.ToString();
-            }
-        }
-
         public SubObjectTag SubTag { get; private set; }
 
         public void SetMainTag(MainObjectTag tag)
