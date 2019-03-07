@@ -60,7 +60,76 @@ namespace Fungus.GameSystem.ObjectManager
             throw new MemberAccessException();
         }
 
-        private void AddIntData(SubObjectTag oTag, DataTag dTag, int data)
+        private void InitializeData()
+        {
+            // PC
+            SetIntData(SubObjectTag.PC, DataTag.HP, 10);
+            SetIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
+
+            SetIntData(SubObjectTag.PC, DataTag.Damage, 2);
+            SetIntData(SubObjectTag.PC, DataTag.EnergyRestore,
+                GetComponent<EnergyData>().BonusRestoreNormal);
+
+            SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
+            SetIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
+
+            // Grey Ooze
+            SetStringData(SubObjectTag.GreyOoze, DataTag.ActorName, "Grey Ooze");
+
+            SetIntData(SubObjectTag.GreyOoze, DataTag.Potion, 0);
+            SetIntData(SubObjectTag.GreyOoze, DataTag.EnergyRestore,
+                GetComponent<EnergyData>().BonusRestoreHigh);
+
+            // Swollen Corpse
+            SetStringData(SubObjectTag.Corpse, DataTag.ActorName,
+                "Swollen Corpse");
+
+            SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
+            SetIntData(SubObjectTag.Corpse, DataTag.Potion, 2);
+
+            // Blood Fly
+            SetStringData(SubObjectTag.BloodFly, DataTag.ActorName,
+                "Blood Fly");
+
+            SetIntData(SubObjectTag.BloodFly, DataTag.HP, 4);
+            SetIntData(SubObjectTag.BloodFly, DataTag.Damage, 3);
+
+            // Yellow Ooze
+            SetStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
+                "Yellow Ooze");
+
+            SetIntData(SubObjectTag.YellowOoze, DataTag.HP, 3);
+            SetIntData(SubObjectTag.YellowOoze, DataTag.Damage, 2);
+            SetIntData(SubObjectTag.YellowOoze, DataTag.EnergyRestore,
+                GetComponent<EnergyData>().BonusRestoreNormal);
+
+            // Dummy
+            SetStringData(SubObjectTag.Dummy, DataTag.ActorName, "Dummy");
+            SetIntData(SubObjectTag.Dummy, DataTag.HP, 3);
+
+            // Default: int
+            SetIntData(SubObjectTag.DEFAULT, DataTag.HP, 1);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.Potion, 1);
+
+            SetIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.EnergyDrain, 0);
+
+            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDuration,
+                GetComponent<InfectionData>().NormalDuration);
+
+            // These data should remain unchanged for all NPCs.
+            SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.StressRestore, 0);
+
+            // Default: string
+            SetStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
+        }
+
+        private void SetIntData(SubObjectTag oTag, DataTag dTag, int data)
         {
             if (!intData.ContainsKey(dTag))
             {
@@ -73,7 +142,7 @@ namespace Fungus.GameSystem.ObjectManager
             }
         }
 
-        private void AddStringData(SubObjectTag oTag, DataTag dTag, string data)
+        private void SetStringData(SubObjectTag oTag, DataTag dTag, string data)
         {
             if (!stringData.ContainsKey(dTag))
             {
@@ -84,75 +153,6 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 stringData[dTag].Add(oTag, data);
             }
-        }
-
-        private void InitializeData()
-        {
-            // PC
-            AddIntData(SubObjectTag.PC, DataTag.HP, 10);
-            AddIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
-
-            AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
-            AddIntData(SubObjectTag.PC, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreNormal);
-
-            AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
-            AddIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
-
-            // Grey Ooze
-            AddStringData(SubObjectTag.GreyOoze, DataTag.ActorName, "Grey Ooze");
-
-            AddIntData(SubObjectTag.GreyOoze, DataTag.Potion, 0);
-            AddIntData(SubObjectTag.GreyOoze, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreHigh);
-
-            // Swollen Corpse
-            AddStringData(SubObjectTag.Corpse, DataTag.ActorName,
-                "Swollen Corpse");
-
-            AddIntData(SubObjectTag.Corpse, DataTag.HP, 9);
-            AddIntData(SubObjectTag.Corpse, DataTag.Potion, 2);
-
-            // Blood Fly
-            AddStringData(SubObjectTag.BloodFly, DataTag.ActorName,
-                "Blood Fly");
-
-            AddIntData(SubObjectTag.BloodFly, DataTag.HP, 4);
-            AddIntData(SubObjectTag.BloodFly, DataTag.Damage, 3);
-
-            // Yellow Ooze
-            AddStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
-                "Yellow Ooze");
-
-            AddIntData(SubObjectTag.YellowOoze, DataTag.HP, 3);
-            AddIntData(SubObjectTag.YellowOoze, DataTag.Damage, 2);
-            AddIntData(SubObjectTag.YellowOoze, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreNormal);
-
-            // Dummy
-            AddStringData(SubObjectTag.Dummy, DataTag.ActorName, "Dummy");
-            AddIntData(SubObjectTag.Dummy, DataTag.HP, 3);
-
-            // Default: int
-            AddIntData(SubObjectTag.DEFAULT, DataTag.HP, 1);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.Potion, 1);
-
-            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.EnergyDrain, 0);
-
-            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.InfectionDuration,
-                GetComponent<InfectionData>().NormalDuration);
-
-            // These data should remain unchanged for all NPCs.
-            AddIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
-            AddIntData(SubObjectTag.DEFAULT, DataTag.StressRestore, 0);
-
-            // Default: string
-            AddStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
         }
 
         private void Start()

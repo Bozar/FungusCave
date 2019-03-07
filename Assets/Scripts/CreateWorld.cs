@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.ObjectManager;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
@@ -24,16 +25,22 @@ namespace Fungus.GameSystem.WorldBuilding
             position = GetPassablePosition();
             oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
 
+            // NOTE: 30 enemies seem to be fine.
             int maxDummies = 10;
+            List<SubObjectTag> soldier = GetComponent<ActorGroupData>()
+                .GetSoldier(ActorGroupTag.Fungus);
+            SubObjectTag nextSoldier;
+            int nextIndex;
 
             for (int i = 0; i < maxDummies; i++)
             {
+                nextIndex = GetComponent<RandomNumber>().Next(
+                    SeedTag.Dungeon, 0, soldier.Count);
+                nextSoldier = soldier[nextIndex];
+
                 position = GetPassablePosition();
-                oPool.CreateObject(
-                    MainObjectTag.Actor,
-                    SubObjectTag.YellowOoze,
-                    //SubObjectTag.Dummy,
-                    position);
+
+                oPool.CreateObject(MainObjectTag.Actor, nextSoldier, position);
             }
         }
 

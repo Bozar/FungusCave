@@ -16,6 +16,8 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<ActorBoard>();
             gameObject.AddComponent<ActorData>();
+            gameObject.AddComponent<ActorGroupData>();
+
             gameObject.AddComponent<BlueprintFungus>();
             gameObject.AddComponent<BlueprintPool>();
             gameObject.AddComponent<BlueprintSponge>();
