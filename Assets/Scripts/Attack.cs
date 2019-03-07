@@ -12,7 +12,6 @@ namespace Fungus.Actor
         private ActorData actorData;
         private ConvertCoordinates coord;
         private PotionData potionData;
-        private int relieveStressAfterKill;
 
         public void MeleeAttack(int x, int y)
         {
@@ -40,7 +39,9 @@ namespace Fungus.Actor
                 if (GetComponent<MetaInfo>().IsPC)
                 {
                     GetComponent<IHP>().RestoreAfterKill();
-                    GetComponent<Stress>().LoseStress(relieveStressAfterKill);
+                    GetComponent<Stress>().LoseStress(
+                        actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
+                        DataTag.StressRestore));
                     GetComponent<Potion>().GainPotion(potion + bonusPotion);
                 }
             }
@@ -50,11 +51,6 @@ namespace Fungus.Actor
                 target.GetComponent<Energy>().LoseEnergy(
                     GetComponent<IEnergy>().Drain);
             }
-        }
-
-        private void Awake()
-        {
-            relieveStressAfterKill = 2;
         }
 
         private void Start()

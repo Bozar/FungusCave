@@ -9,7 +9,7 @@ namespace Fungus.Actor
     public class PCHP : MonoBehaviour, IHP
     {
         private ActorData actorData;
-        private int hpRestoreKill;
+        private int hpRestore;
         private int hpThreshold;
 
         public void Count()
@@ -21,29 +21,29 @@ namespace Fungus.Actor
         {
             if (GetComponent<Power>().IsActive(PowerTag.DefHP2))
             {
-                GetComponent<HP>().GainHP(hpRestoreKill);
+                GetComponent<HP>().GainHP(hpRestore);
             }
         }
 
         public void Trigger()
         {
-            if (GetComponent<Power>().IsActive(PowerTag.DefHP1)
-                && (GetComponent<HP>().CurrentHP < hpThreshold))
+            if ((GetComponent<HP>().CurrentHP < hpThreshold)
+                && GetComponent<Power>().IsActive(PowerTag.DefHP1))
             {
-                GetComponent<HP>().GainHP(actorData.GetIntData(
-                    GetComponent<MetaInfo>().SubTag, DataTag.HPRestore));
+                GetComponent<HP>().GainHP(hpRestore);
             }
         }
 
         private void Awake()
         {
             hpThreshold = 4;
-            hpRestoreKill = 2;
         }
 
         private void Start()
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+            hpRestore = actorData.GetIntData(
+                GetComponent<MetaInfo>().SubTag, DataTag.HPRestore);
         }
     }
 }

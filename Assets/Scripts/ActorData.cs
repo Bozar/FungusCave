@@ -7,7 +7,9 @@ namespace Fungus.GameSystem.ObjectManager
     public enum DataTag
     {
         ActorName,
-        Stress, Damage, Potion,
+
+        Stress, StressRestore,
+        Damage, Potion,
         InfectionDuration, InfectionAttack, InfectionDefend,
         EnergyRestore, EnergyDrain,
         HP, HPRestore
@@ -88,12 +90,14 @@ namespace Fungus.GameSystem.ObjectManager
         {
             // PC
             AddIntData(SubObjectTag.PC, DataTag.HP, 10);
+            AddIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
+
             AddIntData(SubObjectTag.PC, DataTag.Damage, 2);
             AddIntData(SubObjectTag.PC, DataTag.EnergyRestore,
                 GetComponent<EnergyData>().BonusRestoreNormal);
 
-            AddIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
             AddIntData(SubObjectTag.PC, DataTag.Stress, 3);
+            AddIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
 
             // Grey Ooze
             AddStringData(SubObjectTag.GreyOoze, DataTag.ActorName, "Grey Ooze");
@@ -145,6 +149,7 @@ namespace Fungus.GameSystem.ObjectManager
             // These data should remain unchanged for all NPCs.
             AddIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
             AddIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
+            AddIntData(SubObjectTag.DEFAULT, DataTag.StressRestore, 0);
 
             // Default: string
             AddStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
