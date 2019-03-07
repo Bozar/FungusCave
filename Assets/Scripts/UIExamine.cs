@@ -51,7 +51,7 @@ namespace Fungus.GameSystem.Render
             int damage = go.GetComponent<IDamage>().CurrentDamage;
 
             int potion = actorData.GetIntData(
-                go.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
+                go.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
             int bonusPotion = go.GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutated) ? potionData.BonusPotion : 0;
 

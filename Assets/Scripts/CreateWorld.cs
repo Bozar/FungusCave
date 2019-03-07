@@ -31,7 +31,7 @@ namespace Fungus.GameSystem.WorldBuilding
                 position = GetPassablePosition();
                 oPool.CreateObject(
                     MainObjectTag.Actor,
-                    SubObjectTag.BloodFly,
+                    SubObjectTag.YellowOoze,
                     //SubObjectTag.Dummy,
                     position);
             }

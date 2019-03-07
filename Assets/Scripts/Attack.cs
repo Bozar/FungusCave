@@ -31,7 +31,7 @@ namespace Fungus.Actor
                  GetComponent<IDamage>().CurrentDamage);
 
             int potion = actorData.GetIntData(
-                target.GetComponent<MetaInfo>().SubTag, DataTag.DropPotion);
+                target.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
             int bonusPotion = target.GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutated) ? potionData.BonusPotion : 0;
 
