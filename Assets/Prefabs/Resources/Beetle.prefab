@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4678259896876490}
   - component: {fileID: 212688298922425234}
   m_Layer: 0
-  m_Name: GreyOoze
+  m_Name: Beetle
   m_TagString: PC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

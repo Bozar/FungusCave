@@ -73,11 +73,12 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
             SetIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
 
-            // Grey Ooze
-            SetStringData(SubObjectTag.GreyOoze, DataTag.ActorName, "Grey Ooze");
+            // Scavenger Beetle
+            SetStringData(SubObjectTag.Beetle, DataTag.ActorName,
+                "Scavenger Beetle");
 
-            SetIntData(SubObjectTag.GreyOoze, DataTag.Potion, 0);
-            SetIntData(SubObjectTag.GreyOoze, DataTag.EnergyRestore,
+            SetIntData(SubObjectTag.Beetle, DataTag.Potion, 0);
+            SetIntData(SubObjectTag.Beetle, DataTag.EnergyRestore,
                 GetComponent<EnergyData>().BonusRestoreHigh);
 
             // Swollen Corpse
@@ -87,20 +88,20 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
             SetIntData(SubObjectTag.Corpse, DataTag.Potion, 2);
 
-            // Blood Fly
-            SetStringData(SubObjectTag.BloodFly, DataTag.ActorName,
-                "Blood Fly");
-
-            SetIntData(SubObjectTag.BloodFly, DataTag.HP, 4);
-            SetIntData(SubObjectTag.BloodFly, DataTag.Damage, 3);
-
             // Yellow Ooze
             SetStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
                 "Yellow Ooze");
 
-            SetIntData(SubObjectTag.YellowOoze, DataTag.HP, 3);
-            SetIntData(SubObjectTag.YellowOoze, DataTag.Damage, 2);
-            SetIntData(SubObjectTag.YellowOoze, DataTag.EnergyRestore,
+            SetIntData(SubObjectTag.YellowOoze, DataTag.HP, 4);
+            SetIntData(SubObjectTag.YellowOoze, DataTag.Damage, 3);
+
+            // Blood Fly
+            SetStringData(SubObjectTag.BloodFly, DataTag.ActorName,
+                "Blood Fly");
+
+            SetIntData(SubObjectTag.BloodFly, DataTag.HP, 3);
+            SetIntData(SubObjectTag.BloodFly, DataTag.Damage, 2);
+            SetIntData(SubObjectTag.BloodFly, DataTag.EnergyRestore,
                 GetComponent<EnergyData>().BonusRestoreNormal);
 
             // Dummy

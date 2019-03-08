@@ -49,7 +49,7 @@ namespace Fungus.GameSystem.ObjectManager
         {
             // Fungus
             actorGroup[ActorGroupTag.Fungus][CombatRoleTag.Minion]
-                = new List<SubObjectTag> { SubObjectTag.GreyOoze };
+                = new List<SubObjectTag> { SubObjectTag.Beetle };
 
             actorGroup[ActorGroupTag.Fungus][CombatRoleTag.Soldier]
                 = new List<SubObjectTag>
