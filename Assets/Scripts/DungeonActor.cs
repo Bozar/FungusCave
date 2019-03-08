@@ -10,7 +10,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             // TODO: Change composition based on dungeon level.
             int maxSoldier = 20;
-            int maxMinion = 30;
+            int maxActor = 50;
             int potion = 0;
             int nextIndex;
 
@@ -30,7 +30,7 @@ namespace Fungus.GameSystem.WorldBuilding
                     soldier[nextIndex], DataTag.Potion);
             }
 
-            for (int i = 0; i < maxMinion; i++)
+            while (actors.Count < maxActor)
             {
                 nextIndex = GetComponent<RandomNumber>().Next(
                     SeedTag.Dungeon, 0, minion.Count);

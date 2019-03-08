@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using System;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Fungus.Actor
     public class Potion : MonoBehaviour
     {
         private int maxPotion;
+        private UIMessage message;
         private PotionData potionData;
         private int relieveStress;
         private int restoreEnergy;
@@ -34,6 +36,8 @@ namespace Fungus.Actor
             GetComponent<Stress>().LoseStress(relieveStress);
             GetComponent<Energy>().GainEnergy(restoreEnergy);
             LosePotion(1);
+
+            message.StoreText("You inject yourself with a blood potion.");
             return;
         }
 
@@ -58,6 +62,7 @@ namespace Fungus.Actor
         private void Start()
         {
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
+            message = FindObjects.GameLogic.GetComponent<UIMessage>();
         }
     }
 }
