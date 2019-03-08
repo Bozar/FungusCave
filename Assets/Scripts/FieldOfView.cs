@@ -1,4 +1,6 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Fungus.Actor.FOV
 
     public class FieldOfView : MonoBehaviour
     {
+        private ActorData actorData;
         private DungeonBoard board;
         private FOVStatus[,] fovBoard;
 
@@ -74,14 +77,10 @@ namespace Fungus.Actor.FOV
             GetComponent<FOVRhombus>().UpdateFOV();
         }
 
-        private void Awake()
-        {
-            MaxRange = 5;
-        }
-
         private void Start()
         {
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             fovBoard = new FOVStatus[board.Width, board.Height];
 
             for (int i = 0; i < board.Width; i++)
@@ -91,6 +90,9 @@ namespace Fungus.Actor.FOV
                     ChangeFOVBoard(FOVStatus.Unknown, i, j);
                 }
             }
+
+            MaxRange = actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
+                DataTag.SightRange);
         }
 
         private void UpdateMemory()

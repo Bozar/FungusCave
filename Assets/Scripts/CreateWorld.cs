@@ -9,42 +9,21 @@ namespace Fungus.GameSystem.WorldBuilding
         private ActorBoard actor;
         private DungeonBlueprint blueprint;
         private DungeonBoard board;
+        private int countNPC;
         private ObjectPool oPool;
         private int[] position;
 
         public void Initialize()
         {
-            CreateBuildings();
-            CreateActors();
-            CreateDopplegangers();
+            CreateBuilding();
+            CreatePC();
+            CreateDoppleganger();
+
+            countNPC = 0;
+            CreateNPC();
         }
 
-        // TODO: Create actors based on dungeon level.
-        private void CreateActors()
-        {
-            position = GetPassablePosition();
-            oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
-
-            // NOTE: 30 enemies seem to be fine.
-            int maxDummies = 10;
-            List<SubObjectTag> soldier = GetComponent<ActorGroupData>()
-                .GetSoldier(ActorGroupTag.Fungus);
-            SubObjectTag nextSoldier;
-            int nextIndex;
-
-            for (int i = 0; i < maxDummies; i++)
-            {
-                nextIndex = GetComponent<RandomNumber>().Next(
-                    SeedTag.Dungeon, 0, soldier.Count);
-                nextSoldier = soldier[nextIndex];
-
-                position = GetPassablePosition();
-
-                oPool.CreateObject(MainObjectTag.Actor, nextSoldier, position);
-            }
-        }
-
-        private void CreateBuildings()
+        private void CreateBuilding()
         {
             for (int x = 0; x < board.Width; x++)
             {
@@ -60,12 +39,32 @@ namespace Fungus.GameSystem.WorldBuilding
             }
         }
 
-        private void CreateDopplegangers()
+        private void CreateDoppleganger()
         {
             oPool.CreateObject(
                 MainObjectTag.Doppleganger, SubObjectTag.Examiner, 0, 0);
             oPool.CreateObject(
                 MainObjectTag.Doppleganger, SubObjectTag.Guide, 0, 0);
+        }
+
+        private void CreateNPC()
+        {
+            List<SubObjectTag> actors = GetComponent<DungeonActor>().GetActor();
+
+            for (int i = 0; i < actors.Count; i++)
+            {
+                do
+                {
+                    position = GetPassablePosition();
+                } while (IsTooClose(position));
+                oPool.CreateObject(MainObjectTag.Actor, actors[i], position);
+            }
+        }
+
+        private void CreatePC()
+        {
+            position = GetPassablePosition();
+            oPool.CreateObject(MainObjectTag.Actor, SubObjectTag.PC, position);
         }
 
         private int[] GetPassablePosition()
@@ -80,6 +79,22 @@ namespace Fungus.GameSystem.WorldBuilding
             || actor.HasActor(pos));
 
             return pos;
+        }
+
+        private bool IsTooClose(int[] position)
+        {
+            int minDistance = 9;
+            int maxNPC = 5;
+            int[] pcPosition = GetComponent<ConvertCoordinates>().Convert(
+                FindObjects.PC.transform.position);
+
+            if (GetComponent<DungeonBoard>().GetDistance(pcPosition, position)
+                < minDistance)
+            {
+                countNPC++;
+                return countNPC > maxNPC;
+            }
+            return false;
         }
 
         private void Start()

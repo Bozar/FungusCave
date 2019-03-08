@@ -12,7 +12,8 @@ namespace Fungus.GameSystem.ObjectManager
         Damage, Potion,
         InfectionDuration, InfectionAttack, InfectionDefend,
         EnergyRestore, EnergyDrain,
-        HP, HPRestore
+        HP, HPRestore,
+        SightRange
     }
 
     public class ActorData : MonoBehaviour
@@ -73,10 +74,13 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
             SetIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
 
+            SetIntData(SubObjectTag.PC, DataTag.SightRange, 5);
+
             // Scavenger Beetle
             SetStringData(SubObjectTag.Beetle, DataTag.ActorName,
                 "Scavenger Beetle");
 
+            SetIntData(SubObjectTag.Beetle, DataTag.Damage, 3);
             SetIntData(SubObjectTag.Beetle, DataTag.Potion, 0);
             SetIntData(SubObjectTag.Beetle, DataTag.EnergyRestore,
                 GetComponent<EnergyData>().BonusRestoreHigh);
@@ -86,7 +90,6 @@ namespace Fungus.GameSystem.ObjectManager
                 "Swollen Corpse");
 
             SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
-            SetIntData(SubObjectTag.Corpse, DataTag.Potion, 2);
 
             // Yellow Ooze
             SetStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
@@ -125,6 +128,7 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.StressRestore, 0);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.SightRange, 8);
 
             // Default: string
             SetStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
