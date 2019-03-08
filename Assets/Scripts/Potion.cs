@@ -54,7 +54,7 @@ namespace Fungus.Actor
         private void Awake()
         {
             CurrentPotion = 2;
-            maxPotion = 9;
+            maxPotion = 6;
             relieveStress = 3;
             restoreEnergy = 4000;
         }
