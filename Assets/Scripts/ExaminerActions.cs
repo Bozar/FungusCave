@@ -72,6 +72,10 @@ namespace Fungus.Actor.Turn
                 case Command.Right:
                 case Command.Up:
                 case Command.Down:
+                case Command.UpLeft:
+                case Command.UpRight:
+                case Command.DownLeft:
+                case Command.DownRight:
                     MoveExaminer();
                     break;
 

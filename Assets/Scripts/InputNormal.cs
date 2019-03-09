@@ -6,39 +6,11 @@ namespace Fungus.Actor.InputManager
     {
         public Command Input2Command()
         {
-            bool upLeft = Input.GetKeyDown(KeyCode.Y)
-                || Input.GetKeyDown(KeyCode.Keypad7);
-
-            bool upRight = Input.GetKeyDown(KeyCode.U)
-                || Input.GetKeyDown(KeyCode.Keypad9);
-
-            bool downLeft = Input.GetKeyDown(KeyCode.B)
-                || Input.GetKeyDown(KeyCode.Keypad1);
-
-            bool downRight = Input.GetKeyDown(KeyCode.N)
-                || Input.GetKeyDown(KeyCode.Keypad3);
-
             bool help = Input.GetKeyDown(KeyCode.Slash)
                 || (Input.GetKeyDown(KeyCode.LeftShift)
                 && Input.GetKeyDown(KeyCode.Question));
 
-            if (upLeft)
-            {
-                return Command.UpLeft;
-            }
-            else if (upRight)
-            {
-                return Command.UpRight;
-            }
-            else if (downLeft)
-            {
-                return Command.DownLeft;
-            }
-            else if (downRight)
-            {
-                return Command.DownRight;
-            }
-            else if (Input.GetKeyDown(KeyCode.Period))
+            if (Input.GetKeyDown(KeyCode.Period))
             {
                 return Command.Wait;
             }

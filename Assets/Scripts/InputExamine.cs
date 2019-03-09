@@ -7,12 +7,10 @@ namespace Fungus.Actor.InputManager
         public Command Input2Command()
         {
             bool next = Input.GetKeyDown(KeyCode.PageDown)
-                || Input.GetKeyDown(KeyCode.N)
                 || Input.GetKeyDown(KeyCode.O);
 
             bool previous = Input.GetKeyDown(KeyCode.PageUp)
-                || Input.GetKeyDown(KeyCode.I)
-                || Input.GetKeyDown(KeyCode.P);
+                || Input.GetKeyDown(KeyCode.I);
 
             if (next)
             {
