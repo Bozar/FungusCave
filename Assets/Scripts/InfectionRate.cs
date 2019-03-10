@@ -10,10 +10,7 @@ namespace Fungus.Actor
     {
         private ConvertCoordinates coords;
         private DungeonBoard dungeon;
-        private int highRate;
         private InfectionData infectionData;
-        private int lowRate;
-        private int mediumRate;
 
         public int InfectionDuration
         {
@@ -35,18 +32,18 @@ namespace Fungus.Actor
 
         public int GetInfectionRate()
         {
-            int hp = (11 - GetComponent<HP>().CurrentHP) * 5 + 15;
-            hp = Math.Max(lowRate, hp);
-            hp = Math.Min(mediumRate, hp);
+            int hp = (11 - GetComponent<HP>().CurrentHP) * 10;
+            hp = Math.Max(0, hp);
+            hp = Math.Min(infectionData.RateNormal, hp);
 
             int poisoned
                 = GetComponent<Infection>().HasInfection(InfectionTag.Poisoned)
-                ? highRate : 0;
+                ? infectionData.RateHigh : 0;
 
             int pool
                 = dungeon.CheckBlock(SubObjectTag.Pool,
                 coords.Convert(transform.position))
-                ? mediumRate : 0;
+                ? infectionData.RateNormal : 0;
 
             // TODO: Check weather.
             int fog = 0;
@@ -60,10 +57,6 @@ namespace Fungus.Actor
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             coords = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-
-            highRate = infectionData.HighInfectionRate;
-            mediumRate = infectionData.MediumInfectionRate;
-            lowRate = infectionData.LowInfectionRate;
         }
     }
 }

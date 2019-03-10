@@ -9,7 +9,6 @@ namespace Fungus.Actor
     {
         private ActorData actorData;
         private SubObjectTag actorTag;
-        private InfectionData infectionData;
 
         public int InfectionDuration
         {
@@ -44,7 +43,8 @@ namespace Fungus.Actor
             // potions.
             int attack = attacker.GetComponent<Power>().IsActive(
                 PowerTag.AttInfection1)
-                ? infectionData.MediumInfectionRate : 0;
+                ? actorData.GetIntData(actorTag, DataTag.InfectionAttack)
+                : 0;
 
             // NPC's defending power is a static value.
             int defend = actorData.GetIntData(actorTag, DataTag.InfectionDefend);
@@ -61,7 +61,6 @@ namespace Fungus.Actor
         private void Start()
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
-            infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
             actorTag = GetComponent<MetaInfo>().SubTag;
         }
     }

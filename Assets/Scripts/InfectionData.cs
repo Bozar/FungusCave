@@ -4,21 +4,19 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class InfectionData : MonoBehaviour
     {
-        public int HighInfectionRate { get; private set; }
-        public int LowInfectionRate { get; private set; }
+        public int DurationNormal { get; private set; }
+        public int DurationShort { get; private set; }
         public int MaxInfections { get; private set; }
-        public int MediumInfectionRate { get; private set; }
-        public int NormalDuration { get; private set; }
-        public int ShortDuration { get; private set; }
+        public int RateHigh { get; private set; }
+        public int RateNormal { get; private set; }
 
         private void Awake()
         {
-            HighInfectionRate = 80;
-            MediumInfectionRate = 50;
-            LowInfectionRate = 20;
+            RateHigh = 80;
+            RateNormal = 40;
 
-            ShortDuration = 2;
-            NormalDuration = 5;
+            DurationShort = 2;
+            DurationNormal = 5;
 
             MaxInfections = 1;
         }

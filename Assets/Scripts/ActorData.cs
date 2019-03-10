@@ -65,8 +65,13 @@ namespace Fungus.GameSystem.ObjectManager
             // PC
             SetIntData(SubObjectTag.PC, DataTag.HP, 10);
             SetIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
-
             SetIntData(SubObjectTag.PC, DataTag.Damage, 2);
+
+            SetIntData(SubObjectTag.PC, DataTag.InfectionAttack,
+                GetComponent<InfectionData>().RateHigh);
+            SetIntData(SubObjectTag.PC, DataTag.InfectionDefend,
+                GetComponent<InfectionData>().RateNormal);
+
             SetIntData(SubObjectTag.PC, DataTag.EnergyRestore,
                 GetComponent<EnergyData>().ModNormal);
 
@@ -119,7 +124,7 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDuration,
-                GetComponent<InfectionData>().NormalDuration);
+                GetComponent<InfectionData>().DurationNormal);
 
             // These data should remain unchanged for all NPCs.
             SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);

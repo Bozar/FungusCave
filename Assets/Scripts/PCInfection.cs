@@ -15,8 +15,8 @@ namespace Fungus.Actor
             get
             {
                 return GetComponent<Power>().IsActive(PowerTag.DefInfection2)
-                    ? infectionData.ShortDuration
-                    : infectionData.NormalDuration;
+                    ? infectionData.DurationShort
+                    : infectionData.DurationNormal;
             }
         }
 
@@ -48,7 +48,9 @@ namespace Fungus.Actor
             // potions.
             int defend
                 = GetComponent<Power>().IsActive(PowerTag.DefInfection1)
-                ? infectionData.LowInfectionRate : 0;
+                ? actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
+                DataTag.InfectionDefend)
+                : 0;
 
             // NPC's attacking power is a static value.
             int attack = actorData.GetIntData(
