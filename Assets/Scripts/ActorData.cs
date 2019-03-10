@@ -8,8 +8,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         ActorName,
 
-        Stress, StressRestore,
-        Damage, Potion,
+        Stress, Damage, Potion,
         InfectionDuration, InfectionAttack, InfectionDefend,
         EnergyRestore, EnergyDrain,
         HP, HPRestore,
@@ -72,8 +71,6 @@ namespace Fungus.GameSystem.ObjectManager
                 GetComponent<EnergyData>().BonusRestoreNormal);
 
             SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
-            SetIntData(SubObjectTag.PC, DataTag.StressRestore, 2);
-
             SetIntData(SubObjectTag.PC, DataTag.SightRange, 5);
 
             // Scavenger Beetle
@@ -127,7 +124,6 @@ namespace Fungus.GameSystem.ObjectManager
             // These data should remain unchanged for all NPCs.
             SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.StressRestore, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.SightRange, 8);
 
             // Default: string

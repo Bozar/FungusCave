@@ -36,7 +36,7 @@ namespace Fungus.Actor
 
         private void Awake()
         {
-            hpThreshold = 4;
+            hpThreshold = 5;
         }
 
         private void Start()

@@ -22,7 +22,7 @@ namespace Fungus.GameSystem.ObjectManager
             DrainMedium = 400;
             DrainHigh = 600;
 
-            Maximum = 4000;
+            Maximum = 5000;
             Minimum = 0;
 
             ActionThreshold = 3000;

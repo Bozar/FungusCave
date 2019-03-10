@@ -39,9 +39,6 @@ namespace Fungus.Actor
                 if (GetComponent<MetaInfo>().IsPC)
                 {
                     GetComponent<IHP>().RestoreAfterKill();
-                    GetComponent<Stress>().LoseStress(
-                        actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
-                        DataTag.StressRestore));
                     GetComponent<Potion>().GainPotion(potion + bonusPotion);
                 }
             }
