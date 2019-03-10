@@ -59,7 +59,7 @@ namespace Fungus.Actor
             int baseEnergy = GetBaseEnergy(start, end);
             int move = energyData.Move;
             int pool = board.CheckBlock(SubObjectTag.Pool, start)
-                ? energyData.DrainMedium : 0;
+                ? energyData.ModNormal : 0;
 
             int final = baseEnergy + move + pool;
 
@@ -115,10 +115,10 @@ namespace Fungus.Actor
         private int GetBaseEnergy(int[] start, int[] end)
         {
             int slow = GetComponent<Infection>().HasInfection(InfectionTag.Slow)
-                ? energyData.DrainHigh : 0;
+                ? energyData.ModHigh : 0;
             int diagonal
                 = direction.CheckDirection(RelativePosition.Diagonal, start, end)
-                ? energyData.DrainLow : 0;
+                ? energyData.ModNormal : 0;
 
             int final = slow + diagonal;
             return final;

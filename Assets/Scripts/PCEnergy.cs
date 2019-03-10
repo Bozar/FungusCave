@@ -9,6 +9,8 @@ namespace Fungus.Actor
     public class PCEnergy : MonoBehaviour, IEnergy
     {
         private ActorData actorData;
+        private EnergyData energyData;
+        private int maxHP;
         private int minDrain;
 
         public int Drain
@@ -29,7 +31,7 @@ namespace Fungus.Actor
             {
                 int bonus1 = actorData.GetIntData(
                         GetComponent<MetaInfo>().SubTag, DataTag.EnergyRestore);
-                int bonus2 = (12 - GetComponent<HP>().CurrentHP) * 100;
+                int bonus2 = (maxHP - GetComponent<HP>().CurrentHP) * 100;
 
                 int defEnergy1
                     = GetComponent<Power>().IsActive(PowerTag.DefEnergy1)
@@ -42,14 +44,13 @@ namespace Fungus.Actor
             }
         }
 
-        private void Awake()
-        {
-            minDrain = 200;
-        }
-
         private void Start()
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
+
+            minDrain = energyData.ModNormal;
+            maxHP = 14;
         }
     }
 }

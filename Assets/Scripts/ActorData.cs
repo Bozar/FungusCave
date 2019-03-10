@@ -68,7 +68,7 @@ namespace Fungus.GameSystem.ObjectManager
 
             SetIntData(SubObjectTag.PC, DataTag.Damage, 2);
             SetIntData(SubObjectTag.PC, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreNormal);
+                GetComponent<EnergyData>().ModNormal);
 
             SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
             SetIntData(SubObjectTag.PC, DataTag.SightRange, 5);
@@ -80,7 +80,7 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.Beetle, DataTag.Damage, 3);
             SetIntData(SubObjectTag.Beetle, DataTag.Potion, 0);
             SetIntData(SubObjectTag.Beetle, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreHigh);
+                GetComponent<EnergyData>().ModHigh);
 
             // Swollen Corpse
             SetStringData(SubObjectTag.Corpse, DataTag.ActorName,
@@ -102,7 +102,7 @@ namespace Fungus.GameSystem.ObjectManager
             SetIntData(SubObjectTag.BloodFly, DataTag.HP, 3);
             SetIntData(SubObjectTag.BloodFly, DataTag.Damage, 2);
             SetIntData(SubObjectTag.BloodFly, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().BonusRestoreNormal);
+                GetComponent<EnergyData>().ModNormal);
 
             // Dummy
             SetStringData(SubObjectTag.Dummy, DataTag.ActorName, "Dummy");
