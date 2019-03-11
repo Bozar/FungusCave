@@ -22,7 +22,7 @@ namespace Fungus.Actor
         {
             schedule.PauseTurn(true);
 
-            message.StoreText("PC is dead.");
+            message.StoreText("You are dead.");
             modeline.PrintStaticText("Press Space to reload.");
 
             FindObjects.Guide.transform.position = transform.position;

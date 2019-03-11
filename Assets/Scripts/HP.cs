@@ -41,7 +41,8 @@ namespace Fungus.Actor
 
             // TODO: Either remove these lines or change them later.
             int[] position = coord.Convert(transform.position);
-            message.StoreText(position[0] + "," + position[1] + " is hit.");
+            message.StoreText(coord.RelativeCoordWithName(gameObject) + " is hit.");
+            //message.StoreText(position[0] + "," + position[1] + " is hit.");
 
             if (CurrentHP < 1)
             {

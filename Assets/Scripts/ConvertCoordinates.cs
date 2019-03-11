@@ -1,4 +1,6 @@
 ﻿using Fungus.Actor.InputManager;
+using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,6 +93,30 @@ namespace Fungus.GameSystem
             int indexXorY = (int)Math.Floor(position * vector2Index);
 
             return indexXorY;
+        }
+
+        public int[] RelativeCoord(GameObject target)
+        {
+            int[] sourcePos = Convert(FindObjects.PC.transform.position);
+            int[] targetPos = Convert(target.transform.position);
+            int[] relativePos = new int[]
+            {
+                targetPos[0] - sourcePos[0], targetPos[1] - sourcePos[1]
+            };
+
+            return relativePos;
+        }
+
+        public string RelativeCoordWithName(GameObject target)
+        {
+            int[] relativePos = RelativeCoord(target);
+            string targetName = GetComponent<ActorData>().GetStringData(
+                target.GetComponent<MetaInfo>().SubTag, DataTag.ActorName);
+            string posWithName
+                = targetName
+                + " [" + relativePos[0] + ", " + relativePos[1] + "]";
+
+            return posWithName;
         }
 
         public List<int[]> SurroundCoord(Surround neighbor, int[] position)
