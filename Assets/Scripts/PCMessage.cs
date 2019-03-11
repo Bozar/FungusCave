@@ -25,7 +25,7 @@ namespace Fungus.Actor
 
         public void IsExhausted()
         {
-            throw new System.NotImplementedException();
+            message.StoreText("You are exhausted.");
         }
 
         // NPC hits PC.
@@ -37,7 +37,7 @@ namespace Fungus.Actor
 
         public void IsInfected()
         {
-            throw new System.NotImplementedException();
+            message.StoreText("You are infected.");
         }
 
         // NPC kills PC.
@@ -50,7 +50,7 @@ namespace Fungus.Actor
 
         public void IsStressed()
         {
-            throw new System.NotImplementedException();
+            message.StoreText("You feel stressed.");
         }
 
         private void Start()

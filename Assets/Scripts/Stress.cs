@@ -13,6 +13,7 @@ namespace Fungus.Actor
 
         public void GainStress(int stress)
         {
+            GetComponent<ICombatMessage>().IsStressed();
             CurrentStress = Math.Min(MaxStress, CurrentStress + stress);
         }
 

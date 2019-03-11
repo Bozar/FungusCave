@@ -20,24 +20,6 @@ namespace Fungus.Actor
             }
         }
 
-        public string GetHealthReport(HealthTag status)
-        {
-            switch (status)
-            {
-                case HealthTag.Stressed:
-                    return "You feel stressed.";
-
-                case HealthTag.Infected:
-                    return "You are infected.";
-
-                case HealthTag.Overflowed:
-                    return "You feel exhausted.";
-
-                default:
-                    return "";
-            }
-        }
-
         public int GetInfectionRate(GameObject attacker)
         {
             // The universal base rate is decided by victim's current HP and

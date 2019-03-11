@@ -2,23 +2,17 @@
 using Fungus.Actor.Turn;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
-using Fungus.GameSystem.Render;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public enum HealthTag { Stressed, Infected, Overflowed };
-
     public enum InfectionTag { Weak, Slow, Poisoned, Mutated };
 
     public interface IInfection
     {
         int InfectionDuration { get; }
-
-        // Describe actor's status in the message board.
-        string GetHealthReport(HealthTag status);
 
         // The actor specific infection rate: PCInfections.cs, NPCInfections.cs.
         int GetInfectionRate(GameObject attacker);
@@ -34,7 +28,6 @@ namespace Fungus.Actor
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionsDict;
         private int maxRepeat;
-        private UIMessage message;
         private Stack<InfectionTag> previousInfections;
         private RandomNumber random;
 
@@ -97,20 +90,16 @@ namespace Fungus.Actor
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
                     GetComponent<Stress>().GainStress(1);
-                    message.StoreText(infectionComponent.GetHealthReport(
-                        HealthTag.Stressed));
                 }
                 else if (ActiveInfections >= infectionData.MaxInfections)
                 {
+                    GetComponent<ICombatMessage>().IsExhausted();
                     GetComponent<Energy>().LoseEnergy(energyData.ModNormal);
-                    message.StoreText(infectionComponent.GetHealthReport(
-                        HealthTag.Overflowed));
                 }
                 else
                 {
+                    GetComponent<ICombatMessage>().IsInfected();
                     ChooseInfection();
-                    message.StoreText(infectionComponent.GetHealthReport(
-                       HealthTag.Infected));
                 }
             }
             return;
@@ -224,7 +213,6 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            message = FindObjects.GameLogic.GetComponent<UIMessage>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();

@@ -11,7 +11,8 @@ namespace Fungus.Actor
 
         public void IsExhausted()
         {
-            throw new System.NotImplementedException();
+            string defenderName = coord.RelativeCoordWithName(gameObject);
+            message.StoreText(defenderName + " is exhausted.");
         }
 
         // PC hits NPC.
@@ -23,7 +24,8 @@ namespace Fungus.Actor
 
         public void IsInfected()
         {
-            throw new System.NotImplementedException();
+            string defenderName = coord.RelativeCoordWithName(gameObject);
+            message.StoreText(defenderName + " is infected.");
         }
 
         // PC kills NPC.
@@ -35,7 +37,8 @@ namespace Fungus.Actor
 
         public void IsStressed()
         {
-            throw new System.NotImplementedException();
+            string defenderName = coord.RelativeCoordWithName(gameObject);
+            message.StoreText(defenderName + " looks stressed.");
         }
 
         private void Start()

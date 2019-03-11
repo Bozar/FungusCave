@@ -20,11 +20,6 @@ namespace Fungus.Actor
             }
         }
 
-        public string GetHealthReport(HealthTag status)
-        {
-            throw new NotImplementedException();
-        }
-
         public int GetInfectionRate(GameObject attacker)
         {
             throw new NotImplementedException();

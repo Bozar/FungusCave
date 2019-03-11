@@ -14,9 +14,7 @@ namespace Fungus.Actor
         DefInfection1, DefInfection2,
         DefHP1, DefHP2,
 
-        AttEnergy1, AttEnergy2,
-        AttInfection1, AttInfection2,
-        AttDamage1, AttDamage2
+        AttEnergy1, AttInfection1, AttDamage1
     }
 }
 
