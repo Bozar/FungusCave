@@ -36,6 +36,8 @@ namespace Fungus.Actor
 
             if (targetIsDead)
             {
+                target.GetComponent<ICombatMessage>().IsKilled(gameObject);
+
                 if (GetComponent<MetaInfo>().IsPC)
                 {
                     GetComponent<IHP>().RestoreAfterKill();
@@ -44,6 +46,8 @@ namespace Fungus.Actor
             }
             else
             {
+                target.GetComponent<ICombatMessage>().IsHit(gameObject);
+
                 target.GetComponent<Infection>().GainInfection(gameObject);
                 target.GetComponent<Energy>().LoseEnergy(
                     GetComponent<IEnergy>().Drain);
