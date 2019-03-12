@@ -48,23 +48,6 @@ namespace Fungus.Actor
             }
         }
 
-        public List<InfectionTag> InfectionNames
-        {
-            get
-            {
-                List<InfectionTag> infectionNames = new List<InfectionTag>();
-
-                foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
-                {
-                    if (infectionsDict[tag] > 0)
-                    {
-                        infectionNames.Add(tag);
-                    }
-                }
-                return infectionNames;
-            }
-        }
-
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
@@ -114,6 +97,22 @@ namespace Fungus.Actor
         {
             duration = infectionsDict[tag];
             return duration > 0;
+        }
+
+        public bool HasInfection(out InfectionTag tag, out int duration)
+        {
+            duration = 0;
+            tag = InfectionTag.Weak;
+
+            foreach (InfectionTag t in Enum.GetValues(typeof(InfectionTag)))
+            {
+                if (GetComponent<Infection>().HasInfection(t, out duration))
+                {
+                    tag = t;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool HasInfection(InfectionTag tag)

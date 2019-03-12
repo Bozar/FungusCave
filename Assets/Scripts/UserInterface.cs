@@ -43,6 +43,7 @@ namespace Fungus.GameSystem.Render
         private DungeonBoard board;
         private GameColor color;
         private UIDict getUI;
+        private InfectionData infectionData;
         private GameObject pc;
         private StringBuilder sb;
 
@@ -80,6 +81,7 @@ namespace Fungus.GameSystem.Render
         {
             board = GetComponent<DungeonBoard>();
             color = GetComponent<GameColor>();
+            infectionData = GetComponent<InfectionData>();
             getUI = FindObjects.GetUIObject;
 
             TurnOffUIElements();
@@ -144,30 +146,25 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateInfection()
         {
-            int current;
+            string label = "[ Infection ]";
+            int duration;
+            InfectionTag tag;
 
-            if (!pc.GetComponent<Infection>().HasInfection())
+            if (pc.GetComponent<Infection>().HasInfection(out tag, out duration))
+            {
+                getUI(UITag.InfectionName).GetComponent<Text>().text
+                        = infectionData.GetInfectionName(tag);
+                getUI(UITag.InfectionDuration).GetComponent<Text>().text
+                    = duration.ToString();
+                getUI(UITag.InfectionLabel).GetComponent<Text>().text
+                    = label;
+            }
+            else
             {
                 getUI(UITag.InfectionName).GetComponent<Text>().text = "";
                 getUI(UITag.InfectionDuration).GetComponent<Text>().text = "";
                 getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
-
-                return;
             }
-
-            foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
-            {
-                if (pc.GetComponent<Infection>().HasInfection(tag, out current))
-                {
-                    getUI(UITag.InfectionName).GetComponent<Text>().text
-                        = tag.ToString();
-                    getUI(UITag.InfectionDuration).GetComponent<Text>().text
-                        = current.ToString();
-                    getUI(UITag.InfectionLabel).GetComponent<Text>().text
-                        = "[ Infection ]";
-                }
-            }
-            return;
         }
 
         private void UpdatePotion()

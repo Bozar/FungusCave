@@ -1,14 +1,23 @@
-﻿using UnityEngine;
+﻿using Fungus.Actor;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
 {
     public class InfectionData : MonoBehaviour
     {
+        private Dictionary<InfectionTag, string> infectionNames;
+
         public int DurationNormal { get; private set; }
         public int DurationShort { get; private set; }
         public int MaxInfections { get; private set; }
         public int RateHigh { get; private set; }
         public int RateNormal { get; private set; }
+
+        public string GetInfectionName(InfectionTag tag)
+        {
+            return infectionNames[tag];
+        }
 
         private void Awake()
         {
@@ -19,6 +28,17 @@ namespace Fungus.GameSystem.ObjectManager
             DurationNormal = 5;
 
             MaxInfections = 1;
+        }
+
+        private void Start()
+        {
+            infectionNames = new Dictionary<InfectionTag, string>
+            {
+                { InfectionTag.Mutated, "Mutated" },
+                { InfectionTag.Poisoned, "Poisoned" },
+                { InfectionTag.Slow, "Slow" },
+                { InfectionTag.Weak, "Weak" }
+            };
         }
     }
 }
