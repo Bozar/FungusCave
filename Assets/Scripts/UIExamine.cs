@@ -14,8 +14,11 @@ namespace Fungus.GameSystem.Render
         private ActorData actorData;
         private DungeonBoard board;
         private ConvertCoordinates coord;
+        private UIObject getUI;
         private PotionData potionData;
         private StringBuilder sb;
+
+        private delegate GameObject UIObject(UITag tag);
 
         public void PrintStaticText()
         {
@@ -29,8 +32,7 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            FindObjects.GetUIObject(UITag.ExamineModeline).GetComponent<Text>()
-                .text = "[ Examine | Esc ]";
+            PrintModeline();
 
             GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
             if (actor == null)
@@ -38,8 +40,12 @@ namespace Fungus.GameSystem.Render
                 return;
             }
 
-            FindObjects.GetUIObject(UITag.ExamineName).GetComponent<Text>()
-                .text = coord.RelativeCoord(actor, StringStyle.NameAndBracket);
+            PrintName(actor);
+            PrintHP(actor);
+            PrintDamage(actor);
+            PrintPotion(actor);
+
+            PrintPool();
         }
 
         private string ActorData(GameObject go)
@@ -110,12 +116,75 @@ namespace Fungus.GameSystem.Render
             sb = new StringBuilder();
         }
 
+        private void PrintDamage(GameObject actor)
+        {
+            string label = "Damage";
+            string data = actor.GetComponent<IDamage>().CurrentDamage.ToString();
+
+            getUI(UITag.ExamineDamageLabel).GetComponent<Text>().text = label;
+            getUI(UITag.ExamineDamageData).GetComponent<Text>().text = data;
+        }
+
+        private void PrintHP(GameObject actor)
+        {
+            string label = "HP";
+            string data = actor.GetComponent<HP>().CurrentHP.ToString();
+
+            getUI(UITag.ExamineHPLabel).GetComponent<Text>().text = label;
+            getUI(UITag.ExamineHPData).GetComponent<Text>().text = data;
+        }
+
+        private void PrintModeline()
+        {
+            string modeline = "[ Examine | Esc ]";
+
+            getUI(UITag.ExamineModeline).GetComponent<Text>().text = modeline;
+        }
+
+        private void PrintName(GameObject actor)
+        {
+            getUI(UITag.ExamineName).GetComponent<Text>().text
+               = coord.RelativeCoord(actor, StringStyle.NameAndBracket);
+        }
+
+        private void PrintPool()
+        {
+            string label = "Pool";
+
+            if (board.CheckBlock(SubObjectTag.Pool,
+                FindObjects.Examiner.transform.position))
+            {
+                getUI(UITag.ExaminePoolLabel).GetComponent<Text>().text = label;
+            }
+            else
+            {
+                getUI(UITag.ExaminePoolLabel).GetComponent<Text>().text = "";
+            }
+        }
+
+        private void PrintPotion(GameObject actor)
+        {
+            string label = "Potion";
+
+            int basic = actorData.GetIntData(
+                actor.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
+            int bonus = actor.GetComponent<Infection>().HasInfection(
+                InfectionTag.Mutated) ? potionData.BonusPotion : 0;
+
+            string data = (basic + bonus).ToString();
+
+            getUI(UITag.ExaminePotionLabel).GetComponent<Text>().text = label;
+            getUI(UITag.ExaminePotionData).GetComponent<Text>().text = data;
+        }
+
         private void Start()
         {
             board = GetComponent<DungeonBoard>();
             coord = GetComponent<ConvertCoordinates>();
             actorData = GetComponent<ActorData>();
             potionData = GetComponent<PotionData>();
+
+            getUI = FindObjects.GetUIObject;
         }
     }
 }
