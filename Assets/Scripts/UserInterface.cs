@@ -20,7 +20,7 @@ namespace Fungus.GameSystem.Render
         InfectionLabel,
         InfectionName, InfectionDuration,
 
-        ExamineMessage, ExamineName, ExamineData, ExamineModeline
+        ExamineMessage, ExamineName, ExamineModeline
     };
 
     public interface IUpdateUI

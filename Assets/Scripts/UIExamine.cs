@@ -13,6 +13,7 @@ namespace Fungus.GameSystem.Render
     {
         private ActorData actorData;
         private DungeonBoard board;
+        private ConvertCoordinates coord;
         private PotionData potionData;
         private StringBuilder sb;
 
@@ -32,17 +33,13 @@ namespace Fungus.GameSystem.Render
                 .text = "[ Examine | Esc ]";
 
             GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
-
             if (actor == null)
             {
                 return;
             }
 
-            FindObjects.GetUIObject(UITag.ExamineData).GetComponent<Text>()
-                .text = ActorData(actor);
-
             FindObjects.GetUIObject(UITag.ExamineName).GetComponent<Text>()
-                .text = ActorName(actor);
+                .text = coord.RelativeCoord(actor, StringStyle.NameAndBracket);
         }
 
         private string ActorData(GameObject go)
@@ -116,6 +113,7 @@ namespace Fungus.GameSystem.Render
         private void Start()
         {
             board = GetComponent<DungeonBoard>();
+            coord = GetComponent<ConvertCoordinates>();
             actorData = GetComponent<ActorData>();
             potionData = GetComponent<PotionData>();
         }

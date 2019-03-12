@@ -11,34 +11,34 @@ namespace Fungus.Actor
 
         public void IsExhausted()
         {
-            string defenderName = coord.RelativeCoordWithName(gameObject);
-            message.StoreText(defenderName + " is exhausted.");
+            message.StoreText(GetDefenderName() + " is exhausted.");
         }
 
         // PC hits NPC.
         public void IsHit(GameObject attacker)
         {
-            string defenderName = coord.RelativeCoordWithName(gameObject);
-            message.StoreText("You hit " + defenderName + ".");
+            message.StoreText("You hit " + GetDefenderName() + ".");
         }
 
         public void IsInfected()
         {
-            string defenderName = coord.RelativeCoordWithName(gameObject);
-            message.StoreText(defenderName + " is infected.");
+            message.StoreText(GetDefenderName() + " is infected.");
         }
 
         // PC kills NPC.
         public void IsKilled(GameObject attacker)
         {
-            string defenderName = coord.RelativeCoordWithName(gameObject);
-            message.StoreText("You kill " + defenderName + ".");
+            message.StoreText("You kill " + GetDefenderName() + ".");
         }
 
         public void IsStressed()
         {
-            string defenderName = coord.RelativeCoordWithName(gameObject);
-            message.StoreText(defenderName + " looks stressed.");
+            message.StoreText(GetDefenderName() + " looks stressed.");
+        }
+
+        private string GetDefenderName()
+        {
+            return coord.RelativeCoord(gameObject, StringStyle.NameNoBracket);
         }
 
         private void Start()

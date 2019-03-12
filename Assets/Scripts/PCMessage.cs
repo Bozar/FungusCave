@@ -31,8 +31,7 @@ namespace Fungus.Actor
         // NPC hits PC.
         public void IsHit(GameObject attacker)
         {
-            string attackerName = coord.RelativeCoordWithName(attacker);
-            message.StoreText(attackerName + " hits you.");
+            message.StoreText(GetAttackerName(attacker) + " hits you.");
         }
 
         public void IsInfected()
@@ -43,14 +42,18 @@ namespace Fungus.Actor
         // NPC kills PC.
         public void IsKilled(GameObject attacker)
         {
-            string attackerName = coord.RelativeCoordWithName(attacker);
-            message.StoreText(attackerName + " kills you.");
+            message.StoreText(GetAttackerName(attacker) + " kills you.");
             modeline.PrintStaticText("Press Space to reload.");
         }
 
         public void IsStressed()
         {
             message.StoreText("You feel stressed.");
+        }
+
+        private string GetAttackerName(GameObject attacker)
+        {
+            return coord.RelativeCoord(attacker, StringStyle.NameNoBracket);
         }
 
         private void Start()

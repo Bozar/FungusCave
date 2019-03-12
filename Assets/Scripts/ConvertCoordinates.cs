@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
+    public enum StringStyle { NameNoBracket, NameAndBracket };
+
     public enum Surround { Cardinal, Diagonal };
 
     public class ConvertCoordinates : MonoBehaviour
@@ -107,15 +109,32 @@ namespace Fungus.GameSystem
             return relativePos;
         }
 
-        public string RelativeCoordWithName(GameObject target)
+        public string RelativeCoord(GameObject target, StringStyle s)
         {
-            int[] relativePos = RelativeCoord(target);
+            int[] coord = RelativeCoord(target);
             string targetName = GetComponent<ActorData>().GetStringData(
                 target.GetComponent<MetaInfo>().SubTag, DataTag.ActorName);
-            string posWithName
-                = targetName
-                + " [" + relativePos[0] + ", " + relativePos[1] + "]";
+            string posWithName;
 
+            switch (s)
+            {
+                case StringStyle.NameNoBracket:
+                    posWithName
+                        = targetName
+                        + " [ " + coord[0] + ", " + coord[1] + " ]";
+                    break;
+
+                case StringStyle.NameAndBracket:
+                    posWithName
+                        = "[ " + targetName + " ]"
+                        + " [ " + coord[0] + ", " + coord[1] + " ]";
+                    break;
+
+                default:
+                    posWithName
+                        = "[ " + coord[0] + ", " + coord[1] + " ]";
+                    break;
+            }
             return posWithName;
         }
 
