@@ -18,7 +18,7 @@ namespace Fungus.GameSystem.ObjectManager
             ModNormal = 400;
             ModHigh = 800;
 
-            Maximum = 5000;
+            Maximum = 4000;
             Minimum = 0;
 
             ActionThreshold = 3000;
