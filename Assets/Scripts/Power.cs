@@ -13,36 +13,14 @@ namespace Fungus.Actor
 
         public void BuyPower(PowerTag power)
         {
-            PowerSlotTag[] checkSlot = new PowerSlotTag[]
-            { PowerSlotTag.Slot1, PowerSlotTag.Slot2, PowerSlotTag.Slot3 };
-
-            bool slotIsFull = true;
-            PowerSlotTag slot = PowerSlotTag.Slot1;
+            PowerSlotTag slot;
             int potion;
 
-            foreach (PowerSlotTag s in checkSlot)
+            if (IsBuyable(power, out slot, out potion))
             {
-                if (powerDict[s] == PowerTag.INVALID)
-                {
-                    slotIsFull = false;
-                    slot = s;
-                    break;
-                }
+                GainPower(slot, power);
+                GetComponent<Potion>().LosePotion(potion);
             }
-            if (slotIsFull)
-            {
-                return;
-            }
-
-            potion = powerData.GetPowerCost(power);
-            if (GetComponent<Potion>().CurrentPotion < potion)
-            {
-                return;
-            }
-
-            GainPower(slot, power);
-            GetComponent<Potion>().LosePotion(potion);
-            return;
         }
 
         public void GainPower(PowerSlotTag slot, PowerTag power)
@@ -83,6 +61,50 @@ namespace Fungus.Actor
                 }
             }
             return false;
+        }
+
+        public bool IsBuyable(PowerTag power,
+            out PowerSlotTag slot, out int potion)
+        {
+            PowerSlotTag[] checkSlot = new PowerSlotTag[]
+            { PowerSlotTag.Slot1, PowerSlotTag.Slot2, PowerSlotTag.Slot3 };
+
+            bool slotIsFull = true;
+            bool preIsMissing = true;
+            PowerTag prePower = powerData.GetPrerequisite(power);
+
+            slot = PowerSlotTag.Slot1;
+            potion = 0;
+
+            potion = powerData.GetPowerCost(power);
+            if (GetComponent<Potion>().CurrentPotion < potion)
+            {
+                return false;
+            }
+
+            foreach (PowerSlotTag s in checkSlot)
+            {
+                if (powerDict[s] == prePower)
+                {
+                    preIsMissing = false;
+                }
+                if (powerDict[s] == PowerTag.INVALID)
+                {
+                    slotIsFull = false;
+                    slot = s;
+
+                    // If current slot is empty, it means we have checked all
+                    // powers that PC has and `preIsMissing` will no longer
+                    // change. We can break out of the loop safely.
+                    break;
+                }
+            }
+            if (slotIsFull || preIsMissing)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void GainRandomPowers()
@@ -128,6 +150,7 @@ namespace Fungus.Actor
 
             // TODO: Delete these lines.
             //GainRandomPowers();
+            //GainPower(PowerSlotTag.Slot1, PowerTag.DefEnergy1);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         private Dictionary<PowerTag, int> powerCost;
         private Dictionary<PowerTag, string> powerNames;
+        private Dictionary<PowerTag, PowerTag> prerequisite;
 
         public int GetPowerCost(PowerTag tag)
         {
@@ -33,6 +34,11 @@ namespace Fungus.GameSystem.ObjectManager
         public string GetPowerName(PowerTag tag)
         {
             return powerNames[tag];
+        }
+
+        public PowerTag GetPrerequisite(PowerTag tag)
+        {
+            return prerequisite[tag];
         }
 
         private void Awake()
@@ -64,6 +70,21 @@ namespace Fungus.GameSystem.ObjectManager
                 { PowerTag.AttEnergy1, 6 },
                 { PowerTag.AttInfection1, 6 },
                 { PowerTag.AttDamage1, 6 }
+            };
+
+            prerequisite = new Dictionary<PowerTag, PowerTag>
+            {
+                { PowerTag.DefEnergy1, PowerTag.INVALID },
+                { PowerTag.DefInfection1, PowerTag.INVALID },
+                { PowerTag.DefHP1, PowerTag.INVALID },
+
+                { PowerTag.DefEnergy2, PowerTag.DefEnergy1},
+                { PowerTag.DefInfection2, PowerTag.DefInfection1},
+                { PowerTag.DefHP2, PowerTag.DefHP1},
+
+                { PowerTag.AttEnergy1, PowerTag.INVALID },
+                { PowerTag.AttInfection1, PowerTag.INVALID },
+                { PowerTag.AttDamage1, PowerTag.INVALID }
             };
         }
     }

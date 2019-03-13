@@ -55,7 +55,7 @@ namespace Fungus.GameSystem
             //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
             //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
             //schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
-            schedule.CurrentActor.GetComponent<Power>().BuyPower(PowerTag.DefEnergy1);
+            schedule.CurrentActor.GetComponent<Power>().BuyPower(PowerTag.DefEnergy2);
         }
 
         public void PrintEnergy()
