@@ -38,7 +38,8 @@ namespace Fungus.GameSystem.Turn
 
         public void NextActor()
         {
-            int minDistance = 10;
+            int minDistance = GetComponent<ActorData>().GetIntData(
+                SubObjectTag.DEFAULT, DataTag.SightRange);
 
             EnableComponent(false);
             CurrentActor.GetComponent<InternalClock>().EndTurn();
@@ -46,7 +47,6 @@ namespace Fungus.GameSystem.Turn
             NextNode();
 
             CurrentActor.GetComponent<InternalClock>().StartTurn();
-
             // Do not call actor's Update() if he is far away from PC to speed up
             // the game.
             if (GetComponent<DungeonBoard>().GetDistance(

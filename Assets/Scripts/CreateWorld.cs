@@ -83,7 +83,8 @@ namespace Fungus.GameSystem.WorldBuilding
 
         private bool IsTooClose(int[] position)
         {
-            int minDistance = 9;
+            int minDistance = 1 + GetComponent<ActorData>().GetIntData(
+                SubObjectTag.DEFAULT, DataTag.SightRange);
             int maxNPC = 3;
             int[] pcPosition = GetComponent<ConvertCoordinates>().Convert(
                 FindObjects.PC.transform.position);

@@ -10,7 +10,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             // TODO: Change composition based on dungeon level.
             int maxSoldier = 20;
-            int maxActor = 50;
+            int maxActor = 40;
             int potion = 0;
             int nextIndex;
 
