@@ -22,7 +22,13 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class PowerData : MonoBehaviour
     {
+        private Dictionary<PowerTag, int> powerCost;
         private Dictionary<PowerTag, string> powerNames;
+
+        public int GetPowerCost(PowerTag tag)
+        {
+            return powerCost[tag];
+        }
 
         public string GetPowerName(PowerTag tag)
         {
@@ -43,6 +49,21 @@ namespace Fungus.GameSystem.ObjectManager
                 { PowerTag.AttEnergy1, "Siphon" },
                 { PowerTag.AttInfection1, "Plague" },
                 { PowerTag.AttDamage1, "Bleed" }
+            };
+
+            powerCost = new Dictionary<PowerTag, int>
+            {
+                { PowerTag.DefEnergy1, 3 },
+                { PowerTag.DefInfection1, 3 },
+                { PowerTag.DefHP1, 3 },
+
+                { PowerTag.DefEnergy2, 6 },
+                { PowerTag.DefInfection2, 6 },
+                { PowerTag.DefHP2, 6 },
+
+                { PowerTag.AttEnergy1, 6 },
+                { PowerTag.AttInfection1, 6 },
+                { PowerTag.AttDamage1, 6 }
             };
         }
     }

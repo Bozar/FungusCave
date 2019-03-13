@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,42 @@ namespace Fungus.Actor
 {
     public class Power : MonoBehaviour
     {
+        private PowerData powerData;
         private Dictionary<PowerSlotTag, PowerTag> powerDict;
+
+        public void BuyPower(PowerTag power)
+        {
+            PowerSlotTag[] checkSlot = new PowerSlotTag[]
+            { PowerSlotTag.Slot1, PowerSlotTag.Slot2, PowerSlotTag.Slot3 };
+
+            bool slotIsFull = true;
+            PowerSlotTag slot = PowerSlotTag.Slot1;
+            int potion;
+
+            foreach (PowerSlotTag s in checkSlot)
+            {
+                if (powerDict[s] == PowerTag.INVALID)
+                {
+                    slotIsFull = false;
+                    slot = s;
+                    break;
+                }
+            }
+            if (slotIsFull)
+            {
+                return;
+            }
+
+            potion = powerData.GetPowerCost(power);
+            if (GetComponent<Potion>().CurrentPotion < potion)
+            {
+                return;
+            }
+
+            GainPower(slot, power);
+            GetComponent<Potion>().LosePotion(potion);
+            return;
+        }
 
         public void GainPower(PowerSlotTag slot, PowerTag power)
         {
@@ -87,6 +123,8 @@ namespace Fungus.Actor
             {
                 powerDict.Add(slot, PowerTag.INVALID);
             }
+
+            powerData = FindObjects.GameLogic.GetComponent<PowerData>();
 
             // TODO: Delete these lines.
             //GainRandomPowers();

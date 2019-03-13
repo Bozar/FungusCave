@@ -20,8 +20,10 @@ namespace Fungus.GameSystem
 
         public void DrinkPotion()
         {
-            schedule.CurrentActor.GetComponent<Infection>().GainInfection(
-                schedule.CurrentActor);
+            schedule.CurrentActor.GetComponent<Potion>().GainPotion(1);
+
+            //schedule.CurrentActor.GetComponent<Infection>().GainInfection(
+            //    schedule.CurrentActor);
 
             //int[] pos = GetComponent<ConvertCoordinates>()
             //    .Convert(schedule.CurrentActor.transform.position);
@@ -52,7 +54,8 @@ namespace Fungus.GameSystem
         {
             //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
             //schedule.CurrentActor.GetComponent<Stress>().ClearStress();
-            schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
+            //schedule.CurrentActor.GetComponent<HP>().LoseHP(1);
+            schedule.CurrentActor.GetComponent<Power>().BuyPower(PowerTag.DefEnergy1);
         }
 
         public void PrintEnergy()
