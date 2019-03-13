@@ -59,17 +59,17 @@ namespace Fungus.GameSystem.ObjectManager
 
             powerCost = new Dictionary<PowerTag, int>
             {
-                { PowerTag.DefEnergy1, 3 },
-                { PowerTag.DefInfection1, 3 },
-                { PowerTag.DefHP1, 3 },
+                { PowerTag.DefEnergy1, 4 },
+                { PowerTag.DefInfection1, 4 },
+                { PowerTag.DefHP1, 4 },
 
-                { PowerTag.DefEnergy2, 6 },
-                { PowerTag.DefInfection2, 6 },
-                { PowerTag.DefHP2, 6 },
+                { PowerTag.DefEnergy2, 8 },
+                { PowerTag.DefInfection2, 8 },
+                { PowerTag.DefHP2, 8 },
 
-                { PowerTag.AttEnergy1, 6 },
-                { PowerTag.AttInfection1, 6 },
-                { PowerTag.AttDamage1, 6 }
+                { PowerTag.AttEnergy1, 8 },
+                { PowerTag.AttInfection1, 8 },
+                { PowerTag.AttDamage1, 8 }
             };
 
             prerequisite = new Dictionary<PowerTag, PowerTag>

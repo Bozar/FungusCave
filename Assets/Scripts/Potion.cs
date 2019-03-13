@@ -8,11 +8,8 @@ namespace Fungus.Actor
 {
     public class Potion : MonoBehaviour
     {
-        private int maxPotion;
         private UIMessage message;
         private PotionData potionData;
-        private int relieveStress;
-        private int restoreEnergy;
 
         public int CurrentPotion { get; private set; }
 
@@ -33,8 +30,8 @@ namespace Fungus.Actor
             }
 
             GetComponent<Infection>().ResetInfection();
-            GetComponent<Stress>().LoseStress(relieveStress);
-            GetComponent<Energy>().GainEnergy(restoreEnergy);
+            GetComponent<Stress>().LoseStress(potionData.RelieveStress);
+            GetComponent<Energy>().GainEnergy(potionData.RestoreEnergy);
             LosePotion(1);
 
             message.StoreText("You inject yourself with a blood potion.");
@@ -43,7 +40,8 @@ namespace Fungus.Actor
 
         public void GainPotion(int potion)
         {
-            CurrentPotion = Math.Min(maxPotion, CurrentPotion + potion);
+            CurrentPotion = Math.Min(
+                potionData.MaxPotion, CurrentPotion + potion);
         }
 
         public void LosePotion(int potion)
@@ -51,18 +49,12 @@ namespace Fungus.Actor
             CurrentPotion = Math.Max(0, CurrentPotion - potion);
         }
 
-        private void Awake()
-        {
-            CurrentPotion = 2;
-            maxPotion = 6;
-            relieveStress = 3;
-            restoreEnergy = 4000;
-        }
-
         private void Start()
         {
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
+
+            CurrentPotion = potionData.StartPotion;
         }
     }
 }

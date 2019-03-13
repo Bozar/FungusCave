@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,13 +38,26 @@ namespace Fungus.GameSystem.Turn
 
         public void NextActor()
         {
+            int minDistance = 10;
+
             EnableComponent(false);
             CurrentActor.GetComponent<InternalClock>().EndTurn();
 
             NextNode();
 
             CurrentActor.GetComponent<InternalClock>().StartTurn();
-            EnableComponent(true);
+
+            // Do not call actor's Update() if he is far away from PC to speed up
+            // the game.
+            if (GetComponent<DungeonBoard>().GetDistance(
+                CurrentActor, FindObjects.PC) > minDistance)
+            {
+                NextActor();
+            }
+            else
+            {
+                EnableComponent(true);
+            }
         }
 
         public void PauseTurn(bool pause)
