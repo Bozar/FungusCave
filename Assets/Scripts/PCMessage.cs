@@ -42,7 +42,7 @@ namespace Fungus.Actor
         // NPC kills PC.
         public void IsKilled(GameObject attacker)
         {
-            message.StoreText(GetAttackerName(attacker) + " kills you.");
+            message.StoreText("You are dead.");
             modeline.PrintStaticText("Press Space to reload.");
         }
 
