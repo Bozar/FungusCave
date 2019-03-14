@@ -7,7 +7,7 @@ namespace Fungus.Actor.InputManager
         INVALID,
         Left, Right, Up, Down,
         UpLeft, UpRight, DownLeft, DownRight,
-        Wait, AutoExplore, Examine, Help,
+        Wait, AutoExplore, Examine, Help, BuyPower,
         Confirm, Cancel,
         Next, Previous,
 

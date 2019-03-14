@@ -111,6 +111,11 @@ namespace Fungus.Actor.Turn
                     gameMode.SwitchModeExamine(true);
                     return;
 
+                case Command.BuyPower:
+                    Debug.Log("Buy power");
+                    //gameMode.SwitchModeExamine(true);
+                    return;
+
                 case Command.Help:
                     modeline.PrintStaticText("Help is unavailable for now.");
                     return;

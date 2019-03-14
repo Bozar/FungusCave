@@ -22,6 +22,10 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.Examine;
             }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                return Command.BuyPower;
+            }
             else if (help)
             {
                 return Command.Help;
