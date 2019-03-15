@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using Fungus.GameSystem;
+using UnityEngine;
 
 namespace Fungus.Actor.InputManager
 {
     public class InputNormal : MonoBehaviour, IConvertInput
     {
+        private WizardMode wizard;
+
         public Command Input2Command()
         {
             bool help = Input.GetKeyDown(KeyCode.Slash)
@@ -13,10 +16,6 @@ namespace Fungus.Actor.InputManager
             if (Input.GetKeyDown(KeyCode.Period))
             {
                 return Command.Wait;
-            }
-            else if (Input.GetKeyDown(KeyCode.O))
-            {
-                return Command.AutoExplore;
             }
             else if (Input.GetKeyDown(KeyCode.X))
             {
@@ -30,49 +29,65 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.Help;
             }
-            // Test key combinations.
-            else if (Input.GetKey(KeyCode.LeftControl)
-                && Input.GetKeyDown(KeyCode.F))
+
+            if (wizard.IsWizardMode)
             {
-                return Command.Up;
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                return Command.Initialize;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                return Command.RenderAll;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                return Command.PrintEnergy;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                return Command.AddEnergy;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                return Command.PrintSchedule;
-            }
-            else if (Input.GetKeyDown(KeyCode.Equals))
-            {
-                return Command.GainHP;
-            }
-            else if (Input.GetKeyDown(KeyCode.Minus))
-            {
-                return Command.LoseHP;
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                return Command.DrinkPotion;
-            }
-            else if (Input.GetKeyDown(KeyCode.P))
-            {
-                return Command.PrintEnergyCost;
+                // Test key combinations.
+                if (Input.GetKey(KeyCode.LeftControl)
+                   && Input.GetKeyDown(KeyCode.F))
+                {
+                    return Command.Up;
+                }
+                else if (Input.GetKeyDown(KeyCode.O))
+                {
+                    // PC bumps into wall with some specific seeds. I don't know
+                    // why. Let's make AutoExplore a wizard command for the
+                    // moment.
+                    return Command.AutoExplore;
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    return Command.Initialize;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    return Command.RenderAll;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    return Command.PrintEnergy;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    return Command.AddEnergy;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    return Command.PrintSchedule;
+                }
+                else if (Input.GetKeyDown(KeyCode.Equals))
+                {
+                    return Command.GainHP;
+                }
+                else if (Input.GetKeyDown(KeyCode.Minus))
+                {
+                    return Command.LoseHP;
+                }
+                else if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    return Command.DrinkPotion;
+                }
+                else if (Input.GetKeyDown(KeyCode.P))
+                {
+                    return Command.PrintEnergyCost;
+                }
             }
             return Command.INVALID;
+        }
+
+        private void Start()
+        {
+            wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
         }
     }
 }
