@@ -109,7 +109,8 @@ namespace Fungus.GameSystem.Render
             string label = "Pool";
 
             if (board.CheckBlock(SubObjectTag.Pool,
-                FindObjects.Examiner.transform.position))
+                FindObjects.GetStaticActor(SubObjectTag.Examiner)
+                .transform.position))
             {
                 getUI(UITag.ExaminePoolLabel).GetComponent<Text>().text = label;
             }

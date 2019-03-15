@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem.Render;
+﻿using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,56 +11,11 @@ namespace Fungus.GameSystem
     // object which it CAN be and MUST be attached to is GameLogic.
     public class FindObjects : MonoBehaviour
     {
-        private static GameObject examiner;
-        private static GameObject guide;
+        private static Dictionary<SubObjectTag, GameObject> actorDict;
         private static Dictionary<UITag, GameObject> mainUIDict;
         private static GameObject pcActor;
 
-        public static GameObject Examiner
-        {
-            get
-            {
-                if (examiner == null)
-                {
-                    Debug.Log("Examiner is null.");
-                }
-                return examiner;
-            }
-
-            set
-            {
-                if (examiner != null)
-                {
-                    Debug.Log("Examiner already exists.");
-                    return;
-                }
-                examiner = value;
-            }
-        }
-
         public static GameObject GameLogic { get; private set; }
-
-        public static GameObject Guide
-        {
-            get
-            {
-                if (guide == null)
-                {
-                    Debug.Log("Guide is null.");
-                }
-                return guide;
-            }
-
-            set
-            {
-                if (guide != null)
-                {
-                    Debug.Log("Guide already exists.");
-                    return;
-                }
-                guide = value;
-            }
-        }
 
         public static string IconEnemy { get { return "@"; } }
         public static string IconFog { get { return "%"; } }
@@ -87,15 +43,44 @@ namespace Fungus.GameSystem
             }
         }
 
+        public static GameObject GetStaticActor(SubObjectTag tag)
+        {
+            GameObject checkActor;
+
+            if (actorDict.TryGetValue(tag, out checkActor)
+                && (checkActor != null))
+            {
+                return checkActor;
+            }
+            Debug.Log(tag.ToString() + " is null.");
+            return null;
+        }
+
         public static GameObject GetUIObject(UITag tag)
         {
             return mainUIDict[tag];
+        }
+
+        public static void SetStaticActor(SubObjectTag tag, GameObject actor)
+        {
+            GameObject checkActor;
+
+            if (actorDict.TryGetValue(tag, out checkActor)
+                && (checkActor != null))
+            {
+                Debug.Log(tag.ToString() + " already exists.");
+            }
+            else
+            {
+                actorDict[tag] = actor;
+            }
         }
 
         private void Awake()
         {
             GameLogic = gameObject;
             mainUIDict = new Dictionary<UITag, GameObject>();
+            actorDict = new Dictionary<SubObjectTag, GameObject>();
         }
 
         private void InitializeUIDict()

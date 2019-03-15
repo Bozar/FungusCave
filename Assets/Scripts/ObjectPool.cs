@@ -191,27 +191,26 @@ namespace Fungus.GameSystem.ObjectManager
 
         private GameObject CreateDoppleganger(SubObjectTag tag, int x, int y)
         {
-            GameObject go;
+            GameObject go
+                = Instantiate(Resources.Load(tag.ToString()) as GameObject);
 
-            go = Instantiate(Resources.Load(tag.ToString()) as GameObject);
-
-            SetTags(MainObjectTag.Actor, tag, go);
-            go.AddComponent<PlayerInput>();
+            FindObjects.SetStaticActor(tag, go);
+            go.SetActive(false);
 
             go.transform.position
-               = GetComponent<ConvertCoordinates>().Convert(x, y);
-            go.SetActive(false);
+                = GetComponent<ConvertCoordinates>().Convert(x, y);
+            SetTags(MainObjectTag.Actor, tag, go);
+            go.AddComponent<PlayerInput>();
 
             switch (tag)
             {
                 // Examine mode.
                 case SubObjectTag.Examiner:
                     go.AddComponent<ExaminerActions>();
+                    go.AddComponent<InputExamine>();
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
-                    go.AddComponent<InputExamine>();
 
-                    FindObjects.Examiner = go;
                     break;
 
                 // Load screen.
@@ -219,10 +218,8 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<GuideActions>();
                     go.AddComponent<InputGuide>();
 
-                    FindObjects.Guide = go;
                     break;
             }
-
             return go;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor.Render;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
@@ -10,7 +11,10 @@ namespace Fungus.GameSystem
     {
         private ActorBoard actor;
         private ConvertCoordinates coord;
+        private StaticActor getActor;
         private UIObject getUI;
+
+        private delegate GameObject StaticActor(SubObjectTag tag);
 
         private delegate GameObject UIObject(UITag tag);
 
@@ -19,7 +23,7 @@ namespace Fungus.GameSystem
             get
             {
                 int[] pos = coord.Convert(
-                    FindObjects.Examiner.transform.position);
+                    getActor(SubObjectTag.Examiner).transform.position);
 
                 return actor.GetActor(pos[0], pos[1]);
             }
@@ -43,9 +47,9 @@ namespace Fungus.GameSystem
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            FindObjects.Examiner.transform.position
+            getActor(SubObjectTag.Examiner).transform.position
                 = FindObjects.PC.transform.position;
-            FindObjects.Examiner.SetActive(switchOn);
+            getActor(SubObjectTag.Examiner).SetActive(switchOn);
         }
 
         public void SwitchUIExamineMessage(bool switchOn)
@@ -64,6 +68,7 @@ namespace Fungus.GameSystem
             actor = GetComponent<ActorBoard>();
             coord = GetComponent<ConvertCoordinates>();
             getUI = FindObjects.GetUIObject;
+            getActor = FindObjects.GetStaticActor;
         }
 
         private void SwitchUINormal(bool switchOn)

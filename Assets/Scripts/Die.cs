@@ -11,11 +11,14 @@ namespace Fungus.Actor
     public class Die : MonoBehaviour
     {
         private ConvertCoordinates coord;
+        private StaticActor getActor;
         private UIMessage message;
         private UIModeline modeline;
         private ObjectPool pool;
         private SchedulingSystem schedule;
         private DungeonTerrain terrain;
+
+        private delegate GameObject StaticActor(SubObjectTag tag);
 
         public void Bury()
         {
@@ -28,9 +31,9 @@ namespace Fungus.Actor
                 schedule.PauseTurn(true);
                 FindObjects.PC.SetActive(false);
 
-                FindObjects.Guide.transform.position
+                getActor(SubObjectTag.Guide).transform.position
                     = FindObjects.PC.transform.position;
-                FindObjects.Guide.SetActive(true);
+                getActor(SubObjectTag.Guide).SetActive(true);
             }
             else
             {
@@ -51,6 +54,8 @@ namespace Fungus.Actor
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+
+            getActor = FindObjects.GetStaticActor;
         }
     }
 }

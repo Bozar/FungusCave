@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor.AI;
 using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +53,8 @@ namespace Fungus.Actor.Turn
         {
             int[] target = coord.Convert(
                 GetComponent<PlayerInput>().GameCommand(),
-                FindObjects.Examiner.transform.position);
+                FindObjects.GetStaticActor(SubObjectTag.Examiner)
+                .transform.position);
 
             GetComponent<IMove>().MoveGameObject(target);
         }

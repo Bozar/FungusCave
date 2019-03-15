@@ -13,9 +13,11 @@ namespace Fungus.Actor.Render
         private ActorBoard actor;
         private ConvertCoordinates coord;
         private Color32 defaultColor;
-        private GameObject examiner;
         private GameColor gameColor;
+        private StaticActor getActor;
         private GameObject pc;
+
+        private delegate GameObject StaticActor(SubObjectTag tag);
 
         public void ChangeColor(ColorName newColor)
         {
@@ -46,11 +48,13 @@ namespace Fungus.Actor.Render
             }
 
             int[] goPos = coord.Convert(transform.position);
-            int[] exPos = coord.Convert(examiner.transform.position);
+            int[] exPos = coord.Convert(getActor(SubObjectTag.Examiner)
+                .transform.position);
             int x = goPos[0];
             int y = goPos[1];
 
-            if (examiner.activeSelf && (x == exPos[0]) && (y == exPos[1]))
+            if (getActor(SubObjectTag.Examiner).activeSelf
+                && (x == exPos[0]) && (y == exPos[1]))
             {
                 HideSprite();
                 return;
@@ -124,7 +128,7 @@ namespace Fungus.Actor.Render
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
             pc = FindObjects.PC;
-            examiner = FindObjects.Examiner;
+            getActor = FindObjects.GetStaticActor;
         }
     }
 }

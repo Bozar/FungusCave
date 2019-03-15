@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
 
@@ -13,15 +14,20 @@ namespace Fungus.Actor
 
     public class PCDeath : MonoBehaviour, IDeath
     {
+        private StaticActor getActor;
+        private GameObject guide;
         private SchedulingSystem schedule;
+
+        private delegate GameObject StaticActor(SubObjectTag tag);
 
         public void Bury()
         {
             schedule.PauseTurn(true);
-            FindObjects.Guide.transform.position = transform.position;
+            getActor(SubObjectTag.Guide).transform.position
+                = transform.position;
 
             gameObject.SetActive(false);
-            FindObjects.Guide.SetActive(true);
+            getActor(SubObjectTag.Guide).SetActive(true);
         }
 
         public void Revive()
@@ -32,6 +38,7 @@ namespace Fungus.Actor
         private void Start()
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+            getActor = FindObjects.GetStaticActor;
         }
     }
 }
