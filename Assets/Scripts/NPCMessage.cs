@@ -28,7 +28,7 @@ namespace Fungus.Actor
         // PC kills NPC.
         public void IsKilled(GameObject attacker)
         {
-            message.StoreText("You kill " + GetDefenderName() + ".");
+            message.StoreText(GetDefenderName() + " is dead.");
         }
 
         public void IsStressed()
