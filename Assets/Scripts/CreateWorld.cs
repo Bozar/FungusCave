@@ -42,9 +42,11 @@ namespace Fungus.GameSystem.WorldBuilding
         private void CreateDoppleganger()
         {
             oPool.CreateObject(
-                MainObjectTag.Doppleganger, SubObjectTag.Examiner, 0, 0);
+                MainObjectTag.Doppleganger, SubObjectTag.Examiner, -9, 0);
             oPool.CreateObject(
-                MainObjectTag.Doppleganger, SubObjectTag.Guide, 0, 0);
+                MainObjectTag.Doppleganger, SubObjectTag.Guide, -9, 0);
+            oPool.CreateObject(
+               MainObjectTag.Doppleganger, SubObjectTag.PowerBuyer, -9, 0);
         }
 
         private void CreateNPC()

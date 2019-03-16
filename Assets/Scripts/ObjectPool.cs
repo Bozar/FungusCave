@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide,
+        PC, Examiner, Guide, PowerBuyer,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -217,6 +217,13 @@ namespace Fungus.GameSystem.ObjectManager
                 case SubObjectTag.Guide:
                     go.AddComponent<GuideActions>();
                     go.AddComponent<InputGuide>();
+
+                    break;
+
+                // Buy power.
+                case SubObjectTag.PowerBuyer:
+                    go.AddComponent<PowerBuyerActions>();
+                    go.AddComponent<InputPowerBuyer>();
 
                     break;
             }
