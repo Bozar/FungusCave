@@ -34,10 +34,7 @@ namespace Fungus.GameSystem
             SwitchUINormal(!switchOn);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
-
-            //FindObjects.Examiner.transform.position
-            //    = FindObjects.PC.transform.position;
-            //FindObjects.Examiner.SetActive(switchOn);
+            getActor(SubObjectTag.PowerBuyer).SetActive(switchOn);
         }
 
         public void SwitchModeExamine(bool switchOn)
