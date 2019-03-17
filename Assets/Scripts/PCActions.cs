@@ -109,7 +109,7 @@ namespace Fungus.Actor.Turn
                     return;
 
                 case Command.BuyPower:
-                    gameMode.SwitchModeBuyPower(true);
+                    gameMode.SwitchModePowerBuyer(true);
                     return;
 
                 case Command.Help:

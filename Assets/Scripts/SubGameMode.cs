@@ -4,6 +4,7 @@ using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
@@ -29,14 +30,6 @@ namespace Fungus.GameSystem
             }
         }
 
-        public void SwitchModeBuyPower(bool switchOn)
-        {
-            SwitchUINormal(!switchOn);
-
-            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
-            getActor(SubObjectTag.PowerBuyer).SetActive(switchOn);
-        }
-
         public void SwitchModeExamine(bool switchOn)
         {
             SwitchUIExamineModeline(switchOn);
@@ -47,6 +40,15 @@ namespace Fungus.GameSystem
             getActor(SubObjectTag.Examiner).transform.position
                 = FindObjects.PC.transform.position;
             getActor(SubObjectTag.Examiner).SetActive(switchOn);
+        }
+
+        public void SwitchModePowerBuyer(bool switchOn)
+        {
+            SwitchUINormal(!switchOn);
+            SwitchUIPowerBuyer(switchOn);
+
+            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+            getActor(SubObjectTag.PowerBuyer).SetActive(switchOn);
         }
 
         public void SwitchUIExamineMessage(bool switchOn)
@@ -81,6 +83,14 @@ namespace Fungus.GameSystem
                 rs.GetComponentInParent<SpriteRenderer>().enabled = switchOn;
                 rs.enabled = switchOn;
             }
+        }
+
+        private void SwitchUIPowerBuyer(bool switchOn)
+        {
+            getUI(UITag.PowerBuyer).SetActive(switchOn);
+            // TODO: Remove this line.
+            getUI(UITag.PowerBuyer).GetComponent<Text>().text
+                = "[WIP] Buy power. Press Esc to return.";
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Fungus.GameSystem.Render
         InfectionLabel,
         InfectionName, InfectionDuration,
 
+        PowerBuyer,
+
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
         ExamineDamageLabel, ExamineDamageData,
