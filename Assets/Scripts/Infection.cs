@@ -27,39 +27,21 @@ namespace Fungus.Actor
 
     public class Infection : MonoBehaviour, ITurnCounter
     {
-        private EnergyData energyData;
         private InfectionData infectionData;
-        private Dictionary<InfectionTag, int> infectionsDict;
+        private Dictionary<InfectionTag, int> infectionDict;
         private IInfectionRate iRate;
         private IInfectionRecovery iRecovery;
         private int maxRepeat;
-        private Stack<InfectionTag> previousInfections;
+        private Stack<InfectionTag> previousInfection;
         private RandomNumber random;
-
-        public int ActiveInfections
-        {
-            get
-            {
-                int count = 0;
-
-                foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
-                {
-                    if (infectionsDict[tag] > 0)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-        }
 
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {
-                if (infectionsDict[tag] > 0)
+                if (infectionDict[tag] > 0)
                 {
-                    infectionsDict[tag] -= iRecovery.Recovery;
+                    infectionDict[tag] -= iRecovery.Recovery;
                 }
             }
         }
@@ -67,6 +49,8 @@ namespace Fungus.Actor
         public void GainInfection(GameObject attacker)
         {
             int count;
+            InfectionTag tag;
+            int duration;
 
             if (!IsInfected(attacker, out count))
             {
@@ -78,29 +62,27 @@ namespace Fungus.Actor
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
                     GetComponent<Stress>().GainStress(1);
+                    return;
                 }
-                else if (ActiveInfections >= infectionData.MaxInfections)
+
+                GetComponent<ICombatMessage>().IsInfected();
+                if (HasInfection(out tag, out duration))
                 {
-                    GetComponent<ICombatMessage>().IsExhausted();
-                    GetComponent<Energy>().LoseEnergy(energyData.ModNormal);
+                    infectionDict[tag]
+                        = Math.Min(infectionData.MaxDuration,
+                        infectionDict[tag] + infectionData.OverflowDuration);
                 }
                 else
                 {
-                    GetComponent<ICombatMessage>().IsInfected();
                     ChooseInfection();
                 }
             }
             return;
         }
 
-        public bool HasInfection()
-        {
-            return ActiveInfections > 0;
-        }
-
         public bool HasInfection(InfectionTag tag, out int duration)
         {
-            duration = infectionsDict[tag];
+            duration = infectionDict[tag];
             return duration > 0;
         }
 
@@ -122,14 +104,14 @@ namespace Fungus.Actor
 
         public bool HasInfection(InfectionTag tag)
         {
-            return infectionsDict[tag] > 0;
+            return infectionDict[tag] > 0;
         }
 
         public void ResetInfection()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {
-                infectionsDict[tag] = 0;
+                infectionDict[tag] = 0;
             }
         }
 
@@ -141,12 +123,12 @@ namespace Fungus.Actor
         private void Awake()
         {
             maxRepeat = 2;
-            previousInfections = new Stack<InfectionTag>();
+            previousInfection = new Stack<InfectionTag>();
 
-            infectionsDict = new Dictionary<InfectionTag, int>();
+            infectionDict = new Dictionary<InfectionTag, int>();
             foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
             {
-                infectionsDict.Add((InfectionTag)tag, 0);
+                infectionDict.Add((InfectionTag)tag, 0);
             }
         }
 
@@ -163,16 +145,16 @@ namespace Fungus.Actor
                     SeedTag.Infection,
                     0, Enum.GetNames(typeof(InfectionTag)).Length);
 
-                if (previousInfections.Count == 0)
+                if (previousInfection.Count == 0)
                 {
-                    previousInfections.Push(newInfection);
+                    previousInfection.Push(newInfection);
                     break;
                 }
-                else if (previousInfections.Peek() == newInfection)
+                else if (previousInfection.Peek() == newInfection)
                 {
-                    if (previousInfections.Count < maxRepeat)
+                    if (previousInfection.Count < maxRepeat)
                     {
-                        previousInfections.Push(newInfection);
+                        previousInfection.Push(newInfection);
                         break;
                     }
                     else
@@ -182,13 +164,13 @@ namespace Fungus.Actor
                 }
                 else
                 {
-                    previousInfections = new Stack<InfectionTag>();
-                    previousInfections.Push(newInfection);
+                    previousInfection = new Stack<InfectionTag>();
+                    previousInfection.Push(newInfection);
                     break;
                 }
             } while (repeat);
 
-            infectionsDict[newInfection] = infectionData.Duration;
+            infectionDict[newInfection] = infectionData.Duration;
         }
 
         private bool IsInfected(GameObject attacker, out int totalInfections)
@@ -218,7 +200,6 @@ namespace Fungus.Actor
         private void Start()
         {
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
 
             if (GetComponent<MetaInfo>().IsPC)
