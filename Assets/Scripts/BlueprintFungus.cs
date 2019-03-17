@@ -2,15 +2,12 @@
 
 namespace Fungus.GameSystem.WorldBuilding
 {
-    public class BlueprintFungus : DungeonBlueprint, IIsEmptyArea
+    public class BlueprintFungus : DungeonBlueprint
     {
         private int countFungus;
-        private int[] index;
         private int maxFungus;
         private int minFungus;
         private int retry;
-        private int x;
-        private int y;
 
         public void DrawBlueprint()
         {
@@ -18,26 +15,11 @@ namespace Fungus.GameSystem.WorldBuilding
             ConvertWall2Fungus();
         }
 
-        public bool IsEmptyArea(int x, int y, int width, int height)
-        {
-            for (int i = x - width; i < x + width + 1; i++)
-            {
-                for (int j = y - height; j < y + height + 1; j++)
-                {
-                    if (board.CheckBlock(SubObjectTag.Fungus, i, j))
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
         private void Awake()
         {
             retry = 0;
-            minFungus = 5;
-            maxFungus = 10;
+            minFungus = 30;
+            maxFungus = 40;
         }
 
         private void ConvertWall2Fungus()
@@ -47,17 +29,15 @@ namespace Fungus.GameSystem.WorldBuilding
                 return;
             }
 
-            index = RandomIndex();
-            x = index[0];
-            y = index[1];
+            int[] index = RandomIndex();
+            int x = index[0];
+            int y = index[1];
 
-            if (board.CheckBlock(SubObjectTag.Wall, x, y)
-                && IsEmptyArea(x, y, 3, 3))
+            if (board.CheckBlock(SubObjectTag.Wall, x, y))
             {
                 board.ChangeBlueprint(SubObjectTag.Fungus, x, y);
                 countFungus--;
             }
-
             retry++;
 
             ConvertWall2Fungus();
