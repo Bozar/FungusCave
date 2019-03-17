@@ -10,7 +10,7 @@ namespace Fungus.GameSystem.ObjectManager
 
         public int Duration { get; private set; }
         public int MaxDuration { get; private set; }
-        public int MaxInfections { get; private set; }
+        public int OverflowDuration { get; private set; }
         public int RateHigh { get; private set; }
         public int RateNormal { get; private set; }
         public int RecoveryFast { get; private set; }
@@ -27,12 +27,11 @@ namespace Fungus.GameSystem.ObjectManager
             RateNormal = 40;
 
             MaxDuration = 9;
+            OverflowDuration = 2;
             Duration = 5;
 
             RecoveryNormal = 1;
             RecoveryFast = 2;
-
-            MaxInfections = 1;
         }
 
         private void Start()
