@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class PCInfection : MonoBehaviour, IInfection
+    public class PCInfection : MonoBehaviour, IInfectionRate, IInfectionRecovery
     {
         private ActorData actorData;
         private InfectionData infectionData;
 
-        public int InfectionDuration
+        public int Recovery
         {
             get
             {
                 return GetComponent<Power>().IsActive(PowerTag.DefInfection2)
-                    ? infectionData.DurationShort
-                    : infectionData.DurationNormal;
+                    ? infectionData.RecoveryFast
+                    : infectionData.RecoveryNormal;
             }
         }
 

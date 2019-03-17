@@ -9,7 +9,7 @@ namespace Fungus.GameSystem.ObjectManager
         ActorName,
 
         Stress, Damage, Potion,
-        InfectionDuration, InfectionAttack, InfectionDefend,
+        InfectionAttack, InfectionDefend, InfectionRecovery,
         EnergyRestore, EnergyDrain,
         HP, HPRestore,
         SightRange
@@ -123,8 +123,8 @@ namespace Fungus.GameSystem.ObjectManager
 
             SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDuration,
-                GetComponent<InfectionData>().DurationNormal);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionRecovery,
+                GetComponent<InfectionData>().RecoveryNormal);
 
             // These data should remain unchanged for all NPCs.
             SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);

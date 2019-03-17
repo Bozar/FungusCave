@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class NPCInfection : MonoBehaviour, IInfection
+    public class NPCInfection : MonoBehaviour, IInfectionRate, IInfectionRecovery
     {
         private ActorData actorData;
         private SubObjectTag actorTag;
 
-        public int InfectionDuration
+        public int Recovery
         {
             get
             {
-                return actorData.GetIntData(actorTag, DataTag.InfectionDuration);
+                return actorData.GetIntData(actorTag, DataTag.InfectionRecovery);
             }
         }
 

@@ -10,10 +10,8 @@ namespace Fungus.Actor
 {
     public enum InfectionTag { Weak, Slow, Poisoned, Mutated };
 
-    public interface IInfection
+    public interface IInfectionRate
     {
-        int InfectionDuration { get; }
-
         // The actor specific infection rate: PCInfections.cs, NPCInfections.cs.
         int GetInfectionRate(GameObject attacker);
 
@@ -21,12 +19,19 @@ namespace Fungus.Actor
         int GetInfectionRate();
     }
 
+    public interface IInfectionRecovery
+    {
+        // The infection duration reduces every turn.
+        int Recovery { get; }
+    }
+
     public class Infection : MonoBehaviour, ITurnCounter
     {
         private EnergyData energyData;
-        private IInfection infectionComponent;
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionsDict;
+        private IInfectionRate iRate;
+        private IInfectionRecovery iRecovery;
         private int maxRepeat;
         private Stack<InfectionTag> previousInfections;
         private RandomNumber random;
@@ -54,7 +59,7 @@ namespace Fungus.Actor
             {
                 if (infectionsDict[tag] > 0)
                 {
-                    infectionsDict[tag] -= 1;
+                    infectionsDict[tag] -= iRecovery.Recovery;
                 }
             }
         }
@@ -183,12 +188,12 @@ namespace Fungus.Actor
                 }
             } while (repeat);
 
-            infectionsDict[newInfection] = infectionComponent.InfectionDuration;
+            infectionsDict[newInfection] = infectionData.Duration;
         }
 
         private bool IsInfected(GameObject attacker, out int totalInfections)
         {
-            int rate = infectionComponent.GetInfectionRate(attacker);
+            int rate = iRate.GetInfectionRate(attacker);
             totalInfections = 0;
 
             if (rate < 1)
@@ -216,9 +221,16 @@ namespace Fungus.Actor
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
             infectionData = FindObjects.GameLogic.GetComponent<InfectionData>();
 
-            infectionComponent = GetComponent<MetaInfo>().IsPC
-                ? (GetComponent<PCInfection>() as IInfection)
-                : (GetComponent<NPCInfection>() as IInfection);
+            if (GetComponent<MetaInfo>().IsPC)
+            {
+                iRate = GetComponent<PCInfection>() as IInfectionRate;
+                iRecovery = GetComponent<PCInfection>() as IInfectionRecovery;
+            }
+            else
+            {
+                iRate = GetComponent<NPCInfection>() as IInfectionRate;
+                iRecovery = GetComponent<NPCInfection>() as IInfectionRecovery;
+            }
         }
     }
 }

@@ -6,19 +6,11 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class InfectionRate : MonoBehaviour, IInfection
+    public class InfectionRate : MonoBehaviour, IInfectionRate
     {
         private ConvertCoordinates coords;
         private DungeonBoard dungeon;
         private InfectionData infectionData;
-
-        public int InfectionDuration
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
 
         public int GetInfectionRate(GameObject attacker)
         {

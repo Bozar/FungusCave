@@ -8,11 +8,13 @@ namespace Fungus.GameSystem.ObjectManager
     {
         private Dictionary<InfectionTag, string> infectionNames;
 
-        public int DurationNormal { get; private set; }
-        public int DurationShort { get; private set; }
+        public int Duration { get; private set; }
+        public int MaxDuration { get; private set; }
         public int MaxInfections { get; private set; }
         public int RateHigh { get; private set; }
         public int RateNormal { get; private set; }
+        public int RecoveryFast { get; private set; }
+        public int RecoveryNormal { get; private set; }
 
         public string GetInfectionName(InfectionTag tag)
         {
@@ -24,8 +26,11 @@ namespace Fungus.GameSystem.ObjectManager
             RateHigh = 80;
             RateNormal = 40;
 
-            DurationShort = 2;
-            DurationNormal = 5;
+            MaxDuration = 9;
+            Duration = 5;
+
+            RecoveryNormal = 1;
+            RecoveryFast = 2;
 
             MaxInfections = 1;
         }
