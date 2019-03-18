@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public enum InfectionTag { Weak, Slow, Poisoned, Mutated };
+    public enum InfectionTag { INVALID, Weak, Slow, Mutated };
 
     public interface IInfectionRate
     {
@@ -89,7 +89,7 @@ namespace Fungus.Actor
         public bool HasInfection(out InfectionTag tag, out int duration)
         {
             duration = 0;
-            tag = InfectionTag.Weak;
+            tag = InfectionTag.INVALID;
 
             foreach (InfectionTag t in Enum.GetValues(typeof(InfectionTag)))
             {
@@ -126,9 +126,9 @@ namespace Fungus.Actor
             previousInfection = new Stack<InfectionTag>();
 
             infectionDict = new Dictionary<InfectionTag, int>();
-            foreach (var tag in Enum.GetValues(typeof(InfectionTag)))
+            foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
             {
-                infectionDict.Add((InfectionTag)tag, 0);
+                infectionDict.Add(tag, 0);
             }
         }
 
@@ -136,14 +136,15 @@ namespace Fungus.Actor
         {
             bool repeat;
             InfectionTag newInfection;
+            InfectionTag[] candidates = new InfectionTag[]
+            { InfectionTag.Mutated, InfectionTag.Slow, InfectionTag.Weak };
 
             // The same infection should not appear 3 times (maxRepeat) in a row.
             do
             {
                 repeat = false;
-                newInfection = (InfectionTag)random.Next(
-                    SeedTag.Infection,
-                    0, Enum.GetNames(typeof(InfectionTag)).Length);
+                newInfection = candidates[random.Next(SeedTag.Infection,
+                    0, candidates.Length)];
 
                 if (previousInfection.Count == 0)
                 {

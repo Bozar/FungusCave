@@ -39,7 +39,6 @@ namespace Fungus.GameSystem.ObjectManager
             infectionNames = new Dictionary<InfectionTag, string>
             {
                 { InfectionTag.Mutated, "Mutated" },
-                { InfectionTag.Poisoned, "Poisoned" },
                 { InfectionTag.Slow, "Slow" },
                 { InfectionTag.Weak, "Weak" }
             };

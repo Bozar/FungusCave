@@ -23,19 +23,12 @@ namespace Fungus.Actor
             hp = Math.Max(0, hp);
             hp = Math.Min(infectionData.RateNormal, hp);
 
-            int poisoned
-                = GetComponent<Infection>().HasInfection(InfectionTag.Poisoned)
-                ? infectionData.RateHigh : 0;
-
             int pool
                 = dungeon.CheckBlock(SubObjectTag.Pool,
                 coords.Convert(transform.position))
                 ? infectionData.RateNormal : 0;
 
-            // TODO: Check weather.
-            int fog = 0;
-
-            int final = hp + poisoned + pool + fog;
+            int final = hp + pool;
             return final;
         }
 
