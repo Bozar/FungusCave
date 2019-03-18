@@ -35,15 +35,15 @@ namespace Fungus.Actor
                 target.GetComponent<ICombatMessage>().IsExhausted();
             }
 
-            bool targetIsDead = target.GetComponent<HP>().LoseHP(
-                 GetComponent<IDamage>().CurrentDamage);
+            target.GetComponent<HP>().LoseHP(
+                GetComponent<IDamage>().CurrentDamage);
 
             int potion = actorData.GetIntData(
                 target.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
             int bonusPotion = target.GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutated) ? potionData.BonusPotion : 0;
 
-            if (targetIsDead)
+            if (target.GetComponent<HP>().CurrentHP < 1)
             {
                 target.GetComponent<ICombatMessage>().IsKilled(gameObject);
 

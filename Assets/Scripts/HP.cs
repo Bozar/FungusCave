@@ -32,7 +32,7 @@ namespace Fungus.Actor
             CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
         }
 
-        public bool LoseHP(int hp)
+        public void LoseHP(int hp)
         {
             CurrentHP = Math.Max(0, CurrentHP - hp);
 
@@ -40,13 +40,10 @@ namespace Fungus.Actor
             {
                 GetComponent<IDeath>().Revive();
             }
-
             if (CurrentHP < 1)
             {
                 GetComponent<IDeath>().Bury();
-                return true;
             }
-            return false;
         }
 
         private void Start()
