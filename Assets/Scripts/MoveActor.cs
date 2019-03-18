@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
@@ -35,7 +36,13 @@ namespace Fungus.Actor
 
             if (!terrain.IsPassable(targetX, targetY))
             {
-                modeline.PrintStaticText("You are blocked");
+                // Auto-explore does not work sometimes and will let the actor
+                // bump into wall. This is a workaround to prevent printing an
+                // error message for NPC.
+                if (GetComponent<MetaInfo>().IsPC)
+                {
+                    modeline.PrintStaticText("You are blocked");
+                }
                 return;
             }
 
