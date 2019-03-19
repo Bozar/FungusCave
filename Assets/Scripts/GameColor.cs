@@ -7,6 +7,11 @@ namespace Fungus.GameSystem.Render
     // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
     public class GameColor : MonoBehaviour
     {
+        public void ChangeObjectColor(GameObject go, ColorName color)
+        {
+            go.GetComponent<SpriteRenderer>().color = PickColor(color);
+        }
+
         public Color PickColor(ColorName name)
         {
             switch (name)
