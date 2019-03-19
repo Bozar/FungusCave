@@ -3,70 +3,84 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
+    public class GameData
+    {
+        public int Seed;
+    }
+
     // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/
     public class SaveLoad : MonoBehaviour
     {
-        private string altPath;
-        private StreamReader file;
-        private string fileName;
-        private string path;
-        private StreamWriter wfile;
-
         public GameData SaveFile { get; private set; }
 
         private void Awake()
         {
-            fileName = "test.xml";
+            string fileName = "test.xml";
+            string[] path = new string[] { "Data", "Build" };
+            string current = Directory.GetCurrentDirectory();
 
-            path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
-
-            altPath = Path.Combine(Directory.GetCurrentDirectory(), "Build");
-            altPath = Path.Combine(altPath, fileName);
-
-            if (!File.Exists(path) && !File.Exists(altPath))
+            for (int i = 0; i < path.Length; i++)
             {
-                WriteXML();
+                path[i] = Path.Combine(current, path[i]);
+                path[i] = Path.Combine(path[i], fileName);
             }
 
-            ReadXML();
+            WriteXML(path);
+            ReadXML(path);
         }
 
-        private void ReadXML()
+        private void ReadXML(string[] path)
         {
-            var reader
-                = new System.Xml.Serialization.XmlSerializer(typeof(GameData));
+            var reader = new System.Xml.Serialization.XmlSerializer(
+                typeof(GameData));
 
-            if (File.Exists(path))
+            foreach (string p in path)
             {
-                file = new StreamReader(path);
-            }
-            else if (File.Exists(altPath))
-            {
-                file = new StreamReader(altPath);
-            }
-            else
-            {
-                return;
-            }
+                if (File.Exists(p))
+                {
+                    StreamReader sr = new StreamReader(p);
+                    SaveFile = (GameData)reader.Deserialize(sr);
+                    sr.Close();
 
-            SaveFile = (GameData)reader.Deserialize(file);
-            file.Close();
+                    return;
+                }
+            }
         }
 
-        private void WriteXML()
+        private void WriteXML(string[] path)
         {
-            var data = new GameData { Seed = 0 };
-            var writer
-                = new System.Xml.Serialization.XmlSerializer(typeof(GameData));
-            wfile = new StreamWriter(path);
+            GameData gd = new GameData
+            {
+                Seed = 0
+            };
 
-            writer.Serialize(wfile, data);
-            wfile.Close();
-        }
+            string newPath = path[0];
+            bool pathExists = false;
 
-        public class GameData
-        {
-            public int Seed;
+            foreach (string p in path)
+            {
+                if (File.Exists(p))
+                {
+                    return;
+                }
+                if (Directory.Exists(Path.GetDirectoryName(p)))
+                {
+                    newPath = p;
+                    pathExists = true;
+                    break;
+                }
+            }
+            if (!pathExists)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(newPath));
+            }
+
+            var writer = new System.Xml.Serialization.XmlSerializer(
+                typeof(GameData));
+            StreamWriter sw = new StreamWriter(newPath);
+
+            writer.Serialize(sw, gd);
+            sw.Close();
         }
     }
 }
