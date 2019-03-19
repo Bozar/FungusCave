@@ -3,8 +3,16 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
+    public interface ISaveLoad
+    {
+        void Load();
+
+        void Save();
+    }
+
     public class GameData
     {
+        public bool IsWizard;
         public int Seed;
     }
 
@@ -51,7 +59,8 @@ namespace Fungus.GameSystem
         {
             GameData gd = new GameData
             {
-                Seed = 0
+                Seed = 0,
+                IsWizard = false
             };
 
             string newPath = path[0];

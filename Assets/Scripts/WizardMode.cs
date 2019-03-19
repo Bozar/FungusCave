@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class WizardMode : MonoBehaviour
+    public class WizardMode : MonoBehaviour, ISaveLoad
     {
         private SchedulingSystem schedule;
 
@@ -50,6 +50,11 @@ namespace Fungus.GameSystem
             GetComponent<Initialize>().InitializeGame();
         }
 
+        public void Load()
+        {
+            IsWizardMode = GetComponent<SaveLoad>().SaveFile.IsWizard;
+        }
+
         public void LoseHP()
         {
             //schedule.CurrentActor.GetComponent<Potion>().LosePotion(5);
@@ -68,6 +73,11 @@ namespace Fungus.GameSystem
             schedule.PrintSchedule();
         }
 
+        public void Save()
+        {
+            return;
+        }
+
         public void SwitchPrintEnergyCost()
         {
             PrintEnergyCost = !PrintEnergyCost;
@@ -83,7 +93,6 @@ namespace Fungus.GameSystem
 
         private void Awake()
         {
-            IsWizardMode = true;
             RenderAll = false;
             PrintEnergyCost = false;
         }

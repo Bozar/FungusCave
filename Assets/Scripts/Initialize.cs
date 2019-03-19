@@ -20,8 +20,10 @@ namespace Fungus.GameSystem
 
             Initialized = true;
 
-            GetComponent<RandomNumber>().InitializeSeeds();
+            GetComponent<WizardMode>().Load();
+            GetComponent<RandomNumber>().Load();
 
+            GetComponent<RandomNumber>().InitializeSeeds();
             Debug.Log(GetComponent<RandomNumber>().RootSeed);
 
             GetComponent<BlueprintSponge>().DrawBlueprint();

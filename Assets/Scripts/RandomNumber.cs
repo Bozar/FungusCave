@@ -14,7 +14,7 @@ namespace Fungus.GameSystem
         NPCAction
     }
 
-    public class RandomNumber : MonoBehaviour
+    public class RandomNumber : MonoBehaviour, ISaveLoad
     {
         private Dictionary<SeedTag, Queue<int>> intQueueDict;
         private int maxQueueLength;
@@ -27,7 +27,6 @@ namespace Fungus.GameSystem
         public void InitializeSeeds()
         {
             List<SeedTag> tagList;
-            RootSeed = GetComponent<SaveLoad>().SaveFile.Seed;
 
             if (RootSeed == 0)
             {
@@ -48,6 +47,11 @@ namespace Fungus.GameSystem
                     seedDict[SeedTag.Root] = RootSeed;
                 }
             }
+        }
+
+        public void Load()
+        {
+            RootSeed = GetComponent<SaveLoad>().SaveFile.Seed;
         }
 
         public double Next(SeedTag tag)
@@ -72,6 +76,11 @@ namespace Fungus.GameSystem
                 return DequeInt(tag, min, max);
             }
             return rngDict[tag].Next(min, max);
+        }
+
+        public void Save()
+        {
+            return;
         }
 
         private void Awake()
