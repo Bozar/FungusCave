@@ -6,19 +6,20 @@ namespace Fungus.GameSystem.WorldBuilding
 {
     public class DungeonActor : MonoBehaviour
     {
+        private GameProgressData progress;
+
         public List<SubObjectTag> GetActor()
         {
             // TODO: Change composition based on dungeon level.
-            int maxSoldier = 20;
-            int maxActor = 40;
+            int maxSoldier = progress.MaxSoldier;
+            int maxActor = progress.MaxActor;
             int potion = 0;
             int nextIndex;
 
             List<SubObjectTag> actors = new List<SubObjectTag>();
             List<SubObjectTag> soldier = GetComponent<ActorGroupData>()
                 .GetSoldier(ActorGroupTag.Fungus);
-            List<SubObjectTag> minion = GetComponent<ActorGroupData>()
-                .GetMinion(ActorGroupTag.Fungus);
+            SubObjectTag minion = SubObjectTag.Beetle;
 
             while (potion < maxSoldier)
             {
@@ -32,12 +33,15 @@ namespace Fungus.GameSystem.WorldBuilding
 
             while (actors.Count < maxActor)
             {
-                nextIndex = GetComponent<RandomNumber>().Next(
-                    SeedTag.Dungeon, 0, minion.Count);
-                actors.Add(minion[nextIndex]);
+                actors.Add(minion);
             }
 
             return actors;
+        }
+
+        private void Start()
+        {
+            progress = GetComponent<GameProgressData>();
         }
     }
 }
