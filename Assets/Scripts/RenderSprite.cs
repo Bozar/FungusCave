@@ -15,23 +15,28 @@ namespace Fungus.Actor.Render
         private Color32 defaultColor;
         private GameColor gameColor;
         private StaticActor getActor;
-        private GameObject pc;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
 
-        public void ChangeColor(ColorName newColor)
+        public void ChangeDefaultColor(ColorName color)
         {
-            GetComponent<SpriteRenderer>().color = gameColor.PickColor(newColor);
-        }
-
-        public void ChangeColor(Color32 newColor)
-        {
-            GetComponent<SpriteRenderer>().color = newColor;
+            ChangeColor(color);
+            defaultColor = gameColor.PickColor(color);
         }
 
         private void Awake()
         {
             defaultColor = GetComponent<SpriteRenderer>().color;
+        }
+
+        private void ChangeColor(ColorName color)
+        {
+            GetComponent<SpriteRenderer>().color = gameColor.PickColor(color);
+        }
+
+        private void ChangeColor(Color32 newColor)
+        {
+            GetComponent<SpriteRenderer>().color = newColor;
         }
 
         private void HideSprite()
@@ -60,7 +65,7 @@ namespace Fungus.Actor.Render
                 return;
             }
 
-            switch (pc.GetComponent<FieldOfView>().GetFOVStatus(x, y))
+            switch (FindObjects.PC.GetComponent<FieldOfView>().GetFOVStatus(x, y))
             {
                 case FOVStatus.Unknown:
                     HideSprite();
@@ -127,7 +132,6 @@ namespace Fungus.Actor.Render
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
 
-            pc = FindObjects.PC;
             getActor = FindObjects.GetStaticActor;
         }
     }

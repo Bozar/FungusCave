@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus.Actor.Render;
+using UnityEngine;
 
 namespace Fungus.GameSystem.Render
 {
@@ -9,7 +10,14 @@ namespace Fungus.GameSystem.Render
     {
         public void ChangeObjectColor(GameObject go, ColorName color)
         {
-            go.GetComponent<SpriteRenderer>().color = PickColor(color);
+            if (go.GetComponent<RenderSprite>() != null)
+            {
+                go.GetComponent<RenderSprite>().ChangeDefaultColor(color);
+            }
+            else
+            {
+                go.GetComponent<SpriteRenderer>().color = PickColor(color);
+            }
         }
 
         public Color PickColor(ColorName name)
