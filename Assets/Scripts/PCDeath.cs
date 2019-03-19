@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
 
@@ -20,7 +21,10 @@ namespace Fungus.Actor
     public class PCDeath : MonoBehaviour, IDeath
     {
         private ActorData actorData;
+        private GameColor color;
         private StaticActor getActor;
+        private UIMessage message;
+        private UIModeline modeline;
         private PotionData potionData;
         private GameProgress progress;
         private SchedulingSystem schedule;
@@ -38,17 +42,24 @@ namespace Fungus.Actor
 
         public void DefeatTarget(GameObject target)
         {
-            int potion = actorData.GetIntData(
-                target.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
+            SubObjectTag tag = target.GetComponent<MetaInfo>().SubTag;
+            int potion = actorData.GetIntData(tag, DataTag.Potion);
             int bonusPotion = target.GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutated) ? potionData.BonusPotion : 0;
 
-            GetComponent<IHP>().RestoreAfterKill();
             GetComponent<Potion>().GainPotion(potion + bonusPotion);
-            progress.CountKill(target);
+            GetComponent<IHP>().RestoreAfterKill();
 
-            // TODO: Remove this line.
-            Debug.Log(progress.IsWin());
+            progress.CountKill(target);
+            if (progress.IsWin())
+            {
+                BurySelf();
+                color.ChangeObjectColor(getActor(SubObjectTag.Guide),
+                    ColorName.Orange);
+
+                message.StoreText("You win.");
+                modeline.PrintStaticText("Press Space to reload.");
+            }
         }
 
         public void ReviveSelf()
@@ -60,6 +71,9 @@ namespace Fungus.Actor
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             progress = FindObjects.GameLogic.GetComponent<GameProgress>();
+            color = FindObjects.GameLogic.GetComponent<GameColor>();
+            modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+            message = FindObjects.GameLogic.GetComponent<UIMessage>();
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
 
