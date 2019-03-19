@@ -1,5 +1,7 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.Render;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
+using Fungus.GameSystem.Render;
 using UnityEngine;
 
 namespace Fungus.Actor
@@ -8,12 +10,17 @@ namespace Fungus.Actor
     {
         private ObjectPool pool;
 
-        public void Bury()
+        public void BurySelf()
         {
             pool.StoreObject(gameObject);
         }
 
-        public void Revive()
+        public void DefeatTarget(GameObject target)
+        {
+            GetComponent<RenderSprite>().ChangeDefaultColor(ColorName.Orange);
+        }
+
+        public void ReviveSelf()
         {
             return;
         }

@@ -38,11 +38,11 @@ namespace Fungus.Actor
 
             if (CurrentHP < 1)
             {
-                GetComponent<IDeath>().Revive();
+                GetComponent<IDeath>().ReviveSelf();
             }
             if (CurrentHP < 1)
             {
-                GetComponent<IDeath>().Bury();
+                GetComponent<IDeath>().BurySelf();
             }
         }
 

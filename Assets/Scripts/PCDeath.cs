@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem;
+﻿using Fungus.Actor.ObjectManager;
+using Fungus.GameSystem;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
@@ -7,19 +8,26 @@ namespace Fungus.Actor
 {
     public interface IDeath
     {
-        void Bury();
+        // Do something after actor is dead.
+        void BurySelf();
 
-        void Revive();
+        // Do something after actor kills the target.
+        void DefeatTarget(GameObject target);
+
+        void ReviveSelf();
     }
 
     public class PCDeath : MonoBehaviour, IDeath
     {
+        private ActorData actorData;
         private StaticActor getActor;
+        private PotionData potionData;
+        private GameProgress progress;
         private SchedulingSystem schedule;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
 
-        public void Bury()
+        public void BurySelf()
         {
             schedule.PauseTurn(true);
             gameObject.SetActive(false);
@@ -28,7 +36,22 @@ namespace Fungus.Actor
             getActor(SubObjectTag.Guide).SetActive(true);
         }
 
-        public void Revive()
+        public void DefeatTarget(GameObject target)
+        {
+            int potion = actorData.GetIntData(
+                target.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
+            int bonusPotion = target.GetComponent<Infection>().HasInfection(
+                InfectionTag.Mutated) ? potionData.BonusPotion : 0;
+
+            GetComponent<IHP>().RestoreAfterKill();
+            GetComponent<Potion>().GainPotion(potion + bonusPotion);
+            progress.CountKill(target);
+
+            // TODO: Remove this line.
+            Debug.Log(progress.IsWin());
+        }
+
+        public void ReviveSelf()
         {
             GetComponent<Potion>().DrinkPotion();
         }
@@ -36,6 +59,10 @@ namespace Fungus.Actor
         private void Start()
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
+            progress = FindObjects.GameLogic.GetComponent<GameProgress>();
+            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
+            potionData = FindObjects.GameLogic.GetComponent<PotionData>();
+
             getActor = FindObjects.GetStaticActor;
         }
     }

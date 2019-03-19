@@ -1,6 +1,4 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
-using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -9,9 +7,7 @@ namespace Fungus.Actor
     public class Attack : MonoBehaviour
     {
         private ActorBoard actorBoard;
-        private ActorData actorData;
         private ConvertCoordinates coord;
-        private PotionData potionData;
 
         public void MeleeAttack(int x, int y)
         {
@@ -26,7 +22,6 @@ namespace Fungus.Actor
             GetComponent<Energy>().LoseEnergy(attackEnergy);
 
             GameObject target = actorBoard.GetActor(x, y);
-
             target.GetComponent<ICombatMessage>().IsHit(gameObject);
 
             int drain = GetComponent<IEnergy>().Drain;
@@ -38,20 +33,10 @@ namespace Fungus.Actor
             target.GetComponent<HP>().LoseHP(
                 GetComponent<IDamage>().CurrentDamage);
 
-            int potion = actorData.GetIntData(
-                target.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
-            int bonusPotion = target.GetComponent<Infection>().HasInfection(
-                InfectionTag.Mutated) ? potionData.BonusPotion : 0;
-
             if (target.GetComponent<HP>().CurrentHP < 1)
             {
                 target.GetComponent<ICombatMessage>().IsKilled(gameObject);
-
-                if (GetComponent<MetaInfo>().IsPC)
-                {
-                    GetComponent<IHP>().RestoreAfterKill();
-                    GetComponent<Potion>().GainPotion(potion + bonusPotion);
-                }
+                GetComponent<IDeath>().DefeatTarget(target);
             }
             else
             {
@@ -63,9 +48,7 @@ namespace Fungus.Actor
         private void Start()
         {
             actorBoard = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
-            potionData = FindObjects.GameLogic.GetComponent<PotionData>();
         }
     }
 }
