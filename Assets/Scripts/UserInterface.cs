@@ -37,6 +37,7 @@ namespace Fungus.GameSystem.Render
 
         void PrintStaticText(string text);
 
+        // See below, LateUpdate().
         void PrintText();
     }
 
@@ -93,6 +94,7 @@ namespace Fungus.GameSystem.Render
         {
             getUI(UITag.ExamineMessage).SetActive(false);
             getUI(UITag.ExamineModeline).SetActive(false);
+            getUI(UITag.PowerBuyer).SetActive(false);
         }
 
         private void UpdateDamage()

@@ -4,7 +4,6 @@ using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
@@ -88,9 +87,6 @@ namespace Fungus.GameSystem
         private void SwitchUIPowerBuyer(bool switchOn)
         {
             getUI(UITag.PowerBuyer).SetActive(switchOn);
-            // TODO: Remove this line.
-            getUI(UITag.PowerBuyer).GetComponent<Text>().text
-                = "[WIP] Buy power. Press Esc to return.";
         }
     }
 }
