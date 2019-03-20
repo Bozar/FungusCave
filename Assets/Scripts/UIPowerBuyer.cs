@@ -21,11 +21,18 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            getUI(UITag.PowerBuyer).GetComponent<Text>().text
-               = "[Defend, HP]\nFirst Aid\nReaper\n\n"
+            getUI(UITag.BuyPowerSlot).GetComponent<Text>().text
+                = "Power Slot\n\n[ Empty ]\n[ Empty ]\n[ Empty ]\n\n"
+                + "Potion: 3";
+
+            getUI(UITag.BuyPowerList).GetComponent<Text>().text
+               = "[Defend, HP]\n\nFirst Aid\nReaper\n\n"
                + "[Defend, Energy]\n\nVigor\nAdrenaline\n\n"
                + "[Defend, Infection]\n\nImmunity\nFast Heal\n\n"
                + "[Attack]\n\nSiphon\nPlague\nBleed";
+
+            getUI(UITag.BuyPowerDescription).GetComponent<Text>().text
+                = "Cost: 5\n\nPrerequisite: First Aid\n\nDescription.";
         }
 
         private void Start()

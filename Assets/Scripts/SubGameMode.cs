@@ -86,7 +86,7 @@ namespace Fungus.GameSystem
 
         private void SwitchUIPowerBuyer(bool switchOn)
         {
-            getUI(UITag.PowerBuyer).SetActive(switchOn);
+            getUI(UITag.BuyPowerSlot).SetActive(switchOn);
         }
     }
 }
