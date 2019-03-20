@@ -22,7 +22,8 @@ namespace Fungus.GameSystem.Render
 
         BuyPowerSlotLabel,
         BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3, BuyPowerPotion,
-        BuyPowerList, BuyPowerDescription,
+        BuyPowerDefHPLabel, BuyPowerDefHP1, BuyPowerDefHP2,
+        BuyPowerDescription,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
