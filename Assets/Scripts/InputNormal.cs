@@ -13,7 +13,10 @@ namespace Fungus.Actor.InputManager
                 || (Input.GetKeyDown(KeyCode.LeftShift)
                 && Input.GetKeyDown(KeyCode.Question));
 
-            if (Input.GetKeyDown(KeyCode.Period))
+            bool wait = Input.GetKeyDown(KeyCode.Period)
+                || Input.GetKeyDown(KeyCode.Keypad5);
+
+            if (wait)
             {
                 return Command.Wait;
             }
