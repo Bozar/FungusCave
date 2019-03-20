@@ -20,7 +20,9 @@ namespace Fungus.GameSystem.Render
         InfectionLabel,
         InfectionName, InfectionDuration,
 
-        BuyPowerSlot, BuyPowerList, BuyPowerDescription,
+        BuyPowerSlotLabel,
+        BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3, BuyPowerPotion,
+        BuyPowerList, BuyPowerDescription,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
@@ -94,7 +96,7 @@ namespace Fungus.GameSystem.Render
         {
             getUI(UITag.ExamineMessage).SetActive(false);
             getUI(UITag.ExamineModeline).SetActive(false);
-            getUI(UITag.BuyPowerSlot).SetActive(false);
+            getUI(UITag.BuyPowerSlotLabel).SetActive(false);
         }
 
         private void UpdateDamage()
