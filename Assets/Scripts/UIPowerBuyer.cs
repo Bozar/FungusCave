@@ -54,11 +54,14 @@ namespace Fungus.GameSystem.Render
         private void PrintPowerSlot()
         {
             string label = "[ Power Slot ]";
+            string empty = "Empty";
+            empty = GetComponent<GameColor>().GetColorfulText(
+                empty, ColorName.Grey);
 
             getUI(UITag.BuyPowerSlotLabel).text = label;
             getUI(UITag.BuyPowerSlot1).text = "Adrenaline";
-            getUI(UITag.BuyPowerSlot2).text = "Empty";
-            getUI(UITag.BuyPowerSlot3).text = "Empty";
+            getUI(UITag.BuyPowerSlot2).text = empty;
+            getUI(UITag.BuyPowerSlot3).text = empty;
         }
 
         private void Start()

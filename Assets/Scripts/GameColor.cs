@@ -20,6 +20,14 @@ namespace Fungus.GameSystem.Render
             }
         }
 
+        public string GetColorfulText(string text, ColorName color)
+        {
+            string output
+                = "<color=" + GetComponent<GameColor>().PickHexColor(color)
+                + ">" + text + "</color>";
+            return output;
+        }
+
         public Color PickColor(ColorName name)
         {
             switch (name)
@@ -41,6 +49,30 @@ namespace Fungus.GameSystem.Render
 
                 default:
                     return new Color32();
+            }
+        }
+
+        public string PickHexColor(ColorName name)
+        {
+            switch (name)
+            {
+                case ColorName.White:
+                    return "#ABB2BF";
+
+                case ColorName.Black:
+                    return "#282C34";
+
+                case ColorName.Grey:
+                    return "#495162";
+
+                case ColorName.Orange:
+                    return "E5C07B";
+
+                case ColorName.TEST:
+                    return "FF0000";
+
+                default:
+                    return "";
             }
         }
     }
