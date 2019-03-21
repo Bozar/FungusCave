@@ -43,6 +43,8 @@ namespace Fungus.GameSystem
             }
         }
 
+        public static string Version { get; private set; }
+
         public static GameObject GetStaticActor(SubObjectTag tag)
         {
             GameObject checkActor;
@@ -108,6 +110,7 @@ namespace Fungus.GameSystem
         private void Start()
         {
             InitializeUIDict();
+            Version = "0.0.2";
         }
     }
 }

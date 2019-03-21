@@ -12,13 +12,14 @@ namespace Fungus.GameSystem.Render
 {
     public enum UITag
     {
-        NONE, Seed, Message, Modeline, Status,
+        NONE, Message, Modeline, Status,
 
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
         InfectionLabel,
         InfectionName, InfectionDuration,
+        Version, Seed,
 
         BuyPowerSlotLabel,
         BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3,
@@ -71,15 +72,18 @@ namespace Fungus.GameSystem.Render
                 pc = FindObjects.PC;
             }
 
-            UpdateHP();
-            UpdateStress();
-            UpdatePotion();
             UpdateDamage();
             UpdateEnvironment();
-            UpdateSeed();
+            UpdateHP();
             UpdateInfection();
+
+            UpdatePotion();
             UpdatePower();
+            UpdateSeed();
+            UpdateStress();
+
             UpdateTurn();
+            UpdateVersion();
 
             foreach (IUpdateUI ui in GetComponents<IUpdateUI>())
             {
@@ -268,6 +272,17 @@ namespace Fungus.GameSystem.Render
             }
 
             getUI(UITag.Turn).GetComponent<Text>().text = sb.ToString();
+        }
+
+        private void UpdateVersion()
+        {
+            string version = FindObjects.Version;
+            if (GetComponent<WizardMode>().IsWizardMode)
+            {
+                version = "? " + version;
+            }
+
+            getUI(UITag.Version).GetComponent<Text>().text = version;
         }
     }
 }
