@@ -29,8 +29,6 @@ namespace Fungus.GameSystem.Render
                = "Empty";
             getUI(UITag.BuyPowerSlot3).GetComponent<Text>().text
                = "Empty";
-            getUI(UITag.BuyPowerPotion).GetComponent<Text>().text
-                = "[ Potion: 2 ]";
 
             getUI(UITag.BuyPowerListLabel).GetComponent<Text>().text
                 = "[ Power List ]";
@@ -56,8 +54,12 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.BuyPowerAtkInfection).GetComponent<Text>().text
                = "Plague";
 
+            getUI(UITag.BuyPowerName).GetComponent<Text>().text
+                = "[ First Aid ]";
+            getUI(UITag.BuyPowerCost).GetComponent<Text>().text
+                = "Cost: 5/8";
             getUI(UITag.BuyPowerDescription).GetComponent<Text>().text
-                = "Cost: 5\n\nPrerequisite: First Aid\n\nDescription.";
+                = "Restore 1 HP at the start of every turn.";
         }
 
         private void Start()

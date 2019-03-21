@@ -21,13 +21,13 @@ namespace Fungus.GameSystem.Render
         InfectionName, InfectionDuration,
 
         BuyPowerSlotLabel,
-        BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3, BuyPowerPotion,
+        BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3,
         BuyPowerListLabel,
         BuyPowerHP1, BuyPowerHP2,
         BuyPowerEnergy1, BuyPowerEnergy2,
         BuyPowerInfection1, BuyPowerInfection2,
         BuyPowerAtkHP, BuyPowerAtkEnergy, BuyPowerAtkInfection,
-        BuyPowerDescription,
+        BuyPowerName, BuyPowerCost, BuyPowerDescription,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
