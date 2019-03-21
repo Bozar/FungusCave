@@ -32,17 +32,29 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.BuyPowerPotion).GetComponent<Text>().text
                 = "[ Potion: 2 ]";
 
-            getUI(UITag.BuyPowerDefHPLabel).GetComponent<Text>().text
-                = "[ Hit Point ]";
-            getUI(UITag.BuyPowerDefHP1).GetComponent<Text>().text
+            getUI(UITag.BuyPowerListLabel).GetComponent<Text>().text
+                = "[ Power List ]";
+            getUI(UITag.BuyPowerHP1).GetComponent<Text>().text
                 = "< First Aid >";
-            getUI(UITag.BuyPowerDefHP2).GetComponent<Text>().text
+            getUI(UITag.BuyPowerHP2).GetComponent<Text>().text
                 = "Reaper";
-            //getUI(UITag.BuyPowerList).GetComponent<Text>().text
-            //   = "[Defend, HP]\n\nFirst Aid\nReaper\n\n"
-            //   + "[Defend, Energy]\n\nVigor\nAdrenaline\n\n"
-            //   + "[Defend, Infection]\n\nImmunity\nFast Heal\n\n"
-            //   + "[Attack]\n\nSiphon\nPlague\nBleed";
+
+            getUI(UITag.BuyPowerEnergy1).GetComponent<Text>().text
+                = "Vigor";
+            getUI(UITag.BuyPowerEnergy2).GetComponent<Text>().text
+               = "Adrenaline";
+
+            getUI(UITag.BuyPowerInfection1).GetComponent<Text>().text
+                = "Immunity";
+            getUI(UITag.BuyPowerInfection2).GetComponent<Text>().text
+                = "Fast Heal";
+
+            getUI(UITag.BuyPowerAtkHP).GetComponent<Text>().text
+                = "Bleed";
+            getUI(UITag.BuyPowerAtkEnergy).GetComponent<Text>().text
+               = "Siphon";
+            getUI(UITag.BuyPowerAtkInfection).GetComponent<Text>().text
+               = "Plague";
 
             getUI(UITag.BuyPowerDescription).GetComponent<Text>().text
                 = "Cost: 5\n\nPrerequisite: First Aid\n\nDescription.";
