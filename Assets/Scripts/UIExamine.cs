@@ -12,11 +12,11 @@ namespace Fungus.GameSystem.Render
         private ActorData actorData;
         private DungeonBoard board;
         private ConvertCoordinates coord;
-        private UIObject getUI;
+        private UIText getUI;
         private InfectionData infectionData;
         private PotionData potionData;
 
-        private delegate GameObject UIObject(UITag tag);
+        private delegate Text UIText(UITag tag);
 
         public void PrintStaticText()
         {
@@ -53,14 +53,14 @@ namespace Fungus.GameSystem.Render
             string label = "Damage";
             string data = actor.GetComponent<IDamage>().CurrentDamage.ToString();
 
-            getUI(UITag.ExamineDamageLabel).GetComponent<Text>().text = label;
-            getUI(UITag.ExamineDamageData).GetComponent<Text>().text = data;
+            getUI(UITag.ExamineDamageLabel).text = label;
+            getUI(UITag.ExamineDamageData).text = data;
         }
 
         private void PrintFog()
         {
             string label = "Fog";
-            getUI(UITag.ExamineFogLabel).GetComponent<Text>().text = label;
+            getUI(UITag.ExamineFogLabel).text = label;
         }
 
         private void PrintHP(GameObject actor)
@@ -68,8 +68,8 @@ namespace Fungus.GameSystem.Render
             string label = "HP";
             string data = actor.GetComponent<HP>().CurrentHP.ToString();
 
-            getUI(UITag.ExamineHPLabel).GetComponent<Text>().text = label;
-            getUI(UITag.ExamineHPData).GetComponent<Text>().text = data;
+            getUI(UITag.ExamineHPLabel).text = label;
+            getUI(UITag.ExamineHPData).text = data;
         }
 
         private void PrintInfection(GameObject actor)
@@ -77,17 +77,17 @@ namespace Fungus.GameSystem.Render
             int duration;
             InfectionTag tag;
 
-            if (actor.GetComponent<Infection>().HasInfection(out tag, out duration))
+            if (actor.GetComponent<Infection>().HasInfection(
+                out tag, out duration))
             {
-                getUI(UITag.ExamineInfectionLabel).GetComponent<Text>().text
+                getUI(UITag.ExamineInfectionLabel).text
                         = infectionData.GetInfectionName(tag);
-                getUI(UITag.ExamineInfectionData).GetComponent<Text>().text
-                    = duration.ToString();
+                getUI(UITag.ExamineInfectionData).text = duration.ToString();
             }
             else
             {
-                getUI(UITag.ExamineInfectionLabel).GetComponent<Text>().text = "";
-                getUI(UITag.ExamineInfectionData).GetComponent<Text>().text = "";
+                getUI(UITag.ExamineInfectionLabel).text = "";
+                getUI(UITag.ExamineInfectionData).text = "";
             }
         }
 
@@ -95,12 +95,12 @@ namespace Fungus.GameSystem.Render
         {
             string modeline = "[ Examine | Esc ]";
 
-            getUI(UITag.ExamineModeline).GetComponent<Text>().text = modeline;
+            getUI(UITag.ExamineModeline).text = modeline;
         }
 
         private void PrintName(GameObject actor)
         {
-            getUI(UITag.ExamineName).GetComponent<Text>().text
+            getUI(UITag.ExamineName).text
                = coord.RelativeCoord(actor, StringStyle.NameAndBracket);
         }
 
@@ -112,11 +112,11 @@ namespace Fungus.GameSystem.Render
                 FindObjects.GetStaticActor(SubObjectTag.Examiner)
                 .transform.position))
             {
-                getUI(UITag.ExaminePoolLabel).GetComponent<Text>().text = label;
+                getUI(UITag.ExaminePoolLabel).text = label;
             }
             else
             {
-                getUI(UITag.ExaminePoolLabel).GetComponent<Text>().text = "";
+                getUI(UITag.ExaminePoolLabel).text = "";
             }
         }
 
@@ -131,8 +131,8 @@ namespace Fungus.GameSystem.Render
 
             string data = (basic + bonus).ToString();
 
-            getUI(UITag.ExaminePotionLabel).GetComponent<Text>().text = label;
-            getUI(UITag.ExaminePotionData).GetComponent<Text>().text = data;
+            getUI(UITag.ExaminePotionLabel).text = label;
+            getUI(UITag.ExaminePotionData).text = data;
         }
 
         private void Start()
@@ -143,7 +143,7 @@ namespace Fungus.GameSystem.Render
             potionData = GetComponent<PotionData>();
             infectionData = GetComponent<InfectionData>();
 
-            getUI = FindObjects.GetUIObject;
+            getUI = FindObjects.GetUIText;
         }
     }
 }

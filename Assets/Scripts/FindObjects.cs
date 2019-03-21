@@ -63,6 +63,11 @@ namespace Fungus.GameSystem
             return mainUIDict[tag];
         }
 
+        public static Text GetUIText(UITag tag)
+        {
+            return mainUIDict[tag].GetComponent<Text>();
+        }
+
         public static void SetStaticActor(SubObjectTag tag, GameObject actor)
         {
             GameObject checkActor;

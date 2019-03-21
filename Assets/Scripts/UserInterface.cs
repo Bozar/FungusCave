@@ -53,12 +53,15 @@ namespace Fungus.GameSystem.Render
     {
         private DungeonBoard board;
         private GameColor color;
-        private UIDict getUI;
+        private UIText getText;
+        private UIObject getUI;
         private InfectionData infectionData;
         private GameObject pc;
         private StringBuilder sb;
 
-        private delegate GameObject UIDict(UITag tag);
+        private delegate GameObject UIObject(UITag tag);
+
+        private delegate Text UIText(UITag tag);
 
         private void Awake()
         {
@@ -96,7 +99,9 @@ namespace Fungus.GameSystem.Render
             board = GetComponent<DungeonBoard>();
             color = GetComponent<GameColor>();
             infectionData = GetComponent<InfectionData>();
+
             getUI = FindObjects.GetUIObject;
+            getText = FindObjects.GetUIText;
 
             TurnOffUIElements();
         }
@@ -112,8 +117,7 @@ namespace Fungus.GameSystem.Render
         {
             int current = pc.GetComponent<IDamage>().CurrentDamage;
 
-            getUI(UITag.DamageData).GetComponent<Text>().text
-                = current.ToString();
+            getText(UITag.DamageData).text = current.ToString();
         }
 
         private void UpdateEnvironment()
@@ -148,7 +152,7 @@ namespace Fungus.GameSystem.Render
             }
             sb.Append(" ]");
 
-            getUI(UITag.Terrain).GetComponent<Text>().text = sb.ToString();
+            getText(UITag.Terrain).text = sb.ToString();
         }
 
         private void UpdateHP()
@@ -156,7 +160,7 @@ namespace Fungus.GameSystem.Render
             int current = pc.GetComponent<HP>().CurrentHP;
             int max = pc.GetComponent<HP>().MaxHP;
 
-            getUI(UITag.HPData).GetComponent<Text>().text = current + "/" + max;
+            getText(UITag.HPData).text = current + "/" + max;
         }
 
         private void UpdateInfection()
@@ -167,18 +171,16 @@ namespace Fungus.GameSystem.Render
 
             if (pc.GetComponent<Infection>().HasInfection(out tag, out duration))
             {
-                getUI(UITag.InfectionName).GetComponent<Text>().text
-                        = infectionData.GetInfectionName(tag);
-                getUI(UITag.InfectionDuration).GetComponent<Text>().text
-                    = duration.ToString();
-                getUI(UITag.InfectionLabel).GetComponent<Text>().text
-                    = label;
+                getText(UITag.InfectionName).text
+                    = infectionData.GetInfectionName(tag);
+                getText(UITag.InfectionDuration).text = duration.ToString();
+                getText(UITag.InfectionLabel).text = label;
             }
             else
             {
-                getUI(UITag.InfectionName).GetComponent<Text>().text = "";
-                getUI(UITag.InfectionDuration).GetComponent<Text>().text = "";
-                getUI(UITag.InfectionLabel).GetComponent<Text>().text = "";
+                getText(UITag.InfectionName).text = "";
+                getText(UITag.InfectionDuration).text = "";
+                getText(UITag.InfectionLabel).text = "";
             }
         }
 
@@ -186,8 +188,7 @@ namespace Fungus.GameSystem.Render
         {
             int current = pc.GetComponent<Potion>().CurrentPotion;
 
-            getUI(UITag.PotionData).GetComponent<Text>().text
-                = current.ToString();
+            getText(UITag.PotionData).text = current.ToString();
         }
 
         private void UpdatePower()
@@ -207,10 +208,10 @@ namespace Fungus.GameSystem.Render
 
                     uiTag = (UITag)Enum.Parse(typeof(UITag), uiName + (int)slot);
 
-                    getUI(uiTag).GetComponent<Text>().text
+                    getText(uiTag).text
                         = GetComponent<PowerData>().GetPowerName(power);
 
-                    getUI(uiTag).GetComponent<Text>().color = isActive
+                    getText(uiTag).color = isActive
                         ? color.PickColor(ColorName.White)
                         : color.PickColor(ColorName.Grey);
                 }
@@ -218,7 +219,7 @@ namespace Fungus.GameSystem.Render
 
             if (hasPower)
             {
-                getUI(UITag.PowerLabel).GetComponent<Text>().text = "[ Power ]";
+                getText(UITag.PowerLabel).text = "[ Power ]";
             }
         }
 
@@ -233,7 +234,7 @@ namespace Fungus.GameSystem.Render
                 seed = seed.Insert(i * 4 - 1, "-");
             }
 
-            getUI(UITag.Seed).GetComponent<Text>().text = seed;
+            getText(UITag.Seed).text = seed;
         }
 
         private void UpdateStress()
@@ -241,8 +242,7 @@ namespace Fungus.GameSystem.Render
             int current = pc.GetComponent<Stress>().CurrentStress;
             int max = pc.GetComponent<Stress>().MaxStress;
 
-            getUI(UITag.StressData).GetComponent<Text>().text
-                = current + "/" + max;
+            getText(UITag.StressData).text = current + "/" + max;
         }
 
         private void UpdateTurn()
@@ -271,7 +271,7 @@ namespace Fungus.GameSystem.Render
                 sb.Append(" ]");
             }
 
-            getUI(UITag.Turn).GetComponent<Text>().text = sb.ToString();
+            getText(UITag.Turn).text = sb.ToString();
         }
 
         private void UpdateVersion()
@@ -282,7 +282,7 @@ namespace Fungus.GameSystem.Render
                 version = "? " + version;
             }
 
-            getUI(UITag.Version).GetComponent<Text>().text = version;
+            getText(UITag.Version).text = version;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Fungus.GameSystem.Render
         private int accumulatedHeight;
         private Stack<int> checkLength;
         private Stack<string> checkText;
-        private UIDict getUI;
+        private UIText getUI;
         private Queue<int> inputLength;
         private Queue<string> inputText;
         private int lineHeight;
@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.Render
         private string newLine;
         private Queue<string> outputText;
 
-        private delegate GameObject UIDict(UITag tag);
+        private delegate Text UIText(UITag tag);
 
         public string LastLine { get; private set; }
 
@@ -40,7 +40,7 @@ namespace Fungus.GameSystem.Render
             CheckLineCount();
             CheckLineHeight();
 
-            getUI(UITag.Message).GetComponent<Text>().text = "";
+            getUI(UITag.Message).text = "";
 
             while (outputText.Count > 0)
             {
@@ -50,7 +50,7 @@ namespace Fungus.GameSystem.Render
                     newLine += "\n";
                 }
 
-                getUI(UITag.Message).GetComponent<Text>().text += newLine;
+                getUI(UITag.Message).text += newLine;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Fungus.GameSystem.Render
 
         private void Start()
         {
-            getUI = FindObjects.GetUIObject;
+            getUI = FindObjects.GetUIText;
         }
     }
 }

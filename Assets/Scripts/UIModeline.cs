@@ -6,11 +6,11 @@ namespace Fungus.GameSystem.Render
 {
     public class UIModeline : MonoBehaviour, IUpdateUI
     {
-        private UIDict getUI;
+        private UIText getUI;
         private Queue<string> inputText;
         private string newLine;
 
-        private delegate GameObject UIDict(UITag tag);
+        private delegate Text UIText(UITag tag);
 
         public void PrintStaticText()
         {
@@ -22,7 +22,7 @@ namespace Fungus.GameSystem.Render
             StoreText(text);
             CheckLineCount();
 
-            getUI(UITag.Modeline).GetComponent<Text>().text = newLine;
+            getUI(UITag.Modeline).text = newLine;
         }
 
         public void PrintText()
@@ -47,7 +47,7 @@ namespace Fungus.GameSystem.Render
 
         private void Start()
         {
-            getUI = FindObjects.GetUIObject;
+            getUI = FindObjects.GetUIText;
         }
 
         private void StoreText(string text)
