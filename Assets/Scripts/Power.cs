@@ -28,6 +28,18 @@ namespace Fungus.Actor
             powerDict[slot] = power;
         }
 
+        public bool HasPower(PowerTag tag)
+        {
+            foreach (PowerTag pt in powerDict.Values)
+            {
+                if (tag == pt)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool HasPower(PowerSlotTag slot,
             out PowerTag tag, out bool isActive)
         {

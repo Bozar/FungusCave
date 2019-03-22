@@ -9,6 +9,7 @@ namespace Fungus.GameSystem.Render
     public class UIPowerBuyer : MonoBehaviour, IUpdateUI
     {
         private UIText getUI;
+        private Dictionary<PowerTag, UITag> powerTagUI;
         private Dictionary<PowerSlotTag, UITag> slotTagUI;
 
         private delegate Text UIText(UITag tag);
@@ -40,19 +41,35 @@ namespace Fungus.GameSystem.Render
 
         private void PrintPowerList()
         {
-            getUI(UITag.BuyPowerListLabel).text = "[ Power List ]";
-            getUI(UITag.BuyPowerHP1).text = "< First Aid >";
-            getUI(UITag.BuyPowerHP2).text = "Reaper";
+            Power pcPower = FindObjects.PC.GetComponent<Power>();
+            string label = "[ Power List ]";
 
-            getUI(UITag.BuyPowerEnergy1).text = "Vigor";
-            getUI(UITag.BuyPowerEnergy2).text = "Adrenaline";
+            getUI(UITag.BuyPowerListLabel).text = label;
 
-            getUI(UITag.BuyPowerInfection1).text = "Immunity";
-            getUI(UITag.BuyPowerInfection2).text = "Fast Heal";
+            PowerSlotTag slot;
+            int potion;
 
-            getUI(UITag.BuyPowerAtkHP).text = "Bleed";
-            getUI(UITag.BuyPowerAtkEnergy).text = "Siphon";
-            getUI(UITag.BuyPowerAtkInfection).text = "Plague";
+            foreach (PowerTag tag in powerTagUI.Keys)
+            {
+                getUI(powerTagUI[tag]).text
+                    = GetComponent<PowerData>().GetPowerName(tag);
+
+                if (pcPower.HasPower(tag))
+                {
+                    getUI(powerTagUI[tag]).color
+                        = GetComponent<GameColor>().PickColor(ColorName.Green);
+                }
+                else if (pcPower.IsBuyable(tag, out slot, out potion))
+                {
+                    getUI(powerTagUI[tag]).color
+                        = GetComponent<GameColor>().PickColor(ColorName.White);
+                }
+                else
+                {
+                    getUI(powerTagUI[tag]).color
+                        = GetComponent<GameColor>().PickColor(ColorName.Grey);
+                }
+            }
         }
 
         private void PrintPowerSlot()
@@ -91,6 +108,19 @@ namespace Fungus.GameSystem.Render
                 { PowerSlotTag.Slot1, UITag.BuyPowerSlot1 },
                 { PowerSlotTag.Slot2, UITag.BuyPowerSlot2 },
                 { PowerSlotTag.Slot3, UITag.BuyPowerSlot3 }
+            };
+
+            powerTagUI = new Dictionary<PowerTag, UITag>
+            {
+                { PowerTag.DefHP1, UITag.BuyPowerHP1 },
+                { PowerTag.DefHP2, UITag.BuyPowerHP2 },
+                { PowerTag.DefEnergy1, UITag.BuyPowerEnergy1 },
+                { PowerTag.DefEnergy2, UITag.BuyPowerEnergy2 },
+                { PowerTag.DefInfection1, UITag.BuyPowerInfection1 },
+                { PowerTag.DefInfection2, UITag.BuyPowerInfection2 },
+                { PowerTag.AttDamage1, UITag.BuyPowerAtkHP },
+                { PowerTag.AttEnergy1, UITag.BuyPowerAtkEnergy },
+                { PowerTag.AttInfection1, UITag.BuyPowerAtkInfection }
             };
         }
     }
