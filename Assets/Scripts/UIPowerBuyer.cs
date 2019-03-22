@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Fungus.Actor;
+using Fungus.GameSystem.ObjectManager;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
@@ -6,6 +9,7 @@ namespace Fungus.GameSystem.Render
     public class UIPowerBuyer : MonoBehaviour, IUpdateUI
     {
         private UIText getUI;
+        private Dictionary<PowerSlotTag, UITag> slotTagUI;
 
         private delegate Text UIText(UITag tag);
 
@@ -59,14 +63,35 @@ namespace Fungus.GameSystem.Render
                 empty, ColorName.Grey);
 
             getUI(UITag.BuyPowerSlotLabel).text = label;
-            getUI(UITag.BuyPowerSlot1).text = "Adrenaline";
-            getUI(UITag.BuyPowerSlot2).text = empty;
-            getUI(UITag.BuyPowerSlot3).text = empty;
+
+            PowerTag power;
+            bool isActive;
+
+            foreach (PowerSlotTag tag in slotTagUI.Keys)
+            {
+                if (FindObjects.PC.GetComponent<Power>().HasPower(
+                    tag, out power, out isActive))
+                {
+                    getUI(slotTagUI[tag]).text
+                        = GetComponent<PowerData>().GetPowerName(power);
+                }
+                else
+                {
+                    getUI(slotTagUI[tag]).text = empty;
+                }
+            }
         }
 
         private void Start()
         {
             getUI = FindObjects.GetUIText;
+
+            slotTagUI = new Dictionary<PowerSlotTag, UITag>
+            {
+                { PowerSlotTag.Slot1, UITag.BuyPowerSlot1 },
+                { PowerSlotTag.Slot2, UITag.BuyPowerSlot2 },
+                { PowerSlotTag.Slot3, UITag.BuyPowerSlot3 }
+            };
         }
     }
 }
