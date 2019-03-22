@@ -9,6 +9,7 @@ namespace Fungus.GameSystem.Render
     public class UIPowerBuyer : MonoBehaviour, IUpdateUI
     {
         private UIText getUI;
+        private PowerTag[] orderedPower;
         private Dictionary<PowerTag, UITag> powerTagUI;
         private Dictionary<PowerSlotTag, UITag> slotTagUI;
 
@@ -70,6 +71,9 @@ namespace Fungus.GameSystem.Render
                         = GetComponent<GameColor>().PickColor(ColorName.Grey);
                 }
             }
+
+            // TODO: Change index dynamically.
+            WrapPowerName(0);
         }
 
         private void PrintPowerSlot()
@@ -122,6 +126,27 @@ namespace Fungus.GameSystem.Render
                 { PowerTag.AttEnergy1, UITag.BuyPowerAtkEnergy },
                 { PowerTag.AttInfection1, UITag.BuyPowerAtkInfection }
             };
+
+            orderedPower = new PowerTag[]
+            {
+                PowerTag.DefHP1, PowerTag.DefHP2,
+                PowerTag.DefEnergy1, PowerTag.DefEnergy2,
+                PowerTag.DefInfection1, PowerTag.DefInfection2,
+                PowerTag.AttDamage1,
+                PowerTag.AttEnergy1,
+                PowerTag.AttInfection1
+            };
+        }
+
+        private void WrapPowerName(int index)
+        {
+            string bra = GetComponent<GameColor>().GetColorfulText(
+                "< ", ColorName.White);
+            string ket = GetComponent<GameColor>().GetColorfulText(
+                " >", ColorName.White);
+            string powerName = getUI(powerTagUI[orderedPower[index]]).text;
+
+            getUI(powerTagUI[orderedPower[index]]).text = bra + powerName + ket;
         }
     }
 }
