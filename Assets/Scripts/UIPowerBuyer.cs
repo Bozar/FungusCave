@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor;
+using Fungus.Actor.InputManager;
 using Fungus.GameSystem.ObjectManager;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,39 @@ namespace Fungus.GameSystem.Render
 {
     public class UIPowerBuyer : MonoBehaviour, IUpdateUI
     {
+        private int cursorPosition;
         private UIText getUI;
         private PowerTag[] orderedPower;
         private Dictionary<PowerTag, UITag> powerTagUI;
         private Dictionary<PowerSlotTag, UITag> slotTagUI;
 
         private delegate Text UIText(UITag tag);
+
+        public void MoveBracket(Command direction)
+        {
+            int min = 0;
+            int max = orderedPower.Length - 1;
+
+            switch (direction)
+            {
+                case Command.Up:
+                    cursorPosition -= 1;
+                    break;
+
+                case Command.Down:
+                    cursorPosition += 1;
+                    break;
+            }
+
+            if (cursorPosition > max)
+            {
+                cursorPosition = min;
+            }
+            else if (cursorPosition < min)
+            {
+                cursorPosition = max;
+            }
+        }
 
         public void PrintStaticText()
         {
@@ -30,6 +58,16 @@ namespace Fungus.GameSystem.Render
             PrintPowerSlot();
             PrintPowerList();
             PrintPowerDescription();
+        }
+
+        public void ResetCursorPosition()
+        {
+            cursorPosition = 0;
+        }
+
+        private void Awake()
+        {
+            cursorPosition = 0;
         }
 
         private void PrintPowerDescription()
@@ -72,8 +110,7 @@ namespace Fungus.GameSystem.Render
                 }
             }
 
-            // TODO: Change index dynamically.
-            WrapPowerName(0);
+            WrapPowerName(cursorPosition);
         }
 
         private void PrintPowerSlot()
