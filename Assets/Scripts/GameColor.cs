@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.Render
 {
-    public enum ColorName { TEST, White, Black, Grey, Orange }
+    public enum ColorName { TEST, White, Black, Grey, Orange, Green }
 
     // https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values/
     public class GameColor : MonoBehaviour
@@ -44,6 +44,9 @@ namespace Fungus.GameSystem.Render
                 case ColorName.Orange:
                     return new Color32(229, 192, 123, 255);
 
+                case ColorName.Green:
+                    return new Color32(152, 195, 121, 255);
+
                 case ColorName.TEST:
                     return new Color32(255, 0, 0, 255);
 
@@ -66,10 +69,13 @@ namespace Fungus.GameSystem.Render
                     return "#495162";
 
                 case ColorName.Orange:
-                    return "E5C07B";
+                    return "#E5C07B";
+
+                case ColorName.Green:
+                    return "#98C379";
 
                 case ColorName.TEST:
-                    return "FF0000";
+                    return "#FF0000";
 
                 default:
                     return "";
