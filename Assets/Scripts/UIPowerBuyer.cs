@@ -70,12 +70,34 @@ namespace Fungus.GameSystem.Render
             cursorPosition = 0;
         }
 
-        private void PrintPowerDescription()
+        private string GetPowerCost(PowerTag tag)
         {
-            PowerTag tag = orderedPower[cursorPosition];
-            string powerName = GetComponent<PowerData>().GetPowerName(tag);
-            getUI(UITag.BuyPowerName).text = "[ " + powerName + " ]";
+            // Cost: %num1%/%num2%
+            string powerCost = "Cost: %num1%/%num2%";
+            int reqPotion = GetComponent<PowerData>().GetPowerCost(tag);
+            int hasPotion = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
 
+            powerCost = powerCost.Replace("%num1%", reqPotion.ToString());
+            powerCost = powerCost.Replace("%num2%", hasPotion.ToString());
+
+            return powerCost;
+        }
+
+        private string GetPowerDescription(PowerTag tag)
+        {
+            return "Restore 1 HP at the start of every turn.";
+        }
+
+        private string GetPowerName(PowerTag tag)
+        {
+            string powerName = GetComponent<PowerData>().GetPowerName(tag);
+            powerName = "[ " + powerName + " ]";
+
+            return powerName;
+        }
+
+        private string GetPowerStatus(PowerTag tag)
+        {
             // Status: %str%
             string powerStatus = "Status: %str%";
             string unlocked = "Available";
@@ -94,21 +116,17 @@ namespace Fungus.GameSystem.Render
             {
                 powerStatus = powerStatus.Replace("%str%", locked);
             }
+            return powerStatus;
+        }
 
-            getUI(UITag.BuyPowerStatus).text = powerStatus;
+        private void PrintPowerDescription()
+        {
+            PowerTag tag = orderedPower[cursorPosition];
 
-            // Cost: %num1%/%num2%
-            string powerCost = "Cost: %num1%/%num2%";
-            int reqPotion = GetComponent<PowerData>().GetPowerCost(tag);
-            int hasPotion = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
-
-            powerCost = powerCost.Replace("%num1%", reqPotion.ToString());
-            powerCost = powerCost.Replace("%num2%", hasPotion.ToString());
-
-            getUI(UITag.BuyPowerCost).text = powerCost;
-
-            getUI(UITag.BuyPowerDescription).text
-                = "Restore 1 HP at the start of every turn.";
+            getUI(UITag.BuyPowerName).text = GetPowerName(tag);
+            getUI(UITag.BuyPowerStatus).text = GetPowerStatus(tag);
+            getUI(UITag.BuyPowerCost).text = GetPowerCost(tag);
+            getUI(UITag.BuyPowerDescription).text = GetPowerDescription(tag);
         }
 
         private void PrintPowerList()
