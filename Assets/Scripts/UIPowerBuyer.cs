@@ -72,8 +72,41 @@ namespace Fungus.GameSystem.Render
 
         private void PrintPowerDescription()
         {
-            getUI(UITag.BuyPowerName).text = "[ First Aid ]";
-            getUI(UITag.BuyPowerCost).text = "Cost: 5/8";
+            PowerTag tag = orderedPower[cursorPosition];
+            string powerName = GetComponent<PowerData>().GetPowerName(tag);
+            getUI(UITag.BuyPowerName).text = "[ " + powerName + " ]";
+
+            // Status: %str%
+            string powerStatus = "Status: %str%";
+            string unlocked = "Available";
+            string locked = "Unavailable";
+            string owned = "Owned";
+
+            if (FindObjects.PC.GetComponent<Power>().HasPower(tag))
+            {
+                powerStatus = powerStatus.Replace("%str%", owned);
+            }
+            else if (FindObjects.PC.GetComponent<Power>().IsBuyable(tag))
+            {
+                powerStatus = powerStatus.Replace("%str%", unlocked);
+            }
+            else
+            {
+                powerStatus = powerStatus.Replace("%str%", locked);
+            }
+
+            getUI(UITag.BuyPowerStatus).text = powerStatus;
+
+            // Cost: %num1%/%num2%
+            string powerCost = "Cost: %num1%/%num2%";
+            int reqPotion = GetComponent<PowerData>().GetPowerCost(tag);
+            int hasPotion = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
+
+            powerCost = powerCost.Replace("%num1%", reqPotion.ToString());
+            powerCost = powerCost.Replace("%num2%", hasPotion.ToString());
+
+            getUI(UITag.BuyPowerCost).text = powerCost;
+
             getUI(UITag.BuyPowerDescription).text
                 = "Restore 1 HP at the start of every turn.";
         }
@@ -85,9 +118,6 @@ namespace Fungus.GameSystem.Render
 
             getUI(UITag.BuyPowerListLabel).text = label;
 
-            PowerSlotTag slot;
-            int potion;
-
             foreach (PowerTag tag in powerTagUI.Keys)
             {
                 getUI(powerTagUI[tag]).text
@@ -98,7 +128,7 @@ namespace Fungus.GameSystem.Render
                     getUI(powerTagUI[tag]).color
                         = GetComponent<GameColor>().PickColor(ColorName.Green);
                 }
-                else if (pcPower.IsBuyable(tag, out slot, out potion))
+                else if (pcPower.IsBuyable(tag))
                 {
                     getUI(powerTagUI[tag]).color
                         = GetComponent<GameColor>().PickColor(ColorName.White);

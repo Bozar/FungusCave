@@ -75,6 +75,14 @@ namespace Fungus.Actor
             return false;
         }
 
+        public bool IsBuyable(PowerTag power)
+        {
+            PowerSlotTag slot;
+            int potion;
+
+            return IsBuyable(power, out slot, out potion);
+        }
+
         public bool IsBuyable(PowerTag power,
             out PowerSlotTag slot, out int potion)
         {

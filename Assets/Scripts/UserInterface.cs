@@ -28,7 +28,7 @@ namespace Fungus.GameSystem.Render
         BuyPowerEnergy1, BuyPowerEnergy2,
         BuyPowerInfection1, BuyPowerInfection2,
         BuyPowerAtkHP, BuyPowerAtkEnergy, BuyPowerAtkInfection,
-        BuyPowerName, BuyPowerCost, BuyPowerDescription,
+        BuyPowerName, BuyPowerStatus, BuyPowerCost, BuyPowerDescription,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
