@@ -17,6 +17,11 @@ namespace Fungus.GameSystem.Render
 
         private delegate Text UIText(UITag tag);
 
+        public PowerTag HighlightedPower
+        {
+            get { return orderedPower[cursorPosition]; }
+        }
+
         public void MoveBracket(Command direction)
         {
             int min = 0;

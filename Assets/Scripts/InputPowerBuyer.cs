@@ -10,6 +10,10 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.Cancel;
             }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                return Command.Confirm;
+            }
             return Command.INVALID;
         }
     }

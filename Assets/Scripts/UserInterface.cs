@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.Render
         InfectionName, InfectionDuration,
         Version, Seed,
 
-        BuyPowerSlotLabel,
+        BuyPowerSlotLabel, BuyPowerModeline,
         BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3,
         BuyPowerListLabel,
         BuyPowerHP1, BuyPowerHP2,
