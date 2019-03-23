@@ -26,20 +26,12 @@ namespace Fungus.Actor
             // environment.
             int baseRate = GetComponent<InfectionRate>().GetInfectionRate();
 
-            // PC's defending power, which is optional and can be purchased by
-            // potions.
-            int defend
-                = GetComponent<Power>().IsActive(PowerTag.DefInfection1)
-                ? actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
-                DataTag.InfectionDefend)
-                : 0;
-
             // NPC's attacking power is a static value.
             int attack = actorData.GetIntData(
                 attacker.GetComponent<MetaInfo>().SubTag,
                 DataTag.InfectionAttack);
 
-            int final = baseRate + attack - defend;
+            int final = baseRate + attack;
             return final;
         }
 
