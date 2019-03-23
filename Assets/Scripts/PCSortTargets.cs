@@ -2,6 +2,7 @@
 using Fungus.GameSystem;
 using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
@@ -27,14 +28,16 @@ namespace Fungus.Actor.AI
                 return targets;
             }
 
-            List<GameObject>[] splitted = SplitTargets(targets);
-            List<GameObject> left = splitted[0];
-            List<GameObject> right = splitted[1];
+            IEnumerable<GameObject> sorted
+                = from n in targets
+                  orderby (coord.Convert(n.transform.position)[0]
+                  > coord.Convert(FindObjects.PC.transform.position)[0])
+                  select n;
 
-            targets = left;
-            foreach (GameObject target in right)
+            targets = new List<GameObject> { };
+            foreach (GameObject go in sorted)
             {
-                targets.Add(target);
+                targets.Add(go);
             }
             return targets;
         }
@@ -62,30 +65,6 @@ namespace Fungus.Actor.AI
                 }
             }
             return targets;
-        }
-
-        private List<GameObject>[] SplitTargets(List<GameObject> targets)
-        {
-            int sourceX = coord.Convert(FindObjects.PC.transform.position)[0];
-
-            int targetX;
-            List<GameObject> left = new List<GameObject>();
-            List<GameObject> right = new List<GameObject>();
-
-            foreach (GameObject target in targets)
-            {
-                targetX = coord.Convert(target.transform.position)[0];
-
-                if (targetX <= sourceX)
-                {
-                    left.Add(target);
-                }
-                else
-                {
-                    right.Add(target);
-                }
-            }
-            return new List<GameObject>[] { left, right };
         }
 
         private void Start()
