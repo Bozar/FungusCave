@@ -72,6 +72,14 @@ namespace Fungus.Actor.Turn
                     reset = false;
                     break;
 
+                case Command.Next:
+                    Debug.Log("Next");
+                    break;
+
+                case Command.Previous:
+                    Debug.Log("Previous");
+                    break;
+
                 default:
                     reset = false;
                     break;
