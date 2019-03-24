@@ -51,7 +51,6 @@ namespace Fungus.GameSystem
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.BuyPower).SetActive(switchOn);
-            getActor(SubObjectTag.SwitchSubMode).SetActive(switchOn);
         }
 
         public void SwitchUIExamineMessage(bool switchOn)
