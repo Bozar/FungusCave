@@ -50,7 +50,7 @@ namespace Fungus.GameSystem
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            getActor(SubObjectTag.PowerBuyer).SetActive(switchOn);
+            getActor(SubObjectTag.BuyPower).SetActive(switchOn);
             getActor(SubObjectTag.SwitchSubMode).SetActive(switchOn);
         }
 
@@ -92,7 +92,7 @@ namespace Fungus.GameSystem
         {
             getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
 
-            GetComponent<UIPowerBuyer>().ResetCursorPosition();
+            GetComponent<UIBuyPower>().ResetCursorPosition();
         }
 
         private void SwitchUISubModeHeader(bool switchOn)

@@ -2,7 +2,7 @@
 
 namespace Fungus.Actor.InputManager
 {
-    public class InputPowerBuyer : MonoBehaviour, IConvertInput
+    public class InputBuyPower : MonoBehaviour, IConvertInput
     {
         public Command Input2Command()
         {

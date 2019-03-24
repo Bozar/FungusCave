@@ -46,7 +46,7 @@ namespace Fungus.GameSystem.WorldBuilding
             oPool.CreateObject(MainObjectTag.Doppleganger,
                 SubObjectTag.Guide, -9, 0);
             oPool.CreateObject(MainObjectTag.Doppleganger,
-               SubObjectTag.PowerBuyer, -9, 0);
+               SubObjectTag.BuyPower, -9, 0);
             oPool.CreateObject(MainObjectTag.Doppleganger,
                SubObjectTag.SwitchSubMode, -9, 0);
         }

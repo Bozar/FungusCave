@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class ExaminerActions : MonoBehaviour
+    public class ExaminerAction : MonoBehaviour
     {
         private ActorBoard actor;
         private ConvertCoordinates coord;

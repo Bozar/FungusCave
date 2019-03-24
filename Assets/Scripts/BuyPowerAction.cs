@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class PowerBuyerActions : MonoBehaviour
+    public class BuyPowerAction : MonoBehaviour
     {
         private bool confirmToBuy;
         private SubGameMode mode;
         private Power pcPower;
-        private UIPowerBuyer ui;
+        private UIBuyPower ui;
 
         private void Awake()
         {
@@ -29,7 +29,7 @@ namespace Fungus.Actor.Turn
         private void Start()
         {
             mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
-            ui = FindObjects.GameLogic.GetComponent<UIPowerBuyer>();
+            ui = FindObjects.GameLogic.GetComponent<UIBuyPower>();
             pcPower = FindObjects.PC.GetComponent<Power>();
         }
 

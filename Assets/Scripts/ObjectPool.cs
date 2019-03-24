@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, PowerBuyer, SwitchSubMode,
+        PC, Examiner, Guide, BuyPower, SwitchSubMode,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -113,7 +113,7 @@ namespace Fungus.GameSystem.ObjectManager
                 {
                     go.AddComponent<InputNormal>();
 
-                    go.AddComponent<PCActions>();
+                    go.AddComponent<PCAction>();
                     go.AddComponent<PCAutoExplore>();
                     go.AddComponent<PCDamage>();
                     go.AddComponent<PCDeath>();
@@ -143,7 +143,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<NPCMessage>();
                     //go.AddComponent<NPCMemory>();
 
-                    go.AddComponent<NPCActions>().enabled = false;
+                    go.AddComponent<NPCAction>().enabled = false;
 
                     // NOTE: Change sprite.
                     //UnityEngine.Object[] test
@@ -206,7 +206,7 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 // Examine mode.
                 case SubObjectTag.Examiner:
-                    go.AddComponent<ExaminerActions>();
+                    go.AddComponent<ExaminerAction>();
                     go.AddComponent<InputExamine>();
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
@@ -219,9 +219,9 @@ namespace Fungus.GameSystem.ObjectManager
                     break;
 
                 // Buy power.
-                case SubObjectTag.PowerBuyer:
-                    go.AddComponent<PowerBuyerActions>();
-                    go.AddComponent<InputPowerBuyer>();
+                case SubObjectTag.BuyPower:
+                    go.AddComponent<BuyPowerAction>();
+                    go.AddComponent<InputBuyPower>();
                     break;
 
                 // Switch between menus: Power, Message, Help & Setting.

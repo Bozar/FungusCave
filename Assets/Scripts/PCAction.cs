@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class PCActions : MonoBehaviour
+    public class PCAction : MonoBehaviour
     {
         private ActorBoard actor;
         private bool checkEnergy;

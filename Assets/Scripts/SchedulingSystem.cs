@@ -130,13 +130,13 @@ namespace Fungus.GameSystem.Turn
         private void EnableComponent(bool enable)
         {
             // TODO: Update after Unity 2018.3.
-            if (CurrentActor.GetComponent<PCActions>() != null)
+            if (CurrentActor.GetComponent<PCAction>() != null)
             {
-                CurrentActor.GetComponent<PCActions>().enabled = enable;
+                CurrentActor.GetComponent<PCAction>().enabled = enable;
             }
-            else if (CurrentActor.GetComponent<NPCActions>() != null)
+            else if (CurrentActor.GetComponent<NPCAction>() != null)
             {
-                CurrentActor.GetComponent<NPCActions>().enabled = enable;
+                CurrentActor.GetComponent<NPCAction>().enabled = enable;
             }
         }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class NPCActions : MonoBehaviour
+    public class NPCAction : MonoBehaviour
     {
         private bool checkEnergy;
         private bool checkSchedule;

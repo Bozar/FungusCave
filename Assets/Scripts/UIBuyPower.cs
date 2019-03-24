@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
 {
-    public class UIPowerBuyer : MonoBehaviour, IUpdateUI
+    public class UIBuyPower : MonoBehaviour, IUpdateUI
     {
         private int cursorPosition;
         private UIText getUI;
