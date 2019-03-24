@@ -12,7 +12,7 @@ namespace Fungus.GameSystem.Render
 {
     public enum UITag
     {
-        NONE, Message, Modeline, Status,
+        NONE, Message, Modeline, Status, SubModeHeader,
 
         HPData, StressData, PotionData, DamageData,
         Turn, Terrain,
@@ -110,6 +110,7 @@ namespace Fungus.GameSystem.Render
         {
             getUI(UITag.ExamineMessage).SetActive(false);
             getUI(UITag.ExamineModeline).SetActive(false);
+            getUI(UITag.SubModeHeader).SetActive(false);
             getUI(UITag.BuyPowerSlotLabel).SetActive(false);
         }
 

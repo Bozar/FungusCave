@@ -4,6 +4,7 @@ using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
@@ -45,6 +46,7 @@ namespace Fungus.GameSystem
         {
             SwitchUINormal(!switchOn);
             SwitchUIPowerBuyer(switchOn);
+            SwitchUISubModeHeader(switchOn);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
             getActor(SubObjectTag.PowerBuyer).SetActive(switchOn);
@@ -89,6 +91,14 @@ namespace Fungus.GameSystem
             getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
 
             GetComponent<UIPowerBuyer>().ResetCursorPosition();
+        }
+
+        private void SwitchUISubModeHeader(bool switchOn)
+        {
+            getUI(UITag.SubModeHeader).SetActive(switchOn);
+
+            getUI(UITag.SubModeHeader).GetComponent<Text>().text
+                = "[ Power | Message | Help | Setting ]";
         }
     }
 }
