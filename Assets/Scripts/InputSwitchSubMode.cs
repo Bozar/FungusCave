@@ -7,7 +7,11 @@ namespace Fungus.GameSystem
     {
         public Command Input2Command()
         {
-            if (Input.GetKeyDown(KeyCode.RightBracket))
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                return Command.Cancel;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightBracket))
             {
                 return Command.Next;
             }

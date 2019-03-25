@@ -6,11 +6,7 @@ namespace Fungus.Actor.InputManager
     {
         public Command Input2Command()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                return Command.Cancel;
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 return Command.Confirm;
             }

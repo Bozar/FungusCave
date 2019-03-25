@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus.Actor.InputManager
 {
@@ -34,18 +33,13 @@ namespace Fungus.Actor.InputManager
             if (GetComponent<IConvertInput>() != null)
             {
                 IConvertInput[] iciComp = GetComponents<IConvertInput>();
-                Stack<Command> cmdStack = new Stack<Command>();
                 Command cmd;
 
-                foreach (IConvertInput ici in iciComp)
-                {
-                    cmdStack.Push(ici.Input2Command());
-                }
                 // A gameobject can have one or more IConvertInput, but all the
                 // key-command pairs must be unique.
-                while (cmdStack.Count > 0)
+                foreach (IConvertInput ici in iciComp)
                 {
-                    cmd = cmdStack.Pop();
+                    cmd = ici.Input2Command();
                     if (cmd != Command.INVALID)
                     {
                         return cmd;
