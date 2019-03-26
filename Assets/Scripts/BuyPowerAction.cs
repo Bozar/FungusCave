@@ -59,7 +59,7 @@ namespace Fungus.Actor.Turn
             switch (cmd)
             {
                 case Command.Cancel:
-                    mode.SwitchModePowerBuyer(false);
+                    mode.SwitchModeBuyPower(false);
                     break;
 
                 case Command.Down:

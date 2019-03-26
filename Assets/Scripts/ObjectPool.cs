@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, BuyPower,
+        PC, Examiner, Guide, BuyPower, ChangeSetting, ViewHelp, ViewMessage,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -223,6 +223,22 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<BuyPowerAction>();
                     go.AddComponent<InputSwitchSubMode>();
                     go.AddComponent<InputBuyPower>();
+                    break;
+
+                // In game help.
+                case SubObjectTag.ViewHelp:
+                    go.AddComponent<InputSwitchSubMode>();
+                    break;
+
+                // Message log.
+                case SubObjectTag.ViewMessage:
+                    go.AddComponent<ViewMessageAction>();
+                    go.AddComponent<InputSwitchSubMode>();
+                    break;
+
+                // Change settings.
+                case SubObjectTag.ChangeSetting:
+                    go.AddComponent<InputSwitchSubMode>();
                     break;
             }
             return go;

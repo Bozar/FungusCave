@@ -28,6 +28,10 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.BuyPower;
             }
+            else if (Input.GetKeyDown(KeyCode.M))
+            {
+                return Command.ViewMessage;
+            }
             else if (help)
             {
                 return Command.Help;

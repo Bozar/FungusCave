@@ -41,12 +41,20 @@ namespace Fungus.GameSystem.WorldBuilding
 
         private void CreateDoppleganger()
         {
-            oPool.CreateObject(MainObjectTag.Doppleganger,
-                SubObjectTag.Examiner, -9, 0);
-            oPool.CreateObject(MainObjectTag.Doppleganger,
-                SubObjectTag.Guide, -9, 0);
-            oPool.CreateObject(MainObjectTag.Doppleganger,
-               SubObjectTag.BuyPower, -9, 0);
+            SubObjectTag[] actors = new SubObjectTag[]
+            {
+                SubObjectTag.Examiner,
+                SubObjectTag.Guide,
+                SubObjectTag.BuyPower,
+                SubObjectTag.ViewHelp,
+                SubObjectTag.ViewMessage,
+                SubObjectTag.ChangeSetting
+            };
+
+            foreach (SubObjectTag tag in actors)
+            {
+                oPool.CreateObject(MainObjectTag.Doppleganger, tag, -9, 0);
+            }
         }
 
         private void CreateNPC()

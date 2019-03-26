@@ -40,6 +40,18 @@ namespace Fungus.GameSystem
             return subModeName[ui];
         }
 
+        public void SwitchModeBuyPower(bool switchOn)
+        {
+            SwitchUINormal(!switchOn);
+            SwitchUIBuyPower(switchOn);
+            SwitchUISubModeHeader(switchOn);
+            PrintSubModeHeader(SubModeUITag.Power);
+
+            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+
+            getActor(SubObjectTag.BuyPower).SetActive(switchOn);
+        }
+
         public void SwitchModeExamine(bool switchOn)
         {
             SwitchUIExamineModeline(switchOn);
@@ -52,16 +64,16 @@ namespace Fungus.GameSystem
             getActor(SubObjectTag.Examiner).SetActive(switchOn);
         }
 
-        public void SwitchModePowerBuyer(bool switchOn)
+        public void SwitchModeViewMessage(bool switchOn)
         {
             SwitchUINormal(!switchOn);
-            SwitchUIPowerBuyer(switchOn);
+            SwitchUIViewMessage(switchOn);
             SwitchUISubModeHeader(switchOn);
-            PrintSubModeHeader(SubModeUITag.Power);
+            PrintSubModeHeader(SubModeUITag.Message);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            getActor(SubObjectTag.BuyPower).SetActive(switchOn);
+            getActor(SubObjectTag.ViewMessage).SetActive(switchOn);
         }
 
         public void SwitchUIExamineMessage(bool switchOn)
@@ -123,6 +135,13 @@ namespace Fungus.GameSystem
             };
         }
 
+        private void SwitchUIBuyPower(bool switchOn)
+        {
+            getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
+
+            GetComponent<UIBuyPower>().ResetCursorPosition();
+        }
+
         private void SwitchUINormal(bool switchOn)
         {
             // UI
@@ -138,18 +157,16 @@ namespace Fungus.GameSystem
             }
         }
 
-        private void SwitchUIPowerBuyer(bool switchOn)
-        {
-            getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
-
-            GetComponent<UIBuyPower>().ResetCursorPosition();
-        }
-
         private void SwitchUISubModeHeader(bool switchOn)
         {
             getUI(UITag.SubModeHeader).SetActive(switchOn);
             getUI(UITag.SubModeHeader).GetComponent<Text>().text
                 = "Invalid header.";
+        }
+
+        private void SwitchUIViewMessage(bool switchOn)
+        {
+            Debug.Log("UI: ViewMessage");
         }
     }
 }
