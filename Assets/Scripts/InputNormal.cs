@@ -24,14 +24,14 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.Examine;
             }
-            //else if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    return Command.BuyPower;
-            //}
-            //else if (Input.GetKeyDown(KeyCode.M))
-            //{
-            //    return Command.ViewMessage;
-            //}
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                return Command.BuyPower;
+            }
+            else if (Input.GetKeyDown(KeyCode.M))
+            {
+                return Command.ViewMessage;
+            }
             else if (help)
             {
                 return Command.Help;
@@ -45,19 +45,6 @@ namespace Fungus.Actor.InputManager
                 {
                     return Command.Up;
                 }
-
-                //> ===================
-                //> Delete these lines.
-                else if (Input.GetKeyDown(KeyCode.C))
-                {
-                    return Command.BuyPower;
-                }
-                else if (Input.GetKeyDown(KeyCode.M))
-                {
-                    return Command.ViewMessage;
-                }
-                //> Delete these lines.
-                //> ===================
                 else if (Input.GetKeyDown(KeyCode.O))
                 {
                     // PC bumps into wall with some specific seeds. I don't know
