@@ -232,7 +232,7 @@ namespace Fungus.GameSystem.ObjectManager
 
                 // Message log.
                 case SubObjectTag.ViewMessage:
-                    go.AddComponent<ViewMessageAction>();
+                    go.AddComponent<ViewLogAction>();
                     go.AddComponent<InputSwitchSubMode>();
                     break;
 

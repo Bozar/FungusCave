@@ -22,7 +22,7 @@ namespace Fungus.GameSystem
 
         private delegate GameObject UIObject(UITag tag);
 
-        public enum SubModeUITag { Power, Message, Help, Setting };
+        public enum SubModeUITag { Power, Log, Help, Setting };
 
         public GameObject ExamineTarget
         {
@@ -64,12 +64,12 @@ namespace Fungus.GameSystem
             getActor(SubObjectTag.Examiner).SetActive(switchOn);
         }
 
-        public void SwitchModeViewMessage(bool switchOn)
+        public void SwitchModeViewLog(bool switchOn)
         {
             SwitchUINormal(!switchOn);
-            SwitchUIViewMessage(switchOn);
+            SwitchUIViewLog(switchOn);
             SwitchUISubModeHeader(switchOn);
-            PrintSubModeHeader(SubModeUITag.Message);
+            PrintSubModeHeader(SubModeUITag.Log);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
@@ -121,7 +121,7 @@ namespace Fungus.GameSystem
             subModeName = new Dictionary<SubModeUITag, string>
             {
                 { SubModeUITag.Power, "Power" },
-                { SubModeUITag.Message, "Message" },
+                { SubModeUITag.Log, "Log" },
                 { SubModeUITag.Help, "Help" },
                 { SubModeUITag.Setting, "Setting" }
             };
@@ -129,7 +129,7 @@ namespace Fungus.GameSystem
             sortedHeader = new SubModeUITag[]
             {
                 SubModeUITag.Power,
-                SubModeUITag.Message,
+                SubModeUITag.Log,
                 SubModeUITag.Help,
                 SubModeUITag.Setting
             };
@@ -164,9 +164,21 @@ namespace Fungus.GameSystem
                 = "Invalid header.";
         }
 
-        private void SwitchUIViewMessage(bool switchOn)
+        private void SwitchUIViewLog(bool switchOn)
         {
-            Debug.Log("UI: ViewMessage");
+            getUI(UITag.Log1).SetActive(switchOn);
+
+            UITag[] tags = new UITag[]
+            {
+                UITag.Log1, UITag.Log2, UITag.Log3, UITag.Log4, UITag.Log5,
+                UITag.Log6, UITag.Log7, UITag.Log8, UITag.Log9, UITag.Log10,
+                UITag.Log11, UITag.Log12, UITag.Log13, UITag.Log14, UITag.Log15
+            };
+
+            for (int i = 0; i < tags.Length; i++)
+            {
+                getUI(tags[i]).GetComponent<Text>().text = "Log: " + i + ".";
+            }
         }
     }
 }

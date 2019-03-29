@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class ViewMessageAction : MonoBehaviour
+    public class ViewLogAction : MonoBehaviour
     {
         private SubGameMode mode;
 
@@ -18,7 +18,7 @@ namespace Fungus.Actor.Turn
             switch (GetComponent<PlayerInput>().GameCommand())
             {
                 case Command.Cancel:
-                    mode.SwitchModeBuyPower(false);
+                    mode.SwitchModeViewLog(false);
                     break;
 
                 case Command.Next:

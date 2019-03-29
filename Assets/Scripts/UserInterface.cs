@@ -30,6 +30,9 @@ namespace Fungus.GameSystem.Render
         BuyPowerAtkHP, BuyPowerAtkEnergy, BuyPowerAtkInfection,
         BuyPowerName, BuyPowerStatus, BuyPowerCost, BuyPowerDescription,
 
+        Log1, Log2, Log3, Log4, Log5, Log6, Log7, Log8, Log9, Log10,
+        Log11, Log12, Log13, Log14, Log15,
+
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
         ExamineDamageLabel, ExamineDamageData,
@@ -112,6 +115,7 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.ExamineModeline).SetActive(false);
             getUI(UITag.SubModeHeader).SetActive(false);
             getUI(UITag.BuyPowerSlotLabel).SetActive(false);
+            getUI(UITag.Log1).SetActive(false);
         }
 
         private void UpdateDamage()

@@ -113,7 +113,7 @@ namespace Fungus.Actor.Turn
                     return;
 
                 case Command.ViewMessage:
-                    gameMode.SwitchModeViewMessage(true);
+                    gameMode.SwitchModeViewLog(true);
                     return;
 
                 case Command.Help:
