@@ -79,7 +79,7 @@ namespace Fungus.GameSystem
         public void SwitchUIExamineMessage(bool switchOn)
         {
             getUI(UITag.ExamineMessage).SetActive(switchOn);
-            getUI(UITag.Message).SetActive(!switchOn);
+            getUI(UITag.Message1).SetActive(!switchOn);
         }
 
         public void SwitchUIExamineModeline(bool switchOn)
@@ -145,7 +145,7 @@ namespace Fungus.GameSystem
         private void SwitchUINormal(bool switchOn)
         {
             // UI
-            getUI(UITag.Message).SetActive(switchOn);
+            getUI(UITag.Message1).SetActive(switchOn);
             getUI(UITag.Status).SetActive(switchOn);
 
             // Dungeon actors

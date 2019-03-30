@@ -40,17 +40,23 @@ namespace Fungus.GameSystem.Render
             CheckLineCount();
             CheckLineHeight();
 
-            getUI(UITag.Message).text = "";
-
-            while (outputText.Count > 0)
+            UITag[] messages = new UITag[]
             {
-                newLine = outputText.Dequeue();
+                UITag.Message1, UITag.Message2, UITag.Message3,
+                UITag.Message4, UITag.Message5
+            };
+
+            for (int i = 0; i < messages.Length; i++)
+            {
                 if (outputText.Count > 0)
                 {
-                    newLine += "\n";
+                    newLine = outputText.Dequeue();
+                    getUI(messages[i]).text = newLine;
                 }
-
-                getUI(UITag.Message).text += newLine;
+                else
+                {
+                    getUI(messages[i]).text = "";
+                }
             }
         }
 
@@ -69,7 +75,7 @@ namespace Fungus.GameSystem.Render
 
         private void Awake()
         {
-            maxHeight = 6;
+            maxHeight = 5;
             maxWidth = 53;
 
             inputLength = new Queue<int>();
