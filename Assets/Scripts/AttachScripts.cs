@@ -35,7 +35,9 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<EnergyData>();
             gameObject.AddComponent<FindObjects>();
+
             gameObject.AddComponent<GameColor>();
+            gameObject.AddComponent<GameMessage>();
             gameObject.AddComponent<GameProgress>();
             gameObject.AddComponent<GameProgressData>();
 
