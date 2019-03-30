@@ -11,8 +11,6 @@ namespace Fungus.GameSystem.Render
 
         private delegate Text UIText(UITag tag);
 
-        public string LastLine { get; private set; }
-
         public void PrintStaticText()
         {
             return;
@@ -40,10 +38,11 @@ namespace Fungus.GameSystem.Render
             }
         }
 
+        // Use GameMessage.StoreText() when possible. This method is reserved for
+        // backward compatibility.
         public void StoreText(string text)
         {
             GetComponent<GameMessage>().StoreText(text);
-            LastLine = text;
         }
 
         private void Awake()

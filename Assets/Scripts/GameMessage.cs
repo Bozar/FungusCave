@@ -16,7 +16,7 @@ namespace Fungus.GameSystem
             if (messages.Count > line)
             {
                 IEnumerable<string> tmp = messages
-                    .Skip(messages.Count - line - 1)
+                    .Skip(messages.Count - line)
                     .Take(line);
                 output = tmp.ToArray();
             }
