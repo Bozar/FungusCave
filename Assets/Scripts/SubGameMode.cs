@@ -64,16 +64,16 @@ namespace Fungus.GameSystem
             getActor(SubObjectTag.Examiner).SetActive(switchOn);
         }
 
-        public void SwitchModeViewLog(bool switchOn)
+        public void SwitchModeLog(bool switchOn)
         {
             SwitchUINormal(!switchOn);
-            SwitchUIViewLog(switchOn);
+            SwitchUILog(switchOn);
             SwitchUISubModeHeader(switchOn);
             PrintSubModeHeader(SubModeUITag.Log);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            getActor(SubObjectTag.ViewMessage).SetActive(switchOn);
+            getActor(SubObjectTag.ViewLog).SetActive(switchOn);
         }
 
         public void SwitchUIExamineMessage(bool switchOn)

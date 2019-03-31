@@ -23,7 +23,7 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            string[] msg = GetComponent<GameMessage>().GetMessageText(maxHeight);
+            string[] msg = GetComponent<GameMessage>().GetText(maxHeight);
 
             for (int i = 0; i < sortedTags.Length; i++)
             {

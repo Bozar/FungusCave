@@ -18,7 +18,7 @@ namespace Fungus.Actor.Turn
             switch (GetComponent<PlayerInput>().GameCommand())
             {
                 case Command.Cancel:
-                    mode.SwitchModeViewLog(false);
+                    mode.SwitchModeLog(false);
                     break;
 
                 case Command.Next:

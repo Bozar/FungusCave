@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, BuyPower, ChangeSetting, ViewHelp, ViewMessage,
+        PC, Examiner, Guide, BuyPower, ChangeSetting, ViewHelp, ViewLog,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -231,7 +231,7 @@ namespace Fungus.GameSystem.ObjectManager
                     break;
 
                 // Message log.
-                case SubObjectTag.ViewMessage:
+                case SubObjectTag.ViewLog:
                     go.AddComponent<ViewLogAction>();
                     go.AddComponent<InputSwitchSubMode>();
                     break;

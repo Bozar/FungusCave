@@ -47,7 +47,7 @@ namespace Fungus.GameSystem.WorldBuilding
                 SubObjectTag.Guide,
                 SubObjectTag.BuyPower,
                 SubObjectTag.ViewHelp,
-                SubObjectTag.ViewMessage,
+                SubObjectTag.ViewLog,
                 SubObjectTag.ChangeSetting
             };
 

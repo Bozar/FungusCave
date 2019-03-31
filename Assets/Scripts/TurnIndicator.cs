@@ -23,7 +23,7 @@ namespace Fungus.Actor.Turn
 
         public void Trigger()
         {
-            if (gameMessage.GetMessageText(1)[0] != lineSeparator)
+            if (gameMessage.GetText(1)[0] != lineSeparator)
             {
                 uiMessage.StoreText(lineSeparator);
             }
