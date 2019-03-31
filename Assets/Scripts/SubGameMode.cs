@@ -142,6 +142,11 @@ namespace Fungus.GameSystem
             GetComponent<UIBuyPower>().ResetCursorPosition();
         }
 
+        private void SwitchUILog(bool switchOn)
+        {
+            getUI(UITag.Log1).SetActive(switchOn);
+        }
+
         private void SwitchUINormal(bool switchOn)
         {
             // UI
@@ -162,23 +167,6 @@ namespace Fungus.GameSystem
             getUI(UITag.SubModeHeader).SetActive(switchOn);
             getUI(UITag.SubModeHeader).GetComponent<Text>().text
                 = "Invalid header.";
-        }
-
-        private void SwitchUIViewLog(bool switchOn)
-        {
-            getUI(UITag.Log1).SetActive(switchOn);
-
-            UITag[] tags = new UITag[]
-            {
-                UITag.Log1, UITag.Log2, UITag.Log3, UITag.Log4, UITag.Log5,
-                UITag.Log6, UITag.Log7, UITag.Log8, UITag.Log9, UITag.Log10,
-                UITag.Log11, UITag.Log12, UITag.Log13, UITag.Log14, UITag.Log15
-            };
-
-            for (int i = 0; i < tags.Length; i++)
-            {
-                getUI(tags[i]).GetComponent<Text>().text = "Log: " + i + ".";
-            }
         }
     }
 }

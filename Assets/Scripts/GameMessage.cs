@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fungus.GameSystem.Render;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ namespace Fungus.GameSystem
 {
     public class GameMessage : MonoBehaviour
     {
-        private int logHeight;
         private List<string> messages;
 
         public string[] GetText(int line)
@@ -29,13 +29,14 @@ namespace Fungus.GameSystem
 
         public void StoreText(string text)
         {
-            messages.Add(text);
+            int height = GetComponent<UILog>().LogHeight;
 
-            if (messages.Count > logHeight * 3)
+            messages.Add(text);
+            if (messages.Count > height * 3)
             {
                 IEnumerable<string> tmp = messages
-                    .Skip(messages.Count - logHeight - 1)
-                    .Take(logHeight);
+                    .Skip(messages.Count - height - 1)
+                    .Take(height);
                 messages = tmp.ToList();
             }
         }
@@ -43,7 +44,6 @@ namespace Fungus.GameSystem
         private void Awake()
         {
             messages = new List<string>();
-            logHeight = 15;
         }
     }
 }
