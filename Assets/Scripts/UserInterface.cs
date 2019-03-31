@@ -32,7 +32,7 @@ namespace Fungus.GameSystem.Render
         BuyPowerName, BuyPowerStatus, BuyPowerCost, BuyPowerDescription,
 
         Log1, Log2, Log3, Log4, Log5, Log6, Log7, Log8, Log9, Log10,
-        Log11, Log12, Log13, Log14, Log15, Log16, Log17, Log18,
+        Log11, Log12, Log13, Log14, Log15, Log16,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,

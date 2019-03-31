@@ -41,7 +41,7 @@ namespace Fungus.GameSystem.Render
 
         private void Awake()
         {
-            LogHeight = 18;
+            LogHeight = 16;
         }
 
         private void Start()
@@ -53,7 +53,7 @@ namespace Fungus.GameSystem.Render
                 UITag.Log1, UITag.Log2, UITag.Log3, UITag.Log4, UITag.Log5,
                 UITag.Log6, UITag.Log7, UITag.Log8, UITag.Log9, UITag.Log10,
                 UITag.Log11, UITag.Log12, UITag.Log13, UITag.Log14, UITag.Log15,
-                UITag.Log16, UITag.Log17, UITag.Log18
+                UITag.Log16
             };
         }
     }
