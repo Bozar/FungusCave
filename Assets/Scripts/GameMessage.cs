@@ -9,7 +9,7 @@ namespace Fungus.GameSystem
         private int logHeight;
         private List<string> messages;
 
-        public string[] GetMessageText(int line)
+        public string[] GetText(int line)
         {
             string[] output;
 
