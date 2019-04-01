@@ -41,6 +41,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<GameProgress>();
             gameObject.AddComponent<GameProgressData>();
 
+            gameObject.AddComponent<HeaderAction>();
             gameObject.AddComponent<InfectionData>();
             gameObject.AddComponent<Initialize>();
 
