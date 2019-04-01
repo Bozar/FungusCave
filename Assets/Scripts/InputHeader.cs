@@ -1,9 +1,8 @@
-﻿using Fungus.Actor.InputManager;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Fungus.GameSystem
+namespace Fungus.Actor.InputManager
 {
-    public class InputSwitchSubMode : MonoBehaviour, IConvertInput
+    public class InputHeader : MonoBehaviour, IConvertInput
     {
         public Command Input2Command()
         {
