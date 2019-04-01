@@ -12,7 +12,7 @@ namespace Fungus.Actor.Turn
     {
         private ActorBoard actor;
         private ConvertCoordinates coord;
-        private SubGameMode mode;
+        private SubMode mode;
 
         private void LockTarget(Command direction)
         {
@@ -61,7 +61,7 @@ namespace Fungus.Actor.Turn
 
         private void Start()
         {
-            mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            mode = FindObjects.GameLogic.GetComponent<SubMode>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
         }

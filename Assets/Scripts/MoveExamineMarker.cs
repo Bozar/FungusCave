@@ -12,7 +12,7 @@ namespace Fungus.Actor
         private ConvertCoordinates coord;
         private DungeonBoard dungeon;
         private FieldOfView fov;
-        private SubGameMode mode;
+        private SubMode mode;
 
         public void MoveGameObject(int targetX, int targetY)
         {
@@ -52,7 +52,7 @@ namespace Fungus.Actor
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            mode = FindObjects.GameLogic.GetComponent<SubMode>();
 
             fov = FindObjects.PC.GetComponent<FieldOfView>();
         }

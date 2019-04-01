@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
-    public class SubGameMode : MonoBehaviour
+    public class SubMode : MonoBehaviour
     {
         private ActorBoard actor;
         private ConvertCoordinates coord;

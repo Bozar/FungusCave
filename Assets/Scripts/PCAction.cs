@@ -15,7 +15,7 @@ namespace Fungus.Actor.Turn
         private bool checkEnergy;
         private bool checkSchedule;
         private ConvertCoordinates coord;
-        private SubGameMode gameMode;
+        private SubMode gameMode;
         private Initialize init;
         private PlayerInput input;
         private UIModeline modeline;
@@ -43,7 +43,7 @@ namespace Fungus.Actor.Turn
             init = FindObjects.GameLogic.GetComponent<Initialize>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
-            gameMode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            gameMode = FindObjects.GameLogic.GetComponent<SubMode>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
 
             input = GetComponent<PlayerInput>();

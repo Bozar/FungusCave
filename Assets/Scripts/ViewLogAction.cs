@@ -6,11 +6,11 @@ namespace Fungus.Actor.Turn
 {
     public class ViewLogAction : MonoBehaviour
     {
-        private SubGameMode mode;
+        private SubMode mode;
 
         private void Start()
         {
-            mode = FindObjects.GameLogic.GetComponent<SubGameMode>();
+            mode = FindObjects.GameLogic.GetComponent<SubMode>();
         }
 
         private void Update()

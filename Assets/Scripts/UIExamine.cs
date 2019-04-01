@@ -32,7 +32,7 @@ namespace Fungus.GameSystem.Render
         {
             PrintModeline();
 
-            GameObject actor = GetComponent<SubGameMode>().ExamineTarget;
+            GameObject actor = GetComponent<SubMode>().ExamineTarget;
             if (actor == null)
             {
                 return;
