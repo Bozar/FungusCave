@@ -3,26 +3,23 @@ using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
+    public enum SubModeUITag { Power, Log, Help, Setting };
+
     public class SubMode : MonoBehaviour
     {
         private ActorBoard actor;
         private ConvertCoordinates coord;
         private StaticActor getActor;
         private UIObject getUI;
-        private SubModeUITag[] sortedHeader;
-        private Dictionary<SubModeUITag, string> subModeName;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
 
         private delegate GameObject UIObject(UITag tag);
-
-        public enum SubModeUITag { Power, Log, Help, Setting };
 
         public GameObject ExamineTarget
         {
@@ -35,18 +32,13 @@ namespace Fungus.GameSystem
             }
         }
 
-        public string GetSubModeName(SubModeUITag ui)
-        {
-            return subModeName[ui];
-        }
-
         public void SwitchModeBuyPower(bool switchOn)
         {
             SwitchUINormal(!switchOn);
             SwitchUIBuyPower(switchOn);
             SwitchUISubModeHeader(switchOn);
-            PrintSubModeHeader(SubModeUITag.Power);
 
+            GetComponent<UISubModeHeader>().SetMode(SubModeUITag.Power);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.BuyPower).SetActive(switchOn);
@@ -69,8 +61,8 @@ namespace Fungus.GameSystem
             SwitchUINormal(!switchOn);
             SwitchUILog(switchOn);
             SwitchUISubModeHeader(switchOn);
-            PrintSubModeHeader(SubModeUITag.Log);
 
+            GetComponent<UISubModeHeader>().SetMode(SubModeUITag.Log);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.ViewLog).SetActive(switchOn);
@@ -87,52 +79,12 @@ namespace Fungus.GameSystem
             getUI(UITag.ExamineModeline).SetActive(switchOn);
         }
 
-        private void PrintSubModeHeader(SubModeUITag ui)
-        {
-            string[] header = new string[sortedHeader.Length];
-            string joined;
-
-            for (int i = 0; i < sortedHeader.Length; i++)
-            {
-                if (ui == sortedHeader[i])
-                {
-                    header[i] = GetSubModeName(sortedHeader[i]);
-                }
-                else
-                {
-                    header[i] = GetComponent<GameColor>().GetColorfulText(
-                        GetSubModeName(sortedHeader[i]), ColorName.Grey);
-                }
-            }
-
-            joined = string.Join(" | ", header);
-            joined = "[ " + joined + " ]";
-
-            getUI(UITag.SubModeHeader).GetComponent<Text>().text = joined;
-        }
-
         private void Start()
         {
             actor = GetComponent<ActorBoard>();
             coord = GetComponent<ConvertCoordinates>();
             getUI = FindObjects.GetUIObject;
             getActor = FindObjects.GetStaticActor;
-
-            subModeName = new Dictionary<SubModeUITag, string>
-            {
-                { SubModeUITag.Power, "Power" },
-                { SubModeUITag.Log, "Log" },
-                { SubModeUITag.Help, "Help" },
-                { SubModeUITag.Setting, "Setting" }
-            };
-
-            sortedHeader = new SubModeUITag[]
-            {
-                SubModeUITag.Power,
-                SubModeUITag.Log,
-                SubModeUITag.Help,
-                SubModeUITag.Setting
-            };
         }
 
         private void SwitchUIBuyPower(bool switchOn)
