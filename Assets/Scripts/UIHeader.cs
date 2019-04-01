@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
 {
-    public class UISubModeHeader : MonoBehaviour, IUpdateUI
+    public class UIHeader : MonoBehaviour, IUpdateUI
     {
         private SubModeUITag currentMode;
         private UIObject getUI;

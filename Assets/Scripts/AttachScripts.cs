@@ -55,11 +55,11 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<UIBuyPower>();
             gameObject.AddComponent<UIExamine>();
+            gameObject.AddComponent<UIHeader>();
             gameObject.AddComponent<UILog>();
-            gameObject.AddComponent<UIMessage>();
 
+            gameObject.AddComponent<UIMessage>();
             gameObject.AddComponent<UIModeline>();
-            gameObject.AddComponent<UISubModeHeader>();
             gameObject.AddComponent<UserInterface>();
 
             gameObject.AddComponent<WizardMode>();
