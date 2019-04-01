@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class InputSwitchSubMode : MonoBehaviour, IConvertInput
+    public class InputHeader : MonoBehaviour, IConvertInput
     {
         public Command Input2Command()
         {

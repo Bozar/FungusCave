@@ -221,24 +221,24 @@ namespace Fungus.GameSystem.ObjectManager
                 // Buy power.
                 case SubObjectTag.BuyPower:
                     go.AddComponent<BuyPowerAction>();
-                    go.AddComponent<InputSwitchSubMode>();
+                    go.AddComponent<InputHeader>();
                     go.AddComponent<InputBuyPower>();
                     break;
 
                 // In game help.
                 case SubObjectTag.ViewHelp:
-                    go.AddComponent<InputSwitchSubMode>();
+                    go.AddComponent<InputHeader>();
                     break;
 
                 // Message log.
                 case SubObjectTag.ViewLog:
                     go.AddComponent<ViewLogAction>();
-                    go.AddComponent<InputSwitchSubMode>();
+                    go.AddComponent<InputHeader>();
                     break;
 
                 // Change settings.
                 case SubObjectTag.ChangeSetting:
-                    go.AddComponent<InputSwitchSubMode>();
+                    go.AddComponent<InputHeader>();
                     break;
             }
             return go;
