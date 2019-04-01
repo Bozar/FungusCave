@@ -6,12 +6,12 @@ namespace Fungus.GameSystem.Render
 {
     public class UIHeader : MonoBehaviour, IUpdateUI
     {
-        private SubModeUITag currentMode;
         private UIObject getUI;
-        private SubModeUITag[] sortedHeader;
         private Dictionary<SubModeUITag, string> subModeName;
 
         private delegate GameObject UIObject(UITag tag);
+
+        public SubModeUITag[] SortedHeader { get; private set; }
 
         public void PrintStaticText()
         {
@@ -25,20 +25,20 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            string[] header = new string[sortedHeader.Length];
+            string[] header = new string[SortedHeader.Length];
             string joined;
 
             // Change text color. Current mode is white. Others are grey.
-            for (int i = 0; i < sortedHeader.Length; i++)
+            for (int i = 0; i < SortedHeader.Length; i++)
             {
-                if (currentMode == sortedHeader[i])
+                if (GetComponent<HeaderAction>().CurrentMode == SortedHeader[i])
                 {
-                    header[i] = subModeName[sortedHeader[i]];
+                    header[i] = subModeName[SortedHeader[i]];
                 }
                 else
                 {
                     header[i] = GetComponent<GameColor>().GetColorfulText(
-                        subModeName[sortedHeader[i]], ColorName.Grey);
+                        subModeName[SortedHeader[i]], ColorName.Grey);
                 }
             }
 
@@ -47,17 +47,11 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.SubModeHeader).GetComponent<Text>().text = joined;
         }
 
-        public void SetMode(SubModeUITag mode)
-        {
-            currentMode = mode;
-        }
-
         private void Start()
         {
-            currentMode = SubModeUITag.Power;
             getUI = FindObjects.GetUIObject;
 
-            sortedHeader = new SubModeUITag[]
+            SortedHeader = new SubModeUITag[]
             {
                 SubModeUITag.Power,
                 SubModeUITag.Log,

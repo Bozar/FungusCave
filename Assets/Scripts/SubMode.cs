@@ -38,7 +38,7 @@ namespace Fungus.GameSystem
             SwitchUIBuyPower(switchOn);
             SwitchUISubModeHeader(switchOn);
 
-            GetComponent<UIHeader>().SetMode(SubModeUITag.Power);
+            GetComponent<HeaderAction>().SetMode(SubModeUITag.Power);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.BuyPower).SetActive(switchOn);
@@ -62,7 +62,7 @@ namespace Fungus.GameSystem
             SwitchUILog(switchOn);
             SwitchUISubModeHeader(switchOn);
 
-            GetComponent<UIHeader>().SetMode(SubModeUITag.Log);
+            GetComponent<HeaderAction>().SetMode(SubModeUITag.Log);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.ViewLog).SetActive(switchOn);
