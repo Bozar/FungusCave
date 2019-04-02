@@ -31,7 +31,8 @@ namespace Fungus.GameSystem.Render
             // Change text color. Current mode is white. Others are grey.
             for (int i = 0; i < SortedHeader.Length; i++)
             {
-                if (GetComponent<HeaderAction>().CurrentMode == SortedHeader[i])
+                if (GetComponent<HeaderStatus>().CurrentModeName
+                    == SortedHeader[i])
                 {
                     header[i] = subModeName[SortedHeader[i]];
                 }

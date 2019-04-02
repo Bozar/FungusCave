@@ -223,6 +223,7 @@ namespace Fungus.GameSystem.ObjectManager
                 // Buy power.
                 case SubObjectTag.BuyPower:
                     go.AddComponent<BuyPowerAction>();
+                    go.AddComponent<BuyPowerStatus>();
                     go.AddComponent<InputHeader>();
                     go.AddComponent<InputBuyPower>();
 
@@ -237,6 +238,7 @@ namespace Fungus.GameSystem.ObjectManager
                 // Message log.
                 case SubObjectTag.ViewLog:
                     go.AddComponent<ViewLogAction>();
+                    go.AddComponent<ViewLogStatus>();
                     go.AddComponent<InputHeader>();
 
                     go.GetComponent<ViewLogAction>().enabled = false;

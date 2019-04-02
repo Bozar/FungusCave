@@ -1,4 +1,5 @@
-﻿using Fungus.Actor.Render;
+﻿using Fungus.Actor;
+using Fungus.Actor.Render;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem
 {
-    public enum SubModeUITag { Power, Log, Help, Setting };
+    public enum SubModeUITag { INVALID, Power, Log, Help, Setting };
 
     public class SubMode : MonoBehaviour
     {
@@ -39,9 +40,9 @@ namespace Fungus.GameSystem
             SwitchUIBuyPower(switchOn);
             SwitchUISubModeHeader(switchOn);
 
-            GetComponent<HeaderAction>().SetCurrentMode(SubModeUITag.Power);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
-
+            getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerStatus>()
+                .SetIsActive(switchOn);
             getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerAction>()
                 .enabled = switchOn;
         }
@@ -64,9 +65,9 @@ namespace Fungus.GameSystem
             SwitchUILog(switchOn);
             SwitchUISubModeHeader(switchOn);
 
-            GetComponent<HeaderAction>().SetCurrentMode(SubModeUITag.Log);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
-
+            getActor(SubObjectTag.ViewLog).GetComponent<ViewLogStatus>()
+                .SetIsActive(switchOn);
             getActor(SubObjectTag.ViewLog).GetComponent<ViewLogAction>()
                .enabled = switchOn;
         }

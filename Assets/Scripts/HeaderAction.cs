@@ -7,24 +7,8 @@ using UnityEngine;
 // an actor's method.
 namespace Fungus.GameSystem
 {
-    public interface ILoopSubMode
-    {
-        SubModeUITag ModeName { get; }
-
-        void EnterMode();
-
-        void ExitMode();
-    }
-
     public class HeaderAction : MonoBehaviour
     {
-        public SubModeUITag CurrentMode { get; private set; }
-
-        public void SetCurrentMode(SubModeUITag mode)
-        {
-            CurrentMode = mode;
-        }
-
         public void SwitchMode(Command direction)
         {
             ILoopSubMode[] subModes = GetComponents<ILoopSubMode>();
@@ -33,7 +17,7 @@ namespace Fungus.GameSystem
 
             foreach (ILoopSubMode sm in subModes)
             {
-                if (sm.ModeName == CurrentMode)
+                if (sm.IsActive)
                 {
                     currentMode = sm;
                     break;
@@ -82,11 +66,6 @@ namespace Fungus.GameSystem
                 }
             }
             return current;
-        }
-
-        private void Start()
-        {
-            CurrentMode = SubModeUITag.Power;
         }
     }
 }
