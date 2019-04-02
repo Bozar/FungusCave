@@ -11,7 +11,7 @@ namespace Fungus.GameSystem
     {
         public void SwitchMode(Command direction)
         {
-            ILoopSubMode[] subModes = GetComponents<ILoopSubMode>();
+            ILoopSubMode[] subModes = GetComponent<HeaderStatus>().SubModes;
             ILoopSubMode currentMode = null;
             ILoopSubMode newMode;
 
@@ -27,6 +27,8 @@ namespace Fungus.GameSystem
             {
                 return;
             }
+
+            currentMode.ExitMode();
 
             newMode = GetNewMode(direction, currentMode, subModes);
             newMode.EnterMode();

@@ -17,13 +17,13 @@ namespace Fungus.GameSystem
 
     public class HeaderStatus : MonoBehaviour
     {
-        private List<ILoopSubMode> modes;
+        private List<ILoopSubMode> subModes;
 
         public SubModeUITag CurrentModeName
         {
             get
             {
-                foreach (ILoopSubMode sm in modes)
+                foreach (ILoopSubMode sm in subModes)
                 {
                     if (sm.IsActive)
                     {
@@ -34,9 +34,31 @@ namespace Fungus.GameSystem
             }
         }
 
+        public ILoopSubMode[] SubModes
+        {
+            get
+            {
+                return subModes.ToArray();
+            }
+        }
+
+        public void AddMode(ILoopSubMode mode)
+        {
+            if (subModes.Contains(mode))
+            {
+                return;
+            }
+            subModes.Add(mode);
+        }
+
+        public void RemoveMode(ILoopSubMode mode)
+        {
+            subModes.Remove(mode);
+        }
+
         private void Awake()
         {
-            modes = new List<ILoopSubMode>();
+            subModes = new List<ILoopSubMode>();
         }
     }
 }

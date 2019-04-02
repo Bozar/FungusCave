@@ -5,7 +5,7 @@ namespace Fungus.Actor
 {
     public class ViewLogStatus : MonoBehaviour, ILoopSubMode
     {
-        private HeaderAction header;
+        private HeaderStatus header;
         private SubMode mode;
 
         public bool IsActive { get; private set; }
@@ -40,8 +40,10 @@ namespace Fungus.Actor
 
         private void Start()
         {
-            header = FindObjects.GameLogic.GetComponent<HeaderAction>();
+            header = FindObjects.GameLogic.GetComponent<HeaderStatus>();
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
+
+            header.AddMode(this);
         }
     }
 }
