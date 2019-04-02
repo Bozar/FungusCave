@@ -36,11 +36,8 @@ namespace Fungus.GameSystem
 
         public void SwitchModeBuyPower(bool switchOn)
         {
-            SwitchUINormal(!switchOn);
+            SwitchModeNormal(!switchOn);
             SwitchUIBuyPower(switchOn);
-            SwitchUISubModeHeader(switchOn);
-
-            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerStatus>()
                 .SetIsActive(switchOn);
@@ -62,10 +59,7 @@ namespace Fungus.GameSystem
 
         public void SwitchModeHelp(bool switchOn)
         {
-            SwitchUINormal(!switchOn);
-            SwitchUISubModeHeader(switchOn);
-
-            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+            SwitchModeNormal(!switchOn);
 
             getActor(SubObjectTag.ViewHelp).GetComponent<ViewHelpStatus>()
                 .SetIsActive(switchOn);
@@ -75,11 +69,8 @@ namespace Fungus.GameSystem
 
         public void SwitchModeLog(bool switchOn)
         {
-            SwitchUINormal(!switchOn);
+            SwitchModeNormal(!switchOn);
             SwitchUILog(switchOn);
-            SwitchUISubModeHeader(switchOn);
-
-            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
             getActor(SubObjectTag.ViewLog).GetComponent<ViewLogStatus>()
                 .SetIsActive(switchOn);
@@ -89,10 +80,7 @@ namespace Fungus.GameSystem
 
         public void SwitchModeSetting(bool switchOn)
         {
-            SwitchUINormal(!switchOn);
-            SwitchUISubModeHeader(switchOn);
-
-            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+            SwitchModeNormal(!switchOn);
 
             getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()
                 .SetIsActive(switchOn);
@@ -117,6 +105,14 @@ namespace Fungus.GameSystem
             coord = GetComponent<ConvertCoordinates>();
             getUI = FindObjects.GetUIObject;
             getActor = FindObjects.GetStaticActor;
+        }
+
+        private void SwitchModeNormal(bool switchOn)
+        {
+            SwitchUINormal(switchOn);
+            SwitchUISubModeHeader(!switchOn);
+
+            GetComponent<SchedulingSystem>().PauseTurn(!switchOn);
         }
 
         private void SwitchUIBuyPower(bool switchOn)
