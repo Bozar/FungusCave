@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor.Render;
+using Fungus.Actor.Turn;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
@@ -41,7 +42,8 @@ namespace Fungus.GameSystem
             GetComponent<HeaderAction>().SetCurrentMode(SubModeUITag.Power);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            getActor(SubObjectTag.BuyPower).SetActive(switchOn);
+            getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerAction>()
+                .enabled = switchOn;
         }
 
         public void SwitchModeExamine(bool switchOn)
@@ -65,7 +67,8 @@ namespace Fungus.GameSystem
             GetComponent<HeaderAction>().SetCurrentMode(SubModeUITag.Log);
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
 
-            getActor(SubObjectTag.ViewLog).SetActive(switchOn);
+            getActor(SubObjectTag.ViewLog).GetComponent<ViewLogAction>()
+               .enabled = switchOn;
         }
 
         public void SwitchUIExamineMessage(bool switchOn)

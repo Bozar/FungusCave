@@ -193,9 +193,7 @@ namespace Fungus.GameSystem.ObjectManager
         {
             GameObject go
                 = Instantiate(Resources.Load(tag.ToString()) as GameObject);
-
             FindObjects.SetStaticActor(tag, go);
-            go.SetActive(false);
 
             go.transform.position
                 = GetComponent<ConvertCoordinates>().Convert(x, y);
@@ -210,12 +208,16 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<InputExamine>();
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
+
+                    go.SetActive(false);
                     break;
 
                 // Load screen.
                 case SubObjectTag.Guide:
                     go.AddComponent<GuideAction>();
                     go.AddComponent<InputGuide>();
+
+                    go.GetComponent<GuideAction>().enabled = false;
                     break;
 
                 // Buy power.
@@ -223,6 +225,8 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<BuyPowerAction>();
                     go.AddComponent<InputHeader>();
                     go.AddComponent<InputBuyPower>();
+
+                    go.GetComponent<BuyPowerAction>().enabled = false;
                     break;
 
                 // In game help.
@@ -234,6 +238,8 @@ namespace Fungus.GameSystem.ObjectManager
                 case SubObjectTag.ViewLog:
                     go.AddComponent<ViewLogAction>();
                     go.AddComponent<InputHeader>();
+
+                    go.GetComponent<ViewLogAction>().enabled = false;
                     break;
 
                 // Change settings.
