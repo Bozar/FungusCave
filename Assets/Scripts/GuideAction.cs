@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
-    public class GuideActions : MonoBehaviour
+    public class GuideAction : MonoBehaviour
     {
         private void Update()
         {

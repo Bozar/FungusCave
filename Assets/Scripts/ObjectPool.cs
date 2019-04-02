@@ -214,7 +214,7 @@ namespace Fungus.GameSystem.ObjectManager
 
                 // Load screen.
                 case SubObjectTag.Guide:
-                    go.AddComponent<GuideActions>();
+                    go.AddComponent<GuideAction>();
                     go.AddComponent<InputGuide>();
                     break;
 
