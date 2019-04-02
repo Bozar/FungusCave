@@ -8,6 +8,7 @@ namespace Fungus.Actor.Turn
     public class BuyPowerAction : MonoBehaviour
     {
         private bool confirmToBuy;
+        private HeaderAction header;
         private SubMode mode;
         private Power pcPower;
         private UIBuyPower ui;
@@ -31,6 +32,7 @@ namespace Fungus.Actor.Turn
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
             ui = FindObjects.GameLogic.GetComponent<UIBuyPower>();
             pcPower = FindObjects.PC.GetComponent<Power>();
+            header = FindObjects.GameLogic.GetComponent<HeaderAction>();
         }
 
         private void TryBuyPower()
@@ -73,11 +75,8 @@ namespace Fungus.Actor.Turn
                     break;
 
                 case Command.Next:
-                    Debug.Log("Next");
-                    break;
-
                 case Command.Previous:
-                    Debug.Log("Previous");
+                    header.SwitchMode(cmd);
                     break;
 
                 default:
