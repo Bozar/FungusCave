@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, BuyPower, ChangeSetting, ViewHelp, ViewLog,
+        PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -232,7 +232,11 @@ namespace Fungus.GameSystem.ObjectManager
 
                 // In game help.
                 case SubObjectTag.ViewHelp:
+                    go.AddComponent<ViewHelpAction>();
+                    go.AddComponent<ViewHelpStatus>();
                     go.AddComponent<InputHeader>();
+
+                    go.GetComponent<ViewHelpAction>().enabled = false;
                     break;
 
                 // Message log.
@@ -245,8 +249,12 @@ namespace Fungus.GameSystem.ObjectManager
                     break;
 
                 // Change settings.
-                case SubObjectTag.ChangeSetting:
+                case SubObjectTag.Setting:
+                    go.AddComponent<SettingAction>();
+                    go.AddComponent<SettingStatus>();
                     go.AddComponent<InputHeader>();
+
+                    go.GetComponent<SettingAction>().enabled = false;
                     break;
             }
             return go;

@@ -117,7 +117,7 @@ namespace Fungus.Actor.Turn
                     return;
 
                 case Command.Help:
-                    modeline.PrintStaticText("Help is unavailable for now.");
+                    gameMode.SwitchModeHelp(true);
                     return;
             }
 

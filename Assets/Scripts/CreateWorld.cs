@@ -48,7 +48,7 @@ namespace Fungus.GameSystem.WorldBuilding
                 SubObjectTag.BuyPower,
                 SubObjectTag.ViewHelp,
                 SubObjectTag.ViewLog,
-                SubObjectTag.ChangeSetting
+                SubObjectTag.Setting
             };
 
             foreach (SubObjectTag tag in actors)

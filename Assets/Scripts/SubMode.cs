@@ -41,6 +41,7 @@ namespace Fungus.GameSystem
             SwitchUISubModeHeader(switchOn);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+
             getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerStatus>()
                 .SetIsActive(switchOn);
             getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerAction>()
@@ -59,6 +60,19 @@ namespace Fungus.GameSystem
             getActor(SubObjectTag.Examiner).SetActive(switchOn);
         }
 
+        public void SwitchModeHelp(bool switchOn)
+        {
+            SwitchUINormal(!switchOn);
+            SwitchUISubModeHeader(switchOn);
+
+            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+
+            getActor(SubObjectTag.ViewHelp).GetComponent<ViewHelpStatus>()
+                .SetIsActive(switchOn);
+            getActor(SubObjectTag.ViewHelp).GetComponent<ViewHelpAction>()
+               .enabled = switchOn;
+        }
+
         public void SwitchModeLog(bool switchOn)
         {
             SwitchUINormal(!switchOn);
@@ -66,10 +80,24 @@ namespace Fungus.GameSystem
             SwitchUISubModeHeader(switchOn);
 
             GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+
             getActor(SubObjectTag.ViewLog).GetComponent<ViewLogStatus>()
                 .SetIsActive(switchOn);
             getActor(SubObjectTag.ViewLog).GetComponent<ViewLogAction>()
                .enabled = switchOn;
+        }
+
+        public void SwitchModeSetting(bool switchOn)
+        {
+            SwitchUINormal(!switchOn);
+            SwitchUISubModeHeader(switchOn);
+
+            GetComponent<SchedulingSystem>().PauseTurn(switchOn);
+
+            getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()
+                .SetIsActive(switchOn);
+            getActor(SubObjectTag.Setting).GetComponent<SettingAction>()
+                .enabled = switchOn;
         }
 
         public void SwitchUIExamineMessage(bool switchOn)
