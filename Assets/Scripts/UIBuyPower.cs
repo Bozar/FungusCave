@@ -2,7 +2,6 @@
 using Fungus.Actor.InputManager;
 using Fungus.GameSystem.ObjectManager;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,16 +88,6 @@ namespace Fungus.GameSystem.Render
             return powerCost;
         }
 
-        private string GetPowerDescription(PowerTag tag)
-        {
-            // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
-            XElement fromFile = XElement.Load(@"Build\test.xml");
-            string text = fromFile.Element("Test").Value;
-            text = text.Replace(@"\n", "\n");
-
-            return text;
-        }
-
         private string GetPowerName(PowerTag tag)
         {
             string powerName = GetComponent<PowerData>().GetPowerName(tag);
@@ -137,7 +126,8 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.BuyPowerName).text = GetPowerName(tag);
             getUI(UITag.BuyPowerStatus).text = GetPowerStatus(tag);
             getUI(UITag.BuyPowerCost).text = GetPowerCost(tag);
-            getUI(UITag.BuyPowerDescription).text = GetPowerDescription(tag);
+            getUI(UITag.BuyPowerDescription).text
+                = GetComponent<GameText>().GetPowerDescription(tag);
         }
 
         private void PrintPowerList()

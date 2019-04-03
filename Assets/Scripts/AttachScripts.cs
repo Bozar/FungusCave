@@ -40,6 +40,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<GameMessage>();
             gameObject.AddComponent<GameProgress>();
             gameObject.AddComponent<GameProgressData>();
+            gameObject.AddComponent<GameText>();
 
             gameObject.AddComponent<HeaderAction>();
             gameObject.AddComponent<HeaderStatus>();
