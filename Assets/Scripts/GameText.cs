@@ -8,18 +8,31 @@ namespace Fungus.GameSystem
     // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
     public class GameText : MonoBehaviour
     {
+        private string error;
         private XElement gameText;
 
         public string GetPowerDescription(PowerTag tag)
         {
-            string text = gameText.Element("Test").Value;
-            text = text.Replace(@"\n", "\n");
+            XElement xLang = gameText.Element("English");
+            XElement xPower = xLang.Element("PowerDescription")
+                .Element(tag.ToString());
+            string text;
 
+            if (xPower == null)
+            {
+                text = error;
+            }
+            else
+            {
+                text = xPower.Value.ToString();
+                text = text.Replace(@"\n", "\n");
+            }
             return text;
         }
 
         private void Awake()
         {
+            error = "INVALID TEXT";
             Load();
         }
 

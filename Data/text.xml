@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <Test>Hello, World\nHi, Unity</Test>
+    <English>
+        <PowerDescription>
+            <DefEnergy1>Vigor description</DefEnergy1>
+            <DefEnergy2>Adrenaline description</DefEnergy2>
+            <DefInfection1>Immunity description</DefInfection1>
+            <DefInfection2>Fast Heal description</DefInfection2>
+            <DefHP1>First Aid description</DefHP1>
+            <DefHP2>Reaper description</DefHP2>
+            <AttEnergy1>Siphon description</AttEnergy1>
+            <AttInfection1>Plague description</AttInfection1>
+            <AttDamage1>Bleed description</AttDamage1>
+        </PowerDescription>
+    </English>
 </GameText>
