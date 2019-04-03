@@ -2,6 +2,7 @@
 using Fungus.Actor.InputManager;
 using Fungus.GameSystem.ObjectManager;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,7 +91,12 @@ namespace Fungus.GameSystem.Render
 
         private string GetPowerDescription(PowerTag tag)
         {
-            return "Restore 1 HP at the start of every turn.";
+            // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
+            XElement fromFile = XElement.Load(@"Build\test.xml");
+            string text = fromFile.Element("Test").Value;
+            text = text.Replace(@"\n", "\n");
+
+            return text;
         }
 
         private string GetPowerName(PowerTag tag)
