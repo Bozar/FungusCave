@@ -127,7 +127,7 @@ namespace Fungus.GameSystem.ObjectManager
             // These data should remain unchanged for all NPCs.
             SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
             SetIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.SightRange, 8);
+            SetIntData(SubObjectTag.DEFAULT, DataTag.SightRange, 6);
 
             // Default: string
             SetStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
