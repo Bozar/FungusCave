@@ -4630,7 +4630,7 @@ PrefabInstance:
     - target: {fileID: 114245535195958476, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 3}
       propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4e80c782302cce43bf76e6814c142d0, type: 3}

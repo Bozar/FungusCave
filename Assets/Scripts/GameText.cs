@@ -10,48 +10,41 @@ namespace Fungus.GameSystem
     {
         private string error;
         private XElement gameText;
+        private XElement xLang;
 
         public string GetHelp()
         {
-            XElement xLang = gameText.Element("English");
-            XElement xHelp = xLang.Element("Help");
-            string text;
-
-            if (xHelp == null)
-            {
-                text = error;
-            }
-            else
-            {
-                text = xHelp.Value.ToString();
-                text = text.Replace(@"\n", "\n");
-            }
-            return text;
+            return GetText(xLang.Element("Help"));
         }
 
         public string GetPowerDescription(PowerTag tag)
         {
-            XElement xLang = gameText.Element("English");
-            XElement xPower = xLang.Element("PowerDescription")
-                .Element(tag.ToString());
-            string text;
-
-            if (xPower == null)
-            {
-                text = error;
-            }
-            else
-            {
-                text = xPower.Value.ToString();
-                text = text.Replace(@"\n", "\n");
-            }
-            return text;
+            return GetText(xLang.Element("PowerDescription")
+                .Element(tag.ToString()));
         }
 
         private void Awake()
         {
             error = "INVALID TEXT";
+
             Load();
+            xLang = gameText.Element("English");
+        }
+
+        private string GetText(XElement xElement)
+        {
+            string text;
+
+            if (xElement == null)
+            {
+                text = error;
+            }
+            else
+            {
+                text = xElement.Value.ToString();
+                text = text.Replace(@"\n", "\n");
+            }
+            return text;
         }
 
         private void Load()
