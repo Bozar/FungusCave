@@ -209,6 +209,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
 
+                    // This actor appears on screen when activated.
                     go.SetActive(false);
                     break;
 
@@ -217,7 +218,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<GuideAction>();
                     go.AddComponent<InputGuide>();
 
-                    go.GetComponent<GuideAction>().enabled = false;
+                    go.SetActive(false);
                     break;
 
                 // Buy power.
@@ -227,6 +228,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<InputHeader>();
                     go.AddComponent<InputBuyPower>();
 
+                    // This actor does not appear on screen even when activated.
                     go.GetComponent<BuyPowerAction>().enabled = false;
                     break;
 
