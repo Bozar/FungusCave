@@ -2,15 +2,16 @@
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <English>
         <PowerDescription>
-            <DefEnergy1>Vigor description</DefEnergy1>
-            <DefEnergy2>Adrenaline description</DefEnergy2>
-            <DefInfection1>Immunity description</DefInfection1>
-            <DefInfection2>Fast Heal description</DefInfection2>
-            <DefHP1>First Aid description</DefHP1>
-            <DefHP2>Reaper description</DefHP2>
-            <AttEnergy1>Siphon description</AttEnergy1>
-            <AttInfection1>Plague description</AttInfection1>
-            <AttDamage1>Bleed description</AttDamage1>
+            <DefEnergy1>Restore energy at the start of your turn.</DefEnergy1>
+            <DefEnergy2>Restore energy at the start of your turn. The restoration increases at low HP.\n\nRequires Vigor.</DefEnergy2>
+            <DefInfection1>Increase your max Stress by 1.</DefInfection1>
+            <DefInfection2>Infection duration is reduced by 2 (instead of 1) every turn.\n\nRequires Immunity.</DefInfection2>
+            <DefHP1>Restore 1 HP at the start of every turn when your current HP is less than 5.</DefHP1>
+            <DefHP2>Restore 1 HP whenever you kill an enemy.\n\nRequires First Aid.</DefHP2>
+            <AttEnergy1>Your target loses energy, which increases with your damage, when being hit.</AttEnergy1>
+            <AttInfection1>Your attack has a greater chance to cause infection.</AttInfection1>
+            <AttDamage1>Increase your damage by 1.</AttDamage1>
         </PowerDescription>
     </English>
 </GameText>
+<!--- vim: se lbr: -->
