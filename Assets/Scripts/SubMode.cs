@@ -60,6 +60,7 @@ namespace Fungus.GameSystem
         public void SwitchModeHelp(bool switchOn)
         {
             SwitchModeNormal(!switchOn);
+            SwitchUIHelp(switchOn);
 
             getActor(SubObjectTag.ViewHelp).GetComponent<ViewHelpStatus>()
                 .SetIsActive(switchOn);
@@ -120,6 +121,13 @@ namespace Fungus.GameSystem
             getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
 
             GetComponent<UIBuyPower>().ResetCursorPosition();
+        }
+
+        private void SwitchUIHelp(bool switchOn)
+        {
+            getUI(UITag.ViewHelp).SetActive(switchOn);
+            getUI(UITag.ViewHelp).GetComponent<Text>().text
+                = GetComponent<GameText>().GetHelp();
         }
 
         private void SwitchUILog(bool switchOn)

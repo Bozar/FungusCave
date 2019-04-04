@@ -2,16 +2,17 @@
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <English>
         <PowerDescription>
-            <DefEnergy1>Restore energy at the start of your turn.</DefEnergy1>
-            <DefEnergy2>Restore energy at the start of your turn. The restoration increases at low HP.\n\nRequires Vigor.</DefEnergy2>
+            <DefEnergy1>Restore energy every turn.</DefEnergy1>
+            <DefEnergy2>Restore energy every turn. The restoration increases at low HP.\n\nRequires Vigor.</DefEnergy2>
             <DefInfection1>Increase your max Stress by 1.</DefInfection1>
             <DefInfection2>Infection duration is reduced by 2 (instead of 1) every turn.\n\nRequires Immunity.</DefInfection2>
-            <DefHP1>Restore 1 HP at the start of every turn when your current HP is less than 5.</DefHP1>
-            <DefHP2>Restore 1 HP whenever you kill an enemy.\n\nRequires First Aid.</DefHP2>
+            <DefHP1>Restore 1 HP every turn when your current HP is less than 5.</DefHP1>
+            <DefHP2>Restore 1 HP when you kill an enemy.\n\nRequires First Aid.</DefHP2>
             <AttEnergy1>Your target loses energy, which increases with your damage, when being hit.</AttEnergy1>
             <AttInfection1>Your attack has a greater chance to cause infection.</AttInfection1>
             <AttDamage1>Increase your damage by 1.</AttDamage1>
         </PowerDescription>
+        <Help>Key bindings.\n\n[ hjklyubn ] Move around.</Help>
     </English>
 </GameText>
 <!--- vim: se lbr: -->

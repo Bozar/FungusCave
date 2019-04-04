@@ -11,6 +11,24 @@ namespace Fungus.GameSystem
         private string error;
         private XElement gameText;
 
+        public string GetHelp()
+        {
+            XElement xLang = gameText.Element("English");
+            XElement xHelp = xLang.Element("Help");
+            string text;
+
+            if (xHelp == null)
+            {
+                text = error;
+            }
+            else
+            {
+                text = xHelp.Value.ToString();
+                text = text.Replace(@"\n", "\n");
+            }
+            return text;
+        }
+
         public string GetPowerDescription(PowerTag tag)
         {
             XElement xLang = gameText.Element("English");
