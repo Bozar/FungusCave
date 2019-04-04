@@ -217,7 +217,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<GuideAction>();
                     go.AddComponent<InputGuide>();
 
-                    go.GetComponent<GuideAction>().enabled = false;
+                    go.SetActive(false);
                     break;
 
                 // Buy power.
