@@ -14,7 +14,15 @@ namespace Fungus.GameSystem
 
         public string GetHelp()
         {
-            return GetText(xLang.Element("Help"));
+            string[] elements = new string[]
+            { "Title", "Normal", "Examine", "Menu" };
+            string[] text = new string[elements.Length];
+
+            for (int i = 0; i < elements.Length; i++)
+            {
+                text[i] = GetText(xLang.Element("Help").Element(elements[i]));
+            }
+            return string.Join("\n\n", text);
         }
 
         public string GetPowerDescription(PowerTag tag)
