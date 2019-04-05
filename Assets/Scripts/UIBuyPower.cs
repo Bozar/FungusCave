@@ -75,6 +75,15 @@ namespace Fungus.GameSystem.Render
             cursorPosition = 0;
         }
 
+        private string GetPCHP()
+        {
+            string hp = "HP: %num%";
+            hp = hp.Replace("%num%",
+                FindObjects.PC.GetComponent<HP>().CurrentHP.ToString());
+
+            return hp;
+        }
+
         private string GetPowerCost(PowerTag tag)
         {
             // Cost: %num1%/%num2%
@@ -126,6 +135,7 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.BuyPowerName).text = GetPowerName(tag);
             getUI(UITag.BuyPowerStatus).text = GetPowerStatus(tag);
             getUI(UITag.BuyPowerCost).text = GetPowerCost(tag);
+            getUI(UITag.BuyPowerPCHP).text = GetPCHP();
             getUI(UITag.BuyPowerDescription).text
                 = GetComponent<GameText>().GetPowerDescription(tag);
         }
