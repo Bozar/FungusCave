@@ -23,7 +23,7 @@ namespace Fungus.GameSystem
 
         private void Awake()
         {
-            string fileName = "test.xml";
+            string fileName = "setting.xml";
             string[] path = new string[] { "Data", "Build" };
             string current = Directory.GetCurrentDirectory();
 
