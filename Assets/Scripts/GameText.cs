@@ -8,9 +8,9 @@ namespace Fungus.GameSystem
     // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
     public class GameText : MonoBehaviour
     {
-        private string error;
-        private XElement gameText;
-        private XElement xLang;
+        private string defaultLang;
+        private string lang;
+        private XElement xText;
 
         public string GetHelp()
         {
@@ -20,44 +20,43 @@ namespace Fungus.GameSystem
 
             for (int i = 0; i < elements.Length; i++)
             {
-                text[i] = GetText(xLang.Element("Help").Element(elements[i]));
+                text[i] = GetText(xText.Element("Help").Element(elements[i]));
             }
             return string.Join("\n\n", text);
         }
 
         public string GetPowerDescription(PowerTag tag)
         {
-            return GetText(xLang.Element("PowerDescription")
-                .Element(tag.ToString()));
+            return GetText(xText.Element("PowerDescription").Element(
+                tag.ToString()));
         }
 
         private void Awake()
         {
-            error = "INVALID TEXT";
+            defaultLang = "English";
+            lang = "English";
 
             Load();
-            xLang = gameText.Element("English");
         }
 
         private string GetText(XElement xElement)
         {
             string text;
+            string myLang = lang;
 
-            if (xElement == null)
+            if (xElement.Element(lang) == null)
             {
-                text = error;
+                myLang = defaultLang;
             }
-            else
-            {
-                text = xElement.Value.ToString();
-                text = text.Replace(@"\n", "\n");
-            }
+
+            text = xElement.Element(myLang).Value.ToString();
+            text = text.Replace(@"\n", "\n");
             return text;
         }
 
         private void Load()
         {
-            if (gameText != null)
+            if (xText != null)
             {
                 return;
             }
@@ -71,7 +70,7 @@ namespace Fungus.GameSystem
 
             if (File.Exists(path))
             {
-                gameText = XElement.Load(path);
+                xText = XElement.Load(path);
                 return;
             }
             throw new FileNotFoundException();
