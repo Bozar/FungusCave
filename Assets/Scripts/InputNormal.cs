@@ -10,8 +10,7 @@ namespace Fungus.Actor.InputManager
         public Command Input2Command()
         {
             bool help = Input.GetKeyDown(KeyCode.Slash)
-                || (Input.GetKeyDown(KeyCode.LeftShift)
-                && Input.GetKeyDown(KeyCode.Question));
+                || Input.GetKeyDown(KeyCode.Question);
 
             bool wait = Input.GetKeyDown(KeyCode.Period)
                 || Input.GetKeyDown(KeyCode.Keypad5);
@@ -28,13 +27,13 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.BuyPower;
             }
-            else if (Input.GetKeyDown(KeyCode.M))
+            else if (Input.GetKeyDown(KeyCode.V))
             {
-                return Command.ViewMessage;
+                return Command.ViewLog;
             }
             else if (help)
             {
-                return Command.Help;
+                return Command.ViewHelp;
             }
 
             if (wizard.IsWizardMode)
