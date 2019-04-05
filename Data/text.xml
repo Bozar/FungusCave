@@ -16,7 +16,7 @@
             <Title>Key Bindings\n\n(Refer to manual.txt for more information.)</Title>
             <Normal>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</Normal>
             <Examine>[ x ] -- Enter Examine mode.\n[ o | d | PgDn] -- Lock next NPC in view.\n[ i | s | PgUp] -- Lock previous NPC in view.</Examine>
-            <Menu>[ c ] -- Open menu to buy powers.\n[ v ] -- Open menu to view log.\n[ / | ? ] -- Open menu to view help.\n[ Tab | Shift + Tab ] -- Switch between menus.</Menu>
+            <Menu>[ c ] -- Open menu to buy powers.\n[ v | m ] -- Open menu to view log.\n[ / | ? ] -- Open menu to view help.\n[ Tab | Shift + Tab ] -- Switch between menus.</Menu>
         </Help>
     </English>
 </GameText>

@@ -15,6 +15,9 @@ namespace Fungus.Actor.InputManager
             bool wait = Input.GetKeyDown(KeyCode.Period)
                 || Input.GetKeyDown(KeyCode.Keypad5);
 
+            bool log = Input.GetKeyDown(KeyCode.V)
+                || Input.GetKeyDown(KeyCode.M);
+
             if (wait)
             {
                 return Command.Wait;
@@ -27,7 +30,7 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.BuyPower;
             }
-            else if (Input.GetKeyDown(KeyCode.V))
+            else if (log)
             {
                 return Command.ViewLog;
             }
