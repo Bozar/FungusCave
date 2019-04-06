@@ -25,6 +25,16 @@ namespace Fungus.GameSystem
             return string.Join("\n\n", text);
         }
 
+        public string[] GetOpening()
+        {
+            XElement xOpening = xText.Element("Opening");
+            string scene = GetText(xOpening.Element("Scene"));
+            string modeline = GetText(xOpening.Element("Modeline"));
+
+            string[] text = new string[] { scene, modeline };
+            return text;
+        }
+
         public string GetPowerDescription(PowerTag tag)
         {
             return GetText(xText.Element("PowerDescription").Element(

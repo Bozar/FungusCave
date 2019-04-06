@@ -44,5 +44,13 @@
             <English>[ c ] -- Open menu to buy powers.\n[ v | m ] -- Open menu to view log.\n[ / | ? ] -- Open menu to view help.\n[ Tab | Shift + Tab ] -- Switch between menus.</English>
         </Menu>
     </Help>
+    <Opening>
+        <Scene>
+            <English>'... Blood,' he continued after a pause, 'blood is holy! Blood does not see the light of God's sun, blood is hidden from the light ... And a great sin it is to show blood to the light of day, a great sin and cause to be fearful, oh, a great one it is!'\n\n-- Turgenev, Ivan. Sketches from a Hunter's Album.\n\n\nExtract blood from a sleeping patient when his body is still warm and soft. Such extracted essence can be used to keep you awake in times of emergency.\n\n-- Pages from Encyclopedia of Yendor.</English>
+        </Scene>
+        <Modeline>
+            <English>Press Space to continue.</English>
+        </Modeline>
+    </Opening>
 </GameText>
 <!--- vim: se lbr: -->

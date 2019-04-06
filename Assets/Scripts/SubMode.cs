@@ -172,7 +172,6 @@ namespace Fungus.GameSystem
         private void SwitchUIOpening(bool switchOn)
         {
             getUI(UITag.Opening).SetActive(switchOn);
-            getUI(UITag.Opening).GetComponent<Text>().text = "Hello World";
         }
     }
 }
