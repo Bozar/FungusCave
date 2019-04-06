@@ -1,5 +1,4 @@
-﻿using Fungus.GameSystem.Render;
-using Fungus.GameSystem.WorldBuilding;
+﻿using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,6 +31,7 @@ namespace Fungus.GameSystem
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
 
+            GetComponent<SubMode>().SwitchModeOpening(true);
         }
 
         private void Update()

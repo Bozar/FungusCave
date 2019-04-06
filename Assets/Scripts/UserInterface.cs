@@ -5,7 +5,7 @@ namespace Fungus.GameSystem.Render
 {
     public enum UITag
     {
-        NONE, Modeline, Status, SubModeHeader, ViewHelp,
+        NONE, Modeline, Status, SubModeHeader, ViewHelp, Opening,
         Message1, Message2, Message3, Message4, Message5,
 
         HPData, StressData, PotionData, DamageData,
@@ -76,7 +76,7 @@ namespace Fungus.GameSystem.Render
             {
                 UITag.ExamineMessage, UITag.ExamineModeline,
                 UITag.SubModeHeader, UITag.BuyPowerSlotLabel,
-                UITag.Log1, UITag.ViewHelp,
+                UITag.Log1, UITag.ViewHelp, UITag.Opening,
             };
 
             foreach (UITag uit in uits)

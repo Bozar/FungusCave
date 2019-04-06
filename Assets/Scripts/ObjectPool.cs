@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.ObjectManager
     {
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog,
+        PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog, Opening,
         Beetle, Corpse, BloodFly, AcidOoze, YellowOoze,
         Dummy
     };
@@ -202,18 +202,16 @@ namespace Fungus.GameSystem.ObjectManager
 
             switch (tag)
             {
-                // Examine mode.
+                // These actors appear on screen even when activated.
                 case SubObjectTag.Examiner:
                     go.AddComponent<ExaminerAction>();
                     go.AddComponent<InputExamine>();
                     go.AddComponent<MoveExamineMarker>();
                     go.AddComponent<PCSortTargets>();
 
-                    // This actor appears on screen when activated.
                     go.SetActive(false);
                     break;
 
-                // Load screen.
                 case SubObjectTag.Guide:
                     go.AddComponent<GuideAction>();
                     go.AddComponent<InputGuide>();
@@ -221,18 +219,16 @@ namespace Fungus.GameSystem.ObjectManager
                     go.SetActive(false);
                     break;
 
-                // Buy power.
+                // These actors do not appear on screen even when activated.
                 case SubObjectTag.BuyPower:
                     go.AddComponent<BuyPowerAction>();
                     go.AddComponent<BuyPowerStatus>();
                     go.AddComponent<InputHeader>();
                     go.AddComponent<InputBuyPower>();
 
-                    // This actor does not appear on screen even when activated.
                     go.GetComponent<BuyPowerAction>().enabled = false;
                     break;
 
-                // In game help.
                 case SubObjectTag.ViewHelp:
                     go.AddComponent<ViewHelpAction>();
                     go.AddComponent<ViewHelpStatus>();
@@ -241,7 +237,6 @@ namespace Fungus.GameSystem.ObjectManager
                     go.GetComponent<ViewHelpAction>().enabled = false;
                     break;
 
-                // Message log.
                 case SubObjectTag.ViewLog:
                     go.AddComponent<ViewLogAction>();
                     go.AddComponent<ViewLogStatus>();
@@ -250,13 +245,19 @@ namespace Fungus.GameSystem.ObjectManager
                     go.GetComponent<ViewLogAction>().enabled = false;
                     break;
 
-                // Change settings.
                 case SubObjectTag.Setting:
                     go.AddComponent<SettingAction>();
                     go.AddComponent<SettingStatus>();
                     go.AddComponent<InputHeader>();
 
                     go.GetComponent<SettingAction>().enabled = false;
+                    break;
+
+                case SubObjectTag.Opening:
+                    go.AddComponent<OpeningAction>();
+                    go.AddComponent<InputOpening>();
+
+                    go.GetComponent<OpeningAction>().enabled = false;
                     break;
             }
             return go;

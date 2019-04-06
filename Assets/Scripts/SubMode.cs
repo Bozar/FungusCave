@@ -37,6 +37,7 @@ namespace Fungus.GameSystem
         public void SwitchModeBuyPower(bool switchOn)
         {
             SwitchModeNormal(!switchOn);
+            SwitchUIHeader(switchOn);
             SwitchUIBuyPower(switchOn);
 
             getActor(SubObjectTag.BuyPower).GetComponent<BuyPowerStatus>()
@@ -60,6 +61,7 @@ namespace Fungus.GameSystem
         public void SwitchModeHelp(bool switchOn)
         {
             SwitchModeNormal(!switchOn);
+            SwitchUIHeader(switchOn);
             SwitchUIHelp(switchOn);
 
             getActor(SubObjectTag.ViewHelp).GetComponent<ViewHelpStatus>()
@@ -71,6 +73,7 @@ namespace Fungus.GameSystem
         public void SwitchModeLog(bool switchOn)
         {
             SwitchModeNormal(!switchOn);
+            SwitchUIHeader(switchOn);
             SwitchUILog(switchOn);
 
             getActor(SubObjectTag.ViewLog).GetComponent<ViewLogStatus>()
@@ -79,9 +82,19 @@ namespace Fungus.GameSystem
                .enabled = switchOn;
         }
 
+        public void SwitchModeOpening(bool switchOn)
+        {
+            SwitchModeNormal(!switchOn);
+            SwitchUIOpening(switchOn);
+
+            getActor(SubObjectTag.Opening).GetComponent<OpeningAction>()
+                .enabled = switchOn;
+        }
+
         public void SwitchModeSetting(bool switchOn)
         {
             SwitchModeNormal(!switchOn);
+            SwitchUIHeader(switchOn);
 
             getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()
                 .SetIsActive(switchOn);
@@ -111,7 +124,6 @@ namespace Fungus.GameSystem
         private void SwitchModeNormal(bool switchOn)
         {
             SwitchUINormal(switchOn);
-            SwitchUISubModeHeader(!switchOn);
 
             GetComponent<SchedulingSystem>().PauseTurn(!switchOn);
         }
@@ -121,6 +133,13 @@ namespace Fungus.GameSystem
             getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
 
             GetComponent<UIBuyPower>().ResetCursorPosition();
+        }
+
+        private void SwitchUIHeader(bool switchOn)
+        {
+            getUI(UITag.SubModeHeader).SetActive(switchOn);
+            getUI(UITag.SubModeHeader).GetComponent<Text>().text
+                = "Invalid header.";
         }
 
         private void SwitchUIHelp(bool switchOn)
@@ -150,11 +169,10 @@ namespace Fungus.GameSystem
             }
         }
 
-        private void SwitchUISubModeHeader(bool switchOn)
+        private void SwitchUIOpening(bool switchOn)
         {
-            getUI(UITag.SubModeHeader).SetActive(switchOn);
-            getUI(UITag.SubModeHeader).GetComponent<Text>().text
-                = "Invalid header.";
+            getUI(UITag.Opening).SetActive(switchOn);
+            getUI(UITag.Opening).GetComponent<Text>().text = "Hello World";
         }
     }
 }
