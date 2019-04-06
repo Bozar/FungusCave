@@ -32,8 +32,6 @@ namespace Fungus.GameSystem
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
 
-            GetComponent<UIMessage>().StoreText(
-                GetComponent<RandomNumber>().RootSeed.ToString());
         }
 
         private void Update()
