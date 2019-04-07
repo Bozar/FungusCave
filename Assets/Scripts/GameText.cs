@@ -1,5 +1,4 @@
 ﻿using Fungus.Actor;
-using System.IO;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -45,8 +44,6 @@ namespace Fungus.GameSystem
         {
             defaultLang = "English";
             lang = "English";
-
-            Load();
         }
 
         private string GetText(XElement xElement)
@@ -64,26 +61,14 @@ namespace Fungus.GameSystem
             return text;
         }
 
-        private void Load()
+        private void Start()
         {
-            if (xText != null)
-            {
-                return;
-            }
-
             string fileName = "text.xml";
-            string path = "Data";
-            string current = Directory.GetCurrentDirectory();
 
-            path = Path.Combine(current, path);
-            path = Path.Combine(path, fileName);
-
-            if (File.Exists(path))
+            if (xText == null)
             {
-                xText = XElement.Load(path);
-                return;
+                xText = GetComponent<SaveLoad>().LoadXML(fileName);
             }
-            throw new FileNotFoundException();
         }
     }
 }
