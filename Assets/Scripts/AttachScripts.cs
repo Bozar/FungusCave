@@ -38,6 +38,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<FindObjects>();
 
             gameObject.AddComponent<GameColor>();
+            gameObject.AddComponent<GameSetting>();
             gameObject.AddComponent<GameText>();
 
             gameObject.AddComponent<HeaderAction>();

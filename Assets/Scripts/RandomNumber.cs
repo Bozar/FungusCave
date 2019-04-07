@@ -51,7 +51,7 @@ namespace Fungus.GameSystem
 
         public void Load()
         {
-            RootSeed = GetComponent<SaveLoad>().SaveFile.Seed;
+            RootSeed = GetComponent<GameSetting>().Seed;
         }
 
         public double Next(SeedTag tag)

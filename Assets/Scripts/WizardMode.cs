@@ -52,7 +52,7 @@ namespace Fungus.GameSystem
 
         public void Load()
         {
-            IsWizardMode = GetComponent<SaveLoad>().SaveFile.IsWizard;
+            IsWizardMode = GetComponent<GameSetting>().IsWizard;
         }
 
         public void LoseHP()
