@@ -43,7 +43,6 @@ namespace Fungus.GameSystem
         private void Awake()
         {
             defaultLang = "English";
-            lang = "English";
         }
 
         private string GetText(XElement xElement)
@@ -64,6 +63,7 @@ namespace Fungus.GameSystem
         private void Start()
         {
             xFile = GetComponent<SaveLoad>().LoadXML("text.xml");
+            lang = GetComponent<GameSetting>().Language;
         }
     }
 }

@@ -15,6 +15,14 @@ namespace Fungus.GameSystem
             }
         }
 
+        public string Language
+        {
+            get
+            {
+                return (string)xFile.Element("Language");
+            }
+        }
+
         public int Seed
         {
             get
