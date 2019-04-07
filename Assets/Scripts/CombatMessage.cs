@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class GameMessage : MonoBehaviour
+    public class CombatMessage : MonoBehaviour
     {
         private List<string> messages;
 

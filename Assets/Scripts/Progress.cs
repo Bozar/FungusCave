@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class GameProgress : MonoBehaviour
+    public class Progress : MonoBehaviour
     {
         private ActorData actorData;
         private int kill;
-        private GameProgressData progress;
+        private ProgressData progress;
 
         public void CountKill(GameObject actor)
         {
@@ -33,7 +33,7 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            progress = GetComponent<GameProgressData>();
+            progress = GetComponent<ProgressData>();
             actorData = GetComponent<ActorData>();
         }
     }

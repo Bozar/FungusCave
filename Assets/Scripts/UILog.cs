@@ -24,7 +24,7 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            string[] log = GetComponent<GameMessage>().GetText(LogHeight);
+            string[] log = GetComponent<CombatMessage>().GetText(LogHeight);
 
             for (int i = 0; i < tags.Length; i++)
             {

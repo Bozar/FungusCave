@@ -6,7 +6,7 @@ namespace Fungus.GameSystem.WorldBuilding
 {
     public class DungeonActor : MonoBehaviour
     {
-        private GameProgressData progress;
+        private ProgressData progress;
 
         public List<SubObjectTag> GetActor()
         {
@@ -41,7 +41,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
         private void Start()
         {
-            progress = GetComponent<GameProgressData>();
+            progress = GetComponent<ProgressData>();
         }
     }
 }

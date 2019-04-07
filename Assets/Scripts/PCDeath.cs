@@ -26,7 +26,7 @@ namespace Fungus.Actor
         private UIMessage message;
         private UIModeline modeline;
         private PotionData potionData;
-        private GameProgress progress;
+        private Progress progress;
         private SchedulingSystem schedule;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
@@ -70,7 +70,7 @@ namespace Fungus.Actor
         private void Start()
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
-            progress = FindObjects.GameLogic.GetComponent<GameProgress>();
+            progress = FindObjects.GameLogic.GetComponent<Progress>();
             color = FindObjects.GameLogic.GetComponent<GameColor>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();

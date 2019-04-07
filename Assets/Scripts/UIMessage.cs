@@ -23,7 +23,7 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
-            string[] msg = GetComponent<GameMessage>().GetText(maxHeight);
+            string[] msg = GetComponent<CombatMessage>().GetText(maxHeight);
 
             for (int i = 0; i < sortedTags.Length; i++)
             {
@@ -42,7 +42,7 @@ namespace Fungus.GameSystem.Render
         // backward compatibility.
         public void StoreText(string text)
         {
-            GetComponent<GameMessage>().StoreText(text);
+            GetComponent<CombatMessage>().StoreText(text);
         }
 
         private void Awake()

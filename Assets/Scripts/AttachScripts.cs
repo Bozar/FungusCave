@@ -22,6 +22,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<BlueprintPool>();
             gameObject.AddComponent<BlueprintSponge>();
 
+            gameObject.AddComponent<CombatMessage>();
             gameObject.AddComponent<ConvertCoordinates>();
             gameObject.AddComponent<CreateWorld>();
 
@@ -37,9 +38,6 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<FindObjects>();
 
             gameObject.AddComponent<GameColor>();
-            gameObject.AddComponent<GameMessage>();
-            gameObject.AddComponent<GameProgress>();
-            gameObject.AddComponent<GameProgressData>();
             gameObject.AddComponent<GameText>();
 
             gameObject.AddComponent<HeaderAction>();
@@ -50,8 +48,10 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PotionData>();
             gameObject.AddComponent<PowerData>();
-            gameObject.AddComponent<RandomNumber>();
+            gameObject.AddComponent<Progress>();
+            gameObject.AddComponent<ProgressData>();
 
+            gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoad>();
             gameObject.AddComponent<SchedulingSystem>();
             gameObject.AddComponent<SubMode>();

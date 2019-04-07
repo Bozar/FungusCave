@@ -2,7 +2,7 @@
 
 namespace Fungus.GameSystem
 {
-    public class GameProgressData : MonoBehaviour
+    public class ProgressData : MonoBehaviour
     {
         public int MaxActor { get; private set; }
         public int MaxSoldier { get; private set; }
