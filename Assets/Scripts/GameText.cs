@@ -9,7 +9,7 @@ namespace Fungus.GameSystem
     {
         private string defaultLang;
         private string lang;
-        private XElement xText;
+        private XElement xFile;
 
         public string GetHelp()
         {
@@ -19,14 +19,14 @@ namespace Fungus.GameSystem
 
             for (int i = 0; i < elements.Length; i++)
             {
-                text[i] = GetText(xText.Element("Help").Element(elements[i]));
+                text[i] = GetText(xFile.Element("Help").Element(elements[i]));
             }
             return string.Join("\n\n", text);
         }
 
         public string[] GetOpening()
         {
-            XElement xOpening = xText.Element("Opening");
+            XElement xOpening = xFile.Element("Opening");
             string scene = GetText(xOpening.Element("Scene"));
             string modeline = GetText(xOpening.Element("Modeline"));
 
@@ -36,7 +36,7 @@ namespace Fungus.GameSystem
 
         public string GetPowerDescription(PowerTag tag)
         {
-            return GetText(xText.Element("PowerDescription").Element(
+            return GetText(xFile.Element("PowerDescription").Element(
                 tag.ToString()));
         }
 
@@ -63,12 +63,7 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            string fileName = "text.xml";
-
-            if (xText == null)
-            {
-                xText = GetComponent<SaveLoad>().LoadXML(fileName);
-            }
+            xFile = GetComponent<SaveLoad>().LoadXML("text.xml");
         }
     }
 }

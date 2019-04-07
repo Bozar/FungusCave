@@ -25,12 +25,7 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            string fileName = "setting.xml";
-
-            if (xFile == null)
-            {
-                xFile = GetComponent<SaveLoad>().LoadXML(fileName);
-            }
+            xFile = GetComponent<SaveLoad>().LoadXML("setting.xml");
         }
     }
 }
