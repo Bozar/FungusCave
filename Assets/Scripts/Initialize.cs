@@ -31,7 +31,8 @@ namespace Fungus.GameSystem
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
 
-            GetComponent<SubMode>().SwitchModeOpening(true);
+            GetComponent<SubMode>().SwitchModeOpening(
+                GetComponent<GameSetting>().ShowOpening);
         }
 
         private void Update()

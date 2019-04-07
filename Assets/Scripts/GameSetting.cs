@@ -23,6 +23,14 @@ namespace Fungus.GameSystem
             }
         }
 
+        public bool ShowOpening
+        {
+            get
+            {
+                return (bool)xFile.Element("ShowOpening");
+            }
+        }
+
         private void Start()
         {
             xFile = GetComponent<SaveLoad>().LoadXML("setting.xml");
