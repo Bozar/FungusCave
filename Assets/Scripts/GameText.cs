@@ -67,7 +67,8 @@ namespace Fungus.GameSystem
             string text;
             string myLang = lang;
 
-            if (xElement.Element(lang) == null)
+            if ((xElement.Element(lang) == null)
+                || (xElement.Element(lang).Value.Trim() == ""))
             {
                 myLang = defaultLang;
             }
