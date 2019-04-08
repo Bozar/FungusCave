@@ -97,6 +97,11 @@ namespace Fungus.GameSystem
             SwitchUIHeader(switchOn);
             SwitchUISetting(switchOn);
 
+            if (!switchOn)
+            {
+                GetComponent<GameSetting>().Save();
+            }
+
             getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()
                 .SetIsActive(switchOn);
             getActor(SubObjectTag.Setting).GetComponent<SettingAction>()

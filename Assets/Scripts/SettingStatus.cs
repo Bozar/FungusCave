@@ -7,6 +7,7 @@ namespace Fungus.Actor
     {
         private HeaderStatus header;
         private SubMode mode;
+        private GameSetting setting;
 
         public bool IsActive { get; private set; }
 
@@ -42,6 +43,7 @@ namespace Fungus.Actor
         {
             header = FindObjects.GameLogic.GetComponent<HeaderStatus>();
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
+            setting = FindObjects.GameLogic.GetComponent<GameSetting>();
 
             header.AddMode(this);
         }

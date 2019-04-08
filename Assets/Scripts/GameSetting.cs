@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class GameSetting : MonoBehaviour
+    public class GameSetting : MonoBehaviour, ISaveLoad
     {
+        private string fileName;
         private XElement xFile;
 
         public bool IsWizard
@@ -41,14 +42,23 @@ namespace Fungus.GameSystem
             set
             {
                 xFile.Element("ShowOpening").SetValue(value);
-                // TODO: Change this later.
-                GetComponent<SaveLoad>().SaveXML(xFile, "setting.xml");
             }
+        }
+
+        public void Load()
+        {
+            xFile = GetComponent<SaveLoad>().LoadXML(fileName);
+        }
+
+        public void Save()
+        {
+            GetComponent<SaveLoad>().SaveXML(xFile, fileName);
         }
 
         private void Start()
         {
-            xFile = GetComponent<SaveLoad>().LoadXML("setting.xml");
+            fileName = "setting.xml";
+            Load();
         }
     }
 }
