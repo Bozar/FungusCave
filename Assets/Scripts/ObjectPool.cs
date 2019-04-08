@@ -249,6 +249,7 @@ namespace Fungus.GameSystem.ObjectManager
                     go.AddComponent<SettingAction>();
                     go.AddComponent<SettingStatus>();
                     go.AddComponent<InputHeader>();
+                    go.AddComponent<InputSetting>();
 
                     go.GetComponent<SettingAction>().enabled = false;
                     break;

@@ -20,6 +20,10 @@ namespace Fungus.Actor.Turn
             Command cmd = GetComponent<PlayerInput>().GameCommand();
             switch (cmd)
             {
+                case Command.Confirm:
+                    Debug.Log("Cofirm");
+                    break;
+
                 case Command.Cancel:
                     mode.SwitchModeSetting(false);
                     break;
