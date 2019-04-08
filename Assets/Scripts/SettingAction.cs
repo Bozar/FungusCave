@@ -8,11 +8,18 @@ namespace Fungus.Actor.Turn
     {
         private HeaderAction header;
         private SubMode mode;
+        private GameSetting setting;
 
         private void Start()
         {
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
             header = FindObjects.GameLogic.GetComponent<HeaderAction>();
+            setting = FindObjects.GameLogic.GetComponent<GameSetting>();
+        }
+
+        private void SwitchSetting()
+        {
+            setting.ShowOpening = !setting.ShowOpening;
         }
 
         private void Update()
@@ -21,9 +28,7 @@ namespace Fungus.Actor.Turn
             switch (cmd)
             {
                 case Command.Confirm:
-                    // TODO: Change this later.
-                    Debug.Log("Cofirm");
-                    FindObjects.GameLogic.GetComponent<GameSetting>().ShowOpening = true;
+                    SwitchSetting();
                     break;
 
                 case Command.Cancel:

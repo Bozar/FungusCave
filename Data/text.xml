@@ -63,7 +63,7 @@
       <English>[   ]</English>
     </SwitchOff>
     <ShowOpening>
-      <English>Skip opening scene.</English>
+      <English>Show opening scene.</English>
     </ShowOpening>
   </Setting>
   <!--- vim: set lbr sts=2 sw=2: -->
