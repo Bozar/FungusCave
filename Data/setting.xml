@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <GameSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <IsWizard>true</IsWizard>
-    <ShowOpening>false</ShowOpening>
-    <!-- Language: English, Chinese -->
-    <Language>English</Language>
-    <Seed>0</Seed>
+  <IsWizard>true</IsWizard>
+  <ShowOpening>true</ShowOpening>
+  <!-- Language: English, Chinese -->
+  <Language>English</Language>
+  <Seed>0</Seed>
+<!--- vim: set lbr sts=2 sw=2: -->
 </GameSetting>

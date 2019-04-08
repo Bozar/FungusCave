@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PowerDescription>
-        <DefEnergy1>
-            <English>Restore energy every turn.</English>
-            <Chinese>每轮回复能量。</Chinese>
-        </DefEnergy1>
-        <DefEnergy2>
-            <English>Restore energy every turn. The restoration increases at low HP.\n\nRequires Vigor.</English>
-        </DefEnergy2>
-        <DefInfection1>
-            <English>Increase your max Stress by 1.</English>
-        </DefInfection1>
-        <DefInfection2>
-            <English>Infection duration is reduced by 2 (instead of 1) every turn.\n\nRequires Immunity.</English>
-        </DefInfection2>
-        <DefHP1>
-            <English>Restore 1 HP every turn when your current HP is less than 5.</English>
-        </DefHP1>
-        <DefHP2>
-            <English>Restore 1 HP when you kill an enemy.\n\nRequires First Aid.</English>
-        </DefHP2>
-        <AttEnergy1>
-            <English>Your target loses energy, which increases with your damage, when being hit.</English>
-        </AttEnergy1>
-        <AttInfection1>
-            <English>Your attack has a greater chance to cause infection.</English>
-        </AttInfection1>
-        <AttDamage1>
-            <English>Increase your damage by 1.</English>
-        </AttDamage1>
-    </PowerDescription>
-    <Help>
-        <Title>
-            <English>Key Bindings\n\n(Refer to manual.txt for more information.)</English>
-        </Title>
-        <Normal>
-            <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
-        </Normal>
-        <Examine>
-            <English>[ x ] -- Enter Examine mode.\n[ o | d | PgDn] -- Lock next NPC in view.\n[ i | s | PgUp] -- Lock previous NPC in view.</English>
-        </Examine>
-        <Menu>
-            <English>[ c ] -- Open menu to buy powers.\n[ v | m ] -- Open menu to view log.\n[ / | ? ] -- Open menu to view help.\n[ Tab | Shift + Tab ] -- Switch between menus.</English>
-        </Menu>
-    </Help>
-    <Opening>
-        <Scene>
-            <English>'... Blood,' he continued after a pause, 'blood is holy! Blood does not see the light of God's sun, blood is hidden from the light ... And a great sin it is to show blood to the light of day, a great sin and cause to be fearful, oh, a great one it is!'\n\n-- Turgenev, Ivan. Sketches from a Hunter's Album.\n\n\nExtract blood from a sleeping patient when his body is still warm and soft. Such extracted essence can be used to keep you awake in times of emergency.\n\n-- Pages from Encyclopedia of Yendor.</English>
-        </Scene>
-        <Modeline>
-            <English>Press Space to continue.</English>
-        </Modeline>
-    </Opening>
-    <Setting>
-        <Cursor>
-            <English>></English>
-        </Cursor>
-        <SwitchOn>
-            <English>[ X ]</English>
-        </SwitchOn>
-        <SwitchOff>
-            <English>[   ]</English>
-        </SwitchOff>
-        <ShowOpening>
-            <English>Skip opening scene.</English>
-        </ShowOpening>
-    </Setting>
+  <PowerDescription>
+    <DefEnergy1>
+      <English>Restore energy every turn.</English>
+      <Chinese>每轮回复能量。</Chinese>
+    </DefEnergy1>
+    <DefEnergy2>
+      <English>Restore energy every turn. The restoration increases at low HP.\n\nRequires Vigor.</English>
+    </DefEnergy2>
+    <DefInfection1>
+      <English>Increase your max Stress by 1.</English>
+    </DefInfection1>
+    <DefInfection2>
+      <English>Infection duration is reduced by 2 (instead of 1) every turn.\n\nRequires Immunity.</English>
+    </DefInfection2>
+    <DefHP1>
+      <English>Restore 1 HP every turn when your current HP is less than 5.</English>
+    </DefHP1>
+    <DefHP2>
+      <English>Restore 1 HP when you kill an enemy.\n\nRequires First Aid.</English>
+    </DefHP2>
+    <AttEnergy1>
+      <English>Your target loses energy, which increases with your damage, when being hit.</English>
+    </AttEnergy1>
+    <AttInfection1>
+      <English>Your attack has a greater chance to cause infection.</English>
+    </AttInfection1>
+    <AttDamage1>
+      <English>Increase your damage by 1.</English>
+    </AttDamage1>
+  </PowerDescription>
+  <Help>
+    <Title>
+      <English>Key Bindings\n\n(Refer to manual.txt for more information.)</English>
+    </Title>
+    <Normal>
+      <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
+    </Normal>
+    <Examine>
+      <English>[ x ] -- Enter Examine mode.\n[ o | d | PgDn] -- Lock next NPC in view.\n[ i | s | PgUp] -- Lock previous NPC in view.</English>
+    </Examine>
+    <Menu>
+      <English>[ c ] -- Open menu to buy powers.\n[ v | m ] -- Open menu to view log.\n[ / | ? ] -- Open menu to view help.\n[ Tab | Shift + Tab ] -- Switch between menus.</English>
+    </Menu>
+  </Help>
+  <Opening>
+    <Scene>
+      <English>'... Blood,' he continued after a pause, 'blood is holy! Blood does not see the light of God's sun, blood is hidden from the light ... And a great sin it is to show blood to the light of day, a great sin and cause to be fearful, oh, a great one it is!'\n\n-- Turgenev, Ivan. Sketches from a Hunter's Album.\n\n\nExtract blood from a sleeping patient when his body is still warm and soft. Such extracted essence can be used to keep you awake in times of emergency.\n\n-- Pages from Encyclopedia of Yendor.</English>
+    </Scene>
+    <Modeline>
+      <English>Press Space to continue.</English>
+    </Modeline>
+  </Opening>
+  <Setting>
+    <Cursor>
+      <English>></English>
+    </Cursor>
+    <SwitchOn>
+      <English>[ X ]</English>
+    </SwitchOn>
+    <SwitchOff>
+      <English>[   ]</English>
+    </SwitchOff>
+    <ShowOpening>
+      <English>Skip opening scene.</English>
+    </ShowOpening>
+  </Setting>
+<!--- vim: set lbr sts=2 sw=2: -->
 </GameText>
-<!--- vim: se lbr: -->
