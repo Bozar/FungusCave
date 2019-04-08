@@ -178,9 +178,6 @@ namespace Fungus.GameSystem
         private void SwitchUISetting(bool switchOn)
         {
             getUI(UITag.SettingCursor1).SetActive(switchOn);
-            getUI(UITag.SettingCursor1).GetComponent<Text>().text = ">";
-            getUI(UITag.SettingOption1).GetComponent<Text>().text = "[ X ]";
-            getUI(UITag.SettingText1).GetComponent<Text>().text = "Skip the opening scene.";
         }
     }
 }

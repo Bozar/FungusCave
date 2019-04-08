@@ -40,6 +40,23 @@ namespace Fungus.GameSystem
                 tag.ToString()));
         }
 
+        public string GetSettingCursor()
+        {
+            return GetText(xFile.Element("Setting").Element("Cursor"));
+        }
+
+        public string GetSettingOption(bool yesOrNo)
+        {
+            return yesOrNo
+                ? GetText(xFile.Element("Setting").Element("SwitchOn"))
+                : GetText(xFile.Element("Setting").Element("SwitchOff"));
+        }
+
+        public string GetSettingText(string xElement)
+        {
+            return GetText(xFile.Element("Setting").Element(xElement));
+        }
+
         private void Awake()
         {
             defaultLang = "English";

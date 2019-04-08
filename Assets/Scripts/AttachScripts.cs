@@ -65,9 +65,10 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<UIMessage>();
             gameObject.AddComponent<UIModeline>();
             gameObject.AddComponent<UIOpening>();
+            gameObject.AddComponent<UISetting>();
             gameObject.AddComponent<UIStatus>();
-            gameObject.AddComponent<UserInterface>();
 
+            gameObject.AddComponent<UserInterface>();
             gameObject.AddComponent<WizardMode>();
         }
     }

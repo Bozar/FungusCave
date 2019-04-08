@@ -52,5 +52,19 @@
             <English>Press Space to continue.</English>
         </Modeline>
     </Opening>
+    <Setting>
+        <Cursor>
+            <English>></English>
+        </Cursor>
+        <SwitchOn>
+            <English>[ X ]</English>
+        </SwitchOn>
+        <SwitchOff>
+            <English>[   ]</English>
+        </SwitchOff>
+        <ShowOpening>
+            <English>Skip opening scene.</English>
+        </ShowOpening>
+    </Setting>
 </GameText>
 <!--- vim: se lbr: -->
