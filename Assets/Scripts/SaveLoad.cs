@@ -13,6 +13,8 @@ namespace Fungus.GameSystem
 
     public class SaveLoad : MonoBehaviour
     {
+        private string defaultDirectory;
+
         public XElement LoadXML(string fileName, string directory)
         {
             string path = Path.Combine(directory, fileName);
@@ -26,10 +28,25 @@ namespace Fungus.GameSystem
 
         public XElement LoadXML(string fileName)
         {
-            string directory = "Data";
-            string current = Directory.GetCurrentDirectory();
+            return LoadXML(fileName, defaultDirectory);
+        }
 
-            return LoadXML(fileName, Path.Combine(current, directory));
+        public void SaveXML(XElement xele, string fileName)
+        {
+            SaveXML(xele, fileName, defaultDirectory);
+        }
+
+        public void SaveXML(XElement xele, string fileName, string directory)
+        {
+            string path = Path.Combine(directory, fileName);
+            xele.Save(path);
+        }
+
+        private void Awake()
+        {
+            defaultDirectory = "Data";
+            defaultDirectory = Path.Combine(Directory.GetCurrentDirectory(),
+                defaultDirectory);
         }
     }
 }

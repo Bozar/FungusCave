@@ -21,7 +21,9 @@ namespace Fungus.Actor.Turn
             switch (cmd)
             {
                 case Command.Confirm:
+                    // TODO: Change this later.
                     Debug.Log("Cofirm");
+                    FindObjects.GameLogic.GetComponent<GameSetting>().ShowOpening = true;
                     break;
 
                 case Command.Cancel:

@@ -37,6 +37,13 @@ namespace Fungus.GameSystem
             {
                 return (bool)xFile.Element("ShowOpening");
             }
+
+            set
+            {
+                xFile.Element("ShowOpening").SetValue(value);
+                // TODO: Change this later.
+                GetComponent<SaveLoad>().SaveXML(xFile, "setting.xml");
+            }
         }
 
         private void Start()
