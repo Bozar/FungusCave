@@ -29,6 +29,8 @@ namespace Fungus.GameSystem.Render
         Log1, Log2, Log3, Log4, Log5, Log6, Log7, Log8, Log9, Log10,
         Log11, Log12, Log13, Log14, Log15, Log16,
 
+        SettingCursor1, SettingOption1, SettingText1,
+
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,
         ExamineDamageLabel, ExamineDamageData,
@@ -78,6 +80,7 @@ namespace Fungus.GameSystem.Render
                 UITag.ExamineMessage, UITag.ExamineModeline,
                 UITag.SubModeHeader, UITag.BuyPowerSlotLabel,
                 UITag.Log1, UITag.ViewHelp, UITag.Opening,
+                UITag.SettingCursor1,
             };
 
             foreach (UITag uit in uits)

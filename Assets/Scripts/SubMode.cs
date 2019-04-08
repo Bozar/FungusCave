@@ -95,6 +95,7 @@ namespace Fungus.GameSystem
         {
             SwitchModeNormal(!switchOn);
             SwitchUIHeader(switchOn);
+            SwitchUISetting(switchOn);
 
             getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()
                 .SetIsActive(switchOn);
@@ -172,6 +173,14 @@ namespace Fungus.GameSystem
         private void SwitchUIOpening(bool switchOn)
         {
             getUI(UITag.Opening).SetActive(switchOn);
+        }
+
+        private void SwitchUISetting(bool switchOn)
+        {
+            getUI(UITag.SettingCursor1).SetActive(switchOn);
+            getUI(UITag.SettingCursor1).GetComponent<Text>().text = ">";
+            getUI(UITag.SettingOption1).GetComponent<Text>().text = "[ X ]";
+            getUI(UITag.SettingText1).GetComponent<Text>().text = "Skip the opening scene.";
         }
     }
 }
