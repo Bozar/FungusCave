@@ -40,8 +40,8 @@
   </PowerDescription>
   <Help>
     <Title>
-      <English>Key Bindings\n\n(Refer to manual.txt for more information.)</English>
-      <Chinese>按键\n\n（阅读 manual.txt 了解更多内容。）</Chinese>
+      <English>Key Bindings\n\n(Refer to manual.md for more information.)</English>
+      <Chinese>按键\n\n（阅读 manual.md 了解更多内容。）</Chinese>
     </Title>
     <Normal>
       <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
