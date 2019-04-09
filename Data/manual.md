@@ -99,19 +99,33 @@ Normal mode:
 * [ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.
 * [ . | Num pad 5 ] -- Wait 1 turn.
 * [ Space ] -- Confirm.
-* [ Esc ] -- Exit or cancel.English>
+* [ Esc ] -- Exit or cancel.
 
 Examine mode:
 
 * [ x ] -- Enter Examine mode.
 * [ o | d | PgDn] -- Lock next NPC in view.
-* [ i | s | PgUp] -- Lock previous NPC in view.English>
+* [ i | s | PgUp] -- Lock previous NPC in view.
 
 Menu:
 
 * [ c ] -- Open menu to buy powers.
 * [ v | m ] -- Open menu to view log.
 * [ / | ? ] -- Open menu to view help.
-* [ Tab | Shift + Tab ] -- Switch between menus.English>
+* [ Tab | Shift + Tab ] -- Switch between menus.
+
+Some key-bindings and features are only available in Wizard Mode. Open
+`Data/setting.xml`, set `IsWizard` to `true`. When in Wizard Mode, there is
+a question mark before the version number in the lower right corner.
+
+Wizard mode:
+
+* Space (Normal Mode): Reload the game.
+* o: Auto explore.
+* p: Print PC's energy cost.
+* q: Gain 1 potion.
+* 1: Switch fog of war.
+* 2: Print PC's current energy.
+* 3: Gain energy for PC.
 
 vim: set tw=80:
