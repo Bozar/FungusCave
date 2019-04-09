@@ -115,7 +115,7 @@ namespace Fungus.GameSystem
         private void Start()
         {
             InitializeUIDict();
-            Version = "0.0.3";
+            Version = "0.1.0";
         }
     }
 }
