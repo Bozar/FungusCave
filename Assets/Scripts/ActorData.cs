@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
@@ -19,11 +20,24 @@ namespace Fungus.GameSystem.ObjectManager
     {
         private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
         private Dictionary<DataTag, Dictionary<SubObjectTag, string>> stringData;
+        private XElement xFile;
 
         public int GetIntData(SubObjectTag oTag, DataTag dTag)
         {
             Dictionary<SubObjectTag, int> dataDict;
             int gameData;
+
+            if (oTag == SubObjectTag.Corpse)
+            {
+                if (xFile.Element(oTag.ToString()).Element(dTag.ToString()) == null)
+                {
+                    return (int)xFile.Element("DEFAULT").Element(dTag.ToString());
+                }
+                else
+                {
+                    return (int)xFile.Element(oTag.ToString()).Element(dTag.ToString());
+                }
+            }
 
             if (intData.TryGetValue(dTag, out dataDict))
             {
@@ -43,6 +57,18 @@ namespace Fungus.GameSystem.ObjectManager
         {
             Dictionary<SubObjectTag, string> dataDict;
             string gameData;
+
+            if (oTag == SubObjectTag.Corpse)
+            {
+                if (xFile.Element(oTag.ToString()).Element(dTag.ToString()) == null)
+                {
+                    return (string)xFile.Element("DEFAULT").Element(dTag.ToString());
+                }
+                else
+                {
+                    return (string)xFile.Element(oTag.ToString()).Element(dTag.ToString());
+                }
+            }
 
             if (stringData.TryGetValue(dTag, out dataDict))
             {
@@ -86,10 +112,10 @@ namespace Fungus.GameSystem.ObjectManager
                 GetComponent<EnergyData>().ModHigh);
 
             // Swollen Corpse
-            SetStringData(SubObjectTag.Corpse, DataTag.ActorName,
-                "Swollen Corpse");
+            //SetStringData(SubObjectTag.Corpse, DataTag.ActorName,
+            //    "Swollen Corpse");
 
-            SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
+            //SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
 
             // Yellow Ooze
             SetStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
@@ -165,6 +191,8 @@ namespace Fungus.GameSystem.ObjectManager
             stringData = new Dictionary<DataTag,
                 Dictionary<SubObjectTag, string>>();
             InitializeData();
+
+            xFile = GetComponent<SaveLoad>().LoadXML("actorData.xml");
         }
     }
 }

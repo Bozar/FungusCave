@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DEFAULT>
+    <!-- Actor Name -->
+    <ActorName>INVALID</ActorName>
+    <!-- Attack & Reward -->
+    <Damage>1</Damage>
+    <SightRange>6</SightRange>
+    <Potion>1</Potion>
+    <!-- HP -->
+    <HP>1</HP>
+    <HPRestore>0</HPRestore>
+    <!-- Energy -->
+    <EnergyRestore>0</EnergyRestore>
+    <EnergyDrain>0</EnergyDrain>
+    <!-- Infection -->
+    <Stress>0</Stress>
+    <InfectionAttack>0</InfectionAttack>
+    <InfectionDefend>0</InfectionDefend>
+    <InfectionRecovery>1</InfectionRecovery>
+  </DEFAULT>
+  <Corpse>
+    <ActorName>Swollen Corpse</ActorName>
+    <HP>9</HP>
+  </Corpse>
+  <!--- vim: set lbr sts=2 sw=2: -->
+</GameData>
