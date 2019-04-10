@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
@@ -18,180 +16,34 @@ namespace Fungus.GameSystem.ObjectManager
 
     public class ActorData : MonoBehaviour
     {
-        private Dictionary<DataTag, Dictionary<SubObjectTag, int>> intData;
-        private Dictionary<DataTag, Dictionary<SubObjectTag, string>> stringData;
+        private string defaultActor;
         private XElement xFile;
 
         public int GetIntData(SubObjectTag oTag, DataTag dTag)
         {
-            Dictionary<SubObjectTag, int> dataDict;
-            int gameData;
-
-            if (oTag == SubObjectTag.Corpse)
-            {
-                if (xFile.Element(oTag.ToString()).Element(dTag.ToString()) == null)
-                {
-                    return (int)xFile.Element("DEFAULT").Element(dTag.ToString());
-                }
-                else
-                {
-                    return (int)xFile.Element(oTag.ToString()).Element(dTag.ToString());
-                }
-            }
-
-            if (intData.TryGetValue(dTag, out dataDict))
-            {
-                if (dataDict.TryGetValue(oTag, out gameData))
-                {
-                    return gameData;
-                }
-                else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
-                {
-                    return gameData;
-                }
-            }
-            throw new MemberAccessException();
+            return (int)GetData(oTag, dTag);
         }
 
         public string GetStringData(SubObjectTag oTag, DataTag dTag)
         {
-            Dictionary<SubObjectTag, string> dataDict;
-            string gameData;
-
-            if (oTag == SubObjectTag.Corpse)
-            {
-                if (xFile.Element(oTag.ToString()).Element(dTag.ToString()) == null)
-                {
-                    return (string)xFile.Element("DEFAULT").Element(dTag.ToString());
-                }
-                else
-                {
-                    return (string)xFile.Element(oTag.ToString()).Element(dTag.ToString());
-                }
-            }
-
-            if (stringData.TryGetValue(dTag, out dataDict))
-            {
-                if (dataDict.TryGetValue(oTag, out gameData))
-                {
-                    return gameData;
-                }
-                else if (dataDict.TryGetValue(SubObjectTag.DEFAULT, out gameData))
-                {
-                    return gameData;
-                }
-            }
-            throw new MemberAccessException();
+            return (string)GetData(oTag, dTag);
         }
 
-        private void InitializeData()
+        private XElement GetData(SubObjectTag oTag, DataTag dTag)
         {
-            // PC
-            SetIntData(SubObjectTag.PC, DataTag.HP, 10);
-            SetIntData(SubObjectTag.PC, DataTag.HPRestore, 1);
-            SetIntData(SubObjectTag.PC, DataTag.Damage, 2);
+            XElement actor = xFile.Element(oTag.ToString());
+            XElement defActor = xFile.Element(defaultActor);
 
-            SetIntData(SubObjectTag.PC, DataTag.InfectionAttack,
-                GetComponent<InfectionData>().RateHigh);
-            SetIntData(SubObjectTag.PC, DataTag.InfectionDefend,
-                GetComponent<InfectionData>().RateNormal);
-
-            SetIntData(SubObjectTag.PC, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().ModNormal);
-
-            SetIntData(SubObjectTag.PC, DataTag.Stress, 3);
-            SetIntData(SubObjectTag.PC, DataTag.SightRange, 5);
-
-            // Scavenger Beetle
-            SetStringData(SubObjectTag.Beetle, DataTag.ActorName,
-                "Scavenger Beetle");
-
-            SetIntData(SubObjectTag.Beetle, DataTag.Damage, 3);
-            SetIntData(SubObjectTag.Beetle, DataTag.Potion, 0);
-            SetIntData(SubObjectTag.Beetle, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().ModHigh);
-
-            // Swollen Corpse
-            //SetStringData(SubObjectTag.Corpse, DataTag.ActorName,
-            //    "Swollen Corpse");
-
-            //SetIntData(SubObjectTag.Corpse, DataTag.HP, 9);
-
-            // Yellow Ooze
-            SetStringData(SubObjectTag.YellowOoze, DataTag.ActorName,
-                "Yellow Ooze");
-
-            SetIntData(SubObjectTag.YellowOoze, DataTag.HP, 4);
-            SetIntData(SubObjectTag.YellowOoze, DataTag.Damage, 3);
-
-            // Blood Fly
-            SetStringData(SubObjectTag.BloodFly, DataTag.ActorName,
-                "Blood Fly");
-
-            SetIntData(SubObjectTag.BloodFly, DataTag.HP, 3);
-            SetIntData(SubObjectTag.BloodFly, DataTag.Damage, 2);
-            SetIntData(SubObjectTag.BloodFly, DataTag.EnergyRestore,
-                GetComponent<EnergyData>().ModNormal);
-
-            // Dummy
-            SetStringData(SubObjectTag.Dummy, DataTag.ActorName, "Dummy");
-            SetIntData(SubObjectTag.Dummy, DataTag.HP, 3);
-
-            // Default: int
-            SetIntData(SubObjectTag.DEFAULT, DataTag.HP, 1);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.Damage, 1);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.Potion, 1);
-
-            SetIntData(SubObjectTag.DEFAULT, DataTag.EnergyRestore, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.EnergyDrain, 0);
-
-            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionAttack, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionDefend, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.InfectionRecovery,
-                GetComponent<InfectionData>().RecoveryNormal);
-
-            // These data should remain unchanged for all NPCs.
-            SetIntData(SubObjectTag.DEFAULT, DataTag.HPRestore, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.Stress, 0);
-            SetIntData(SubObjectTag.DEFAULT, DataTag.SightRange, 6);
-
-            // Default: string
-            SetStringData(SubObjectTag.DEFAULT, DataTag.ActorName, "INVALID");
-        }
-
-        private void SetIntData(SubObjectTag oTag, DataTag dTag, int data)
-        {
-            if (!intData.ContainsKey(dTag))
+            if (actor.Element(dTag.ToString()) == null)
             {
-                intData.Add(dTag, new Dictionary<SubObjectTag, int>());
+                return defActor.Element(dTag.ToString());
             }
-
-            if (!intData[dTag].ContainsKey(oTag))
-            {
-                intData[dTag].Add(oTag, data);
-            }
-        }
-
-        private void SetStringData(SubObjectTag oTag, DataTag dTag, string data)
-        {
-            if (!stringData.ContainsKey(dTag))
-            {
-                stringData.Add(dTag, new Dictionary<SubObjectTag, string>());
-            }
-
-            if (!stringData[dTag].ContainsKey(oTag))
-            {
-                stringData[dTag].Add(oTag, data);
-            }
+            return actor.Element(dTag.ToString());
         }
 
         private void Start()
         {
-            intData = new Dictionary<DataTag, Dictionary<SubObjectTag, int>>();
-            stringData = new Dictionary<DataTag,
-                Dictionary<SubObjectTag, string>>();
-            InitializeData();
-
+            defaultActor = "DEFAULT";
             xFile = GetComponent<SaveLoad>().LoadXML("actorData.xml");
         }
     }

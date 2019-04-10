@@ -19,9 +19,44 @@
     <InfectionDefend>0</InfectionDefend>
     <InfectionRecovery>1</InfectionRecovery>
   </DEFAULT>
+  <BloodFly>
+    <ActorName>Blood Fly</ActorName>
+    <HP>3</HP>
+    <Damage>2</Damage>
+    <EnergyRestore>400</EnergyRestore>
+  </BloodFly>
+  <YellowOoze>
+    <ActorName>Yellow Ooze</ActorName>
+    <HP>4</HP>
+    <Damage>3</Damage>
+  </YellowOoze>
+  <Beetle>
+    <ActorName>Scavenger Beetle</ActorName>
+    <Damage>3</Damage>
+    <Potion>0</Potion>
+    <EnergyRestore>800</EnergyRestore>
+  </Beetle>
   <Corpse>
     <ActorName>Swollen Corpse</ActorName>
     <HP>9</HP>
   </Corpse>
+  <Dummy>
+    <ActorName>Dummy</ActorName>
+    <HP>3</HP>
+  </Dummy>
+  <PC>
+    <!-- Attack -->
+    <Damage>2</Damage>
+    <SightRange>5</SightRange>
+    <!-- HP -->
+    <HP>10</HP>
+    <HPRestore>1</HPRestore>
+    <!-- Energy -->
+    <EnergyRestore>400</EnergyRestore>
+    <!-- Infection -->
+    <Stress>3</Stress>
+    <InfectionAttack>80</InfectionAttack>
+    <InfectionDefend>40</InfectionDefend>
+  </PC>
   <!--- vim: set lbr sts=2 sw=2: -->
 </GameData>
