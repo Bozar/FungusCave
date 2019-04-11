@@ -3,7 +3,10 @@
   <IsWizard>true</IsWizard>
   <ShowOpening>false</ShowOpening>
   <!-- Language: English, Chinese -->
-  <Language>English</Language>
+  <Language>
+    <User>English</User>
+    <Default>English</Default>
+  </Language>
   <Seed>0</Seed>
   <!--- vim: set lbr sts=2 sw=2: -->
 </GameSetting>

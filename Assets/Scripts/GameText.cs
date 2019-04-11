@@ -7,8 +7,6 @@ namespace Fungus.GameSystem
     // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
     public class GameText : MonoBehaviour
     {
-        private string defaultLang;
-        private string lang;
         private XElement xFile;
 
         public string GetHelp()
@@ -57,19 +55,14 @@ namespace Fungus.GameSystem
             return GetText(xFile.Element("Setting").Element(xElement));
         }
 
-        private void Awake()
-        {
-            defaultLang = "English";
-        }
-
         private string GetText(XElement xElement)
         {
             string text;
-            string myLang = lang;
+            string myLang = GetComponent<GameSetting>().UserLanguage;
 
-            if (string.IsNullOrEmpty((string)xElement.Element(lang)))
+            if (string.IsNullOrEmpty((string)xElement.Element(myLang)))
             {
-                myLang = defaultLang;
+                myLang = GetComponent<GameSetting>().DefaultLanguage;
             }
 
             text = xElement.Element(myLang).Value.ToString();
@@ -80,7 +73,6 @@ namespace Fungus.GameSystem
         private void Start()
         {
             xFile = GetComponent<SaveLoad>().LoadXML("text.xml");
-            lang = GetComponent<GameSetting>().Language;
         }
     }
 }

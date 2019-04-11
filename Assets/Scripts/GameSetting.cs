@@ -8,41 +8,31 @@ namespace Fungus.GameSystem
         private string fileName;
         private XElement xFile;
 
-        public bool IsWizard
+        public string DefaultLanguage
         {
-            get
-            {
-                return (bool)xFile.Element("IsWizard");
-            }
+            get { return (string)xFile.Element("Language").Element("Default"); }
         }
 
-        public string Language
+        public bool IsWizard
         {
-            get
-            {
-                return (string)xFile.Element("Language");
-            }
+            get { return (bool)xFile.Element("IsWizard"); }
         }
 
         public int Seed
         {
-            get
-            {
-                return (int)xFile.Element("Seed");
-            }
+            get { return (int)xFile.Element("Seed"); }
         }
 
         public bool ShowOpening
         {
-            get
-            {
-                return (bool)xFile.Element("ShowOpening");
-            }
+            get { return (bool)xFile.Element("ShowOpening"); }
 
-            set
-            {
-                xFile.Element("ShowOpening").SetValue(value);
-            }
+            set { xFile.Element("ShowOpening").SetValue(value); }
+        }
+
+        public string UserLanguage
+        {
+            get { return (string)xFile.Element("Language").Element("User"); }
         }
 
         public void Load()
