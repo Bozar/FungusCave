@@ -5,11 +5,15 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class WizardMode : MonoBehaviour, ISaveLoad
+    public class WizardMode : MonoBehaviour
     {
         private SchedulingSystem schedule;
 
-        public bool IsWizardMode { get; private set; }
+        public bool IsWizardMode
+        {
+            get { return GetComponent<GameSetting>().IsWizard; }
+        }
+
         public bool PrintEnergyCost { get; private set; }
         public bool RenderAll { get; private set; }
 
@@ -48,11 +52,6 @@ namespace Fungus.GameSystem
         public void Initialize()
         {
             GetComponent<Initialize>().InitializeGame();
-        }
-
-        public void Load()
-        {
-            IsWizardMode = GetComponent<GameSetting>().IsWizard;
         }
 
         public void LoseHP()

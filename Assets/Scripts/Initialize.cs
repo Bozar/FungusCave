@@ -19,7 +19,6 @@ namespace Fungus.GameSystem
 
             Initialized = true;
 
-            GetComponent<WizardMode>().Load();
             GetComponent<RandomNumber>().Load();
 
             GetComponent<RandomNumber>().InitializeSeeds();
