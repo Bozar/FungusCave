@@ -2,7 +2,9 @@
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DEFAULT>
     <!-- Actor Name -->
-    <ActorName>INVALID</ActorName>
+    <ActorName>
+      <English>INVALID</English>
+    </ActorName>
     <!-- Attack & Reward -->
     <Damage>1</Damage>
     <SightRange>6</SightRange>
@@ -20,28 +22,42 @@
     <InfectionRecovery>1</InfectionRecovery>
   </DEFAULT>
   <BloodFly>
-    <ActorName>Blood Fly</ActorName>
+    <ActorName>
+      <English>Blood Fly</English>
+      <Chinese>血蝇</Chinese>
+    </ActorName>
     <HP>3</HP>
     <Damage>2</Damage>
     <EnergyRestore>400</EnergyRestore>
   </BloodFly>
   <YellowOoze>
-    <ActorName>Yellow Ooze</ActorName>
+    <ActorName>
+      <English>Yellow Ooze</English>
+      <Chinese>黄色软泥</Chinese>
+    </ActorName>
     <HP>4</HP>
     <Damage>3</Damage>
   </YellowOoze>
   <Beetle>
-    <ActorName>Scavenger Beetle</ActorName>
+    <ActorName>
+      <English>Scavenger Beetle</English>
+      <Chinese>食腐甲虫</Chinese>
+    </ActorName>
     <Damage>3</Damage>
     <Potion>0</Potion>
     <EnergyRestore>800</EnergyRestore>
   </Beetle>
   <Corpse>
-    <ActorName>Swollen Corpse</ActorName>
+    <ActorName>
+      <English>Swollen Corpse</English>
+      <Chinese>肿胀尸体</Chinese>
+    </ActorName>
     <HP>9</HP>
   </Corpse>
   <Dummy>
-    <ActorName>Dummy</ActorName>
+    <ActorName>
+      <English>Dummy</English>
+    </ActorName>
     <HP>3</HP>
   </Dummy>
   <PC>

@@ -26,7 +26,15 @@ namespace Fungus.GameSystem.ObjectManager
 
         public string GetStringData(SubObjectTag oTag, DataTag dTag)
         {
-            return (string)GetData(oTag, dTag);
+            XElement strData = GetData(oTag, dTag);
+            string defLang = GetComponent<GameSetting>().DefaultLanguage;
+            string usrLang = GetComponent<GameSetting>().UserLanguage;
+
+            if (string.IsNullOrEmpty((string)strData.Element(usrLang)))
+            {
+                return (string)strData.Element(defLang);
+            }
+            return (string)strData.Element(usrLang);
         }
 
         private XElement GetData(SubObjectTag oTag, DataTag dTag)
