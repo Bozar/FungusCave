@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class DungeonTerrain : MonoBehaviour
+    public class DungeonTerrain : MonoBehaviour, IInitialize
     {
         private ActorBoard actor;
         private bool[,] board;

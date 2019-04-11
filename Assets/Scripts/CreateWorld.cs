@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
-    public class CreateWorld : MonoBehaviour
+    public class CreateWorld : MonoBehaviour, IInitialize
     {
         private ActorBoard actor;
         private DungeonBlueprint blueprint;

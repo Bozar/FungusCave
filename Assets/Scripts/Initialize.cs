@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus.GameSystem
 {
+    public interface IInitialize
+    {
+        void Initialize();
+    }
+
     public class Initialize : MonoBehaviour
     {
         public bool Initialized { get; private set; }
@@ -21,7 +26,7 @@ namespace Fungus.GameSystem
 
             GetComponent<RandomNumber>().Load();
 
-            GetComponent<RandomNumber>().InitializeSeeds();
+            GetComponent<RandomNumber>().Initialize();
             Debug.Log(GetComponent<RandomNumber>().RootSeed);
 
             GetComponent<BlueprintSponge>().DrawBlueprint();
