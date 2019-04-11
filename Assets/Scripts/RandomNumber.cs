@@ -6,47 +6,35 @@ namespace Fungus.GameSystem
 {
     public enum SeedTag
     {
-        DISCARDABLE,
-        Root, Dungeon,
+        // Root seed
+        Root,
 
-        PERSISTENT,
-        AutoExplore, Infection,
-        NPCAction
+        // Leaf seeds
+        Dungeon, AutoExplore, Infection, NPCAction
     }
 
-    public class RandomNumber : MonoBehaviour, ISaveLoad
+    public class RandomNumber : MonoBehaviour, ISaveLoad, IInitialize
     {
-        private Dictionary<SeedTag, Queue<int>> intQueueDict;
         private int maxQueueLength;
         private int minQueueLength;
-        private Dictionary<SeedTag, System.Random> rngDict;
-        private Dictionary<SeedTag, int> seedDict;
+        private System.Random rootRNG;
+
+        //> Seeds are stored in seedInt.
+        private Dictionary<SeedTag, int> seedInt;
+
+        //> Random integers are stored in seedIntQueue.
+        private Dictionary<SeedTag, Queue<int>> seedIntQueue;
 
         public int RootSeed { get; private set; }
 
-        public void InitializeSeeds()
+        public void Initialize()
         {
-            List<SeedTag> tagList;
-
-            if (RootSeed == 0)
-            {
-                RootSeed = RandomInteger(true);
-            }
-
-            rngDict[SeedTag.Root] = new System.Random(RootSeed);
-            tagList = new List<SeedTag>(seedDict.Keys);
-
-            foreach (var tag in tagList)
-            {
-                if (tag != SeedTag.Root)
-                {
-                    seedDict[tag] = RandomInteger(false, rngDict[SeedTag.Root]);
-                }
-                else
-                {
-                    seedDict[SeedTag.Root] = RootSeed;
-                }
-            }
+            // Load a root seed from an external source.
+            Load();
+            // Use the root seed to create an RNG.
+            InitializeRootRNG();
+            // Use the RNG to generate leaf seeds for the first time.
+            InitializeSeedInt();
         }
 
         public void Load()
@@ -56,31 +44,31 @@ namespace Fungus.GameSystem
 
         public double Next(SeedTag tag)
         {
-            CheckErrors(tag);
-            InitializeRNGs(tag);
-
-            if (IsPersistent(tag))
+            if (IsRoot(tag))
             {
-                return DequeDouble(tag);
+                return rootRNG.NextDouble();
             }
-            return rngDict[tag].NextDouble();
+
+            ReplenishSeedIntQueue(tag);
+            return DequeDouble(tag);
         }
 
         public int Next(SeedTag tag, int min, int max)
         {
-            CheckErrors(tag, min, max);
-            InitializeRNGs(tag);
+            CheckError(tag, min, max);
 
-            if (IsPersistent(tag))
+            if (IsRoot(tag))
             {
-                return DequeInt(tag, min, max);
+                return rootRNG.Next(min, max);
             }
-            return rngDict[tag].Next(min, max);
+
+            ReplenishSeedIntQueue(tag);
+            return DequeInt(tag, min, max);
         }
 
         public void Save()
         {
-            return;
+            throw new NotImplementedException();
         }
 
         private void Awake()
@@ -88,42 +76,12 @@ namespace Fungus.GameSystem
             minQueueLength = 100;
             maxQueueLength = 1000;
 
-            seedDict = new Dictionary<SeedTag, int>();
-            rngDict = new Dictionary<SeedTag, System.Random>();
-            intQueueDict = new Dictionary<SeedTag, Queue<int>>();
-
-            foreach (SeedTag tag in Enum.GetValues(typeof(SeedTag)))
-            {
-                if (IsInvalid(tag))
-                {
-                    continue;
-                }
-
-                seedDict.Add(tag, -1);
-
-                if (IsPersistent(tag))
-                {
-                    intQueueDict.Add(tag, new Queue<int>());
-                }
-                else
-                {
-                    rngDict.Add(tag, null);
-                }
-            }
+            seedInt = new Dictionary<SeedTag, int>();
+            seedIntQueue = new Dictionary<SeedTag, Queue<int>>();
         }
 
-        private void CheckErrors(SeedTag tag)
+        private void CheckError(SeedTag tag, int min, int max)
         {
-            if (IsInvalid(tag))
-            {
-                throw new Exception("Invalid tag: " + tag);
-            }
-        }
-
-        private void CheckErrors(SeedTag tag, int min, int max)
-        {
-            CheckErrors(tag);
-
             if (max < min)
             {
                 throw new Exception("Invalid range.");
@@ -132,7 +90,7 @@ namespace Fungus.GameSystem
 
         private double DequeDouble(SeedTag tag)
         {
-            double result = intQueueDict[tag].Dequeue() / Math.Pow(10, 9);
+            double result = seedIntQueue[tag].Dequeue() / Math.Pow(10, 9);
 
             return result;
         }
@@ -147,49 +105,33 @@ namespace Fungus.GameSystem
             return result;
         }
 
-        private void InitializeRNGs(SeedTag tag)
+        private void InitializeRootRNG()
         {
-            if (IsInvalid(tag))
+            if (RootSeed == 0)
             {
-                return;
+                RootSeed = RandomInteger(true);
             }
+            rootRNG = new System.Random(RootSeed);
+        }
 
-            if (IsPersistent(tag))
+        private void InitializeSeedInt()
+        {
+            foreach (SeedTag seed in Enum.GetValues(typeof(SeedTag)))
             {
-                if (intQueueDict[tag].Count > minQueueLength)
+                if (IsRoot(seed))
                 {
-                    return;
+                    seedInt.Add(seed, RootSeed);
                 }
-
-                System.Random tempRNG = new System.Random(seedDict[tag]);
-
-                for (int i = 0; i < maxQueueLength; i++)
+                else
                 {
-                    intQueueDict[tag].Enqueue(RandomInteger(false, tempRNG));
-                }
-
-                seedDict[tag] = RandomInteger(false, tempRNG);
-            }
-            else
-            {
-                if (rngDict[tag] == null)
-                {
-                    rngDict[tag] = new System.Random(seedDict[tag]);
+                    seedInt.Add(seed, RandomInteger(false, rootRNG));
                 }
             }
         }
 
-        private bool IsInvalid(SeedTag tag)
+        private bool IsRoot(SeedTag tag)
         {
-            bool isDiscardable = tag.Equals(SeedTag.DISCARDABLE);
-            bool isPersistent = tag.Equals(SeedTag.PERSISTENT);
-
-            return isDiscardable || isPersistent;
-        }
-
-        private bool IsPersistent(SeedTag tag)
-        {
-            return tag.CompareTo(SeedTag.PERSISTENT) > 0;
+            return tag == SeedTag.Root;
         }
 
         private int RandomInteger(bool mustHave9Digits)
@@ -208,6 +150,37 @@ namespace Fungus.GameSystem
             while (mustHave9Digits && (result < 0.1));
 
             return (int)(result * Math.Pow(10, 9));
+        }
+
+        private void ReplenishSeedIntQueue(SeedTag seed)
+        {
+            if (IsRoot(seed))
+            {
+                return;
+            }
+
+            // Random numbers from leaf seeds are pregenerated and stored in
+            // seedIntQueue. Generate more numbers and a new leaf seed when the
+            // queue is almost consumed.
+            Queue<int> intQueue;
+            if (seedIntQueue.TryGetValue(seed, out intQueue))
+            {
+                if (intQueue.Count > minQueueLength)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                seedIntQueue.Add(seed, new Queue<int>());
+            }
+
+            System.Random rng = new System.Random(seedInt[seed]);
+            for (int i = 0; i < maxQueueLength; i++)
+            {
+                seedIntQueue[seed].Enqueue(RandomInteger(false, rng));
+            }
+            seedInt[seed] = RandomInteger(false, rng);
         }
     }
 }

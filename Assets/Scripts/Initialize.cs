@@ -24,8 +24,6 @@ namespace Fungus.GameSystem
 
             Initialized = true;
 
-            GetComponent<RandomNumber>().Load();
-
             GetComponent<RandomNumber>().Initialize();
             Debug.Log(GetComponent<RandomNumber>().RootSeed);
 
