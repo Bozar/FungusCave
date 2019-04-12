@@ -97,7 +97,16 @@ namespace Fungus.GameSystem
             SwitchUIHeader(switchOn);
             SwitchUISetting(switchOn);
 
-            if (!switchOn)
+            SettingStatus status
+                = FindObjects.GetStaticActor(SubObjectTag.Setting)
+                .GetComponent<SettingStatus>();
+
+            if (switchOn)
+            {
+                status.IsModified = false;
+            }
+
+            if (!switchOn && status.IsModified)
             {
                 GetComponent<GameSetting>().Save();
             }
