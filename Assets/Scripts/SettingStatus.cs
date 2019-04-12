@@ -10,6 +10,8 @@ namespace Fungus.Actor
 
         public bool IsActive { get; private set; }
 
+        public bool IsModified { get; set; }
+
         public SubModeUITag ModeName
         {
             get

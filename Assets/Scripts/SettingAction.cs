@@ -29,6 +29,7 @@ namespace Fungus.Actor.Turn
             {
                 case Command.Confirm:
                     SwitchSetting();
+                    GetComponent<SettingStatus>().IsModified = true;
                     break;
 
                 case Command.Cancel:
