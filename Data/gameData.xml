@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <DungeonLevel>DL1</DungeonLevel>
+  <Dungeon>
+    <StartLevel>DL1</StartLevel>
+    <MaxActor>40</MaxActor>
+    <MaxSoldier>20</MaxSoldier>
+  </Dungeon>
+  <Damage>
+    <InfectionWeak>1</InfectionWeak>
+    <PowerBleed>1</PowerBleed>
+  </Damage>
   <!--- vim: set lbr sts=2 sw=2: -->
 </GameData>

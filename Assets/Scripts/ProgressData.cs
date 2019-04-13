@@ -4,13 +4,22 @@ namespace Fungus.GameSystem
 {
     public class ProgressData : MonoBehaviour
     {
-        public int MaxActor { get; private set; }
-        public int MaxSoldier { get; private set; }
-
-        private void Awake()
+        public int MaxActor
         {
-            MaxActor = 40;
-            MaxSoldier = 20;
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Dungeon",
+                    "MaxActor");
+            }
+        }
+
+        public int MaxSoldier
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Dungeon",
+                    "MaxSoldier");
+            }
         }
     }
 }

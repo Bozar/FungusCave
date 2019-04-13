@@ -1,6 +1,5 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem.ObjectManager;
-using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem
@@ -41,9 +40,8 @@ namespace Fungus.GameSystem
             progress = GetComponent<ProgressData>();
             actorData = GetComponent<ActorData>();
 
-            // TODO: Get game data from a separate class.
-            XElement xFile = GetComponent<SaveLoad>().LoadXML("gameData.xml");
-            CurrentDungeonLevel = (string)xFile.Element("DungeonLevel");
+            CurrentDungeonLevel = GetComponent<GameData>().GetStringData(
+                "Dungeon", "StartLevel");
         }
     }
 }

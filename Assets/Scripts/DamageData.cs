@@ -4,13 +4,22 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class DamageData : MonoBehaviour
     {
-        public int InfectionWeak { get; private set; }
-        public int PowerAttDamage1 { get; private set; }
-
-        private void Awake()
+        public int InfectionWeak
         {
-            PowerAttDamage1 = 1;
-            InfectionWeak = 1;
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Damage",
+                    "InfectionWeak");
+            }
+        }
+
+        public int PowerAttDamage1
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Damage",
+                    "PowerBleed");
+            }
         }
     }
 }
