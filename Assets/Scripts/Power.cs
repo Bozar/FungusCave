@@ -127,37 +127,6 @@ namespace Fungus.Actor
             return true;
         }
 
-        private void GainRandomPowers()
-        {
-            int candidate;
-            List<int> powerIndex = new List<int>();
-            List<PowerTag> availablePowers = new List<PowerTag>()
-            {
-                PowerTag.DefEnergy1,
-                PowerTag.DefEnergy2,
-                PowerTag.DefInfection1,
-                PowerTag.DefInfection2,
-                PowerTag.DefHP1,
-                PowerTag.DefHP2,
-                PowerTag.AttEnergy1,
-                PowerTag.AttInfection1,
-                PowerTag.AttDamage1
-            };
-
-            for (int i = 0; i < 3; i++)
-            {
-                do
-                {
-                    candidate
-                        = FindObjects.GameLogic.GetComponent<RandomNumber>()
-                        .Next(SeedTag.Dungeon, 0, availablePowers.Count);
-                } while (powerIndex.IndexOf(candidate) > -1);
-
-                powerIndex.Add(candidate);
-                GainPower((PowerSlotTag)i, availablePowers[candidate]);
-            }
-        }
-
         private void Start()
         {
             powerDict = new Dictionary<PowerSlotTag, PowerTag>();
@@ -169,7 +138,6 @@ namespace Fungus.Actor
             powerData = FindObjects.GameLogic.GetComponent<PowerData>();
 
             // TODO: Delete these lines.
-            //GainRandomPowers();
             //GainPower(PowerSlotTag.Slot1, PowerTag.DefEnergy1);
         }
     }
