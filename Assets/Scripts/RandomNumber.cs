@@ -10,7 +10,9 @@ namespace Fungus.GameSystem
         Root,
 
         // Leaf seeds
-        Dungeon, AutoExplore, Infection, NPCAction
+        DL1, DL2, DL3, DL4, DL5,
+
+        AutoExplore, Infection, NPCAction
     }
 
     public class RandomNumber : MonoBehaviour, ISaveLoad, IInitialize
@@ -19,10 +21,10 @@ namespace Fungus.GameSystem
         private int minQueueLength;
         private System.Random rootRNG;
 
-        //> Seeds are stored in seedInt.
+        // Seeds are stored in seedInt.
         private Dictionary<SeedTag, int> seedInt;
 
-        //> Random integers are stored in seedIntQueue.
+        // Random integers are stored in seedIntQueue.
         private Dictionary<SeedTag, Queue<int>> seedIntQueue;
 
         public int RootSeed { get; private set; }
@@ -55,7 +57,7 @@ namespace Fungus.GameSystem
 
         public int Next(SeedTag tag, int min, int max)
         {
-            CheckError(tag, min, max);
+            CheckError(min, max);
 
             if (IsRoot(tag))
             {
@@ -80,7 +82,7 @@ namespace Fungus.GameSystem
             seedIntQueue = new Dictionary<SeedTag, Queue<int>>();
         }
 
-        private void CheckError(SeedTag tag, int min, int max)
+        private void CheckError(int min, int max)
         {
             if (max < min)
             {

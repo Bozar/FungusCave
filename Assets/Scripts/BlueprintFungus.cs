@@ -11,7 +11,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
         public void DrawBlueprint()
         {
-            countFungus = random.Next(SeedTag.Dungeon, minFungus, maxFungus + 1);
+            countFungus = random.Next(Seed, minFungus, maxFungus + 1);
             ConvertWall2Fungus();
         }
 

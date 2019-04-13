@@ -1,14 +1,19 @@
 ﻿using Fungus.Actor.ObjectManager;
 using Fungus.GameSystem.ObjectManager;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem
 {
+    public enum DungeonLevel { DL1, DL2, DL3, DL4, DL5 };
+
     public class Progress : MonoBehaviour
     {
         private ActorData actorData;
         private int kill;
         private ProgressData progress;
+
+        public string CurrentDungeonLevel { get; private set; }
 
         public void CountKill(GameObject actor)
         {
@@ -35,6 +40,10 @@ namespace Fungus.GameSystem
         {
             progress = GetComponent<ProgressData>();
             actorData = GetComponent<ActorData>();
+
+            // TODO: Get game data from a separate class.
+            XElement xFile = GetComponent<SaveLoad>().LoadXML("gameData.xml");
+            CurrentDungeonLevel = (string)xFile.Element("DungeonLevel");
         }
     }
 }

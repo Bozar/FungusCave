@@ -22,11 +22,11 @@ namespace Fungus.GameSystem.WorldBuilding
 
         public void DrawBlueprint()
         {
-            countPools = random.Next(SeedTag.Dungeon, minPool, maxPool + 1);
+            countPools = random.Next(Seed, minPool, maxPool + 1);
 
             while (countPools > 0)
             {
-                range = random.Next(SeedTag.Dungeon, minRange, maxRange + 1);
+                range = random.Next(Seed, minRange, maxRange + 1);
                 WaterSource();
                 WaterFlow();
             }

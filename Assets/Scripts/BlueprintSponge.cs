@@ -23,7 +23,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
         public void DrawBlueprint()
         {
-            finalWall = random.Next(SeedTag.Dungeon, minWall, maxWall + 1);
+            finalWall = random.Next(Seed, minWall, maxWall + 1);
 
             Debug.Log("Final: " + finalWall);
 
@@ -110,7 +110,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
             foreach (var index in cornerIndex)
             {
-                if (random.Next(SeedTag.Dungeon, 0, 3) < 2)
+                if (random.Next(Seed, 0, 3) < 2)
                 {
                     board.ChangeBlueprint(SubObjectTag.Floor,
                         index[0], index[1]);
@@ -126,7 +126,7 @@ namespace Fungus.GameSystem.WorldBuilding
             // rectangle.
             if (width > height)
             {
-                digX = random.Next(SeedTag.Dungeon, startX, startX + width);
+                digX = random.Next(Seed, startX, startX + width);
                 // Try to move starting point away from corner.
                 digX = NextStep(digX, startX, startX + width - 1);
                 digY = startY;
@@ -145,7 +145,7 @@ namespace Fungus.GameSystem.WorldBuilding
             else
             {
                 digX = startX;
-                digY = random.Next(SeedTag.Dungeon, startY, startY + height);
+                digY = random.Next(Seed, startY, startY + height);
                 digY = NextStep(digY, startY, startY + height - 1);
 
                 while (digX > -1 && digY > -1)
@@ -180,7 +180,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
             while (step.Count > 0)
             {
-                stepIndex = random.Next(SeedTag.Dungeon, 0, step.Count);
+                stepIndex = random.Next(Seed, 0, step.Count);
                 next = current + step[stepIndex];
 
                 if (next > min && next < max)
@@ -215,8 +215,8 @@ namespace Fungus.GameSystem.WorldBuilding
             startX = index[0];
             startY = index[1];
 
-            width = random.Next(SeedTag.Dungeon, minSize, maxSize + 1);
-            height = random.Next(SeedTag.Dungeon, minSize, maxSize + 1);
+            width = random.Next(Seed, minSize, maxSize + 1);
+            height = random.Next(Seed, minSize, maxSize + 1);
 
             // If a block is of maxWidth & maxHeight, it looks too big.
             tooBig = System.Math.Min(width, height) == maxSize;

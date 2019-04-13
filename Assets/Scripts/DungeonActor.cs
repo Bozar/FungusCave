@@ -24,7 +24,7 @@ namespace Fungus.GameSystem.WorldBuilding
             while (potion < maxSoldier)
             {
                 nextIndex = GetComponent<RandomNumber>().Next(
-                    SeedTag.Dungeon, 0, soldier.Count);
+                    GetComponent<DungeonBlueprint>().Seed, 0, soldier.Count);
                 actors.Add(soldier[nextIndex]);
 
                 potion += GetComponent<ActorData>().GetIntData(

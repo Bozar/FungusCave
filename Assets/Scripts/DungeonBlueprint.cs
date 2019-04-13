@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.ObjectManager;
+using System;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
@@ -14,6 +15,15 @@ namespace Fungus.GameSystem.WorldBuilding
     {
         protected DungeonBoard board;
         protected RandomNumber random;
+
+        public SeedTag Seed
+        {
+            get
+            {
+                return (SeedTag)Enum.Parse(typeof(SeedTag),
+                    GetComponent<Progress>().CurrentDungeonLevel);
+            }
+        }
 
         public void DrawManually()
         {
@@ -59,8 +69,8 @@ namespace Fungus.GameSystem.WorldBuilding
             int x;
             int y;
 
-            x = random.Next(SeedTag.Dungeon, 0, board.Width);
-            y = random.Next(SeedTag.Dungeon, 0, board.Height);
+            x = random.Next(Seed, 0, board.Width);
+            y = random.Next(Seed, 0, board.Height);
             index = new int[] { x, y };
 
             return index;
