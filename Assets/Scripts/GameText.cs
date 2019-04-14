@@ -10,14 +10,10 @@ namespace Fungus.GameSystem
 
         public XElement GetData<T, U>(T t, U u)
         {
-            string myLang = GetComponent<GameSetting>().UserLanguage;
             XElement xele = xFile.Element(t.ToString()).Element(u.ToString());
+            string lang = GetComponent<GameSetting>().GetValidLanguage(xele);
 
-            if (string.IsNullOrEmpty((string)xele.Element(myLang)))
-            {
-                myLang = GetComponent<GameSetting>().DefaultLanguage;
-            }
-            return xele.Element(myLang);
+            return xele.Element(lang);
         }
 
         public string GetHelp()

@@ -35,6 +35,15 @@ namespace Fungus.GameSystem
             get { return (string)xFile.Element("Language").Element("User"); }
         }
 
+        public string GetValidLanguage(XElement xele)
+        {
+            if (string.IsNullOrEmpty((string)xele.Element(UserLanguage)))
+            {
+                return DefaultLanguage;
+            }
+            return UserLanguage;
+        }
+
         public void Load()
         {
             xFile = GetComponent<SaveLoad>().LoadXML(fileName);
