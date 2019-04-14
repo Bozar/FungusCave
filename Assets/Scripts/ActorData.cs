@@ -14,19 +14,31 @@ namespace Fungus.GameSystem.ObjectManager
         SightRange
     }
 
-    public class ActorData : MonoBehaviour
+    public class ActorData : MonoBehaviour, IGetData
     {
         private string defaultActor;
         private XElement xFile;
 
-        public int GetIntData(SubObjectTag oTag, DataTag dTag)
+        public XElement GetData<T, U>(T subObjTag, U dataTag)
         {
-            return (int)GetData(oTag, dTag);
+            XElement actor = xFile.Element(subObjTag.ToString());
+            XElement defActor = xFile.Element(defaultActor);
+
+            if (actor.Element(dataTag.ToString()) == null)
+            {
+                return defActor.Element(dataTag.ToString());
+            }
+            return actor.Element(dataTag.ToString());
         }
 
-        public string GetStringData(SubObjectTag oTag, DataTag dTag)
+        public int GetIntData<T, U>(T subObjTag, U dataTag)
         {
-            XElement strData = GetData(oTag, dTag);
+            return (int)GetData(subObjTag, dataTag);
+        }
+
+        public string GetStringData<T, U>(T subObjTag, U dataTag)
+        {
+            XElement strData = GetData(subObjTag, dataTag);
             string defLang = GetComponent<GameSetting>().DefaultLanguage;
             string usrLang = GetComponent<GameSetting>().UserLanguage;
 
@@ -35,18 +47,6 @@ namespace Fungus.GameSystem.ObjectManager
                 return (string)strData.Element(defLang);
             }
             return (string)strData.Element(usrLang);
-        }
-
-        private XElement GetData(SubObjectTag oTag, DataTag dTag)
-        {
-            XElement actor = xFile.Element(oTag.ToString());
-            XElement defActor = xFile.Element(defaultActor);
-
-            if (actor.Element(dTag.ToString()) == null)
-            {
-                return defActor.Element(dTag.ToString());
-            }
-            return actor.Element(dTag.ToString());
         }
 
         private void Start()

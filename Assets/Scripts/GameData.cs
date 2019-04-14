@@ -3,24 +3,35 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public class GameData : MonoBehaviour
+    public interface IGetData
+    {
+        XElement GetData<T, U>(T t, U u);
+
+        int GetIntData<T, U>(T t, U u);
+
+        string GetStringData<T, U>(T t, U u);
+    }
+
+    public class GameData : MonoBehaviour, IGetData
     {
         private XElement dataFile;
         private string fileName;
 
-        public int GetIntData(string firstNode, string secondNode)
+        public XElement GetData<T, U>(T firstNode, U secondNode)
+        {
+            return dataFile
+                .Element(firstNode.ToString())
+                .Element(secondNode.ToString());
+        }
+
+        public int GetIntData<T, U>(T firstNode, U secondNode)
         {
             return (int)GetData(firstNode, secondNode);
         }
 
-        public string GetStringData(string firstNode, string secondNode)
+        public string GetStringData<T, U>(T firstNode, U secondNode)
         {
             return (string)GetData(firstNode, secondNode);
-        }
-
-        private XElement GetData(string firstNode, string secondNode)
-        {
-            return dataFile.Element(firstNode).Element(secondNode);
         }
 
         private void Start()
