@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PowerName>
+    <DefEnergy1>
+      <English>Vigor</English>
+      <Chinese>活力</Chinese>
+    </DefEnergy1>
+    <DefEnergy2>
+      <English>Adrenaline</English>
+      <Chinese>肾上腺素</Chinese>
+    </DefEnergy2>
+    <DefInfection1>
+      <English>Immunity</English>
+      <Chinese>免疫</Chinese>
+    </DefInfection1>
+    <DefInfection2>
+      <English>Fast Heal</English>
+      <Chinese>快速痊愈</Chinese>
+    </DefInfection2>
+    <DefHP1>
+      <English>First Aid</English>
+      <Chinese>急救</Chinese>
+    </DefHP1>
+    <DefHP2>
+      <English>Reaper</English>
+      <Chinese>死神</Chinese>
+    </DefHP2>
+    <AttEnergy1>
+      <English>Siphon</English>
+      <Chinese>虹吸</Chinese>
+    </AttEnergy1>
+    <AttInfection1>
+      <English>Plague</English>
+      <Chinese>瘟疫</Chinese>
+    </AttInfection1>
+    <AttDamage1>
+      <English>Bleed</English>
+      <Chinese>流血</Chinese>
+    </AttDamage1>
+  </PowerName>
   <InfectionName>
     <Weak>
       <English>Weak</English>
@@ -21,7 +59,7 @@
     </DefEnergy1>
     <DefEnergy2>
       <English>Restore energy every turn. The restoration increases at low HP.\n\nRequires Vigor.</English>
-      <Chinese>每轮回复能量。生命值较低时回复更多能量。\n\n需要活力。</Chinese>
+      <Chinese>每轮回复能量。生命值较低时回复更多能量。\n\n需要 活力。</Chinese>
     </DefEnergy2>
     <DefInfection1>
       <English>Increase your max Stress by 1.</English>
@@ -29,7 +67,7 @@
     </DefInfection1>
     <DefInfection2>
       <English>Infection duration is reduced by 2 (instead of 1) every turn.\n\nRequires Immunity.</English>
-      <Chinese>感染的持续时间每轮减少 2 点（而不是 1 点）。\n\n需要免疫。</Chinese>
+      <Chinese>感染的持续时间每轮减少 2 点（而不是 1 点）。\n\n需要 免疫。</Chinese>
     </DefInfection2>
     <DefHP1>
       <English>Restore 1 HP every turn when your current HP is less than 5.</English>
@@ -37,7 +75,7 @@
     </DefHP1>
     <DefHP2>
       <English>Restore 1 HP when you kill an enemy.\n\nRequires First Aid.</English>
-      <Chinese>每次击杀敌人时回复 1 点生命值。\n\n需要急救。</Chinese>
+      <Chinese>每次击杀敌人时回复 1 点生命值。\n\n需要 急救。</Chinese>
     </DefHP2>
     <AttEnergy1>
       <English>Your target loses energy, which increases with your damage, when being hit.</English>

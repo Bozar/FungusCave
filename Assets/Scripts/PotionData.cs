@@ -4,22 +4,65 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class PotionData : MonoBehaviour
     {
-        public int BonusPotion { get; private set; }
-        public int MaxPotion { get; private set; }
-        public int ReducedHP { get; private set; }
-        public int RelieveStress { get; private set; }
-        public int RestoreEnergy { get; private set; }
-        public int StartPotion { get; private set; }
+        private string node;
+
+        public int BonusPotion
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "Bonus");
+            }
+        }
+
+        public int MaxPotion
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "Max");
+            }
+        }
+
+        public int ReducedHP
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "ReducedHP");
+            }
+        }
+
+        public int RelieveStress
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RelieveStress");
+            }
+        }
+
+        public int RestoreEnergy
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RestoreEnergy");
+            }
+        }
+
+        public int StartPotion
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "Start");
+            }
+        }
 
         private void Awake()
         {
-            MaxPotion = 9;
-            StartPotion = 2;
-            BonusPotion = 1;
-
-            ReducedHP = 5;
-            RelieveStress = 3;
-            RestoreEnergy = 9999;
+            node = "Potion";
         }
     }
 }

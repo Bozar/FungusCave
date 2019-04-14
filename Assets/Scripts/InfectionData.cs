@@ -5,19 +5,70 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class InfectionData : MonoBehaviour
     {
-        public int Duration { get; private set; }
+        private string node;
 
-        public int MaxDuration { get; private set; }
+        public int Duration
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "Duration");
+            }
+        }
 
-        public int OverflowDuration { get; private set; }
+        public int MaxDuration
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "DurationMax");
+            }
+        }
 
-        public int RateHigh { get; private set; }
+        public int OverflowDuration
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "DurationOverflow");
+            }
+        }
 
-        public int RateNormal { get; private set; }
+        public int RateHigh
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RateHigh");
+            }
+        }
 
-        public int RecoveryFast { get; private set; }
+        public int RateNormal
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RateNormal");
+            }
+        }
 
-        public int RecoveryNormal { get; private set; }
+        public int RecoveryFast
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RecoveryFast");
+            }
+        }
+
+        public int RecoveryNormal
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RecoveryNormal");
+            }
+        }
 
         public string GetInfectionName(InfectionTag infection)
         {
@@ -27,15 +78,7 @@ namespace Fungus.GameSystem.ObjectManager
 
         private void Awake()
         {
-            RateHigh = 80;
-            RateNormal = 40;
-
-            MaxDuration = 9;
-            OverflowDuration = 1;
-            Duration = 5;
-
-            RecoveryNormal = 1;
-            RecoveryFast = 2;
+            node = "Infection";
         }
     }
 }

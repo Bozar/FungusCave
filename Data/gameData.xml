@@ -5,6 +5,45 @@
     <MaxActor>40</MaxActor>
     <MaxSoldier>20</MaxSoldier>
   </Dungeon>
+  <PowerPrerequisite>
+    <DefEnergy1>INVALID</DefEnergy1>
+    <DefInfection1>INVALID</DefInfection1>
+    <DefHP1>INVALID</DefHP1>
+    <DefEnergy2>DefEnergy1</DefEnergy2>
+    <DefInfection2>DefInfection1</DefInfection2>
+    <DefHP2>DefHP1</DefHP2>
+    <AttEnergy1>INVALID</AttEnergy1>
+    <AttInfection1>INVALID</AttInfection1>
+    <AttDamage1>INVALID</AttDamage1>
+  </PowerPrerequisite>
+  <PowerCost>
+    <DefEnergy1>5</DefEnergy1>
+    <DefInfection1>5</DefInfection1>
+    <DefHP1>5</DefHP1>
+    <DefEnergy2>9</DefEnergy2>
+    <DefInfection2>9</DefInfection2>
+    <DefHP2>9</DefHP2>
+    <AttEnergy1>9</AttEnergy1>
+    <AttInfection1>9</AttInfection1>
+    <AttDamage1>9</AttDamage1>
+  </PowerCost>
+  <Potion>
+    <Max>9</Max>
+    <Start>2</Start>
+    <Bonus>1</Bonus>
+    <ReducedHP>5</ReducedHP>
+    <RelieveStress>3</RelieveStress>
+    <RestoreEnergy>9999</RestoreEnergy>
+  </Potion>
+  <Infection>
+    <Duration>5</Duration>
+    <DurationMax>9</DurationMax>
+    <DurationOverflow>1</DurationOverflow>
+    <RecoveryNormal>1</RecoveryNormal>
+    <RecoveryFast>2</RecoveryFast>
+    <RateHigh>80</RateHigh>
+    <RateNormal>40</RateNormal>
+  </Infection>
   <Energy>
     <Maximum>4000</Maximum>
     <Minimum>0</Minimum>
