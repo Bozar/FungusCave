@@ -5,6 +5,16 @@
     <MaxActor>40</MaxActor>
     <MaxSoldier>20</MaxSoldier>
   </Dungeon>
+  <Energy>
+    <Maximum>4000</Maximum>
+    <Minimum>0</Minimum>
+    <ActionThreshold>3000</ActionThreshold>
+    <Restore>1000</Restore>
+    <Move>1000</Move>
+    <Attack>1400</Attack>
+    <ModNormal>400</ModNormal>
+    <ModHigh>800</ModHigh>
+  </Energy>
   <Damage>
     <InfectionWeak>1</InfectionWeak>
     <PowerBleed>1</PowerBleed>

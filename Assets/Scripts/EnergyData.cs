@@ -4,28 +4,76 @@ namespace Fungus.GameSystem.ObjectManager
 {
     public class EnergyData : MonoBehaviour
     {
-        public int ActionThreshold { get; private set; }
-        public int Attack { get; private set; }
-        public int Maximum { get; private set; }
-        public int Minimum { get; private set; }
-        public int ModHigh { get; private set; }
-        public int ModNormal { get; private set; }
-        public int Move { get; private set; }
-        public int Restore { get; private set; }
-
-        private void Awake()
+        public int ActionThreshold
         {
-            ModNormal = 400;
-            ModHigh = 800;
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "ActionThreshold");
+            }
+        }
 
-            Maximum = 4000;
-            Minimum = 0;
+        public int Attack
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "Attack");
+            }
+        }
 
-            ActionThreshold = 3000;
-            Restore = 1000;
+        public int Maximum
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "Maximum");
+            }
+        }
 
-            Move = 1000;
-            Attack = 1400;
+        public int Minimum
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "Minimum");
+            }
+        }
+
+        public int ModHigh
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "ModHigh");
+            }
+        }
+
+        public int ModNormal
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "ModNormal");
+            }
+        }
+
+        public int Move
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "Move");
+            }
+        }
+
+        public int Restore
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData("Energy",
+                    "Restore");
+            }
         }
     }
 }
