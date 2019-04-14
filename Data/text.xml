@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <InfectionName>
+    <Weak>
+      <English>Weak</English>
+      <Chinese>虚弱</Chinese>
+    </Weak>
+    <Mutated>
+      <English>Mutated</English>
+      <Chinese>变异</Chinese>
+    </Mutated>
+    <Slow>
+      <English>Slow</English>
+      <Chinese>迟缓</Chinese>
+    </Slow>
+  </InfectionName>
   <PowerDescription>
     <DefEnergy1>
       <English>Restore energy every turn.</English>

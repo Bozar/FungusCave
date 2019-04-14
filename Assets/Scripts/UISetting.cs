@@ -26,12 +26,18 @@ namespace Fungus.GameSystem.Render
 
         private void PrintSetting()
         {
+            string node = "Setting";
+
             getUI(UITag.SettingCursor1).text = GetComponent<GameText>()
-                .GetSettingCursor();
-            getUI(UITag.SettingOption1).text = GetComponent<GameText>()
-                .GetSettingOption(GetComponent<GameSetting>().ShowOpening);
+                .GetStringData(node, "Cursor");
+
+            getUI(UITag.SettingOption1).text
+                = GetComponent<GameSetting>().ShowOpening
+                ? GetComponent<GameText>().GetStringData(node, "SwitchOn")
+                : GetComponent<GameText>().GetStringData(node, "SwitchOff");
+
             getUI(UITag.SettingText1).text = GetComponent<GameText>()
-                .GetSettingText("ShowOpening");
+                .GetStringData(node, "ShowOpening");
         }
 
         private void Start()

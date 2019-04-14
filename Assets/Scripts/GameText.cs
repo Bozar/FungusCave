@@ -1,13 +1,24 @@
-﻿using Fungus.Actor;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem
 {
     // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
-    public class GameText : MonoBehaviour
+    public class GameText : MonoBehaviour, IGetData
     {
         private XElement xFile;
+
+        public XElement GetData<T, U>(T t, U u)
+        {
+            string myLang = GetComponent<GameSetting>().UserLanguage;
+            XElement xele = xFile.Element(t.ToString()).Element(u.ToString());
+
+            if (string.IsNullOrEmpty((string)xele.Element(myLang)))
+            {
+                myLang = GetComponent<GameSetting>().DefaultLanguage;
+            }
+            return xele.Element(myLang);
+        }
 
         public string GetHelp()
         {
@@ -17,56 +28,30 @@ namespace Fungus.GameSystem
 
             for (int i = 0; i < elements.Length; i++)
             {
-                text[i] = GetText(xFile.Element("Help").Element(elements[i]));
+                text[i] = GetStringData("Help", elements[i]);
             }
             return string.Join("\n\n", text);
         }
 
+        public int GetIntData<T, U>(T t, U u)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public string[] GetOpening()
         {
-            XElement xOpening = xFile.Element("Opening");
-            string scene = GetText(xOpening.Element("Scene"));
-            string modeline = GetText(xOpening.Element("Modeline"));
+            string scene = GetStringData("Opening", "Scene");
+            string modeline = GetStringData("Opening", "Modeline");
 
             string[] text = new string[] { scene, modeline };
             return text;
         }
 
-        public string GetPowerDescription(PowerTag tag)
+        public string GetStringData<T, U>(T t, U u)
         {
-            return GetText(xFile.Element("PowerDescription").Element(
-                tag.ToString()));
-        }
-
-        public string GetSettingCursor()
-        {
-            return GetText(xFile.Element("Setting").Element("Cursor"));
-        }
-
-        public string GetSettingOption(bool yesOrNo)
-        {
-            return yesOrNo
-                ? GetText(xFile.Element("Setting").Element("SwitchOn"))
-                : GetText(xFile.Element("Setting").Element("SwitchOff"));
-        }
-
-        public string GetSettingText(string xElement)
-        {
-            return GetText(xFile.Element("Setting").Element(xElement));
-        }
-
-        private string GetText(XElement xElement)
-        {
-            string text;
-            string myLang = GetComponent<GameSetting>().UserLanguage;
-
-            if (string.IsNullOrEmpty((string)xElement.Element(myLang)))
-            {
-                myLang = GetComponent<GameSetting>().DefaultLanguage;
-            }
-
-            text = xElement.Element(myLang).Value.ToString();
+            string text = GetData(t, u).Value.ToString();
             text = text.Replace(@"\n", "\n");
+
             return text;
         }
 

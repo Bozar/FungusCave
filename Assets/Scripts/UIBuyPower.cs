@@ -137,7 +137,8 @@ namespace Fungus.GameSystem.Render
             getUI(UITag.BuyPowerCost).text = GetPowerCost(tag);
             getUI(UITag.BuyPowerPCHP).text = GetPCHP();
             getUI(UITag.BuyPowerDescription).text
-                = GetComponent<GameText>().GetPowerDescription(tag);
+                = GetComponent<GameText>().GetStringData(
+                    "PowerDescription", tag);
         }
 
         private void PrintPowerList()
