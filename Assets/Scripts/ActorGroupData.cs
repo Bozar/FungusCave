@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem.ObjectManager
 {
-    public enum ActorGroupTag
-    {
-        Fungus
-    }
-
     public enum CombatRoleTag
     {
         Minion, Soldier
@@ -16,62 +12,33 @@ namespace Fungus.GameSystem.ObjectManager
 
     public class ActorGroupData : MonoBehaviour
     {
-        private Dictionary<ActorGroupTag,
-            Dictionary<CombatRoleTag, List<SubObjectTag>>> actorGroup;
-
-        public List<SubObjectTag> GetMinion(ActorGroupTag agt)
+        public Dictionary<CombatRoleTag, SubObjectTag[]> GetActorGroup(
+            DungeonLevel dl)
         {
-            Dictionary<CombatRoleTag, List<SubObjectTag>> crt;
-            List<SubObjectTag> sot;
+            XElement xele = GetComponent<GameData>().GetData("ActorGroup", dl);
+            Stack<SubObjectTag> minion = new Stack<SubObjectTag>();
+            Stack<SubObjectTag> soldier = new Stack<SubObjectTag>();
 
-            if (actorGroup.TryGetValue(agt, out crt)
-                && crt.TryGetValue(CombatRoleTag.Minion, out sot))
+            foreach (XElement e in xele.Elements())
             {
-                return sot;
-            }
-            throw new MemberAccessException();
-        }
-
-        public List<SubObjectTag> GetSoldier(ActorGroupTag agt)
-        {
-            Dictionary<CombatRoleTag, List<SubObjectTag>> crt;
-            List<SubObjectTag> sot;
-
-            if (actorGroup.TryGetValue(agt, out crt)
-                && crt.TryGetValue(CombatRoleTag.Soldier, out sot))
-            {
-                return sot;
-            }
-            throw new MemberAccessException();
-        }
-
-        private void InitializeData()
-        {
-            // Fungus
-            actorGroup[ActorGroupTag.Fungus][CombatRoleTag.Minion]
-                = new List<SubObjectTag> { SubObjectTag.Beetle };
-
-            actorGroup[ActorGroupTag.Fungus][CombatRoleTag.Soldier]
-                = new List<SubObjectTag>
+                if (e.Name == CombatRoleTag.Minion.ToString())
                 {
-                    SubObjectTag.Corpse,
-                    SubObjectTag.BloodFly,
-                    SubObjectTag.YellowOoze
-                };
-        }
-
-        private void Start()
-        {
-            actorGroup = new Dictionary<ActorGroupTag,
-                Dictionary<CombatRoleTag, List<SubObjectTag>>>();
-
-            foreach (ActorGroupTag agt in Enum.GetValues(typeof(ActorGroupTag)))
-            {
-                actorGroup[agt]
-                    = new Dictionary<CombatRoleTag, List<SubObjectTag>>();
+                    minion.Push((SubObjectTag)Enum.Parse(
+                        typeof(SubObjectTag), e.Value.ToString()));
+                }
+                else
+                {
+                    soldier.Push((SubObjectTag)Enum.Parse(
+                        typeof(SubObjectTag), e.Value.ToString()));
+                }
             }
 
-            InitializeData();
+            var result = new Dictionary<CombatRoleTag, SubObjectTag[]>
+            {
+                { CombatRoleTag.Minion, minion.ToArray() },
+                { CombatRoleTag.Soldier, soldier.ToArray() },
+            };
+            return result;
         }
     }
 }

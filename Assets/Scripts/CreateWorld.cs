@@ -1,5 +1,4 @@
 ﻿using Fungus.GameSystem.ObjectManager;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
@@ -60,9 +59,9 @@ namespace Fungus.GameSystem.WorldBuilding
 
         private void CreateNPC()
         {
-            List<SubObjectTag> actors = GetComponent<ActorGroup>().GetActor();
+            SubObjectTag[] actors = GetComponent<ActorGroup>().GetActor();
 
-            for (int i = 0; i < actors.Count; i++)
+            for (int i = 0; i < actors.Length; i++)
             {
                 do
                 {

@@ -2,6 +2,8 @@
 
 namespace Fungus.GameSystem
 {
+    public enum DungeonLevel { DL1, DL2, DL3, DL4, DL5 };
+
     public class ProgressData : MonoBehaviour
     {
         public string CurrentDungeonLevel { get; private set; }

@@ -5,6 +5,18 @@
     <MaxActor>40</MaxActor>
     <MaxSoldier>20</MaxSoldier>
   </Dungeon>
+  <ActorGroup>
+    <DL1>
+      <Minion>Beetle</Minion>
+      <Soldier>Corpse</Soldier>
+      <Soldier>BloodFly</Soldier>
+      <Soldier>YellowOoze</Soldier>
+    </DL1>
+    <DL2>
+      <Minion>Beetle</Minion>
+      <Soldier>BloodFly</Soldier>
+    </DL2>
+  </ActorGroup>
   <PowerPrerequisite>
     <DefEnergy1>INVALID</DefEnergy1>
     <DefInfection1>INVALID</DefInfection1>

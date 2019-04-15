@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public enum DungeonLevel { DL1, DL2, DL3, DL4, DL5 };
-
     public class Progress : MonoBehaviour
     {
         private ActorData actorData;
