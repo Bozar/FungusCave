@@ -17,21 +17,21 @@ namespace Fungus.GameSystem
         private XElement dataFile;
         private string fileName;
 
-        public XElement GetData<T, U>(T firstNode, U secondNode)
+        public XElement GetData<T, U>(T parentNode, U childNode)
         {
             return dataFile
-                .Element(firstNode.ToString())
-                .Element(secondNode.ToString());
+                .Element(parentNode.ToString())
+                .Element(childNode.ToString());
         }
 
-        public int GetIntData<T, U>(T firstNode, U secondNode)
+        public int GetIntData<T, U>(T parentNode, U childNode)
         {
-            return (int)GetData(firstNode, secondNode);
+            return (int)GetData(parentNode, childNode);
         }
 
-        public string GetStringData<T, U>(T firstNode, U secondNode)
+        public string GetStringData<T, U>(T parentNode, U childNode)
         {
-            return (string)GetData(firstNode, secondNode);
+            return (string)GetData(parentNode, childNode);
         }
 
         private void Start()

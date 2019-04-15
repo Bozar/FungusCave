@@ -8,9 +8,10 @@ namespace Fungus.GameSystem
     {
         private XElement xFile;
 
-        public XElement GetData<T, U>(T t, U u)
+        public XElement GetData<T, U>(T parentNode, U childNode)
         {
-            XElement xele = xFile.Element(t.ToString()).Element(u.ToString());
+            XElement xele = xFile.Element(parentNode.ToString())
+                .Element(childNode.ToString());
             string lang = GetComponent<GameSetting>().GetValidLanguage(xele);
 
             return xele.Element(lang);
@@ -29,7 +30,7 @@ namespace Fungus.GameSystem
             return string.Join("\n\n", text);
         }
 
-        public int GetIntData<T, U>(T t, U u)
+        public int GetIntData<T, U>(T parentNode, U childNode)
         {
             throw new System.NotImplementedException();
         }
@@ -43,9 +44,9 @@ namespace Fungus.GameSystem
             return text;
         }
 
-        public string GetStringData<T, U>(T t, U u)
+        public string GetStringData<T, U>(T parentNode, U childNode)
         {
-            string text = GetData(t, u).Value.ToString();
+            string text = GetData(parentNode, childNode).Value.ToString();
             text = text.Replace(@"\n", "\n");
 
             return text;
