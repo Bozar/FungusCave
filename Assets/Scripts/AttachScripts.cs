@@ -16,6 +16,7 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<ActorBoard>();
             gameObject.AddComponent<ActorData>();
+            gameObject.AddComponent<ActorGroup>();
             gameObject.AddComponent<ActorGroupData>();
 
             gameObject.AddComponent<BlueprintFungus>();
@@ -29,7 +30,6 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<DamageData>();
             gameObject.AddComponent<Direction>();
 
-            gameObject.AddComponent<DungeonActor>();
             gameObject.AddComponent<DungeonBlueprint>();
             gameObject.AddComponent<DungeonBoard>();
             gameObject.AddComponent<DungeonTerrain>();

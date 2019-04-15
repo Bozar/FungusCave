@@ -60,7 +60,7 @@ namespace Fungus.GameSystem.WorldBuilding
 
         private void CreateNPC()
         {
-            List<SubObjectTag> actors = GetComponent<DungeonActor>().GetActor();
+            List<SubObjectTag> actors = GetComponent<ActorGroup>().GetActor();
 
             for (int i = 0; i < actors.Count; i++)
             {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
-    public class DungeonActor : MonoBehaviour
+    public class ActorGroup : MonoBehaviour
     {
         private ProgressData progress;
 
