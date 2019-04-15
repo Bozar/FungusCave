@@ -7764,7 +7764,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1339907169614632, guid: a4e80c782302cce43bf76e6814c142d0, type: 3}
       propertyPath: m_Name
-      value: Map
+      value: DungeonLevel
       objectReference: {fileID: 0}
     - target: {fileID: 224433002192091410, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 3}
@@ -7824,7 +7824,7 @@ PrefabInstance:
     - target: {fileID: 224433002192091410, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 224433002192091410, guid: a4e80c782302cce43bf76e6814c142d0,
         type: 3}

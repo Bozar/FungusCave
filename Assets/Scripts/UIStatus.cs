@@ -13,6 +13,7 @@ namespace Fungus.GameSystem.Render
     public class UIStatus : MonoBehaviour, IUpdateUI
     {
         private UIText getText;
+        private string parentNode;
         private StringBuilder sb;
 
         private delegate Text UIText(UITag tag);
@@ -29,6 +30,8 @@ namespace Fungus.GameSystem.Render
 
         public void PrintText()
         {
+            UpdateDungeonLevel();
+
             UpdateHP();
             UpdateStress();
             UpdatePotion();
@@ -47,6 +50,7 @@ namespace Fungus.GameSystem.Render
         private void Awake()
         {
             sb = new StringBuilder();
+            parentNode = "Status";
         }
 
         private void Start()
@@ -59,6 +63,20 @@ namespace Fungus.GameSystem.Render
             int current = FindObjects.PC.GetComponent<IDamage>().CurrentDamage;
 
             getText(UITag.DamageData).text = current.ToString();
+        }
+
+        private void UpdateDungeonLevel()
+        {
+            string dungeon = GetComponent<GameText>().GetStringData(parentNode,
+                "DungeonLevel");
+            string level = GetComponent<ProgressData>().CurrentDungeonLevel;
+
+            // DL1
+            level = level.Replace("DL", "");
+            // Cave - %num%
+            dungeon = dungeon.Replace("%num%", level);
+
+            getText(UITag.DungeonLevel).text = dungeon;
         }
 
         private void UpdateEnvironment()

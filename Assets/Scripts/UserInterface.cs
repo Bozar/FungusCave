@@ -6,7 +6,8 @@ namespace Fungus.GameSystem.Render
     public enum UITag
     {
         INVALID,
-        Modeline, Status, Message1, Message2, Message3, Message4, Message5,
+        Modeline, Status, DungeonLevel,
+        Message1, Message2, Message3, Message4, Message5,
         SubModeHeader, ViewHelp, Opening, OpeningModeline,
 
         HPData, StressData, PotionData, DamageData,

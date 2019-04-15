@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Status>
+    <DungeonLevel>
+      <English>Cave - %num%</English>
+      <Chinese>洞窟 - %num%</Chinese>
+    </DungeonLevel>
+  </Status>
   <PowerName>
     <DefEnergy1>
       <English>Vigor</English>
