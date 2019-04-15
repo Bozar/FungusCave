@@ -12,8 +12,6 @@ namespace Fungus.GameSystem
         private int kill;
         private ProgressData progress;
 
-        public string CurrentDungeonLevel { get; private set; }
-
         public void CountKill(GameObject actor)
         {
             SubObjectTag tag = actor.GetComponent<MetaInfo>().SubTag;
@@ -39,9 +37,6 @@ namespace Fungus.GameSystem
         {
             progress = GetComponent<ProgressData>();
             actorData = GetComponent<ActorData>();
-
-            CurrentDungeonLevel = GetComponent<GameData>().GetStringData(
-                "Dungeon", "StartLevel");
         }
     }
 }

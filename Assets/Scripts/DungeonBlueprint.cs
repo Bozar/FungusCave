@@ -21,7 +21,7 @@ namespace Fungus.GameSystem.WorldBuilding
             get
             {
                 return (SeedTag)Enum.Parse(typeof(SeedTag),
-                    GetComponent<Progress>().CurrentDungeonLevel);
+                    GetComponent<ProgressData>().CurrentDungeonLevel);
             }
         }
 
