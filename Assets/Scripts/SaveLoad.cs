@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Linq;
@@ -7,8 +6,6 @@ using UnityEngine;
 
 namespace Fungus.GameSystem
 {
-    public enum SLDataTag { INVALID, Seed, Actor, Map };
-
     public interface ISaveLoad
     {
         void Load();
@@ -21,25 +18,24 @@ namespace Fungus.GameSystem
         private string binaryDirectory;
         private string xmlDirectory;
 
-        public Dictionary<SLDataTag, ISaveLoad> LoadBinary(
-            string fileName, string directory)
+        public ISaveLoad[] LoadBinary(string fileName, string directory)
         {
             IFormatter bf = new BinaryFormatter();
-            Dictionary<SLDataTag, ISaveLoad> data;
+            ISaveLoad[] data;
             string path = Path.Combine(directory, fileName);
 
             if (File.Exists(path))
             {
                 using (FileStream fs = File.OpenRead(path))
                 {
-                    data = (Dictionary<SLDataTag, ISaveLoad>)bf.Deserialize(fs);
+                    data = (ISaveLoad[])bf.Deserialize(fs);
                 }
                 return data;
             }
             throw new FileNotFoundException();
         }
 
-        public Dictionary<SLDataTag, ISaveLoad> LoadBinary(string fileName)
+        public ISaveLoad[] LoadBinary(string fileName)
         {
             return LoadBinary(fileName, binaryDirectory);
         }
@@ -60,7 +56,7 @@ namespace Fungus.GameSystem
             return LoadXML(fileName, xmlDirectory);
         }
 
-        public void SaveBinary(Dictionary<SLDataTag, ISaveLoad> data,
+        public void SaveBinary(ISaveLoad[] data,
             string fileName, string directory)
         {
             IFormatter bf = new BinaryFormatter();
@@ -76,8 +72,7 @@ namespace Fungus.GameSystem
             }
         }
 
-        public void SaveBinary(Dictionary<SLDataTag, ISaveLoad> data,
-           string fileName)
+        public void SaveBinary(ISaveLoad[] data, string fileName)
         {
             SaveBinary(data, fileName, binaryDirectory);
         }

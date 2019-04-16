@@ -45,7 +45,7 @@ namespace Fungus.GameSystem
         private void TestLoad()
         {
             var lb = GetComponent<SaveLoad>().LoadBinary("test.bin");
-            MySave ms = lb[SLDataTag.Actor] as MySave;
+            MySave ms = lb[0] as MySave;
 
             Debug.Log(ms.MyNum);
             Debug.Log(ms.MyStr);
@@ -65,8 +65,7 @@ namespace Fungus.GameSystem
             { { 0, new MySave { MyNum = 24, MyStr = "Good night" } } };
             ms.NewSave = new NewSave { Name = "My new save" }.Name;
 
-            var mySave = new Dictionary<SLDataTag, ISaveLoad>()
-            { { SLDataTag.Actor, ms } };
+            var mySave = new ISaveLoad[] { ms };
             GetComponent<SaveLoad>().SaveBinary(mySave, "test.bin");
 
             Debug.Log("File save");
@@ -84,10 +83,10 @@ namespace Fungus.GameSystem
     [Serializable]
     public class MySave : ISaveLoad
     {
+        public Dictionary<int, MySave> MyDict;
         public int MyNum;
         public string MyStr;
         public string NewSave;
-        internal Dictionary<int, MySave> MyDict;
 
         public void Load()
         {
