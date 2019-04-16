@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.ObjectManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

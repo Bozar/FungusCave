@@ -1,13 +1,14 @@
-﻿using System.Xml.Linq;
+﻿using Fungus.GameSystem.SaveLoadData;
+using System.Xml.Linq;
 using UnityEngine;
 
-namespace Fungus.GameSystem.ObjectManager
+namespace Fungus.GameSystem.Data
 {
     public enum DataTag
     {
         ActorName,
 
-        Stress, Damage, Potion,
+        Stress, BonusStress, Damage, Potion,
         InfectionAttack, InfectionDefend, InfectionRecovery,
         EnergyRestore, EnergyDrain,
         HP, HPRestore,

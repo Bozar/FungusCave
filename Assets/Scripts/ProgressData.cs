@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus.GameSystem.Data;
+using UnityEngine;
 
 namespace Fungus.GameSystem
 {

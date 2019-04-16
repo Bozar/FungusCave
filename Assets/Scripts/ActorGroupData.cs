@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus.GameSystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;

@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.Render;
 using Fungus.Actor.Turn;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;

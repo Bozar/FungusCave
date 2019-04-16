@@ -1,7 +1,8 @@
-﻿using System.Xml.Linq;
+﻿using Fungus.GameSystem.SaveLoadData;
+using System.Xml.Linq;
 using UnityEngine;
 
-namespace Fungus.GameSystem
+namespace Fungus.GameSystem.Data
 {
     // https://stackoverflow.com/questions/10917555/adding-a-new-line-break-tag-in-xml
     public class GameText : MonoBehaviour, IGetData

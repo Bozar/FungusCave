@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Fungus.GameSystem
         }
 
         public bool PrintEnergyCost { get; private set; }
+
         public bool RenderAll { get; private set; }
 
         public void AddEnergy()

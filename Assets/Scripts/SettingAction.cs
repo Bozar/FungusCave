@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn

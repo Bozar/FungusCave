@@ -1,7 +1,8 @@
-﻿using System.Xml.Linq;
+﻿using Fungus.GameSystem.SaveLoadData;
+using System.Xml.Linq;
 using UnityEngine;
 
-namespace Fungus.GameSystem
+namespace Fungus.GameSystem.Data
 {
     public interface IGetData
     {
