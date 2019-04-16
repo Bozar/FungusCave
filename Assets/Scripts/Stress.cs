@@ -9,7 +9,6 @@ namespace Fungus.Actor
     public class Stress : MonoBehaviour
     {
         private ActorData actorData;
-        private int bonusStress;
 
         public int CurrentStress { get; private set; }
 
@@ -23,7 +22,8 @@ namespace Fungus.Actor
                 if ((GetComponent<Power>() != null)
                     && GetComponent<Power>().IsActive(PowerTag.DefInfection1))
                 {
-                    stress += bonusStress;
+                    stress += actorData.GetIntData(
+                        GetComponent<MetaInfo>().SubTag, DataTag.BonusStress);
                 }
 
                 return stress;
@@ -44,11 +44,6 @@ namespace Fungus.Actor
         public void LoseStress(int stress)
         {
             CurrentStress = Math.Max(0, CurrentStress - stress);
-        }
-
-        private void Awake()
-        {
-            bonusStress = 1;
         }
 
         private void Start()

@@ -44,7 +44,7 @@
     <Start>2</Start>
     <Bonus>1</Bonus>
     <ReducedHP>5</ReducedHP>
-    <RelieveStress>3</RelieveStress>
+    <RelieveStress>9</RelieveStress>
     <RestoreEnergy>9999</RestoreEnergy>
   </Potion>
   <Infection>

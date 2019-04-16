@@ -17,6 +17,7 @@
     <EnergyDrain>0</EnergyDrain>
     <!-- Infection -->
     <Stress>0</Stress>
+    <BonusStress>0</BonusStress>
     <InfectionAttack>0</InfectionAttack>
     <InfectionDefend>0</InfectionDefend>
     <InfectionRecovery>1</InfectionRecovery>
@@ -71,6 +72,7 @@
     <EnergyRestore>400</EnergyRestore>
     <!-- Infection -->
     <Stress>3</Stress>
+    <BonusStress>1</BonusStress>
     <InfectionAttack>80</InfectionAttack>
     <InfectionDefend>40</InfectionDefend>
   </PC>
