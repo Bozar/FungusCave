@@ -1,9 +1,14 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Linq;
 using UnityEngine;
 
 namespace Fungus.GameSystem
 {
+    public enum SLDataTag { INVALID, Seed, Actor, Map };
+
     public interface ISaveLoad
     {
         void Load();
@@ -13,7 +18,31 @@ namespace Fungus.GameSystem
 
     public class SaveLoad : MonoBehaviour
     {
-        private string defaultDirectory;
+        private string binaryDirectory;
+        private string xmlDirectory;
+
+        public Dictionary<SLDataTag, ISaveLoad> LoadBinary(
+            string fileName, string directory)
+        {
+            IFormatter bf = new BinaryFormatter();
+            Dictionary<SLDataTag, ISaveLoad> data;
+            string path = Path.Combine(directory, fileName);
+
+            if (File.Exists(path))
+            {
+                using (FileStream fs = File.OpenRead(path))
+                {
+                    data = (Dictionary<SLDataTag, ISaveLoad>)bf.Deserialize(fs);
+                }
+                return data;
+            }
+            throw new FileNotFoundException();
+        }
+
+        public Dictionary<SLDataTag, ISaveLoad> LoadBinary(string fileName)
+        {
+            return LoadBinary(fileName, binaryDirectory);
+        }
 
         public XElement LoadXML(string fileName, string directory)
         {
@@ -28,12 +57,34 @@ namespace Fungus.GameSystem
 
         public XElement LoadXML(string fileName)
         {
-            return LoadXML(fileName, defaultDirectory);
+            return LoadXML(fileName, xmlDirectory);
+        }
+
+        public void SaveBinary(Dictionary<SLDataTag, ISaveLoad> data,
+            string fileName, string directory)
+        {
+            IFormatter bf = new BinaryFormatter();
+            string path = Path.Combine(directory, fileName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            using (FileStream fs = File.Create(path))
+            {
+                bf.Serialize(fs, data);
+            }
+        }
+
+        public void SaveBinary(Dictionary<SLDataTag, ISaveLoad> data,
+           string fileName)
+        {
+            SaveBinary(data, fileName, binaryDirectory);
         }
 
         public void SaveXML(XElement xele, string fileName)
         {
-            SaveXML(xele, fileName, defaultDirectory);
+            SaveXML(xele, fileName, xmlDirectory);
         }
 
         public void SaveXML(XElement xele, string fileName, string directory)
@@ -44,9 +95,13 @@ namespace Fungus.GameSystem
 
         private void Awake()
         {
-            defaultDirectory = "Data";
-            defaultDirectory = Path.Combine(Directory.GetCurrentDirectory(),
-                defaultDirectory);
+            xmlDirectory = "Data";
+            xmlDirectory = Path.Combine(Directory.GetCurrentDirectory(),
+                xmlDirectory);
+
+            binaryDirectory = "Save";
+            binaryDirectory = Path.Combine(Directory.GetCurrentDirectory(),
+                binaryDirectory);
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,19 +44,16 @@ namespace Fungus.GameSystem
 
         private void TestLoad()
         {
-            IFormatter formatter = new BinaryFormatter();
-            MySave ms;
-
-            using (FileStream s = File.OpenRead("serialized.bin"))
-            {
-                ms = (MySave)formatter.Deserialize(s);
-            }
+            var lb = GetComponent<SaveLoad>().LoadBinary("test.bin");
+            MySave ms = lb[SLDataTag.Actor] as MySave;
 
             Debug.Log(ms.MyNum);
             Debug.Log(ms.MyStr);
 
             Debug.Log(ms.MyDict[0].MyNum);
             Debug.Log(ms.MyDict[0].MyStr);
+
+            Debug.Log(ms.NewSave);
         }
 
         private void TestSave()
@@ -69,10 +63,11 @@ namespace Fungus.GameSystem
             ms.MyStr = "Hello world";
             ms.MyDict = new Dictionary<int, MySave>
             { { 0, new MySave { MyNum = 24, MyStr = "Good night" } } };
-            IFormatter formatter = new BinaryFormatter();
+            ms.NewSave = new NewSave { Name = "My new save" }.Name;
 
-            using (FileStream s = File.Create("serialized.bin"))
-            { formatter.Serialize(s, ms); }
+            var mySave = new Dictionary<SLDataTag, ISaveLoad>()
+            { { SLDataTag.Actor, ms } };
+            GetComponent<SaveLoad>().SaveBinary(mySave, "test.bin");
 
             Debug.Log("File save");
         }
@@ -87,10 +82,26 @@ namespace Fungus.GameSystem
     }
 
     [Serializable]
-    public class MySave
+    public class MySave : ISaveLoad
     {
         public int MyNum;
         public string MyStr;
+        public string NewSave;
         internal Dictionary<int, MySave> MyDict;
+
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NewSave
+    {
+        public string Name;
     }
 }
