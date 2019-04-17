@@ -48,11 +48,7 @@ namespace Fungus.Actor
 
         public void GainInfection(GameObject attacker)
         {
-            int count;
-            InfectionTag tag;
-            int duration;
-
-            if (!IsInfected(attacker, out count))
+            if (!IsInfected(attacker, out int count))
             {
                 return;
             }
@@ -66,7 +62,7 @@ namespace Fungus.Actor
                 }
 
                 GetComponent<ICombatMessage>().IsInfected();
-                if (HasInfection(out tag, out duration))
+                if (HasInfection(out InfectionTag tag, out _))
                 {
                     infectionDict[tag]
                         = Math.Min(infectionData.MaxDuration,

@@ -59,10 +59,7 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
-            if (GetComponent<FieldOfView>() != null)
-            {
-                GetComponent<FieldOfView>().UpdateFOV();
-            }
+            GetComponent<FieldOfView>()?.UpdateFOV();
 
             if (!checkEnergy)
             {

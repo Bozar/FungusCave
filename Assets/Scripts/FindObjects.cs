@@ -18,7 +18,9 @@ namespace Fungus.GameSystem
         public static GameObject GameLogic { get; private set; }
 
         public static string IconEnemy { get { return "@"; } }
+
         public static string IconFog { get { return "%"; } }
+
         public static string IconPool { get { return "="; } }
 
         public static GameObject PC
@@ -47,9 +49,7 @@ namespace Fungus.GameSystem
 
         public static GameObject GetStaticActor(SubObjectTag tag)
         {
-            GameObject checkActor;
-
-            if (actorDict.TryGetValue(tag, out checkActor)
+            if (actorDict.TryGetValue(tag, out GameObject checkActor)
                 && (checkActor != null))
             {
                 return checkActor;
@@ -70,9 +70,7 @@ namespace Fungus.GameSystem
 
         public static void SetStaticActor(SubObjectTag tag, GameObject actor)
         {
-            GameObject checkActor;
-
-            if (actorDict.TryGetValue(tag, out checkActor)
+            if (actorDict.TryGetValue(tag, out GameObject checkActor)
                 && (checkActor != null))
             {
                 Debug.Log(tag.ToString() + " already exists.");

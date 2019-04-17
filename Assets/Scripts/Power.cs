@@ -13,10 +13,7 @@ namespace Fungus.Actor
 
         public void BuyPower(PowerTag power)
         {
-            PowerSlotTag slot;
-            int potion;
-
-            if (IsBuyable(power, out slot, out potion))
+            if (IsBuyable(power, out PowerSlotTag slot, out int potion))
             {
                 GainPower(slot, power);
                 GetComponent<Potion>().LosePotion(potion);
@@ -61,12 +58,9 @@ namespace Fungus.Actor
 
         public bool IsActive(PowerTag power)
         {
-            bool isActive;
-            PowerTag powerInSlot;
-
             foreach (PowerSlotTag slot in Enum.GetValues(typeof(PowerSlotTag)))
             {
-                if (HasPower(slot, out powerInSlot, out isActive)
+                if (HasPower(slot, out PowerTag powerInSlot, out bool isActive)
                     && (power == powerInSlot))
                 {
                     return isActive;
@@ -77,10 +71,7 @@ namespace Fungus.Actor
 
         public bool IsBuyable(PowerTag power)
         {
-            PowerSlotTag slot;
-            int potion;
-
-            return IsBuyable(power, out slot, out potion);
+            return IsBuyable(power, out _, out _);
         }
 
         public bool IsBuyable(PowerTag power,

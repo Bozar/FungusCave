@@ -15,25 +15,15 @@ namespace Fungus.Actor.Turn
         public void EndTurn()
         {
             GetComponent<Infection>().Count();
-
-            // TODO: Update after Unity 2018.3.
-            if (GetComponent<TurnIndicator>() != null)
-            {
-                GetComponent<TurnIndicator>().Count();
-                GetComponent<TurnIndicator>().Trigger();
-            }
+            GetComponent<TurnIndicator>()?.Count();
+            GetComponent<TurnIndicator>()?.Trigger();
         }
 
         public void StartTurn()
         {
             GetComponent<Energy>().Trigger();
             GetComponent<IHP>().Trigger();
-
-            // TODO: Update after Unity 2018.3.
-            if (GetComponent<PCAutoExplore>() != null)
-            {
-                GetComponent<PCAutoExplore>().Count();
-            }
+            GetComponent<PCAutoExplore>()?.Count();
 
             //if (GetComponent<NPCMemory>() != null)
             //{

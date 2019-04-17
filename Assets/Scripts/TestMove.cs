@@ -116,10 +116,7 @@ namespace Fungus.GameSystem
                 actor.transform.position += moveHere;
                 countStep++;
 
-                if (actor.GetComponent<FieldOfView>() != null)
-                {
-                    actor.GetComponent<FieldOfView>().UpdateFOV();
-                }
+                actor.GetComponent<FieldOfView>()?.UpdateFOV();
             }
 
             if (newDirection != Command.INVALID)

@@ -75,11 +75,8 @@ namespace Fungus.GameSystem.Render
 
         private void PrintInfection(GameObject actor)
         {
-            int duration;
-            InfectionTag tag;
-
             if (actor.GetComponent<Infection>().HasInfection(
-                out tag, out duration))
+                out InfectionTag tag, out int duration))
             {
                 getUI(UITag.ExamineInfectionLabel).text
                         = infectionData.GetInfectionName(tag);

@@ -47,10 +47,7 @@ namespace Fungus.Actor.Turn
                 return;
             }
 
-            if (GetComponent<FieldOfView>() != null)
-            {
-                GetComponent<FieldOfView>().UpdateFOV();
-            }
+            GetComponent<FieldOfView>()?.UpdateFOV();
 
             switch (GetComponent<ActorAI>().DummyAI())
             {

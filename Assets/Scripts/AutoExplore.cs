@@ -28,9 +28,8 @@ namespace Fungus.Actor.AI
 
         public int[] GetDestination()
         {
-            Stack<int[]> startPoint = new Stack<int[]>();
-
-            if (!GetComponent<IAutoExplore>().GetStartPoint(out startPoint))
+            if (!GetComponent<IAutoExplore>().GetStartPoint(
+                out Stack<int[]> startPoint))
             {
                 return null;
             }

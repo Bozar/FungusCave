@@ -166,8 +166,7 @@ namespace Fungus.GameSystem
             // Random numbers from leaf seeds are pregenerated and stored in
             // seedIntQueue. Generate more numbers and a new leaf seed when the
             // queue is almost consumed.
-            Queue<int> intQueue;
-            if (seedIntQueue.TryGetValue(seed, out intQueue))
+            if (seedIntQueue.TryGetValue(seed, out Queue<int> intQueue))
             {
                 if (intQueue.Count > minQueueLength)
                 {
