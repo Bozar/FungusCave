@@ -1,58 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public enum SLDataTag { INVALID, Dungeon, Seed, Actor };
-
-    public interface IDataTemplate
-    {
-        SLDataTag DataTag { get; }
-    }
-
     public class SaveLoadGame : MonoBehaviour
     {
-        //private string dungeonFile;
-        //private string gameFile;
+        private Stack<IDataTemplate> dtStack;
+        private string dungeonFile;
+        private string gameFile;
 
-        public void LoadTestData()
+        public void LoadDungeonLevel()
         {
-            IDataTemplate[] load = GetComponent<SaveLoadFile>().LoadBinary("test.bin");
-            TestData data = load[0] as TestData;
+            IDataTemplate[] data
+                = GetComponent<SaveLoadFile>().LoadBinary(dungeonFile);
 
-            Debug.Log(data.MyNum);
-            Debug.Log(data.MyStr);
-            Debug.Log(data.MyDict[123]);
+            foreach (IDataTemplate dt in data)
+            {
+                switch (dt.DataTag)
+                {
+                    case DataTemplateTag.Dungeon:
+                        break;
+
+                    case DataTemplateTag.Seed:
+                        GetComponent<RandomNumber>().Load(dt as DTSeed);
+                        break;
+
+                    case DataTemplateTag.Actor:
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            if (!GetComponent<WizardMode>().IsWizardMode)
+            {
+                GetComponent<SaveLoadFile>().DeleteBinary(dungeonFile);
+            }
         }
 
-        public void SaveTestData()
+        public void SaveDungeonLevel()
         {
-            Stack<IDataTemplate> save = new Stack<IDataTemplate>();
+            dtStack = new Stack<IDataTemplate>();
 
-            TestData data = new TestData { };
-            data.MyNum = 42;
-            data.MyStr = "Hello world";
-            data.MyDict = new Dictionary<int, string>() { { 123, "Unity" } };
+            SaveSeed();
 
-            save.Push(data);
-            GetComponent<SaveLoadFile>().SaveBinary(save.ToArray(), "test.bin");
+            GetComponent<SaveLoadFile>().SaveBinary(
+                dtStack.ToArray(), dungeonFile);
         }
 
-        //private void Awake()
-        //{
-        //    dungeonFile = "dungeon.bin";
-        //    gameFile = "save.bin";
-        //}
-    }
+        private void Awake()
+        {
+            dungeonFile = "dungeon.bin";
+            gameFile = "save.bin";
+        }
 
-    [Serializable]
-    public class TestData : IDataTemplate
-    {
-        public Dictionary<int, string> MyDict;
-        public int MyNum;
-        public string MyStr;
-
-        public SLDataTag DataTag { get { return SLDataTag.INVALID; } }
+        private void SaveSeed()
+        {
+            GetComponent<RandomNumber>().Save(out DTSeed data);
+            dtStack.Push(data);
+        }
     }
 }

@@ -41,6 +41,13 @@ namespace Fungus.GameSystem
             InitializeSeedInt();
         }
 
+        public void Load(DTSeed data)
+        {
+            seedInt = data.SeedInt;
+            seedIntQueue = data.SeedIntQueue;
+            RootSeed = seedInt[SeedTag.Root];
+        }
+
         public void Load()
         {
             RootSeed = GetComponent<GameSetting>().Seed;
@@ -68,6 +75,15 @@ namespace Fungus.GameSystem
 
             ReplenishSeedIntQueue(tag);
             return DequeInt(tag, min, max);
+        }
+
+        public void Save(out DTSeed data)
+        {
+            data = new DTSeed
+            {
+                SeedInt = seedInt,
+                SeedIntQueue = seedIntQueue
+            };
         }
 
         public void Save()

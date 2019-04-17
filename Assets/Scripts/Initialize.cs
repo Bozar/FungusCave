@@ -25,6 +25,7 @@ namespace Fungus.GameSystem
 
             Initialized = true;
 
+            //GetComponent<SaveLoadGame>().LoadDungeonLevel();
             GetComponent<RandomNumber>().Initialize();
             Debug.Log(GetComponent<RandomNumber>().RootSeed);
 
@@ -37,8 +38,7 @@ namespace Fungus.GameSystem
             GetComponent<SubMode>().SwitchModeOpening(
                 GetComponent<GameSetting>().ShowOpening);
 
-            //GetComponent<SaveLoadGame>().SaveTestData();
-            //GetComponent<SaveLoadGame>().LoadTestData();
+            //GetComponent<SaveLoadGame>().SaveDungeonLevel();
         }
 
         private void Update()

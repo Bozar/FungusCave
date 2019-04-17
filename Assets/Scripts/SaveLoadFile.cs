@@ -18,6 +18,21 @@ namespace Fungus.GameSystem.SaveLoadData
         private string binaryDirectory;
         private string xmlDirectory;
 
+        public void DeleteBinary(string fileName, string directory)
+        {
+            string path = Path.Combine(directory, fileName);
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
+        public void DeleteBinary(string fileName)
+        {
+            DeleteBinary(fileName, binaryDirectory);
+        }
+
         public IDataTemplate[] LoadBinary(string fileName, string directory)
         {
             IFormatter bf = new BinaryFormatter();
