@@ -6,7 +6,14 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public interface ISaveLoad
+    public interface ISaveLoadBinary
+    {
+        void Load(IDataTemplate data);
+
+        void Save(out IDataTemplate data);
+    }
+
+    public interface ISaveLoadXML
     {
         void Load();
 

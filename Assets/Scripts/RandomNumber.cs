@@ -17,7 +17,8 @@ namespace Fungus.GameSystem
         AutoExplore, Infection, NPCAction
     }
 
-    public class RandomNumber : MonoBehaviour, ISaveLoad, IInitialize
+    public class RandomNumber : MonoBehaviour,
+        ISaveLoadXML, ISaveLoadBinary, IInitialize
     {
         private int maxQueueLength;
         private int minQueueLength;
@@ -41,10 +42,12 @@ namespace Fungus.GameSystem
             InitializeSeedInt();
         }
 
-        public void Load(DTSeed data)
+        public void Load(IDataTemplate data)
         {
-            seedInt = data.SeedInt;
-            seedIntQueue = data.SeedIntQueue;
+            DTSeed value = data as DTSeed;
+
+            seedInt = value.SeedInt;
+            seedIntQueue = value.SeedIntQueue;
             RootSeed = seedInt[SeedTag.Root];
         }
 
@@ -77,7 +80,7 @@ namespace Fungus.GameSystem
             return DequeInt(tag, min, max);
         }
 
-        public void Save(out DTSeed data)
+        public void Save(out IDataTemplate data)
         {
             data = new DTSeed
             {

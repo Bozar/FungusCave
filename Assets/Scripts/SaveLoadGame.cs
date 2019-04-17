@@ -22,7 +22,7 @@ namespace Fungus.GameSystem.SaveLoadData
                         break;
 
                     case DataTemplateTag.Seed:
-                        GetComponent<RandomNumber>().Load(dt as DTSeed);
+                        GetComponent<RandomNumber>().Load(dt);
                         break;
 
                     case DataTemplateTag.Actor:
@@ -57,7 +57,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         private void SaveSeed()
         {
-            GetComponent<RandomNumber>().Save(out DTSeed data);
+            GetComponent<RandomNumber>().Save(out IDataTemplate data);
             dtStack.Push(data);
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.Data
 {
-    public class GameSetting : MonoBehaviour, ISaveLoad
+    public class GameSetting : MonoBehaviour, ISaveLoadXML
     {
         private string fileName;
         private XElement xFile;
