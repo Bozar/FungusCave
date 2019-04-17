@@ -1,8 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
-using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,37 +37,8 @@ namespace Fungus.GameSystem
             GetComponent<SubMode>().SwitchModeOpening(
                 GetComponent<GameSetting>().ShowOpening);
 
-            //TestSave();
-            //TestLoad();
-        }
-
-        private void TestLoad()
-        {
-            var lb = GetComponent<SaveLoadFile>().LoadBinary("test.bin");
-            MySave ms = lb[0] as MySave;
-
-            Debug.Log(ms.MyNum);
-            Debug.Log(ms.MyStr);
-
-            Debug.Log(ms.MyDict[0].MyNum);
-            Debug.Log(ms.MyDict[0].MyStr);
-
-            Debug.Log(ms.NewSave);
-        }
-
-        private void TestSave()
-        {
-            MySave ms = new MySave { };
-            ms.MyNum = 42;
-            ms.MyStr = "Hello world";
-            ms.MyDict = new Dictionary<int, MySave>
-            { { 0, new MySave { MyNum = 24, MyStr = "Good night" } } };
-            ms.NewSave = new NewSave { Name = "My new save" }.Name;
-
-            var mySave = new ISaveLoad[] { ms };
-            GetComponent<SaveLoadFile>().SaveBinary(mySave, "test.bin");
-
-            Debug.Log("File save");
+            //GetComponent<SaveLoadGame>().SaveTestData();
+            //GetComponent<SaveLoadGame>().LoadTestData();
         }
 
         private void Update()
@@ -80,29 +48,5 @@ namespace Fungus.GameSystem
                 InitializeGame();
             }
         }
-    }
-
-    [Serializable]
-    public class MySave : ISaveLoad
-    {
-        public Dictionary<int, MySave> MyDict;
-        public int MyNum;
-        public string MyStr;
-        public string NewSave;
-
-        public void Load()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class NewSave
-    {
-        public string Name;
     }
 }

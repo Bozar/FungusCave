@@ -1,83 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
+    public enum SLDataTag { INVALID, Dungeon, Seed, Actor };
+
+    public interface IDataTemplate
+    {
+        SLDataTag DataTag { get; }
+    }
+
     public class SaveLoadGame : MonoBehaviour
     {
-        private List<ISaveLoad> dungeonData;
-        private string dungeonFile;
-        private List<ISaveLoad> gameData;
-        private string gameFile;
+        //private string dungeonFile;
+        //private string gameFile;
 
-        public void AddDungeonData(ISaveLoad data)
+        public void LoadTestData()
         {
-            dungeonData.Add(data);
+            IDataTemplate[] load = GetComponent<SaveLoadFile>().LoadBinary("test.bin");
+            TestData data = load[0] as TestData;
+
+            Debug.Log(data.MyNum);
+            Debug.Log(data.MyStr);
+            Debug.Log(data.MyDict[123]);
         }
 
-        public void AddGameData(ISaveLoad data)
+        public void SaveTestData()
         {
-            gameData.Add(data);
+            Stack<IDataTemplate> save = new Stack<IDataTemplate>();
+
+            TestData data = new TestData { };
+            data.MyNum = 42;
+            data.MyStr = "Hello world";
+            data.MyDict = new Dictionary<int, string>() { { 123, "Unity" } };
+
+            save.Push(data);
+            GetComponent<SaveLoadFile>().SaveBinary(save.ToArray(), "test.bin");
         }
 
-        public void LoadDungeonData()
-        {
-            LoadData(dungeonFile);
-        }
+        //private void Awake()
+        //{
+        //    dungeonFile = "dungeon.bin";
+        //    gameFile = "save.bin";
+        //}
+    }
 
-        public void LoadGameData()
-        {
-            LoadData(gameFile);
-        }
+    [Serializable]
+    public class TestData : IDataTemplate
+    {
+        public Dictionary<int, string> MyDict;
+        public int MyNum;
+        public string MyStr;
 
-        public void RemoveDungeonData(ISaveLoad data)
-        {
-            dungeonData.Remove(data);
-        }
-
-        public void RemoveGameData(ISaveLoad data)
-        {
-            gameData.Remove(data);
-        }
-
-        public void SaveDungeonData()
-        {
-            SaveData(dungeonData, dungeonFile);
-        }
-
-        public void SaveGameData()
-        {
-            SaveData(gameData, gameFile);
-        }
-
-        private void Awake()
-        {
-            dungeonFile = "dungeon.bin";
-            gameFile = "save.bin";
-        }
-
-        private void LoadData(string fileName)
-        {
-            ISaveLoad[] data = GetComponent<SaveLoadFile>().LoadBinary(fileName);
-            foreach (ISaveLoad sl in data)
-            {
-                sl.Load();
-            }
-            // TODO: Remove the save file.
-        }
-
-        private void SaveData(List<ISaveLoad> data, string fileName)
-        {
-            if (data.Count < 1)
-            {
-                return;
-            }
-
-            foreach (ISaveLoad sl in data)
-            {
-                sl.Save();
-            }
-            GetComponent<SaveLoadFile>().SaveBinary(data.ToArray(), fileName);
-        }
+        public SLDataTag DataTag { get { return SLDataTag.INVALID; } }
     }
 }

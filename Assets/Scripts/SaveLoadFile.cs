@@ -18,24 +18,24 @@ namespace Fungus.GameSystem.SaveLoadData
         private string binaryDirectory;
         private string xmlDirectory;
 
-        public ISaveLoad[] LoadBinary(string fileName, string directory)
+        public IDataTemplate[] LoadBinary(string fileName, string directory)
         {
             IFormatter bf = new BinaryFormatter();
-            ISaveLoad[] data;
+            IDataTemplate[] data;
             string path = Path.Combine(directory, fileName);
 
             if (File.Exists(path))
             {
                 using (FileStream fs = File.OpenRead(path))
                 {
-                    data = (ISaveLoad[])bf.Deserialize(fs);
+                    data = (IDataTemplate[])bf.Deserialize(fs);
                 }
                 return data;
             }
             throw new FileNotFoundException();
         }
 
-        public ISaveLoad[] LoadBinary(string fileName)
+        public IDataTemplate[] LoadBinary(string fileName)
         {
             return LoadBinary(fileName, binaryDirectory);
         }
@@ -56,7 +56,7 @@ namespace Fungus.GameSystem.SaveLoadData
             return LoadXML(fileName, xmlDirectory);
         }
 
-        public void SaveBinary(ISaveLoad[] data,
+        public void SaveBinary(IDataTemplate[] data,
             string fileName, string directory)
         {
             IFormatter bf = new BinaryFormatter();
@@ -72,7 +72,7 @@ namespace Fungus.GameSystem.SaveLoadData
             }
         }
 
-        public void SaveBinary(ISaveLoad[] data, string fileName)
+        public void SaveBinary(IDataTemplate[] data, string fileName)
         {
             SaveBinary(data, fileName, binaryDirectory);
         }
