@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - GameLogic
-  - UI
   - PC
+  - UI
   layers:
   - Default
   - TransparentFX
