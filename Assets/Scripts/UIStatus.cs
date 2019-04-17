@@ -70,7 +70,8 @@ namespace Fungus.GameSystem.Render
         {
             string dungeon = GetComponent<GameText>().GetStringData(parentNode,
                 "DungeonLevel");
-            string level = GetComponent<ProgressData>().CurrentDungeonLevel;
+            string level = GetComponent<ProgressData>().GetDungeonLevel()
+                .ToString();
 
             // DL1
             level = level.Replace("DL", "");

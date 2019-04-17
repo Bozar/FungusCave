@@ -1,5 +1,4 @@
 ﻿using Fungus.GameSystem.ObjectManager;
-using System;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
@@ -20,8 +19,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             get
             {
-                return (SeedTag)Enum.Parse(typeof(SeedTag),
-                    GetComponent<ProgressData>().CurrentDungeonLevel);
+                return GetComponent<ProgressData>().GetDungeonSeed();
             }
         }
 

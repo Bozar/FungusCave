@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using System;
 using UnityEngine;
 
 namespace Fungus.GameSystem
@@ -7,7 +8,7 @@ namespace Fungus.GameSystem
 
     public class ProgressData : MonoBehaviour
     {
-        public string CurrentDungeonLevel { get; private set; }
+        private string dungeonLevel;
 
         public int MaxActor
         {
@@ -27,9 +28,19 @@ namespace Fungus.GameSystem
             }
         }
 
+        public DungeonLevel GetDungeonLevel()
+        {
+            return (DungeonLevel)Enum.Parse(typeof(DungeonLevel), dungeonLevel);
+        }
+
+        public SeedTag GetDungeonSeed()
+        {
+            return (SeedTag)Enum.Parse(typeof(SeedTag), dungeonLevel);
+        }
+
         private void Start()
         {
-            CurrentDungeonLevel = GetComponent<GameData>().GetStringData(
+            dungeonLevel = GetComponent<GameData>().GetStringData(
                 "Dungeon", "StartLevel");
         }
     }

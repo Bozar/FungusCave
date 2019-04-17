@@ -1,6 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
 using Fungus.GameSystem.ObjectManager;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +7,10 @@ namespace Fungus.GameSystem.WorldBuilding
 {
     public class ActorGroup : MonoBehaviour
     {
-        private ProgressData progress;
-
         public SubObjectTag[] GetActor()
         {
-            DungeonLevel level = (DungeonLevel)Enum.Parse(typeof(DungeonLevel),
-                progress.CurrentDungeonLevel);
+            ProgressData progress = GetComponent<ProgressData>();
+            DungeonLevel level = progress.GetDungeonLevel();
             int maxSoldier = progress.MaxSoldier;
             int maxActor = progress.MaxActor;
             int potion = 0;
@@ -41,11 +38,6 @@ namespace Fungus.GameSystem.WorldBuilding
             }
 
             return actors.ToArray();
-        }
-
-        private void Start()
-        {
-            progress = GetComponent<ProgressData>();
         }
     }
 }
