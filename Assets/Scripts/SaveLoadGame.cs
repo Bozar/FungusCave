@@ -5,9 +5,10 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public class SaveLoadGame : MonoBehaviour
     {
-        private Stack<IDataTemplate> dtStack;
         private string dungeonFile;
         private string gameFile;
+        private ISaveLoadBinary[] saveGame;
+        private ISaveLoadBinary[] saveLevel;
 
         public void LoadDungeonLevel()
         {
@@ -16,13 +17,17 @@ namespace Fungus.GameSystem.SaveLoadData
 
             foreach (IDataTemplate dt in data)
             {
-                switch (dt.DataTag)
+                switch (dt.DTTag)
                 {
                     case DataTemplateTag.Dungeon:
                         break;
 
                     case DataTemplateTag.Seed:
                         GetComponent<RandomNumber>().Load(dt);
+                        break;
+
+                    case DataTemplateTag.Progress:
+                        GetComponent<ProgressData>().Load(dt);
                         break;
 
                     case DataTemplateTag.Actor:
@@ -41,12 +46,14 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public void SaveDungeonLevel()
         {
-            dtStack = new Stack<IDataTemplate>();
+            Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
 
-            SaveSeed();
-
-            GetComponent<SaveLoadFile>().SaveBinary(
-                dtStack.ToArray(), dungeonFile);
+            foreach (ISaveLoadBinary slb in saveLevel)
+            {
+                slb.Save(out IDataTemplate data);
+                dt.Push(data);
+            }
+            GetComponent<SaveLoadFile>().SaveBinary(dt.ToArray(), dungeonFile);
         }
 
         private void Awake()
@@ -55,10 +62,12 @@ namespace Fungus.GameSystem.SaveLoadData
             gameFile = "save.bin";
         }
 
-        private void SaveSeed()
+        private void Start()
         {
-            GetComponent<RandomNumber>().Save(out IDataTemplate data);
-            dtStack.Push(data);
+            saveLevel = new ISaveLoadBinary[]
+            {
+                GetComponent<ProgressData>(), GetComponent<RandomNumber>(),
+            };
         }
     }
 }

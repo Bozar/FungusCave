@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
 using System;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Fungus.GameSystem
 {
     public enum DungeonLevel { DL1, DL2, DL3, DL4, DL5 };
 
-    public class ProgressData : MonoBehaviour
+    public class ProgressData : MonoBehaviour, ISaveLoadBinary
     {
         private string dungeonLevel;
 
@@ -36,6 +37,26 @@ namespace Fungus.GameSystem
         public SeedTag GetDungeonSeed()
         {
             return (SeedTag)Enum.Parse(typeof(SeedTag), dungeonLevel);
+        }
+
+        public void Load(IDataTemplate data)
+        {
+            DTProgress value = data as DTProgress;
+            dungeonLevel = value.Progress;
+        }
+
+        public void Save(out IDataTemplate data)
+        {
+            data = new DTProgress { Progress = GetNextLevel() };
+        }
+
+        private string GetNextLevel()
+        {
+            int level = (int)GetDungeonLevel() + 1;
+            int max = Enum.GetValues(typeof(DungeonLevel)).Length - 1;
+            level = Math.Min(level, max);
+
+            return ((DungeonLevel)level).ToString();
         }
 
         private void Start()

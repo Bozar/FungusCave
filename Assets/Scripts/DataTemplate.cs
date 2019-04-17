@@ -4,15 +4,23 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public enum DataTemplateTag { INVALID, Dungeon, Seed, Actor };
+    public enum DataTemplateTag { INVALID, Seed, Progress, Dungeon, Actor };
 
     public interface IDataTemplate
     {
-        DataTemplateTag DataTag { get; }
+        DataTemplateTag DTTag { get; }
     }
 
     public class DataTemplate : MonoBehaviour
     {
+    }
+
+    [Serializable]
+    public class DTProgress : IDataTemplate
+    {
+        public string Progress;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Progress; } }
     }
 
     [Serializable]
@@ -21,6 +29,6 @@ namespace Fungus.GameSystem.SaveLoadData
         public Dictionary<SeedTag, int> SeedInt;
         public Dictionary<SeedTag, Queue<int>> SeedIntQueue;
 
-        public DataTemplateTag DataTag { get { return DataTemplateTag.Seed; } }
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Seed; } }
     }
 }
