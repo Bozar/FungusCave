@@ -13,7 +13,7 @@ namespace Fungus.GameSystem.SaveLoadData
         void Save();
     }
 
-    public class SaveLoad : MonoBehaviour
+    public class SaveLoadFile : MonoBehaviour
     {
         private string binaryDirectory;
         private string xmlDirectory;

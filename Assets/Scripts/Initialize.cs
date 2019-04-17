@@ -46,7 +46,7 @@ namespace Fungus.GameSystem
 
         private void TestLoad()
         {
-            var lb = GetComponent<SaveLoad>().LoadBinary("test.bin");
+            var lb = GetComponent<SaveLoadFile>().LoadBinary("test.bin");
             MySave ms = lb[0] as MySave;
 
             Debug.Log(ms.MyNum);
@@ -68,7 +68,7 @@ namespace Fungus.GameSystem
             ms.NewSave = new NewSave { Name = "My new save" }.Name;
 
             var mySave = new ISaveLoad[] { ms };
-            GetComponent<SaveLoad>().SaveBinary(mySave, "test.bin");
+            GetComponent<SaveLoadFile>().SaveBinary(mySave, "test.bin");
 
             Debug.Log("File save");
         }

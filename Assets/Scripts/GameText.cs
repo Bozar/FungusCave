@@ -55,7 +55,7 @@ namespace Fungus.GameSystem.Data
 
         private void Start()
         {
-            xFile = GetComponent<SaveLoad>().LoadXML("text.xml");
+            xFile = GetComponent<SaveLoadFile>().LoadXML("text.xml");
         }
     }
 }

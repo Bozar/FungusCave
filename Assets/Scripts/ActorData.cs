@@ -48,7 +48,7 @@ namespace Fungus.GameSystem.Data
         private void Start()
         {
             defaultActor = "DEFAULT";
-            xFile = GetComponent<SaveLoad>().LoadXML("actorData.xml");
+            xFile = GetComponent<SaveLoadFile>().LoadXML("actorData.xml");
         }
     }
 }

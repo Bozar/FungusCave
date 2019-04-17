@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public class SLGame : MonoBehaviour
+    public class SaveLoadGame : MonoBehaviour
     {
         private List<ISaveLoad> dungeonData;
         private string dungeonFile;
@@ -58,7 +58,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         private void LoadData(string fileName)
         {
-            ISaveLoad[] data = GetComponent<SaveLoad>().LoadBinary(fileName);
+            ISaveLoad[] data = GetComponent<SaveLoadFile>().LoadBinary(fileName);
             foreach (ISaveLoad sl in data)
             {
                 sl.Load();
@@ -77,7 +77,7 @@ namespace Fungus.GameSystem.SaveLoadData
             {
                 sl.Save();
             }
-            GetComponent<SaveLoad>().SaveBinary(data.ToArray(), fileName);
+            GetComponent<SaveLoadFile>().SaveBinary(data.ToArray(), fileName);
         }
     }
 }

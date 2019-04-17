@@ -47,12 +47,12 @@ namespace Fungus.GameSystem.Data
 
         public void Load()
         {
-            xFile = GetComponent<SaveLoad>().LoadXML(fileName);
+            xFile = GetComponent<SaveLoadFile>().LoadXML(fileName);
         }
 
         public void Save()
         {
-            GetComponent<SaveLoad>().SaveXML(xFile, fileName);
+            GetComponent<SaveLoadFile>().SaveXML(xFile, fileName);
         }
 
         private void Start()

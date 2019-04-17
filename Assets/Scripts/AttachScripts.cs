@@ -56,9 +56,9 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<ProgressData>();
 
             gameObject.AddComponent<RandomNumber>();
-            gameObject.AddComponent<SaveLoad>();
+            gameObject.AddComponent<SaveLoadFile>();
+            gameObject.AddComponent<SaveLoadGame>();
             gameObject.AddComponent<SchedulingSystem>();
-            gameObject.AddComponent<SLGame>();
             gameObject.AddComponent<SubMode>();
 
             gameObject.AddComponent<UIBuyPower>();
