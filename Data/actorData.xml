@@ -28,18 +28,18 @@
       <Chinese>凶暴鼠</Chinese>
     </ActorName>
     <HP>4</HP>
-    <Damage>3</Damage>
+    <Damage>5</Damage>
     <EnergyRestore>400</EnergyRestore>
-    <InfectionAttack>80</InfectionAttack>
+    <InfectionAttack>200</InfectionAttack>
   </Rat>
   <Frog>
     <ActorName>
       <English>Cursed Frog</English>
       <Chinese>咒蛙</Chinese>
     </ActorName>
-    <HP>4</HP>
+    <HP>6</HP>
     <Damage>5</Damage>
-    <InfectionAttack>80</InfectionAttack>
+    <InfectionAttack>280</InfectionAttack>
   </Frog>
   <BloodFly>
     <ActorName>
