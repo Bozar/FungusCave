@@ -5,15 +5,17 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public class SaveLoadGame : MonoBehaviour
     {
-        private string dungeonFile;
-        private string gameFile;
         private ISaveLoadBinary[] saveGame;
         private ISaveLoadBinary[] saveLevel;
+
+        public string DungeonFile { get; private set; }
+
+        public string GameFile { get; private set; }
 
         public void LoadDungeonLevel()
         {
             IDataTemplate[] data
-                = GetComponent<SaveLoadFile>().LoadBinary(dungeonFile);
+                = GetComponent<SaveLoadFile>().LoadBinary(DungeonFile);
 
             foreach (IDataTemplate dt in data)
             {
@@ -40,9 +42,9 @@ namespace Fungus.GameSystem.SaveLoadData
 
             if (GetComponent<WizardMode>().IsWizardMode)
             {
-                GetComponent<SaveLoadFile>().BackupBinary(dungeonFile);
+                GetComponent<SaveLoadFile>().BackupBinary(DungeonFile);
             }
-            GetComponent<SaveLoadFile>().DeleteBinary(dungeonFile);
+            GetComponent<SaveLoadFile>().DeleteBinary(DungeonFile);
         }
 
         public void SaveDungeonLevel()
@@ -54,13 +56,13 @@ namespace Fungus.GameSystem.SaveLoadData
                 slb.Save(out IDataTemplate data);
                 dt.Push(data);
             }
-            GetComponent<SaveLoadFile>().SaveBinary(dt.ToArray(), dungeonFile);
+            GetComponent<SaveLoadFile>().SaveBinary(dt.ToArray(), DungeonFile);
         }
 
         private void Awake()
         {
-            dungeonFile = "dungeon.bin";
-            gameFile = "save.bin";
+            DungeonFile = "dungeon.bin";
+            GameFile = "save.bin";
         }
 
         private void Start()

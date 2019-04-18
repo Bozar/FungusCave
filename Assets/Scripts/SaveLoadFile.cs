@@ -22,8 +22,9 @@ namespace Fungus.GameSystem.SaveLoadData
 
     public class SaveLoadFile : MonoBehaviour
     {
-        private string binaryDirectory;
-        private string xmlDirectory;
+        public string BinaryDirectory { get; private set; }
+
+        public string XmlDirectory { get; private set; }
 
         public void BackupBinary(string fileName, string directory)
         {
@@ -38,7 +39,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public void BackupBinary(string fileName)
         {
-            BackupBinary(fileName, binaryDirectory);
+            BackupBinary(fileName, BinaryDirectory);
         }
 
         public void DeleteBinary(string fileName, string directory)
@@ -53,7 +54,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public void DeleteBinary(string fileName)
         {
-            DeleteBinary(fileName, binaryDirectory);
+            DeleteBinary(fileName, BinaryDirectory);
         }
 
         public IDataTemplate[] LoadBinary(string fileName, string directory)
@@ -75,7 +76,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public IDataTemplate[] LoadBinary(string fileName)
         {
-            return LoadBinary(fileName, binaryDirectory);
+            return LoadBinary(fileName, BinaryDirectory);
         }
 
         public XElement LoadXML(string fileName, string directory)
@@ -91,7 +92,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public XElement LoadXML(string fileName)
         {
-            return LoadXML(fileName, xmlDirectory);
+            return LoadXML(fileName, XmlDirectory);
         }
 
         public void SaveBinary(IDataTemplate[] data,
@@ -112,12 +113,12 @@ namespace Fungus.GameSystem.SaveLoadData
 
         public void SaveBinary(IDataTemplate[] data, string fileName)
         {
-            SaveBinary(data, fileName, binaryDirectory);
+            SaveBinary(data, fileName, BinaryDirectory);
         }
 
         public void SaveXML(XElement xele, string fileName)
         {
-            SaveXML(xele, fileName, xmlDirectory);
+            SaveXML(xele, fileName, XmlDirectory);
         }
 
         public void SaveXML(XElement xele, string fileName, string directory)
@@ -128,13 +129,13 @@ namespace Fungus.GameSystem.SaveLoadData
 
         private void Awake()
         {
-            xmlDirectory = "Data";
-            xmlDirectory = Path.Combine(Directory.GetCurrentDirectory(),
-                xmlDirectory);
+            XmlDirectory = "Data";
+            XmlDirectory = Path.Combine(Directory.GetCurrentDirectory(),
+                XmlDirectory);
 
-            binaryDirectory = "Save";
-            binaryDirectory = Path.Combine(Directory.GetCurrentDirectory(),
-                binaryDirectory);
+            BinaryDirectory = "Save";
+            BinaryDirectory = Path.Combine(Directory.GetCurrentDirectory(),
+                BinaryDirectory);
         }
     }
 }
