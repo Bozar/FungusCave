@@ -3,6 +3,7 @@ using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Fungus.GameSystem
 {
@@ -53,7 +54,7 @@ namespace Fungus.GameSystem
 
         public void Initialize()
         {
-            GetComponent<Initialize>().InitializeGame();
+            SceneManager.LoadSceneAsync(0);
         }
 
         public void LoseHP()

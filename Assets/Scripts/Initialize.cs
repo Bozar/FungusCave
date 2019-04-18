@@ -1,7 +1,8 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
+using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Fungus.GameSystem
 {
@@ -12,40 +13,63 @@ namespace Fungus.GameSystem
 
     public class Initialize : MonoBehaviour
     {
+        private string dungeon;
+
         public bool Initialized { get; private set; }
 
-        public void InitializeGame()
+        private void InitBlueprint()
         {
-            if (Initialized)
-            {
-                SceneManager.LoadSceneAsync(0);
-                //SceneManager.UnloadSceneAsync(0);
-                return;
-            }
-
-            Initialized = true;
-
-            //GetComponent<SaveLoadGame>().LoadDungeonLevel();
-            GetComponent<RandomNumber>().Initialize();
-            Debug.Log(GetComponent<RandomNumber>().RootSeed);
-
             GetComponent<BlueprintSponge>().DrawBlueprint();
             GetComponent<BlueprintPool>().DrawBlueprint();
             GetComponent<BlueprintFungus>().DrawBlueprint();
+        }
+
+        private void InitializeDungeonLevel()
+        {
+            GetComponent<SaveLoadGame>().LoadDungeonLevel();
+
+            InitBlueprint();
+            InitWorld();
+        }
+
+        private void InitializeGame()
+        {
+            GetComponent<RandomNumber>().Initialize();
+
+            InitBlueprint();
+            InitWorld();
+        }
+
+        private void InitWorld()
+        {
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
 
             GetComponent<SubMode>().SwitchModeOpening(
                 GetComponent<GameSetting>().ShowOpening);
+        }
 
-            //GetComponent<SaveLoadGame>().SaveDungeonLevel();
+        private void Start()
+        {
+            dungeon = Path.Combine(
+                GetComponent<SaveLoadFile>().BinaryDirectory,
+                GetComponent<SaveLoadGame>().DungeonFile);
         }
 
         private void Update()
         {
             if (!Initialized)
             {
-                InitializeGame();
+                if (File.Exists(dungeon))
+                {
+                    InitializeDungeonLevel();
+                }
+                else
+                {
+                    InitializeGame();
+                }
+                Debug.Log(GetComponent<RandomNumber>().RootSeed);
+                Initialized = true;
             }
         }
     }
