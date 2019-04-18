@@ -67,7 +67,8 @@ namespace Fungus.Actor
                 color.ChangeObjectColor(getActor(SubObjectTag.Guide),
                     ColorName.Orange);
 
-                modeline.PrintStaticText("Press Space to proceed.");
+                message.StoreText("Level cleared.");
+                modeline.PrintStaticText("Press Space to continue.");
             }
         }
 
