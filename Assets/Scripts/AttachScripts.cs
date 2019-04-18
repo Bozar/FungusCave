@@ -12,10 +12,6 @@ namespace Fungus.GameSystem
     {
         private void Awake()
         {
-            //gameObject.AddComponent<Singleton>();
-            //gameObject.AddComponent<Test>();
-            //gameObject.AddComponent<TestMove>();
-
             gameObject.AddComponent<ActorBoard>();
             gameObject.AddComponent<ActorData>();
             gameObject.AddComponent<ActorGroup>();
