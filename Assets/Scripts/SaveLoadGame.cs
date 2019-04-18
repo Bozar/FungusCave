@@ -21,18 +21,12 @@ namespace Fungus.GameSystem.SaveLoadData
             {
                 switch (dt.DTTag)
                 {
-                    case DataTemplateTag.Dungeon:
-                        break;
-
                     case DataTemplateTag.Seed:
                         GetComponent<RandomNumber>().Load(dt);
                         break;
 
                     case DataTemplateTag.Progress:
                         GetComponent<ProgressData>().Load(dt);
-                        break;
-
-                    case DataTemplateTag.Actor:
                         break;
 
                     default:
