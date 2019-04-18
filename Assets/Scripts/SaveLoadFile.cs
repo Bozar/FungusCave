@@ -25,6 +25,22 @@ namespace Fungus.GameSystem.SaveLoadData
         private string binaryDirectory;
         private string xmlDirectory;
 
+        public void BackupBinary(string fileName, string directory)
+        {
+            string source = Path.Combine(directory, fileName);
+            string target = Path.Combine(directory, fileName + ".bak");
+
+            if (File.Exists(source))
+            {
+                File.Copy(source, target);
+            }
+        }
+
+        public void BackupBinary(string fileName)
+        {
+            BackupBinary(fileName, binaryDirectory);
+        }
+
         public void DeleteBinary(string fileName, string directory)
         {
             string path = Path.Combine(directory, fileName);

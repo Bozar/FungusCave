@@ -38,10 +38,11 @@ namespace Fungus.GameSystem.SaveLoadData
                 }
             }
 
-            if (!GetComponent<WizardMode>().IsWizardMode)
+            if (GetComponent<WizardMode>().IsWizardMode)
             {
-                GetComponent<SaveLoadFile>().DeleteBinary(dungeonFile);
+                GetComponent<SaveLoadFile>().BackupBinary(dungeonFile);
             }
+            GetComponent<SaveLoadFile>().DeleteBinary(dungeonFile);
         }
 
         public void SaveDungeonLevel()
