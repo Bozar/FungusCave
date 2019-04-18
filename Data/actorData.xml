@@ -22,6 +22,25 @@
     <InfectionDefend>0</InfectionDefend>
     <InfectionRecovery>1</InfectionRecovery>
   </DEFAULT>
+  <Rat>
+    <ActorName>
+      <English>Dire Rat</English>
+      <Chinese>凶暴鼠</Chinese>
+    </ActorName>
+    <HP>4</HP>
+    <Damage>3</Damage>
+    <EnergyRestore>400</EnergyRestore>
+    <InfectionAttack>80</InfectionAttack>
+  </Rat>
+  <Frog>
+    <ActorName>
+      <English>Cursed Frog</English>
+      <Chinese>咒蛙</Chinese>
+    </ActorName>
+    <HP>4</HP>
+    <Damage>5</Damage>
+    <InfectionAttack>80</InfectionAttack>
+  </Frog>
   <BloodFly>
     <ActorName>
       <English>Blood Fly</English>
