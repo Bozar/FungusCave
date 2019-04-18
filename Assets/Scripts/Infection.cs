@@ -58,7 +58,7 @@ namespace Fungus.Actor
                 if (!GetComponent<Stress>().HasMaxStress())
                 {
                     GetComponent<Stress>().GainStress(1);
-                    return;
+                    continue;
                 }
 
                 GetComponent<ICombatMessage>().IsInfected();
