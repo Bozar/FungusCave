@@ -61,6 +61,14 @@ namespace Fungus.Actor
                 message.StoreText("You win.");
                 modeline.PrintStaticText("Press Space to reload.");
             }
+            else if (progress.LevelCleared())
+            {
+                BurySelf();
+                color.ChangeObjectColor(getActor(SubObjectTag.Guide),
+                    ColorName.Orange);
+
+                modeline.PrintStaticText("Press Space to proceed.");
+            }
         }
 
         public void ReviveSelf()

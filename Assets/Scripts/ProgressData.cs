@@ -43,6 +43,16 @@ namespace Fungus.GameSystem
             return (SeedTag)Enum.Parse(typeof(SeedTag), dungeonLevel);
         }
 
+        public DungeonLevel GetNextLevel()
+        {
+            int level = (int)GetDungeonLevel() + 1;
+            int max = (int)GetDungeonLevel(
+                GetComponent<GameData>().GetStringData(node, "MaxLevel"));
+            level = Math.Min(level, max);
+
+            return (DungeonLevel)level;
+        }
+
         public void Load(IDataTemplate data)
         {
             DTProgress value = data as DTProgress;
@@ -51,17 +61,7 @@ namespace Fungus.GameSystem
 
         public void Save(out IDataTemplate data)
         {
-            data = new DTProgress { Progress = GetNextLevel() };
-        }
-
-        private string GetNextLevel()
-        {
-            int level = (int)GetDungeonLevel() + 1;
-            int max = (int)GetDungeonLevel(
-                GetComponent<GameData>().GetStringData(node, "MaxLevel"));
-            level = Math.Min(level, max);
-
-            return ((DungeonLevel)level).ToString();
+            data = new DTProgress { Progress = GetNextLevel().ToString() };
         }
 
         private void Start()

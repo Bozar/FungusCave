@@ -23,7 +23,13 @@ namespace Fungus.GameSystem
 
         public bool IsWin()
         {
-            // TODO: Change this based on dungeon level.
+            DungeonLevel current = GetComponent<ProgressData>().GetDungeonLevel();
+            DungeonLevel next = GetComponent<ProgressData>().GetNextLevel();
+            return (current == next) && LevelCleared();
+        }
+
+        public bool LevelCleared()
+        {
             return kill >= progress.MaxSoldier;
         }
 
