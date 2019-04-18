@@ -47,6 +47,19 @@ namespace Fungus.GameSystem
 
             GetComponent<SubMode>().SwitchModeOpening(
                 GetComponent<GameSetting>().ShowOpening);
+
+            PrintWelcomeMessage();
+        }
+
+        private void PrintWelcomeMessage()
+        {
+            string welcome = "Welcome to Cave %num%.";
+            string level = GetComponent<ProgressData>().GetDungeonLevel()
+                .ToString();
+            level = level.Replace("DL", "");
+            welcome = welcome.Replace("%num%", level);
+
+            GetComponent<CombatMessage>().StoreText(welcome);
         }
 
         private void Start()

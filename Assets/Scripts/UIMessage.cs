@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
@@ -13,12 +14,12 @@ namespace Fungus.GameSystem.Render
 
         public void PrintStaticText()
         {
-            return;
+            throw new NotImplementedException();
         }
 
         public void PrintStaticText(string text)
         {
-            return;
+            throw new NotImplementedException();
         }
 
         public void PrintText()
@@ -38,8 +39,8 @@ namespace Fungus.GameSystem.Render
             }
         }
 
-        // Use GameMessage.StoreText() when possible. This method is reserved for
-        // backward compatibility.
+        // Use CombatMessage.StoreText() when possible. This method is reserved
+        // for backward compatibility.
         public void StoreText(string text)
         {
             GetComponent<CombatMessage>().StoreText(text);
