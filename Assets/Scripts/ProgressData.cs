@@ -10,13 +10,13 @@ namespace Fungus.GameSystem
     public class ProgressData : MonoBehaviour, ISaveLoadBinary
     {
         private string dungeonLevel;
+        private string node;
 
         public int MaxActor
         {
             get
             {
-                return GetComponent<GameData>().GetIntData("Dungeon",
-                    "MaxActor");
+                return GetComponent<GameData>().GetIntData(node, "MaxActor");
             }
         }
 
@@ -24,14 +24,18 @@ namespace Fungus.GameSystem
         {
             get
             {
-                return GetComponent<GameData>().GetIntData("Dungeon",
-                    "MaxSoldier");
+                return GetComponent<GameData>().GetIntData(node, "MaxSoldier");
             }
         }
 
         public DungeonLevel GetDungeonLevel()
         {
-            return (DungeonLevel)Enum.Parse(typeof(DungeonLevel), dungeonLevel);
+            return GetDungeonLevel(dungeonLevel);
+        }
+
+        public DungeonLevel GetDungeonLevel(string level)
+        {
+            return (DungeonLevel)Enum.Parse(typeof(DungeonLevel), level);
         }
 
         public SeedTag GetDungeonSeed()
@@ -53,7 +57,8 @@ namespace Fungus.GameSystem
         private string GetNextLevel()
         {
             int level = (int)GetDungeonLevel() + 1;
-            int max = Enum.GetValues(typeof(DungeonLevel)).Length - 1;
+            int max = (int)GetDungeonLevel(
+                GetComponent<GameData>().GetStringData(node, "MaxLevel"));
             level = Math.Min(level, max);
 
             return ((DungeonLevel)level).ToString();
@@ -61,8 +66,9 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            dungeonLevel = GetComponent<GameData>().GetStringData(
-                "Dungeon", "StartLevel");
+            node = "Dungeon";
+            dungeonLevel = GetComponent<GameData>().GetStringData(node,
+                "StartLevel");
         }
     }
 }

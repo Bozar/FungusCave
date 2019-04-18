@@ -2,6 +2,7 @@
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Dungeon>
     <StartLevel>DL1</StartLevel>
+    <MaxLevel>DL2</MaxLevel>
     <MaxActor>40</MaxActor>
     <MaxSoldier>20</MaxSoldier>
   </Dungeon>
@@ -16,6 +17,18 @@
       <Minion>Beetle</Minion>
       <Soldier>BloodFly</Soldier>
     </DL2>
+    <DL3>
+      <Minion>Beetle</Minion>
+      <Soldier>Corpse</Soldier>
+    </DL3>
+    <DL4>
+      <Minion>Beetle</Minion>
+      <Soldier>YellowOoze</Soldier>
+    </DL4>
+    <DL5>
+      <Minion>Beetle</Minion>
+      <Soldier>Beetle</Soldier>
+    </DL5>
   </ActorGroup>
   <PowerPrerequisite>
     <DefEnergy1>INVALID</DefEnergy1>
