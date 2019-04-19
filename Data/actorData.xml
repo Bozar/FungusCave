@@ -27,18 +27,19 @@
       <English>Dire Rat</English>
       <Chinese>凶暴鼠</Chinese>
     </ActorName>
-    <HP>4</HP>
-    <Damage>5</Damage>
-    <EnergyRestore>400</EnergyRestore>
-    <InfectionAttack>200</InfectionAttack>
+    <HP>5</HP>
+    <Damage>4</Damage>
+    <EnergyRestore>800</EnergyRestore>
+    <InfectionAttack>180</InfectionAttack>
   </Rat>
   <Frog>
     <ActorName>
       <English>Cursed Frog</English>
       <Chinese>咒蛙</Chinese>
     </ActorName>
-    <HP>6</HP>
-    <Damage>5</Damage>
+    <HP>7</HP>
+    <Damage>4</Damage>
+    <EnergyRestore>400</EnergyRestore>
     <InfectionAttack>280</InfectionAttack>
   </Frog>
   <BloodFly>

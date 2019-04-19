@@ -58,7 +58,8 @@
     <Max>9</Max>
     <Start>2</Start>
     <Bonus>1</Bonus>
-    <ReducedHP>5</ReducedHP>
+    <RestoreHP>6</RestoreHP>
+    <MutatedHP>2</MutatedHP>
     <RelieveStress>9</RelieveStress>
     <RestoreEnergy>9999</RestoreEnergy>
   </Potion>

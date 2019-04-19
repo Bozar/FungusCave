@@ -25,12 +25,12 @@ namespace Fungus.GameSystem.ObjectManager
             }
         }
 
-        public int ReducedHP
+        public int MutatedHP
         {
             get
             {
                 return GetComponent<GameData>().GetIntData(node,
-                    "ReducedHP");
+                    "MutatedHP");
             }
         }
 
@@ -49,6 +49,15 @@ namespace Fungus.GameSystem.ObjectManager
             {
                 return GetComponent<GameData>().GetIntData(node,
                     "RestoreEnergy");
+            }
+        }
+
+        public int RestoreHP
+        {
+            get
+            {
+                return GetComponent<GameData>().GetIntData(node,
+                    "RestoreHP");
             }
         }
 

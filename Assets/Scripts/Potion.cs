@@ -20,14 +20,10 @@ namespace Fungus.Actor
                 return;
             }
 
-            if (GetComponent<Infection>().HasInfection(InfectionTag.Mutated))
-            {
-                GetComponent<HP>().GainHP(potionData.ReducedHP);
-            }
-            else
-            {
-                GetComponent<HP>().GainHP(GetComponent<HP>().MaxHP);
-            }
+            int hp = GetComponent<Infection>().HasInfection(InfectionTag.Mutated)
+                ? potionData.MutatedHP
+                : potionData.RestoreHP;
+            GetComponent<HP>().GainHP(hp);
 
             GetComponent<Infection>().ResetInfection();
             GetComponent<Stress>().LoseStress(potionData.RelieveStress);
