@@ -22,7 +22,8 @@ namespace Fungus.GameSystem.ObjectManager
         NONE, DEFAULT,
         Floor, Wall, Pool, Fungus,
         PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog, Opening,
-        Scavenger, Corpse, BloodFly, AcidOoze, YellowOoze, Frog,
+        Scavenger, Carnivore, Corpse, Specter,
+        BloodFly, Frog, AcidOoze, YellowOoze,
         Dummy
     };
 

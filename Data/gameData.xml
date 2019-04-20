@@ -20,8 +20,10 @@
       <Soldier>AcidOoze</Soldier>
     </DL2>
     <DL3>
-      <Minion>Scavenger</Minion>
-      <Soldier>Corpse</Soldier>
+      <Minion>Carnivore</Minion>
+      <Soldier>Specter</Soldier>
+      <Soldier>Frog</Soldier>
+      <Soldier>AcidOoze</Soldier>
     </DL3>
   </ActorGroup>
   <PowerPrerequisite>
