@@ -8,19 +8,19 @@
   </Dungeon>
   <ActorGroup>
     <DL1>
-      <Minion>Beetle</Minion>
+      <Minion>Scavenger</Minion>
       <Soldier>Corpse</Soldier>
       <Soldier>BloodFly</Soldier>
       <Soldier>YellowOoze</Soldier>
     </DL1>
     <DL2>
-      <Minion>Beetle</Minion>
+      <Minion>Scavenger</Minion>
       <Soldier>Corpse</Soldier>
       <Soldier>Frog</Soldier>
       <Soldier>AcidOoze</Soldier>
     </DL2>
     <DL3>
-      <Minion>Beetle</Minion>
+      <Minion>Scavenger</Minion>
       <Soldier>Corpse</Soldier>
     </DL3>
   </ActorGroup>
