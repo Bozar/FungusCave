@@ -2,7 +2,7 @@
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Dungeon>
     <StartLevel>DL2</StartLevel>
-    <MaxLevel>DL2</MaxLevel>
+    <MaxLevel>DL3</MaxLevel>
     <MaxActor>40</MaxActor>
     <MaxSoldier>20</MaxSoldier>
   </Dungeon>
@@ -38,19 +38,19 @@
     <AttDamage1>INVALID</AttDamage1>
   </PowerPrerequisite>
   <PowerCost>
-    <DefEnergy1>3</DefEnergy1>
-    <DefInfection1>3</DefInfection1>
-    <DefHP1>3</DefHP1>
-    <DefEnergy2>6</DefEnergy2>
-    <DefInfection2>6</DefInfection2>
-    <DefHP2>6</DefHP2>
-    <AttEnergy1>6</AttEnergy1>
-    <AttInfection1>6</AttInfection1>
-    <AttDamage1>6</AttDamage1>
+    <DefEnergy1>2</DefEnergy1>
+    <DefInfection1>2</DefInfection1>
+    <DefHP1>2</DefHP1>
+    <DefEnergy2>4</DefEnergy2>
+    <DefInfection2>4</DefInfection2>
+    <DefHP2>4</DefHP2>
+    <AttEnergy1>4</AttEnergy1>
+    <AttInfection1>4</AttInfection1>
+    <AttDamage1>4</AttDamage1>
   </PowerCost>
   <Potion>
-    <Max>6</Max>
-    <Start>2</Start>
+    <Max>4</Max>
+    <Start>3</Start>
     <Bonus>1</Bonus>
     <RestoreHP>10</RestoreHP>
     <MutatedHP>5</MutatedHP>

@@ -38,7 +38,7 @@
       <English>Specter</English>
       <Chinese>怨灵</Chinese>
     </ActorName>
-    <HP>15</HP>
+    <HP>9</HP>
     <Damage>2</Damage>
     <InfectionRecovery>2</InfectionRecovery>
   </Specter>
@@ -56,7 +56,7 @@
       <English>Cursed Frog</English>
       <Chinese>咒蛙</Chinese>
     </ActorName>
-    <HP>10</HP>
+    <HP>8</HP>
     <Damage>3</Damage>
     <InfectionAttack>280</InfectionAttack>
     <EnergyRestore>800</EnergyRestore>
