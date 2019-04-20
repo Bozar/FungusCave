@@ -39,7 +39,7 @@
       <Chinese>怨灵</Chinese>
     </ActorName>
     <HP>9</HP>
-    <Damage>2</Damage>
+    <Damage>3</Damage>
     <InfectionRecovery>2</InfectionRecovery>
   </Specter>
   <AcidOoze>
@@ -49,7 +49,6 @@
     </ActorName>
     <HP>8</HP>
     <Damage>5</Damage>
-    <EnergyRestore>400</EnergyRestore>
   </AcidOoze>
   <Frog>
     <ActorName>
