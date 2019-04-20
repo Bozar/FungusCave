@@ -1,6 +1,5 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.WorldBuilding;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,53 +9,55 @@ namespace Fungus.Actor.AI
     {
         SeedTag GetSeedTag();
 
-        bool GetStartPoint(out Stack<int[]> startPoint);
-
-        bool IsStartPoint(int[] position);
+        bool IsStartPoint(int x, int y);
     }
 
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
     public class AutoExplore : MonoBehaviour
     {
         private readonly int gridSize = 10;
-        private readonly int notChecked = 9999;
-        private int[,] board;
+        private readonly int impassable = 999999;
+        private readonly int notChecked = 111111;
+        private readonly int startPoint = 0;
+        private DungeonBoard board;
         private ConvertCoordinates coord;
-        private DungeonBoard dungeon;
+        private int[,] distanceBoard;
         private RandomNumber random;
         private DungeonTerrain terrain;
 
         public int[] GetDestination()
         {
-            if (!GetComponent<IAutoExplore>().GetStartPoint(
-                out Stack<int[]> startPoint))
+            distanceBoard = ResetBoard(out Stack<int[]> start);
+            if (start.Count < 1)
             {
                 return null;
             }
 
-            ResetBoard();
-            SetDistance(startPoint);
+            SetDistance(distanceBoard, start);
 
-            int[] currentPosition = coord.Convert(transform.position);
-            int[] newPosition = GetNewPosition(currentPosition);
-
-            return newPosition;
+            int[] source = coord.Convert(transform.position);
+            int[] target = GetNewPosition(source);
+            Debug.Log("X: " + source[0] + ", " + target[0]);
+            Debug.Log("Y: " + source[1] + ", " + target[1]);
+            return target;
         }
 
-        private int GetDistance(List<int[]> surround)
+        private int GetNewDistance(int[,] dungeon, int[] check,
+            out int[][] neighbor)
         {
-            int distance = board[surround[0][0], surround[0][1]];
+            List<int[]> surround = coord.SurroundCoord(Surround.Diagonal, check);
+            surround = board.FilterPositions(surround);
+            neighbor = surround.ToArray();
+            int min = dungeon[surround[0][0], surround[0][1]];
 
-            foreach (var pos in surround)
+            foreach (int[] s in surround)
             {
-                if (board[pos[0], pos[1]] < distance)
+                if (dungeon[s[0], s[1]] < min)
                 {
-                    distance = board[pos[0], pos[1]];
+                    min = dungeon[s[0], s[1]];
                 }
             }
-
-            distance = (distance == notChecked) ? 0 : (distance + gridSize);
-            return distance;
+            return min + gridSize;
         }
 
         private int[] GetNewPosition(int[] currentPosition)
@@ -65,20 +66,20 @@ namespace Fungus.Actor.AI
 
             List<int[]> surround = coord.SurroundCoord(
                 Surround.Diagonal, currentPosition);
-            surround = dungeon.FilterPositions(surround);
+            surround = board.FilterPositions(surround);
 
-            int minDistance = board[surround[0][0], surround[0][1]];
+            int minDistance = distanceBoard[surround[0][0], surround[0][1]];
             List<int[]> destination = new List<int[]>();
 
             foreach (int[] pos in surround)
             {
-                if (board[pos[0], pos[1]] < minDistance)
+                if (distanceBoard[pos[0], pos[1]] < minDistance)
                 {
-                    minDistance = board[pos[0], pos[1]];
+                    minDistance = distanceBoard[pos[0], pos[1]];
                     destination.Clear();
                     destination.Add(pos);
                 }
-                else if (board[pos[0], pos[1]] == minDistance)
+                else if (distanceBoard[pos[0], pos[1]] == minDistance)
                 {
                     destination.Add(pos);
                 }
@@ -89,59 +90,67 @@ namespace Fungus.Actor.AI
                 : destination[0];
         }
 
-        private void ResetBoard()
+        private int[,] ResetBoard(out Stack<int[]> start)
         {
-            for (int i = 0; i < dungeon.Width; i++)
+            int[,] dungeon = new int[board.Width, board.Height];
+            start = new Stack<int[]>();
+
+            for (int i = 0; i < board.Width; i++)
             {
-                for (int j = 0; j < dungeon.Height; j++)
+                for (int j = 0; j < board.Height; j++)
                 {
-                    board[i, j] = notChecked;
+                    if (GetComponent<IAutoExplore>().IsStartPoint(i, j))
+                    {
+                        dungeon[i, j] = startPoint;
+                        start.Push(new int[] { i, j });
+                    }
+                    else if (!terrain.IsPassable(i, j))
+                    {
+                        dungeon[i, j] = impassable;
+                    }
+                    else
+                    {
+                        dungeon[i, j] = notChecked;
+                    }
                 }
             }
+            return dungeon;
         }
 
-        private void SetDistance(Stack<int[]> uncheckedGrids)
+        private void SetDistance(int[,] dungeon, Stack<int[]> start)
         {
-            if (uncheckedGrids.Count < 1)
+            if (start.Count < 1)
             {
                 return;
             }
 
-            int[] position = uncheckedGrids.Pop();
-            int x = position[0];
-            int y = position[1];
-
-            List<int[]> surround = coord.SurroundCoord(
-                Surround.Diagonal, position);
-            surround = dungeon.FilterPositions(surround);
-
-            board[x, y] = GetComponent<IAutoExplore>().IsStartPoint(position)
-                ? 0 : GetDistance(surround);
-
-            foreach (int[] pos in surround)
+            int[] check = start.Pop();
+            int[][] neighbor = new int[][] { };
+            if (dungeon[check[0], check[1]] == notChecked)
             {
-                bool isPassable = terrain.IsPassable(pos[0], pos[1]);
-                bool isVaildDistance
-                    = Math.Abs(board[x, y] - board[pos[0], pos[1]])
-                    <= gridSize;
+                dungeon[check[0], check[1]] = GetNewDistance(dungeon, check,
+                    out neighbor);
+            }
 
-                if (isPassable && !isVaildDistance)
+            foreach (int[] n in neighbor)
+            {
+                if (dungeon[n[0], n[1]] == notChecked)
                 {
-                    uncheckedGrids.Push(pos);
+                    start.Push(n);
                 }
             }
 
-            SetDistance(uncheckedGrids);
+            SetDistance(dungeon, start);
         }
 
         private void Start()
         {
-            dungeon = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
-            terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
 
-            board = new int[dungeon.Width, dungeon.Height];
+            distanceBoard = new int[board.Width, board.Height];
         }
     }
 }
