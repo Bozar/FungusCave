@@ -125,11 +125,15 @@ namespace Fungus.Actor.AI
             }
 
             int[] check = start.Pop();
-            int[][] neighbor = new int[][] { };
+            int[][] neighbor;
             if (dungeon[check[0], check[1]] == notChecked)
             {
                 dungeon[check[0], check[1]] = GetNewDistance(dungeon, check,
                     out neighbor);
+            }
+            else
+            {
+                GetNewDistance(dungeon, check, out neighbor);
             }
 
             foreach (int[] n in neighbor)
