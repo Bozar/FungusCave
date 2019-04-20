@@ -22,25 +22,24 @@
     <InfectionDefend>0</InfectionDefend>
     <InfectionRecovery>1</InfectionRecovery>
   </DEFAULT>
-  <Rat>
+  <AcidOoze>
     <ActorName>
-      <English>Dire Rat</English>
-      <Chinese>凶暴鼠</Chinese>
+      <English>Acid Ooze</English>
+      <Chinese>酸液软泥</Chinese>
     </ActorName>
-    <HP>5</HP>
-    <Damage>4</Damage>
-    <EnergyRestore>800</EnergyRestore>
-    <InfectionAttack>180</InfectionAttack>
-  </Rat>
+    <HP>8</HP>
+    <Damage>5</Damage>
+    <EnergyRestore>400</EnergyRestore>
+  </AcidOoze>
   <Frog>
     <ActorName>
       <English>Cursed Frog</English>
       <Chinese>咒蛙</Chinese>
     </ActorName>
-    <HP>7</HP>
-    <Damage>4</Damage>
-    <EnergyRestore>400</EnergyRestore>
+    <HP>10</HP>
+    <Damage>3</Damage>
     <InfectionAttack>280</InfectionAttack>
+    <EnergyRestore>800</EnergyRestore>
   </Frog>
   <BloodFly>
     <ActorName>

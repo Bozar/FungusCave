@@ -15,22 +15,14 @@
     </DL1>
     <DL2>
       <Minion>Beetle</Minion>
-      <Soldier>BloodFly</Soldier>
+      <Soldier>Corpse</Soldier>
       <Soldier>Frog</Soldier>
-      <Soldier>Rat</Soldier>
+      <Soldier>AcidOoze</Soldier>
     </DL2>
     <DL3>
       <Minion>Beetle</Minion>
       <Soldier>Corpse</Soldier>
     </DL3>
-    <DL4>
-      <Minion>Beetle</Minion>
-      <Soldier>YellowOoze</Soldier>
-    </DL4>
-    <DL5>
-      <Minion>Beetle</Minion>
-      <Soldier>Beetle</Soldier>
-    </DL5>
   </ActorGroup>
   <PowerPrerequisite>
     <DefEnergy1>INVALID</DefEnergy1>
@@ -44,22 +36,22 @@
     <AttDamage1>INVALID</AttDamage1>
   </PowerPrerequisite>
   <PowerCost>
-    <DefEnergy1>5</DefEnergy1>
-    <DefInfection1>5</DefInfection1>
-    <DefHP1>5</DefHP1>
-    <DefEnergy2>9</DefEnergy2>
-    <DefInfection2>9</DefInfection2>
-    <DefHP2>9</DefHP2>
-    <AttEnergy1>9</AttEnergy1>
-    <AttInfection1>9</AttInfection1>
-    <AttDamage1>9</AttDamage1>
+    <DefEnergy1>3</DefEnergy1>
+    <DefInfection1>3</DefInfection1>
+    <DefHP1>3</DefHP1>
+    <DefEnergy2>6</DefEnergy2>
+    <DefInfection2>6</DefInfection2>
+    <DefHP2>6</DefHP2>
+    <AttEnergy1>6</AttEnergy1>
+    <AttInfection1>6</AttInfection1>
+    <AttDamage1>6</AttDamage1>
   </PowerCost>
   <Potion>
-    <Max>9</Max>
+    <Max>6</Max>
     <Start>2</Start>
     <Bonus>1</Bonus>
-    <RestoreHP>6</RestoreHP>
-    <MutatedHP>2</MutatedHP>
+    <RestoreHP>10</RestoreHP>
+    <MutatedHP>5</MutatedHP>
     <RelieveStress>9</RelieveStress>
     <RestoreEnergy>9999</RestoreEnergy>
   </Potion>
