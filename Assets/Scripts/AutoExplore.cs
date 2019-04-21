@@ -19,75 +19,77 @@ namespace Fungus.Actor.AI
         private readonly int impassable = 999999;
         private readonly int notChecked = 111111;
         private readonly int startPoint = 0;
+
         private DungeonBoard board;
         private ConvertCoordinates coord;
-        private int[,] distanceBoard;
+        private int[,] distance;
         private RandomNumber random;
         private DungeonTerrain terrain;
 
         public int[] GetDestination()
         {
-            distanceBoard = ResetBoard(out Stack<int[]> start);
+            distance = ResetBoard(out Stack<int[]> start);
             if (start.Count < 1)
             {
                 return null;
             }
 
-            SetDistance(distanceBoard, start);
+            SetDistance(distance, start);
 
             int[] source = coord.Convert(transform.position);
-            int[] target = GetNewPosition(source);
-            Debug.Log("X: " + source[0] + ", " + target[0]);
-            Debug.Log("Y: " + source[1] + ", " + target[1]);
+            int[] target = GetTarget(source);
             return target;
         }
 
-        private int GetNewDistance(int[,] dungeon, int[] check,
-            out int[][] neighbor)
+        private int GetDistance(int[,] dungeon, int[] check)
         {
-            List<int[]> surround = coord.SurroundCoord(Surround.Diagonal, check);
-            surround = board.FilterPositions(surround);
-            neighbor = surround.ToArray();
-            int min = dungeon[surround[0][0], surround[0][1]];
+            int[][] neighbor = GetNeighbor(check);
+            int min = GetMinDistance(dungeon, neighbor);
 
-            foreach (int[] s in surround)
-            {
-                if (dungeon[s[0], s[1]] < min)
-                {
-                    min = dungeon[s[0], s[1]];
-                }
-            }
             return min + gridSize;
         }
 
-        private int[] GetNewPosition(int[] currentPosition)
+        private int GetMinDistance(int[,] dungeon, int[][] check)
         {
+            int min = dungeon[check[0][0], check[0][1]];
+
+            foreach (int[] c in check)
+            {
+                if (dungeon[c[0], c[1]] < min)
+                {
+                    min = dungeon[c[0], c[1]];
+                }
+            }
+            return min;
+        }
+
+        private int[][] GetNeighbor(int[] center)
+        {
+            List<int[]> neighbor = coord.SurroundCoord(Surround.Diagonal, center);
+            neighbor = board.FilterPositions(neighbor);
+
+            return neighbor.ToArray();
+        }
+
+        private int[] GetTarget(int[] source)
+        {
+            int[][] neighbor = GetNeighbor(source);
+            int min = GetMinDistance(distance, neighbor);
+            List<int[]> targets = new List<int[]>();
+
             SeedTag tag = GetComponent<IAutoExplore>().GetSeedTag();
 
-            List<int[]> surround = coord.SurroundCoord(
-                Surround.Diagonal, currentPosition);
-            surround = board.FilterPositions(surround);
-
-            int minDistance = distanceBoard[surround[0][0], surround[0][1]];
-            List<int[]> destination = new List<int[]>();
-
-            foreach (int[] pos in surround)
+            foreach (int[] n in neighbor)
             {
-                if (distanceBoard[pos[0], pos[1]] < minDistance)
+                if (distance[n[0], n[1]] == min)
                 {
-                    minDistance = distanceBoard[pos[0], pos[1]];
-                    destination.Clear();
-                    destination.Add(pos);
-                }
-                else if (distanceBoard[pos[0], pos[1]] == minDistance)
-                {
-                    destination.Add(pos);
+                    targets.Add(n);
                 }
             }
 
-            return (destination.Count > 1)
-                ? destination[random.Next(tag, 0, destination.Count)]
-                : destination[0];
+            return (targets.Count > 1)
+                ? targets[random.Next(tag, 0, targets.Count)]
+                : targets[0];
         }
 
         private int[,] ResetBoard(out Stack<int[]> start)
@@ -99,18 +101,21 @@ namespace Fungus.Actor.AI
             {
                 for (int j = 0; j < board.Height; j++)
                 {
+                    // A start point might be impassable.
+                    // 1) NPC's start point is PC's current position.
+                    // 2) PC's start points are unexplored positions in the map.
                     if (GetComponent<IAutoExplore>().IsStartPoint(i, j))
                     {
                         dungeon[i, j] = startPoint;
                         start.Push(new int[] { i, j });
                     }
-                    else if (!terrain.IsPassable(i, j))
+                    else if (terrain.IsPassable(i, j))
                     {
-                        dungeon[i, j] = impassable;
+                        dungeon[i, j] = notChecked;
                     }
                     else
                     {
-                        dungeon[i, j] = notChecked;
+                        dungeon[i, j] = impassable;
                     }
                 }
             }
@@ -125,17 +130,12 @@ namespace Fungus.Actor.AI
             }
 
             int[] check = start.Pop();
-            int[][] neighbor;
             if (dungeon[check[0], check[1]] == notChecked)
             {
-                dungeon[check[0], check[1]] = GetNewDistance(dungeon, check,
-                    out neighbor);
-            }
-            else
-            {
-                GetNewDistance(dungeon, check, out neighbor);
+                dungeon[check[0], check[1]] = GetDistance(dungeon, check);
             }
 
+            int[][] neighbor = GetNeighbor(check);
             foreach (int[] n in neighbor)
             {
                 if (dungeon[n[0], n[1]] == notChecked)
@@ -154,7 +154,7 @@ namespace Fungus.Actor.AI
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             random = FindObjects.GameLogic.GetComponent<RandomNumber>();
 
-            distanceBoard = new int[board.Width, board.Height];
+            distance = new int[board.Width, board.Height];
         }
     }
 }
