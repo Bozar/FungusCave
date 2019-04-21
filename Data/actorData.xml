@@ -38,8 +38,8 @@
       <English>Specter</English>
       <Chinese>怨灵</Chinese>
     </ActorName>
-    <HP>9</HP>
-    <Damage>3</Damage>
+    <HP>12</HP>
+    <Damage>2</Damage>
     <InfectionRecovery>2</InfectionRecovery>
   </Specter>
   <AcidOoze>
