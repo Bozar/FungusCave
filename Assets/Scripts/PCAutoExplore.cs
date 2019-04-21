@@ -18,6 +18,7 @@ namespace Fungus.Actor.AI
         private UIModeline modeline;
         private Stack<int[]> previousPosition;
         private GameSetting setting;
+        private DungeonTerrain terrain;
 
         public bool ContinueAutoExplore()
         {
@@ -46,8 +47,11 @@ namespace Fungus.Actor.AI
 
         public bool IsStartPoint(int x, int y)
         {
-            return GetComponent<FieldOfView>().CheckFOV(FOVStatus.Unknown,
+            bool fov = GetComponent<FieldOfView>().CheckFOV(FOVStatus.Unknown,
                 new int[] { x, y });
+            bool passable = terrain.IsPassable(x, y);
+
+            return fov && passable;
         }
 
         public bool IsValidDestination(int[] check)
@@ -101,6 +105,7 @@ namespace Fungus.Actor.AI
         private void Start()
         {
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
+            terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             setting = FindObjects.GameLogic.GetComponent<GameSetting>();
