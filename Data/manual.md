@@ -13,7 +13,7 @@
 ## Summary
 
 Fungus Cave is a coffee break Roguelike game. A successful run takes about ten
-minutes. Your goal is to fight through five dungeon levels and kill all enemies
+minutes. Your goal is to fight through three dungeon levels and kill all enemies
 that carries potion.
 
 The game is made with C# and Unity. The ☼masterful☼ tileset, `curses_vector`, is
@@ -37,10 +37,9 @@ X represents one turn. An actor who has enough energy can take multiple actions
 in one turn. The same actor might also be forced to wait one or more turns if he
 is low on energy.
 
-Diagonal actions cost more energy. Move out of pool costs more energy.
-[WIP]Attack in fog costs more energy.[/WIP] The environment indicator shows your
-surroundings: `[ @ | = | ? ]`. These symbols refer to enemy, pool and fog
-respectively.
+Diagonal actions cost more energy. Move out of pool costs more energy. The
+environment indicator shows your surroundings: `[ @ | = ]`. These symbols refer
+to enemy and pool respectively.
 
 ## Stress & Infection
 
@@ -121,12 +120,11 @@ a question mark before the version number in the lower right corner.
 
 Wizard mode:
 
-* Space (Normal Mode): Reload the game.
-* o: Auto explore.
-* p: Print PC's energy cost.
-* q: Gain 1 potion.
-* 1: Switch fog of war.
-* 2: Print PC's current energy.
-* 3: Gain energy for PC.
+* [ Space ] -- Reload the game.
+* [ p ] -- Print PC's energy cost.
+* [ q ] -- Gain 1 potion.
+* [ 1 ] -- Switch fog of war.
+* [ 2 ] -- Print PC's current energy.
+* [ 3 ] -- Gain energy for PC.
 
 vim: set tw=80:

@@ -2,7 +2,9 @@
 <GameSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <IsWizard>true</IsWizard>
   <ShowOpening>false</ShowOpening>
+  <!-- 0 means generating a random number as the seed. -->
   <Seed>0</Seed>
+  <!-- Move at most X steps when auto exploring. -->
   <AutoExploreStep>5</AutoExploreStep>
   <Language>
     <!-- Options: English, Chinese. -->

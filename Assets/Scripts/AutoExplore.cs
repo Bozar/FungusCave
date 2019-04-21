@@ -79,8 +79,6 @@ namespace Fungus.Actor.AI
             int min = GetMinDistance(distance, neighbor);
             List<int[]> targets = new List<int[]>();
 
-            SeedTag tag = GetComponent<IAutoExplore>().GetSeedTag();
-
             foreach (int[] n in neighbor)
             {
                 if (distance[n[0], n[1]] == min)
@@ -89,6 +87,7 @@ namespace Fungus.Actor.AI
                 }
             }
 
+            SeedTag tag = GetComponent<IAutoExplore>().GetSeedTag();
             int[] target = (targets.Count > 1)
                 ? targets[random.Next(tag, 0, targets.Count)]
                 : targets[0];

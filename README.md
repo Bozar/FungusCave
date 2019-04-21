@@ -2,7 +2,7 @@
 
 ## Summary
 
-Fungus Cave is a coffee break Roguelike game. A successful run takes about ten minutes. Your goal is to fight through five dungeon levels and kill all enemies that carries potion.
+Fungus Cave is a coffee break Roguelike game. A successful run takes about ten minutes. Your goal is to fight through three dungeon levels and kill all enemies that carries potion.
 
 The game is made with C# and Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino for [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0). The color theme, `One Dark Pro`, is created by binaryify for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
 
@@ -20,6 +20,7 @@ Normal mode:
 
 * [ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.
 * [ . | Num pad 5 ] -- Wait 1 turn.
+* [ o ] -- Auto explore.
 * [ Space ] -- Confirm.
 * [ Esc ] -- Exit or cancel.
 
@@ -40,11 +41,10 @@ Some key-bindings and features are only available in Wizard Mode. Open `Data/set
 
 Wizard mode:
 
-* Space (Normal Mode): Reload the game.
-* o: Auto explore.
-* p: Print PC's energy cost.
-* q: Gain 1 potion.
-* 1: Switch fog of war.
-* 2: Print PC's current energy.
-* 3: Gain energy for PC.
+* [ Space ] -- Reload the game.
+* [ p ] -- Print PC's energy cost.
+* [ q ] -- Gain 1 potion.
+* [ 1 ] -- Switch fog of war.
+* [ 2 ] -- Print PC's current energy.
+* [ 3 ] -- Gain energy for PC.
 
