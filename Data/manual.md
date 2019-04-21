@@ -98,6 +98,7 @@ Normal mode:
 
 * [ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.
 * [ . | Num pad 5 ] -- Wait 1 turn.
+* [ o ] -- Auto explore.
 * [ Space ] -- Confirm.
 * [ Esc ] -- Exit or cancel.
 

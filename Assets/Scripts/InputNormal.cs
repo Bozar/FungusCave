@@ -22,6 +22,10 @@ namespace Fungus.Actor.InputManager
             {
                 return Command.Wait;
             }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                return Command.AutoExplore;
+            }
             else if (Input.GetKeyDown(KeyCode.X))
             {
                 return Command.Examine;
@@ -46,13 +50,6 @@ namespace Fungus.Actor.InputManager
                    && Input.GetKeyDown(KeyCode.F))
                 {
                     return Command.Up;
-                }
-                else if (Input.GetKeyDown(KeyCode.O))
-                {
-                    // PC bumps into wall with some specific seeds. I don't know
-                    // why. Let's make AutoExplore a wizard command for the
-                    // moment.
-                    return Command.AutoExplore;
                 }
                 else if (Input.GetKeyDown(KeyCode.Space))
                 {

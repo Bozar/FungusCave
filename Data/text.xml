@@ -102,8 +102,8 @@
       <Chinese>按键\n\n（阅读 manual.md 了解更多内容。）</Chinese>
     </Title>
     <Normal>
-      <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
-      <Chinese>[ hjklyubn | 小键盘 | 方向键 ] -- 往八个方向移动。\n[ . | 小键盘 5 ] -- 等待 1 轮。\n[ 空格键 ] -- 确认。\n[ Esc ] -- 退出或取消。</Chinese>
+    <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ o ] -- Auto explore.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
+    <Chinese>[ hjklyubn | 小键盘 | 方向键 ] -- 往八个方向移动。\n[ . | 小键盘 5 ] -- 等待 1 轮。\n[ o ] -- 自动探索。\n[ 空格键 ] -- 确认。\n[ Esc ] -- 退出或取消。</Chinese>
     </Normal>
     <Examine>
       <English>[ x ] -- Enter Examine mode.\n[ o | d | PgDn] -- Lock next NPC in view.\n[ i | s | PgUp] -- Lock previous NPC in view.</English>

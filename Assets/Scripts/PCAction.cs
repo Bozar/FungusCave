@@ -72,8 +72,7 @@ namespace Fungus.Actor.Turn
                 modeline.PrintStaticText();
             }
 
-            if (wizard.IsWizardMode
-                && GetComponent<PCAutoExplore>().ContinueAutoExplore)
+            if (GetComponent<PCAutoExplore>().ContinueAutoExplore)
             {
                 int[] target = GetComponent<AutoExplore>().GetDestination();
 
@@ -101,6 +100,10 @@ namespace Fungus.Actor.Turn
                     schedule.NextActor();
                     return;
 
+                case Command.AutoExplore:
+                    GetComponent<PCAutoExplore>().Trigger();
+                    return;
+
                 case Command.Examine:
                     gameMode.SwitchModeExamine(true);
                     return;
@@ -123,10 +126,6 @@ namespace Fungus.Actor.Turn
             {
                 switch (input.GameCommand())
                 {
-                    case Command.AutoExplore:
-                        GetComponent<PCAutoExplore>().Trigger();
-                        return;
-
                     case Command.Initialize:
                         wizard.Initialize();
                         return;
