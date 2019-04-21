@@ -48,7 +48,7 @@
       <Chinese>酸液软泥</Chinese>
     </ActorName>
     <HP>8</HP>
-    <Damage>5</Damage>
+    <Damage>6</Damage>
   </AcidOoze>
   <Frog>
     <ActorName>
@@ -56,7 +56,7 @@
       <Chinese>咒蛙</Chinese>
     </ActorName>
     <HP>8</HP>
-    <Damage>3</Damage>
+    <Damage>4</Damage>
     <InfectionAttack>280</InfectionAttack>
     <EnergyRestore>800</EnergyRestore>
   </Frog>
@@ -65,8 +65,9 @@
       <English>Blood Fly</English>
       <Chinese>血蝇</Chinese>
     </ActorName>
-    <HP>3</HP>
-    <Damage>2</Damage>
+    <HP>5</HP>
+    <Damage>3</Damage>
+    <InfectionAttack>180</InfectionAttack>
     <EnergyRestore>400</EnergyRestore>
   </BloodFly>
   <YellowOoze>
@@ -74,8 +75,8 @@
       <English>Yellow Ooze</English>
       <Chinese>黄色软泥</Chinese>
     </ActorName>
-    <HP>4</HP>
-    <Damage>3</Damage>
+    <HP>5</HP>
+    <Damage>4</Damage>
   </YellowOoze>
   <Scavenger>
     <ActorName>
@@ -92,6 +93,7 @@
       <Chinese>肿胀尸体</Chinese>
     </ActorName>
     <HP>9</HP>
+    <InfectionRecovery>2</InfectionRecovery>
   </Corpse>
   <Dummy>
     <ActorName>

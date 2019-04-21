@@ -3,8 +3,8 @@
   <Dungeon>
     <StartLevel>DL2</StartLevel>
     <MaxLevel>DL3</MaxLevel>
-    <MaxActor>40</MaxActor>
-    <MaxSoldier>20</MaxSoldier>
+    <MaxActor>50</MaxActor>
+    <MaxSoldier>40</MaxSoldier>
   </Dungeon>
   <ActorGroup>
     <DL1>
@@ -50,7 +50,7 @@
   </PowerCost>
   <Potion>
     <Max>4</Max>
-    <Start>3</Start>
+    <Start>2</Start>
     <Bonus>1</Bonus>
     <RestoreHP>10</RestoreHP>
     <MutatedHP>5</MutatedHP>

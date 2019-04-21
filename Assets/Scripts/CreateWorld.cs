@@ -96,7 +96,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             int minDistance = 1 + GetComponent<ActorData>().GetIntData(
                 SubObjectTag.DEFAULT, DataTag.SightRange);
-            int maxNPC = 3;
+            int maxNPC = 1;
             int[] pcPosition = GetComponent<ConvertCoordinates>().Convert(
                 FindObjects.PC.transform.position);
 
