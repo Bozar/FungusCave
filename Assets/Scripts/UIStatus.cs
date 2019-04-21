@@ -54,6 +54,11 @@ namespace Fungus.GameSystem.Render
             parentNode = "Status";
         }
 
+        private string JoinCurrentMax(int current, int max)
+        {
+            return current + " / " + max;
+        }
+
         private void Start()
         {
             getText = FindObjects.GetUIText;
@@ -123,17 +128,15 @@ namespace Fungus.GameSystem.Render
             int current = FindObjects.PC.GetComponent<HP>().CurrentHP;
             int max = FindObjects.PC.GetComponent<HP>().MaxHP;
 
-            getText(UITag.HPData).text = current + "/" + max;
+            getText(UITag.HPData).text = JoinCurrentMax(current, max);
         }
 
         private void UpdateInfection()
         {
             string label = "[ Infection ]";
-            int duration;
-            InfectionTag tag;
 
             if (FindObjects.PC.GetComponent<Infection>().HasInfection(
-                out tag, out duration))
+                out InfectionTag tag, out int duration))
             {
                 getText(UITag.InfectionName).text
                     = GetComponent<InfectionData>().GetInfectionName(tag);
@@ -151,14 +154,13 @@ namespace Fungus.GameSystem.Render
         private void UpdatePotion()
         {
             int current = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
+            int max = GetComponent<PotionData>().MaxPotion;
 
-            getText(UITag.PotionData).text = current.ToString();
+            getText(UITag.PotionData).text = JoinCurrentMax(current, max);
         }
 
         private void UpdatePower()
         {
-            PowerTag power;
-            bool isActive;
             bool hasPower = false;
             string uiName = "PowerData";
             UITag uiTag;
@@ -166,7 +168,7 @@ namespace Fungus.GameSystem.Render
             foreach (PowerSlotTag slot in Enum.GetValues(typeof(PowerSlotTag)))
             {
                 if (FindObjects.PC.GetComponent<Power>().HasPower(slot,
-                    out power, out isActive))
+                    out PowerTag power, out bool isActive))
                 {
                     hasPower = true;
 
@@ -189,8 +191,7 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateSeed()
         {
-            string seed = FindObjects.GameLogic.GetComponent<RandomNumber>()
-                .RootSeed.ToString();
+            string seed = GetComponent<RandomNumber>().RootSeed.ToString();
             int seedLength = seed.Length;
 
             for (int i = 1; seedLength > i * 3; i++)
@@ -206,7 +207,7 @@ namespace Fungus.GameSystem.Render
             int current = FindObjects.PC.GetComponent<Stress>().CurrentStress;
             int max = FindObjects.PC.GetComponent<Stress>().MaxStress;
 
-            getText(UITag.StressData).text = current + "/" + max;
+            getText(UITag.StressData).text = JoinCurrentMax(current, max);
         }
 
         private void UpdateTurn()
