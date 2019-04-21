@@ -10,6 +10,8 @@ namespace Fungus.Actor.AI
         SeedTag GetSeedTag();
 
         bool IsStartPoint(int x, int y);
+
+        bool IsValidDestination(int[] check);
     }
 
     // http://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized
@@ -87,9 +89,16 @@ namespace Fungus.Actor.AI
                 }
             }
 
-            return (targets.Count > 1)
+            int[] target = (targets.Count > 1)
                 ? targets[random.Next(tag, 0, targets.Count)]
                 : targets[0];
+            // The actor might dance around two grids of the same distance
+            // repeatedly. We need to at least prevent PC from doing this.
+            if (GetComponent<IAutoExplore>().IsValidDestination(target))
+            {
+                return target;
+            }
+            return null;
         }
 
         private int[,] ResetBoard(out Stack<int[]> start)

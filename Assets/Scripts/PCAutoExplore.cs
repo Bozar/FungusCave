@@ -5,6 +5,7 @@ using Fungus.GameSystem.Data;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor.AI
@@ -12,23 +13,22 @@ namespace Fungus.Actor.AI
     public class PCAutoExplore : MonoBehaviour, IAutoExplore, ITurnCounter
     {
         private DungeonBoard board;
+        private ConvertCoordinates coord;
         private int countAutoExplore;
         private UIModeline modeline;
+        private Stack<int[]> previousPosition;
         private GameSetting setting;
 
-        public bool ContinueAutoExplore
+        public bool ContinueAutoExplore()
         {
-            get
-            {
-                bool count = countAutoExplore > 0;
+            bool count = countAutoExplore > 0;
 
-                if (count && !FindEnemy() && FindUnknownGrid())
-                {
-                    return true;
-                }
-                countAutoExplore = 0;
-                return false;
+            if (count && !FindEnemy() && FindUnknownGrid())
+            {
+                return true;
             }
+            countAutoExplore = 0;
+            return false;
         }
 
         public void Count()
@@ -50,9 +50,25 @@ namespace Fungus.Actor.AI
                 new int[] { x, y });
         }
 
+        public bool IsValidDestination(int[] check)
+        {
+            int[] previous = previousPosition.Peek();
+
+            if ((check[0] == previous[0]) && (check[1] == previous[1]))
+            {
+                countAutoExplore = 0;
+                modeline.PrintStaticText("Please move manually.");
+                return false;
+            }
+            previousPosition.Push(coord.Convert(transform.position));
+            return true;
+        }
+
         public void Trigger()
         {
             countAutoExplore = setting.AutoExploreStep;
+            previousPosition = new Stack<int[]>();
+            previousPosition.Push(coord.Convert(transform.position));
         }
 
         private bool FindEnemy()
@@ -86,6 +102,7 @@ namespace Fungus.Actor.AI
         {
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+            coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             setting = FindObjects.GameLogic.GetComponent<GameSetting>();
         }
     }

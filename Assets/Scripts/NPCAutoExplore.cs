@@ -19,6 +19,11 @@ namespace Fungus.Actor.AI
             return actor.CheckActorTag(SubObjectTag.PC, actor.GetActor(x, y));
         }
 
+        public bool IsValidDestination(int[] check)
+        {
+            return true;
+        }
+
         private void Start()
         {
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();

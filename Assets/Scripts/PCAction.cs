@@ -72,7 +72,7 @@ namespace Fungus.Actor.Turn
                 modeline.PrintStaticText();
             }
 
-            if (GetComponent<PCAutoExplore>().ContinueAutoExplore)
+            if (GetComponent<PCAutoExplore>().ContinueAutoExplore())
             {
                 int[] target = GetComponent<AutoExplore>().GetDestination();
 
