@@ -9,6 +9,11 @@ namespace Fungus.GameSystem.Data
         private string fileName;
         private XElement xFile;
 
+        public int AutoExploreStep
+        {
+            get { return (int)xFile.Element("AutoExploreStep"); }
+        }
+
         public string DefaultLanguage
         {
             get { return (string)xFile.Element("Language").Element("Default"); }

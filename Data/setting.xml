@@ -2,11 +2,13 @@
 <GameSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <IsWizard>true</IsWizard>
   <ShowOpening>false</ShowOpening>
-  <!-- Language: English, Chinese -->
+  <Seed>0</Seed>
+  <AutoExploreStep>5</AutoExploreStep>
   <Language>
+    <!-- Options: English, Chinese. -->
     <User>English</User>
+    <!-- Do not change the default language. -->
     <Default>English</Default>
   </Language>
-  <Seed>0</Seed>
-  <!--- vim: set lbr sts=2 sw=2: -->
+  <!-- vim: set lbr sts=2 sw=2: -->
 </GameSetting>
