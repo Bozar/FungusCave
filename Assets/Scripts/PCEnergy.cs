@@ -50,7 +50,7 @@ namespace Fungus.Actor
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             energyData = FindObjects.GameLogic.GetComponent<EnergyData>();
 
-            minDrain = energyData.ModNormal;
+            minDrain = energyData.ModHigh;
             maxHP = 14;
         }
     }
