@@ -5,7 +5,7 @@ using Fungus.GameSystem.Data;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.WorldBuilding;
 using System;
-using System.Text;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +15,6 @@ namespace Fungus.GameSystem.Render
     {
         private UIText getText;
         private string parentNode;
-        private StringBuilder sb;
 
         private delegate Text UIText(UITag tag);
 
@@ -50,7 +49,6 @@ namespace Fungus.GameSystem.Render
 
         private void Awake()
         {
-            sb = new StringBuilder();
             parentNode = "Status";
         }
 
@@ -88,39 +86,46 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateEnvironment()
         {
-            // TODO: check the weather.
-            //bool hasFog = true;
-            bool hasFog = false;
-            sb = sb.Remove(0, sb.Length);
-            sb.Append("[ ");
+            string env = "[ %str1%%str2%%str3% ]";
+            bool enemy = false;
+            bool pool = false;
 
             if (FindObjects.PC.GetComponent<AIVision>().CanSeeTarget(
                 MainObjectTag.Actor))
             {
-                sb.Append(FindObjects.IconEnemy);
+                enemy = true;
+                env = env.Replace("%str1%",
+                    GetComponent<GameText>().GetStringData(parentNode,
+                    "EnemyIcon"));
+            }
+            else
+            {
+                env = env.Replace("%str1%", "");
             }
 
             if (GetComponent<DungeonBoard>().CheckBlock(SubObjectTag.Pool,
                 FindObjects.PC.transform.position))
             {
-                if (sb.Length > 2)
-                {
-                    sb.Append(" | ");
-                }
-                sb.Append(FindObjects.IconPool);
+                pool = true;
+                env = env.Replace("%str3%",
+                    GetComponent<GameText>().GetStringData(parentNode,
+                    "PoolIcon"));
             }
-
-            if (hasFog)
+            else
             {
-                if (sb.Length > 2)
-                {
-                    sb.Append(" | ");
-                }
-                sb.Append(FindObjects.IconFog);
+                env = env.Replace("%str3%", "");
             }
-            sb.Append(" ]");
 
-            getText(UITag.Terrain).text = sb.ToString();
+            if (enemy && pool)
+            {
+                env = env.Replace("%str2%", " | ");
+            }
+            else
+            {
+                env = env.Replace("%str2%", "");
+            }
+
+            getText(UITag.Terrain).text = env;
         }
 
         private void UpdateHP()
@@ -212,33 +217,24 @@ namespace Fungus.GameSystem.Render
 
         private void UpdateTurn()
         {
-            int current
-                = FindObjects.PC.GetComponent<TurnIndicator>().CurrentTurn;
-            int max
-                = FindObjects.PC.GetComponent<TurnIndicator>().BarSpearator;
-            sb = sb.Remove(0, sb.Length);
+            int current = FindObjects.PC.GetComponent<TurnIndicator>()
+                .CurrentTurn;
+            int max = FindObjects.PC.GetComponent<TurnIndicator>()
+                .BarSpearator;
+            Queue<string> turn = new Queue<string>();
 
-            sb.Append("[ ");
-
-            if (current > 0)
+            for (int i = 0; i < current; i++)
             {
-                for (int i = 0; i < current; i++)
+                turn.Enqueue(GetComponent<GameText>().GetStringData(parentNode,
+                    "TurnIcon"));
+                if ((current > max) && (i + 1 == max))
                 {
-                    sb.Append("X ");
-
-                    if ((current > max) && (i + 1 == max))
-                    {
-                        sb.Append("| ");
-                    }
+                    turn.Enqueue("|");
                 }
-                sb.Append("]");
             }
-            else
-            {
-                sb.Append(" ]");
-            }
+            string indicator = "[ " + string.Join(" ", turn) + " ]";
 
-            getText(UITag.Turn).text = sb.ToString();
+            getText(UITag.Turn).text = indicator;
         }
 
         private void UpdateVersion()
@@ -246,7 +242,8 @@ namespace Fungus.GameSystem.Render
             string version = FindObjects.Version;
             if (GetComponent<WizardMode>().IsWizardMode)
             {
-                version = "? " + version;
+                version = GetComponent<GameText>().GetStringData(parentNode,
+                    "WizardIcon") + version;
             }
 
             getText(UITag.Version).text = version;

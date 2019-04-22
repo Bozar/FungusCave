@@ -5,6 +5,18 @@
       <English>Cave - %num%</English>
       <Chinese>洞窟 - %num%</Chinese>
     </DungeonLevel>
+    <EnemyIcon>
+      <English>@</English>
+    </EnemyIcon>
+    <PoolIcon>
+      <English>=</English>
+    </PoolIcon>
+    <TurnIcon>
+      <English>X</English>
+    </TurnIcon>
+    <WizardIcon>
+      <English>?</English>
+    </WizardIcon>
   </Status>
   <PowerName>
     <DefEnergy1>
