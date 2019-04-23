@@ -1,5 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AutoExplore>
+    <Enemy>
+      <English>You see an enemy.</English>
+      <Chinese>你发现了敌人。</Chinese>
+    </Enemy>
+    <Manual>
+      <English>Please move manually.</English>
+      <Chinese>请手动移动。</Chinese>
+    </Manual>
+    <End>
+      <English>You have explored everywhere.</English>
+      <Chinese>你已经探索了全部区域。</Chinese>
+    </End>
+  </AutoExplore>
+  <Combat>
+    <PCExhaust>
+      <English>You are exhausted.</English>
+      <Chinese>你耗尽了力气。</Chinese>
+    </PCExhaust>
+    <PCHit>
+      <English>%str% hits you.</English>
+      <Chinese>%str% 攻击了你。</Chinese>
+    </PCHit>
+    <PCInfect>
+      <English>You are infected.</English>
+      <Chinese>你被感染了。</Chinese>
+    </PCInfect>
+    <PCKill>
+      <English>You are dead.</English>
+      <Chinese>你死了。</Chinese>
+    </PCKill>
+    <PCStress>
+      <English>You feel stressed.</English>
+      <Chinese>你感到有压力。</Chinese>
+    </PCStress>
+    <NPCExhaust>
+      <English>%str% is exhausted.</English>
+      <Chinese>%str% 耗尽了力气。</Chinese>
+    </NPCExhaust>
+    <NPCHit>
+      <English>You hit %str%.</English>
+      <Chinese>你攻击了 %str%。</Chinese>
+    </NPCHit>
+    <NPCInfect>
+      <English>%str% is infected.</English>
+      <Chinese>%str% 被感染了。</Chinese>
+    </NPCInfect>
+    <NPCKill>
+      <English>%str% is dead.</English>
+      <Chinese>%str% 死了。</Chinese>
+    </NPCKill>
+    <NPCStress>
+      <English>>%str% looks stressed.</English>
+      <Chinese>%str% 看起来有压力。</Chinese>
+    </NPCStress>
+  </Combat>
+  <EnterExit>
+    <Reload>
+      <English>Press Space to reload.</English>
+      <Chinese>按 空格键 重新载入游戏。</Chinese>
+    </Reload>
+    <Welcome>
+      <English>Welcome to Cave %num%！</English>
+      <Chinese>欢迎来到洞窟 %num%。</Chinese>
+    </Welcome>
+  </EnterExit>
   <Status>
     <DungeonLevel>
       <English>Cave - %num%</English>
@@ -114,8 +180,8 @@
       <Chinese>按键\n\n（阅读 manual.md 了解更多内容。）</Chinese>
     </Title>
     <Normal>
-    <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ o ] -- Auto explore.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
-    <Chinese>[ hjklyubn | 小键盘 | 方向键 ] -- 往八个方向移动。\n[ . | 小键盘 5 ] -- 等待 1 轮。\n[ o ] -- 自动探索。\n[ 空格键 ] -- 确认。\n[ Esc ] -- 退出或取消。</Chinese>
+      <English>[ hjklyubn | Num pad | Arrow keys ] -- Move in eight directions.\n[ . | Num pad 5 ] -- Wait 1 turn.\n[ o ] -- Auto explore.\n[ Space ] -- Confirm.\n[ Esc ] -- Exit or cancel.</English>
+      <Chinese>[ hjklyubn | 小键盘 | 方向键 ] -- 往八个方向移动。\n[ . | 小键盘 5 ] -- 等待 1 轮。\n[ o ] -- 自动探索。\n[ 空格键 ] -- 确认。\n[ Esc ] -- 退出或取消。</Chinese>
     </Normal>
     <Examine>
       <English>[ x ] -- Enter Examine mode.\n[ o | d | PgDn] -- Lock next NPC in view.\n[ i | s | PgUp] -- Lock previous NPC in view.</English>

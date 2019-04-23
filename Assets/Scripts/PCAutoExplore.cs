@@ -16,9 +16,11 @@ namespace Fungus.Actor.AI
         private ConvertCoordinates coord;
         private int countAutoExplore;
         private UIModeline modeline;
+        private string node;
         private Stack<int[]> previousPosition;
         private GameSetting setting;
         private DungeonTerrain terrain;
+        private GameText text;
 
         public bool ContinueAutoExplore()
         {
@@ -61,7 +63,7 @@ namespace Fungus.Actor.AI
             if ((check[0] == previous[0]) && (check[1] == previous[1]))
             {
                 countAutoExplore = 0;
-                modeline.PrintStaticText("Please move manually.");
+                modeline.PrintStaticText(text.GetStringData(node, "Manual"));
                 return false;
             }
             previousPosition.Push(coord.Convert(transform.position));
@@ -75,11 +77,16 @@ namespace Fungus.Actor.AI
             previousPosition.Push(coord.Convert(transform.position));
         }
 
+        private void Awake()
+        {
+            node = "AutoExplore";
+        }
+
         private bool FindEnemy()
         {
             if (GetComponent<AIVision>().CanSeeTarget(MainObjectTag.Actor))
             {
-                modeline.PrintStaticText("You see an enemy.");
+                modeline.PrintStaticText(text.GetStringData(node, "Enemy"));
                 return true;
             }
             return false;
@@ -98,7 +105,7 @@ namespace Fungus.Actor.AI
                     }
                 }
             }
-            modeline.PrintStaticText("You have explored everywhere.");
+            modeline.PrintStaticText(text.GetStringData(node, "End"));
             return false;
         }
 
@@ -109,6 +116,7 @@ namespace Fungus.Actor.AI
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             setting = FindObjects.GameLogic.GetComponent<GameSetting>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
         }
     }
 }

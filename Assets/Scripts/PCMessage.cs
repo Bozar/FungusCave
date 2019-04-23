@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using UnityEngine;
 
@@ -22,33 +23,42 @@ namespace Fungus.Actor
         private ConvertCoordinates coord;
         private UIMessage message;
         private UIModeline modeline;
+        private string node;
+        private GameText text;
 
         public void IsExhausted()
         {
-            message.StoreText("You are exhausted.");
+            message.StoreText(text.GetStringData(node, "PCExhaust"));
         }
 
         // NPC hits PC.
         public void IsHit(GameObject attacker)
         {
-            message.StoreText(GetAttackerName(attacker) + " hits you.");
+            string hit = text.GetStringData(node, "PCHit");
+            hit = hit.Replace("%str%", GetAttackerName(attacker));
+            message.StoreText(hit);
         }
 
         public void IsInfected()
         {
-            message.StoreText("You are infected.");
+            message.StoreText(text.GetStringData(node, "PCInfect"));
         }
 
         // NPC kills PC.
         public void IsKilled(GameObject attacker)
         {
-            message.StoreText("You are dead.");
-            modeline.PrintStaticText("Press Space to reload.");
+            message.StoreText(text.GetStringData(node, "PCKill"));
+            modeline.PrintStaticText(text.GetStringData("EnterExit", "Reload"));
         }
 
         public void IsStressed()
         {
-            message.StoreText("You feel stressed.");
+            message.StoreText(text.GetStringData(node, "PCStress"));
+        }
+
+        private void Awake()
+        {
+            node = "Combat";
         }
 
         private string GetAttackerName(GameObject attacker)
@@ -61,6 +71,7 @@ namespace Fungus.Actor
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
         }
     }
 }

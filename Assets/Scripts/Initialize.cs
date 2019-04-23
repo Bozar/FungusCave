@@ -56,7 +56,8 @@ namespace Fungus.GameSystem
 
         private void PrintWelcomeMessage()
         {
-            string welcome = "Welcome to Cave %num%.";
+            string welcome = GetComponent<GameText>().GetStringData("EnterExit",
+                "Welcome");
             string level = GetComponent<ProgressData>().GetDungeonLevel()
                 .ToString();
             level = level.Replace("DL", "");

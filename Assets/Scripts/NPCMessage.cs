@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using UnityEngine;
 
@@ -8,32 +9,49 @@ namespace Fungus.Actor
     {
         private ConvertCoordinates coord;
         private UIMessage message;
+        private string node;
+        private GameText text;
 
         public void IsExhausted()
         {
-            message.StoreText(GetDefenderName() + " is exhausted.");
+            string exhaust = text.GetStringData(node, "NPCExhaust");
+            exhaust = exhaust.Replace("%str%", GetDefenderName());
+            message.StoreText(exhaust);
         }
 
         // PC hits NPC.
         public void IsHit(GameObject attacker)
         {
-            message.StoreText("You hit " + GetDefenderName() + ".");
+            string hit = text.GetStringData(node, "NPCHit");
+            hit = hit.Replace("%str%", GetDefenderName());
+            message.StoreText(hit);
         }
 
         public void IsInfected()
         {
-            message.StoreText(GetDefenderName() + " is infected.");
+            string infect = text.GetStringData(node, "NPCInfect");
+            infect = infect.Replace("%str%", GetDefenderName());
+            message.StoreText(infect);
         }
 
         // PC kills NPC.
         public void IsKilled(GameObject attacker)
         {
-            message.StoreText(GetDefenderName() + " is dead.");
+            string kill = text.GetStringData(node, "NPCKill");
+            kill = kill.Replace("%str%", GetDefenderName());
+            message.StoreText(kill);
         }
 
         public void IsStressed()
         {
-            message.StoreText(GetDefenderName() + " looks stressed.");
+            string stress = text.GetStringData(node, "NPCStress");
+            stress = stress.Replace("%str%", GetDefenderName());
+            message.StoreText(stress);
+        }
+
+        private void Awake()
+        {
+            node = "Combat";
         }
 
         private string GetDefenderName()
@@ -45,6 +63,7 @@ namespace Fungus.Actor
         {
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
         }
     }
 }
