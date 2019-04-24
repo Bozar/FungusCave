@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using System;
@@ -10,6 +11,7 @@ namespace Fungus.Actor
     {
         private UIMessage message;
         private PotionData potionData;
+        private GameText text;
 
         public int CurrentPotion { get; private set; }
 
@@ -30,7 +32,7 @@ namespace Fungus.Actor
             GetComponent<Energy>().GainEnergy(potionData.RestoreEnergy);
             LosePotion(1);
 
-            message.StoreText("You inject yourself with a blood potion.");
+            message.StoreText(text.GetStringData("Combat", "Potion"));
             return;
         }
 
@@ -49,6 +51,7 @@ namespace Fungus.Actor
         {
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
 
             CurrentPotion = potionData.StartPotion;
         }

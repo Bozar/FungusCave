@@ -10,12 +10,13 @@ namespace Fungus.GameSystem.Render
         Message1, Message2, Message3, Message4, Message5,
         SubModeHeader, ViewHelp, Opening, OpeningModeline,
 
-        HPData, StressData, PotionData, DamageData,
+        HPLabel, HPData, StressLabel, StressData,
+        PotionLabel, PotionData, DamageLabel, DamageData,
         Turn, Terrain,
         PowerLabel, PowerData0, PowerData1, PowerData2,
         InfectionLabel,
         InfectionName, InfectionDuration,
-        Version, Seed,
+        Version, Seed, Help,
 
         BuyPowerSlotLabel, BuyPowerModeline,
         BuyPowerSlot1, BuyPowerSlot2, BuyPowerSlot3,

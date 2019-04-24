@@ -14,7 +14,7 @@ namespace Fungus.GameSystem.Render
     public class UIStatus : MonoBehaviour, IUpdateUI
     {
         private UIText getText;
-        private string parentNode;
+        private string node;
 
         private delegate Text UIText(UITag tag);
 
@@ -43,13 +43,14 @@ namespace Fungus.GameSystem.Render
             UpdatePower();
             UpdateInfection();
 
+            UpdateHelp();
             UpdateVersion();
             UpdateSeed();
         }
 
         private void Awake()
         {
-            parentNode = "Status";
+            node = "Status";
         }
 
         private string JoinCurrentMax(int current, int max)
@@ -66,12 +67,14 @@ namespace Fungus.GameSystem.Render
         {
             int current = FindObjects.PC.GetComponent<IDamage>().CurrentDamage;
 
+            getText(UITag.DamageLabel).text
+              = GetComponent<GameText>().GetStringData(node, "Damage");
             getText(UITag.DamageData).text = current.ToString();
         }
 
         private void UpdateDungeonLevel()
         {
-            string dungeon = GetComponent<GameText>().GetStringData(parentNode,
+            string dungeon = GetComponent<GameText>().GetStringData(node,
                 "DungeonLevel");
             string level = GetComponent<ProgressData>().GetDungeonLevel()
                 .ToString();
@@ -95,7 +98,7 @@ namespace Fungus.GameSystem.Render
             {
                 enemy = true;
                 env = env.Replace("%str1%",
-                    GetComponent<GameText>().GetStringData(parentNode,
+                    GetComponent<GameText>().GetStringData(node,
                     "EnemyIcon"));
             }
             else
@@ -108,7 +111,7 @@ namespace Fungus.GameSystem.Render
             {
                 pool = true;
                 env = env.Replace("%str3%",
-                    GetComponent<GameText>().GetStringData(parentNode,
+                    GetComponent<GameText>().GetStringData(node,
                     "PoolIcon"));
             }
             else
@@ -128,17 +131,27 @@ namespace Fungus.GameSystem.Render
             getText(UITag.Terrain).text = env;
         }
 
+        private void UpdateHelp()
+        {
+            getText(UITag.Help).text
+                = GetComponent<GameText>().GetStringData(node, "Help");
+        }
+
         private void UpdateHP()
         {
             int current = FindObjects.PC.GetComponent<HP>().CurrentHP;
             int max = FindObjects.PC.GetComponent<HP>().MaxHP;
 
+            getText(UITag.HPLabel).text
+                = GetComponent<GameText>().GetStringData(node, "HP");
             getText(UITag.HPData).text = JoinCurrentMax(current, max);
         }
 
         private void UpdateInfection()
         {
-            string label = "[ Infection ]";
+            string label = "[ %str% ]";
+            label = label.Replace("%str%",
+                GetComponent<GameText>().GetStringData(node, "Infection"));
 
             if (FindObjects.PC.GetComponent<Infection>().HasInfection(
                 out InfectionTag tag, out int duration))
@@ -161,6 +174,8 @@ namespace Fungus.GameSystem.Render
             int current = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
             int max = GetComponent<PotionData>().MaxPotion;
 
+            getText(UITag.PotionLabel).text
+               = GetComponent<GameText>().GetStringData(node, "Potion");
             getText(UITag.PotionData).text = JoinCurrentMax(current, max);
         }
 
@@ -190,7 +205,10 @@ namespace Fungus.GameSystem.Render
 
             if (hasPower)
             {
-                getText(UITag.PowerLabel).text = "[ Power ]";
+                string label = "[ %str% ]";
+                label = label.Replace("%str%",
+                    GetComponent<GameText>().GetStringData(node, "Power"));
+                getText(UITag.PowerLabel).text = label;
             }
         }
 
@@ -212,6 +230,8 @@ namespace Fungus.GameSystem.Render
             int current = FindObjects.PC.GetComponent<Stress>().CurrentStress;
             int max = FindObjects.PC.GetComponent<Stress>().MaxStress;
 
+            getText(UITag.StressLabel).text
+               = GetComponent<GameText>().GetStringData(node, "Stress");
             getText(UITag.StressData).text = JoinCurrentMax(current, max);
         }
 
@@ -225,7 +245,7 @@ namespace Fungus.GameSystem.Render
 
             for (int i = 0; i < current; i++)
             {
-                turn.Enqueue(GetComponent<GameText>().GetStringData(parentNode,
+                turn.Enqueue(GetComponent<GameText>().GetStringData(node,
                     "TurnIcon"));
                 if ((current > max) && (i + 1 == max))
                 {
@@ -242,7 +262,7 @@ namespace Fungus.GameSystem.Render
             string version = FindObjects.Version;
             if (GetComponent<WizardMode>().IsWizardMode)
             {
-                version = GetComponent<GameText>().GetStringData(parentNode,
+                version = GetComponent<GameText>().GetStringData(node,
                     "WizardIcon") + version;
             }
 

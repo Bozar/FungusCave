@@ -15,6 +15,10 @@
     </End>
   </AutoExplore>
   <Combat>
+    <Potion>
+      <English>You inject yourself with a blood potion.</English>
+      <Chinese>你给自己注射了一瓶血液。</Chinese>
+    </Potion>
     <PCExhaust>
       <English>You are exhausted.</English>
       <Chinese>你耗尽了力气。</Chinese>
@@ -67,6 +71,34 @@
     </Welcome>
   </EnterExit>
   <Status>
+    <Help>
+      <English>Help: ?</English>
+      <Chinese>帮助：?</Chinese>
+    </Help>
+    <HP>
+      <English>HP</English>
+      <Chinese>生命</Chinese>
+    </HP>
+    <Stress>
+      <English>Stress</English>
+      <Chinese>压力</Chinese>
+    </Stress>
+    <Potion>
+      <English>Potion</English>
+      <Chinese>血瓶</Chinese>
+    </Potion>
+    <Damage>
+      <English>Damage</English>
+      <Chinese>伤害</Chinese>
+    </Damage>
+    <Power>
+      <English>Power</English>
+      <Chinese>能力</Chinese>
+    </Power>
+    <Infection>
+      <English>Infection</English>
+      <Chinese>感染</Chinese>
+    </Infection>
     <DungeonLevel>
       <English>Cave - %num%</English>
       <Chinese>洞窟 - %num%</Chinese>
