@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Fungus.Actor.Turn
         private HeaderAction header;
         private SubMode mode;
         private Power pcPower;
+        private GameText text;
         private UIBuyPower ui;
 
         private void Awake()
@@ -23,7 +25,7 @@ namespace Fungus.Actor.Turn
             confirmToBuy = isReady;
 
             FindObjects.GetUIText(UITag.BuyPowerModeline).text = isReady
-                ? "Press Space again to confirm."
+                ? text.GetStringData("BuyPower", "Confirm")
                 : "";
         }
 
@@ -33,6 +35,7 @@ namespace Fungus.Actor.Turn
             ui = FindObjects.GameLogic.GetComponent<UIBuyPower>();
             pcPower = FindObjects.PC.GetComponent<Power>();
             header = FindObjects.GameLogic.GetComponent<HeaderAction>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
         }
 
         private void TryBuyPower()

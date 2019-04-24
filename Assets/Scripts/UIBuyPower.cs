@@ -12,6 +12,7 @@ namespace Fungus.GameSystem.Render
     {
         private int cursorPosition;
         private UIText getUI;
+        private string node;
         private PowerTag[] orderedPower;
         private Dictionary<PowerTag, UITag> powerTagUI;
         private Dictionary<PowerSlotTag, UITag> slotTagUI;
@@ -73,12 +74,13 @@ namespace Fungus.GameSystem.Render
 
         private void Awake()
         {
+            node = "BuyPower";
             cursorPosition = 0;
         }
 
         private string GetPCHP()
         {
-            string hp = "HP: %num%";
+            string hp = GetComponent<GameText>().GetStringData(node, "HP");
             hp = hp.Replace("%num%",
                 FindObjects.PC.GetComponent<HP>().CurrentHP.ToString());
 
@@ -88,7 +90,8 @@ namespace Fungus.GameSystem.Render
         private string GetPowerCost(PowerTag tag)
         {
             // Cost: %num1%/%num2%
-            string powerCost = "Cost: %num1%/%num2%";
+            string powerCost = GetComponent<GameText>().GetStringData(node,
+                "Cost");
             int reqPotion = GetComponent<PowerData>().GetPowerCost(tag);
             int hasPotion = FindObjects.PC.GetComponent<Potion>().CurrentPotion;
 
@@ -109,10 +112,14 @@ namespace Fungus.GameSystem.Render
         private string GetPowerStatus(PowerTag tag)
         {
             // Status: %str%
-            string powerStatus = "Status: %str%";
-            string unlocked = "Available";
-            string locked = "Unavailable";
-            string owned = "Owned";
+            string powerStatus = GetComponent<GameText>().GetStringData(node,
+                "Status");
+            string unlocked = GetComponent<GameText>().GetStringData(node,
+                "Unlocked");
+            string locked = GetComponent<GameText>().GetStringData(node,
+                "Locked");
+            string owned = GetComponent<GameText>().GetStringData(node,
+                "Owned");
 
             if (FindObjects.PC.GetComponent<Power>().HasPower(tag))
             {
@@ -145,7 +152,9 @@ namespace Fungus.GameSystem.Render
         private void PrintPowerList()
         {
             Power pcPower = FindObjects.PC.GetComponent<Power>();
-            string label = "[ Power List ]";
+            string label = "[ %str% ]";
+            label = label.Replace("%str%",
+                GetComponent<GameText>().GetStringData(node, "ListLabel"));
 
             getUI(UITag.BuyPowerListLabel).text = label;
 
@@ -176,20 +185,20 @@ namespace Fungus.GameSystem.Render
 
         private void PrintPowerSlot()
         {
-            string label = "[ Power Slot ]";
-            string empty = "Empty";
+            string label = "[ %str% ]";
+            label = label.Replace("%str%",
+                GetComponent<GameText>().GetStringData(node, "SlotLabel"));
+            string empty = GetComponent<GameText>().GetStringData(node,
+                "EmptySlot");
             empty = GetComponent<GameColor>().GetColorfulText(
                 empty, ColorName.Grey);
 
             getUI(UITag.BuyPowerSlotLabel).text = label;
 
-            PowerTag power;
-            bool isActive;
-
             foreach (PowerSlotTag tag in slotTagUI.Keys)
             {
                 if (FindObjects.PC.GetComponent<Power>().HasPower(
-                    tag, out power, out isActive))
+                    tag, out PowerTag power, out bool isActive))
                 {
                     getUI(slotTagUI[tag]).text
                         = GetComponent<PowerData>().GetPowerName(power);

@@ -8,7 +8,7 @@
   <AutoExploreStep>5</AutoExploreStep>
   <Language>
     <!-- Options: English, Chinese. -->
-    <User>Chinese</User>
+    <User>English</User>
     <!-- Do not change the default language. -->
     <Default>English</Default>
   </Language>

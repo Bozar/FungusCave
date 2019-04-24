@@ -70,6 +70,48 @@
       <Chinese>欢迎来到洞窟 %num%。</Chinese>
     </Welcome>
   </EnterExit>
+  <BuyPower>
+    <Confirm>
+      <English>Press Space again to confirm.</English>
+      <Chinese>再次按 空格键 确认。</Chinese>
+    </Confirm>
+    <HP>
+      <English>HP: %num%</English>
+      <Chinese>生命：%num%</Chinese>
+    </HP>
+    <Cost>
+      <English>Cost: %num1%/%num2%</English>
+      <Chinese>花费：%num1%/%num2%</Chinese>
+    </Cost>
+    <Status>
+      <English>Status: %str%</English>
+      <Chinese>状态：%str%</Chinese>
+    </Status>
+    <Unlocked>
+      <English>Available</English>
+      <Chinese>可购买</Chinese>
+    </Unlocked>
+    <Locked>
+      <English>Unavailable</English>
+      <Chinese>不可购买</Chinese>
+    </Locked>
+    <Owned>
+      <English>Owned</English>
+      <Chinese>已获得</Chinese>
+    </Owned>
+    <ListLabel>
+      <English>Power List</English>
+      <Chinese>能力列表</Chinese>
+    </ListLabel>
+    <SlotLabel>
+      <English>Power Slot</English>
+      <Chinese>能力栏位</Chinese>
+    </SlotLabel>
+    <EmptySlot>
+      <English>Empty</English>
+      <Chinese>空缺</Chinese>
+    </EmptySlot>
+  </BuyPower>
   <SubModeHeader>
     <Power>
       <English>Power</English>
