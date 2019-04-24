@@ -6,7 +6,7 @@ Fungus Cave is a coffee break Roguelike game. A successful run takes about ten m
 
 The game is made with C# and Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino for [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0). The color theme, `One Dark Pro`, is created by binaryify for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
 
-This readme serves as a quick start guide to the game. Please refer to manual.md for more information.
+This readme serves as a quick start guide to the game. Please refer to `manual.md`, which is in the same place as `FungusCave.exe`, for more information.
 
 > '... Blood,' he continued after a pause, 'blood is holy! Blood does not see the light of God's sun, blood is hidden from the light ... And a great sin it is to show blood to the light of day, a great sin and cause to be fearful, oh, a great one it is!'
 >
