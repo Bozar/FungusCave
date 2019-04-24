@@ -15,6 +15,7 @@ namespace Fungus.GameSystem.Render
         private ConvertCoordinates coord;
         private UIText getUI;
         private InfectionData infectionData;
+        private string node;
         private PotionData potionData;
 
         private delegate Text UIText(UITag tag);
@@ -49,9 +50,15 @@ namespace Fungus.GameSystem.Render
             //PrintFog();
         }
 
+        private void Awake()
+        {
+            node = "Examine";
+        }
+
         private void PrintDamage(GameObject actor)
         {
-            string label = "Damage";
+            string label = GetComponent<GameText>().GetStringData(node,
+                "Damage");
             string data = actor.GetComponent<IDamage>().CurrentDamage.ToString();
 
             getUI(UITag.ExamineDamageLabel).text = label;
@@ -66,7 +73,8 @@ namespace Fungus.GameSystem.Render
 
         private void PrintHP(GameObject actor)
         {
-            string label = "HP";
+            string label = GetComponent<GameText>().GetStringData(node,
+               "HP");
             string data = actor.GetComponent<HP>().CurrentHP.ToString();
 
             getUI(UITag.ExamineHPLabel).text = label;
@@ -91,7 +99,11 @@ namespace Fungus.GameSystem.Render
 
         private void PrintModeline()
         {
-            string modeline = "[ Examine | Esc ]";
+            string modeline = "[ %str1% | %str2% ]";
+            modeline = modeline.Replace("%str1%",
+                GetComponent<GameText>().GetStringData(node, "Mode"));
+            modeline = modeline.Replace("%str2%",
+                GetComponent<GameText>().GetStringData(node, "Exit"));
 
             getUI(UITag.ExamineModeline).text = modeline;
         }
@@ -104,7 +116,8 @@ namespace Fungus.GameSystem.Render
 
         private void PrintPool()
         {
-            string label = "Pool";
+            string label = GetComponent<GameText>().GetStringData(node,
+                "Pool");
 
             if (board.CheckBlock(SubObjectTag.Pool,
                 FindObjects.GetStaticActor(SubObjectTag.Examiner)
@@ -120,7 +133,8 @@ namespace Fungus.GameSystem.Render
 
         private void PrintPotion(GameObject actor)
         {
-            string label = "Potion";
+            string label = GetComponent<GameText>().GetStringData(node,
+               "Potion");
 
             int basic = actorData.GetIntData(
                 actor.GetComponent<MetaInfo>().SubTag, DataTag.Potion);
