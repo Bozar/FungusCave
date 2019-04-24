@@ -70,6 +70,28 @@
       <Chinese>欢迎来到洞窟 %num%。</Chinese>
     </Welcome>
   </EnterExit>
+  <Examine>
+    <Damage>
+      <English>Damage</English>
+      <Chinese>伤害</Chinese>
+    </Damage>
+    <HP>
+      <English>HP</English>
+      <Chinese>生命</Chinese>
+    </HP>
+    <Potion>
+      <English>Potion</English>
+      <Chinese>血瓶</Chinese>
+    </Potion>
+    <Pool>
+      <English>Pool</English>
+      <Chinese>水池</Chinese>
+    </Pool>
+    <Mode>
+      <English>Examine</English>
+      <Chinese>检查模式</Chinese>
+    </Mode>
+  </Examine>
   <Status>
     <Help>
       <English>Help: ?</English>
