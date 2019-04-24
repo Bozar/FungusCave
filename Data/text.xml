@@ -70,6 +70,24 @@
       <Chinese>欢迎来到洞窟 %num%。</Chinese>
     </Welcome>
   </EnterExit>
+  <SubModeHeader>
+    <Power>
+      <English>Power</English>
+      <Chinese>能力</Chinese>
+    </Power>
+    <Log>
+      <English>Log</English>
+      <Chinese>日志</Chinese>
+    </Log>
+    <Help>
+      <English>Help</English>
+      <Chinese>帮助</Chinese>
+    </Help>
+    <Setting>
+      <English>Setting</English>
+      <Chinese>设置</Chinese>
+    </Setting>
+  </SubModeHeader>
   <Examine>
     <Damage>
       <English>Damage</English>
