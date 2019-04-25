@@ -2,6 +2,7 @@
 using Fungus.Actor.AI;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ namespace Fungus.GameSystem.Render
         {
             string dungeon = GetComponent<GameText>().GetStringData(node,
                 "DungeonLevel");
-            string level = GetComponent<ProgressData>().GetDungeonLevel()
+            string level = GetComponent<DungeonProgressData>().GetDungeonLevel()
                 .ToString();
 
             // DL1

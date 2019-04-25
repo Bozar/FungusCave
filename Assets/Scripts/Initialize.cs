@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
 using System.IO;
@@ -45,7 +46,7 @@ namespace Fungus.GameSystem
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
 
-            bool show = (GetComponent<ProgressData>().GetDungeonLevel()
+            bool show = (GetComponent<DungeonProgressData>().GetDungeonLevel()
                 == DungeonLevel.DL1)
                 ? GetComponent<GameSetting>().ShowOpening
                 : false;
@@ -58,7 +59,7 @@ namespace Fungus.GameSystem
         {
             string welcome = GetComponent<GameText>().GetStringData("EnterExit",
                 "Welcome");
-            string level = GetComponent<ProgressData>().GetDungeonLevel()
+            string level = GetComponent<DungeonProgressData>().GetDungeonLevel()
                 .ToString();
             level = level.Replace("DL", "");
             welcome = welcome.Replace("%num%", level);

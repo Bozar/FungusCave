@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Fungus.Actor
         private UIMessage message;
         private UIModeline modeline;
         private PotionData potionData;
-        private Progress progress;
+        private DungeonProgress progress;
         private SchedulingSystem schedule;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
@@ -78,7 +79,7 @@ namespace Fungus.Actor
         private void Start()
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
-            progress = FindObjects.GameLogic.GetComponent<Progress>();
+            progress = FindObjects.GameLogic.GetComponent<DungeonProgress>();
             color = FindObjects.GameLogic.GetComponent<GameColor>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();

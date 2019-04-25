@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.Turn;
@@ -29,6 +30,8 @@ namespace Fungus.GameSystem
 
             gameObject.AddComponent<DungeonBlueprint>();
             gameObject.AddComponent<DungeonBoard>();
+            gameObject.AddComponent<DungeonProgress>();
+            gameObject.AddComponent<DungeonProgressData>();
             gameObject.AddComponent<DungeonTerrain>();
 
             gameObject.AddComponent<EnergyData>();
@@ -47,8 +50,6 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PotionData>();
             gameObject.AddComponent<PowerData>();
-            gameObject.AddComponent<Progress>();
-            gameObject.AddComponent<ProgressData>();
 
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoadFile>();

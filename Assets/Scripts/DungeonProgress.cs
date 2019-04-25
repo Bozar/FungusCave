@@ -2,13 +2,13 @@
 using Fungus.GameSystem.Data;
 using UnityEngine;
 
-namespace Fungus.GameSystem
+namespace Fungus.GameSystem.Progress
 {
-    public class Progress : MonoBehaviour
+    public class DungeonProgress : MonoBehaviour
     {
         private ActorData actorData;
         private int kill;
-        private ProgressData progress;
+        private DungeonProgressData progress;
 
         public void CountKill(GameObject actor)
         {
@@ -22,8 +22,11 @@ namespace Fungus.GameSystem
 
         public bool IsWin()
         {
-            DungeonLevel current = GetComponent<ProgressData>().GetDungeonLevel();
-            DungeonLevel next = GetComponent<ProgressData>().GetNextLevel();
+            DungeonLevel current = GetComponent<DungeonProgressData>()
+                .GetDungeonLevel();
+            DungeonLevel next = GetComponent<DungeonProgressData>()
+                .GetNextLevel();
+
             return (current == next) && LevelCleared();
         }
 
@@ -39,7 +42,7 @@ namespace Fungus.GameSystem
 
         private void Start()
         {
-            progress = GetComponent<ProgressData>();
+            progress = GetComponent<DungeonProgressData>();
             actorData = GetComponent<ActorData>();
         }
     }

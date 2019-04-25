@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.SaveLoadData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ namespace Fungus.Actor.Turn
 {
     public class GuideAction : MonoBehaviour
     {
-        private Progress progress;
+        private DungeonProgress progress;
         private SaveLoadGame saveLoad;
 
         private void Reload()
@@ -28,7 +29,7 @@ namespace Fungus.Actor.Turn
 
         private void Start()
         {
-            progress = FindObjects.GameLogic.GetComponent<Progress>();
+            progress = FindObjects.GameLogic.GetComponent<DungeonProgress>();
             saveLoad = FindObjects.GameLogic.GetComponent<SaveLoadGame>();
         }
 

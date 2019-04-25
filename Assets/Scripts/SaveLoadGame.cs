@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fungus.GameSystem.Progress;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
@@ -26,7 +27,7 @@ namespace Fungus.GameSystem.SaveLoadData
                         break;
 
                     case DataTemplateTag.Progress:
-                        GetComponent<ProgressData>().Load(dt);
+                        GetComponent<DungeonProgressData>().Load(dt);
                         break;
 
                     default:
@@ -63,7 +64,8 @@ namespace Fungus.GameSystem.SaveLoadData
         {
             saveLevel = new ISaveLoadBinary[]
             {
-                GetComponent<ProgressData>(), GetComponent<RandomNumber>(),
+                GetComponent<DungeonProgressData>(),
+                GetComponent<RandomNumber>(),
             };
         }
     }

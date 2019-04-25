@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
@@ -19,7 +20,7 @@ namespace Fungus.GameSystem.WorldBuilding
         {
             get
             {
-                return GetComponent<ProgressData>().GetDungeonSeed();
+                return GetComponent<DungeonProgressData>().GetDungeonSeed();
             }
         }
 

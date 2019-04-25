@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Progress;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Fungus.GameSystem.WorldBuilding
     {
         public SubObjectTag[] GetActor()
         {
-            ProgressData progress = GetComponent<ProgressData>();
+            DungeonProgressData progress = GetComponent<DungeonProgressData>();
             DungeonLevel level = progress.GetDungeonLevel();
             int maxSoldier = progress.MaxSoldier;
             int maxActor = progress.MaxActor;
