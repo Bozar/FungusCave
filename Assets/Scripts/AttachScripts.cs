@@ -21,6 +21,7 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<BlueprintPool>();
             gameObject.AddComponent<BlueprintSponge>();
 
+            gameObject.AddComponent<ColorScheme>();
             gameObject.AddComponent<CombatMessage>();
             gameObject.AddComponent<ConvertCoordinates>();
             gameObject.AddComponent<CreateWorld>();

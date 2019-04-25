@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ColorScheme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--  -->
+  <Foreground>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </Foreground>
+  <!--  -->
+  <Background>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </Background>
+  <!--  -->
+  <Highlight>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </Highlight>
+  <!--  -->
+  <Shadow>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </Shadow>
+  <!--  -->
+  <Warning>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </Warning>
+  <!--  -->
+  <TEST>
+    <HexColor></HexColor>
+    <RGBAColor>
+      <Red></Red>
+      <Green></Green>
+      <Blue></Blue>
+      <Alpha></Alpha>
+    </RGBAColor>
+  </TEST>
+  <!-- vim: set lbr sts=2 sw=2: -->
+</ColorScheme>
