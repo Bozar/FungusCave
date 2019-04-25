@@ -1,10 +1,9 @@
-﻿using Fungus.GameSystem.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 
-namespace Fungus.GameSystem.ObjectManager
+namespace Fungus.GameSystem.Data
 {
     public enum CombatRoleTag
     {

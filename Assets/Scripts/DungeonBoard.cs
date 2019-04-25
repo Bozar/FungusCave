@@ -1,4 +1,4 @@
-﻿using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +15,7 @@ namespace Fungus.GameSystem.WorldBuilding
         private ConvertCoordinates coordinate;
 
         public int Height { get; private set; }
+
         public int Width { get; private set; }
 
         public bool ChangeBlock(GameObject go, int x, int y)

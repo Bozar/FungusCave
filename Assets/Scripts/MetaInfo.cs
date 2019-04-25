@@ -1,7 +1,7 @@
-﻿using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem.Data;
 using UnityEngine;
 
-namespace Fungus.Actor.ObjectManager
+namespace Fungus.Actor
 {
     public class MetaInfo : MonoBehaviour
     {

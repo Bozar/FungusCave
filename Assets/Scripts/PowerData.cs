@@ -1,5 +1,4 @@
 ﻿using Fungus.Actor;
-using Fungus.GameSystem.Data;
 using System;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ namespace Fungus.Actor
     }
 }
 
-namespace Fungus.GameSystem.ObjectManager
+namespace Fungus.GameSystem.Data
 {
     public class PowerData : MonoBehaviour
     {

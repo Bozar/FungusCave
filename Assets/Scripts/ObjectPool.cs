@@ -2,31 +2,17 @@
 using Fungus.Actor.AI;
 using Fungus.Actor.FOV;
 using Fungus.Actor.InputManager;
-using Fungus.Actor.ObjectManager;
 using Fungus.Actor.Render;
 using Fungus.Actor.Turn;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fungus.GameSystem.ObjectManager
+namespace Fungus.GameSystem
 {
-    // Dopplegangers are substitutions for PC under certain situations: examine
-    // mode, help menu, etc.
-    public enum MainObjectTag { NONE, Building, Actor, Doppleganger };
-
-    public enum SubObjectTag
-    {
-        NONE, DEFAULT,
-        Floor, Wall, Pool, Fungus,
-        PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog, Opening,
-        Scavenger, Carnivore, Corpse, Specter,
-        BloodFly, Frog, AcidOoze, YellowOoze,
-        Dummy
-    };
-
     public class ObjectPool : MonoBehaviour
     {
         private Dictionary<SubObjectTag, Stack<GameObject>> pool;
@@ -318,4 +304,21 @@ namespace Fungus.GameSystem.ObjectManager
             go.SetActive(false);
         }
     }
+}
+
+namespace Fungus.GameSystem.Data
+{
+    // Dopplegangers are substitutions for PC under certain situations: examine
+    // mode, help menu, etc.
+    public enum MainObjectTag { NONE, Building, Actor, Doppleganger };
+
+    public enum SubObjectTag
+    {
+        NONE, DEFAULT,
+        Floor, Wall, Pool, Fungus,
+        PC, Examiner, Guide, BuyPower, Setting, ViewHelp, ViewLog, Opening,
+        Scavenger, Carnivore, Corpse, Specter,
+        BloodFly, Frog, AcidOoze, YellowOoze,
+        Dummy
+    };
 }

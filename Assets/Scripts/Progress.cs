@@ -1,6 +1,5 @@
-﻿using Fungus.Actor.ObjectManager;
+﻿using Fungus.Actor;
 using Fungus.GameSystem.Data;
-using Fungus.GameSystem.ObjectManager;
 using UnityEngine;
 
 namespace Fungus.GameSystem

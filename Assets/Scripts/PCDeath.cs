@@ -1,7 +1,5 @@
-﻿using Fungus.Actor.ObjectManager;
-using Fungus.GameSystem;
+﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
-using Fungus.GameSystem.ObjectManager;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using UnityEngine;

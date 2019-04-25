@@ -1,7 +1,6 @@
-﻿using Fungus.GameSystem.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Fungus.GameSystem.ObjectManager
+namespace Fungus.GameSystem.Data
 {
     public class EnergyData : MonoBehaviour
     {

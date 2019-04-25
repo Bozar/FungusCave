@@ -1,4 +1,4 @@
-﻿using Fungus.GameSystem.ObjectManager;
+﻿using Fungus.GameSystem.Data;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
