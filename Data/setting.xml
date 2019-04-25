@@ -6,6 +6,7 @@
   <Seed>0</Seed>
   <!-- Move at most X steps when auto exploring. -->
   <AutoExploreStep>5</AutoExploreStep>
+  <ColorScheme>BlackWhite</ColorScheme>
   <Language>
     <!-- Options: English, Chinese. -->
     <User>English</User>

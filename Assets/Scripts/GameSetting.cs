@@ -14,6 +14,11 @@ namespace Fungus.GameSystem.Data
             get { return (int)xFile.Element("AutoExploreStep"); }
         }
 
+        public string ColorScheme
+        {
+            get { return (string)xFile.Element("ColorScheme"); }
+        }
+
         public string DefaultLanguage
         {
             get { return (string)xFile.Element("Language").Element("Default"); }
