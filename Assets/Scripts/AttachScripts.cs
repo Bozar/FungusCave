@@ -47,6 +47,8 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<InfectionData>();
             gameObject.AddComponent<Initialize>();
 
+            gameObject.AddComponent<MonitorHaruhi>();
+            gameObject.AddComponent<MonitorYuki>();
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PotionData>();
             gameObject.AddComponent<PowerData>();
