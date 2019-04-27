@@ -1,5 +1,6 @@
 ﻿using Fungus.Actor.Render;
 using Fungus.GameSystem;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.Render;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Fungus.Actor
 
         public void BurySelf()
         {
+            NourishFungus.CountDeath(this,
+                new TagPositionEventArgs(GetComponent<MetaInfo>().SubTag,
+                new int[] { 42 }));
             pool.StoreObject(gameObject);
         }
 

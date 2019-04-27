@@ -88,11 +88,6 @@ namespace Fungus.GameSystem
                 }
                 Debug.Log(GetComponent<RandomNumber>().RootSeed);
                 Initialized = true;
-
-                GetComponent<MonitorHaruhi>().HaruhiSays
-                    += GetComponent<MonitorYuki>().MonitorHaruhi_HaruhiSays;
-                GetComponent<MonitorHaruhi>().Trigger(
-                    new SendMessageEventArgs("Yuki"));
             }
         }
     }

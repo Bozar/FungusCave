@@ -47,8 +47,6 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<InfectionData>();
             gameObject.AddComponent<Initialize>();
 
-            gameObject.AddComponent<MonitorHaruhi>();
-            gameObject.AddComponent<MonitorYuki>();
             gameObject.AddComponent<ObjectPool>();
             gameObject.AddComponent<PotionData>();
             gameObject.AddComponent<PowerData>();
@@ -56,7 +54,9 @@ namespace Fungus.GameSystem
             gameObject.AddComponent<RandomNumber>();
             gameObject.AddComponent<SaveLoadFile>();
             gameObject.AddComponent<SaveLoadGame>();
+
             gameObject.AddComponent<SchedulingSystem>();
+            gameObject.AddComponent<SpawnBeetle>();
             gameObject.AddComponent<SubMode>();
 
             gameObject.AddComponent<UIBuyPower>();
