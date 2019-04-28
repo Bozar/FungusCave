@@ -35,7 +35,7 @@ namespace Fungus.GameSystem
             if (messages.Count > height * 3)
             {
                 IEnumerable<string> tmp = messages
-                    .Skip(messages.Count - height - 1)
+                    .Skip(messages.Count - height)
                     .Take(height);
                 messages = tmp.ToList();
             }
