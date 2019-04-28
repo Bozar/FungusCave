@@ -53,6 +53,22 @@ namespace Fungus.GameSystem.Render
             node = "Status";
         }
 
+        private string ColorfulLowHP(string text)
+        {
+            if (FindObjects.PC.GetComponent<HP>().CurrentHP
+                <= GetComponent<GameSetting>().LowHP)
+            {
+                text = GetComponent<GameColor>().GetColorfulText(text,
+                    ColorName.Orange);
+            }
+            else
+            {
+                text = GetComponent<GameColor>().GetColorfulText(text,
+                    ColorName.White);
+            }
+            return text;
+        }
+
         private string JoinCurrentMax(int current, int max)
         {
             return current + " / " + max;
@@ -141,10 +157,12 @@ namespace Fungus.GameSystem.Render
         {
             int current = FindObjects.PC.GetComponent<HP>().CurrentHP;
             int max = FindObjects.PC.GetComponent<HP>().MaxHP;
+            string text = JoinCurrentMax(current, max);
+            text = ColorfulLowHP(text);
 
             getText(UITag.HPLabel).text
                 = GetComponent<GameText>().GetStringData(node, "HP");
-            getText(UITag.HPData).text = JoinCurrentMax(current, max);
+            getText(UITag.HPData).text = text;
         }
 
         private void UpdateInfection()

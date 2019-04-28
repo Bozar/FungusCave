@@ -24,6 +24,8 @@ namespace Fungus.GameSystem.Data
             get { return (bool)xFile.Element("IsWizard"); }
         }
 
+        public int LowHP { get { return (int)xFile.Element("LowHP"); } }
+
         public int Seed
         {
             get { return (int)xFile.Element("Seed"); }

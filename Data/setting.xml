@@ -6,6 +6,8 @@
   <Seed>0</Seed>
   <!-- Move at most X steps when auto exploring. -->
   <AutoExploreStep>5</AutoExploreStep>
+  <!-- Change UI color when PC's HP is lower than threshold. -->
+  <LowHP>5</LowHP>
   <Language>
     <!-- Options: English, Chinese. -->
     <User>English</User>
