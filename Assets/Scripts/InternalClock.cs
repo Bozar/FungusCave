@@ -1,5 +1,4 @@
-﻿using Fungus.Actor.AI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus.Actor.Turn
 {
@@ -23,13 +22,6 @@ namespace Fungus.Actor.Turn
         {
             GetComponent<Energy>().Trigger();
             GetComponent<IHP>().Trigger();
-            GetComponent<PCAutoExplore>()?.Count();
-
-            //if (GetComponent<NPCMemory>() != null)
-            //{
-            //    GetComponent<NPCMemory>().Trigger();
-            //    GetComponent<NPCMemory>().Count();
-            //}
         }
     }
 }

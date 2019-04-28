@@ -74,8 +74,15 @@ namespace Fungus.Actor.Turn
 
             if (GetComponent<PCAutoExplore>().ContinueAutoExplore())
             {
-                int[] target = GetComponent<AutoExplore>().GetDestination();
+                if (GetComponent<Infection>().HasInfection(out _, out _))
+                {
+                    schedule.NextActor();
+                    return;
+                }
 
+                GetComponent<PCAutoExplore>().Count();
+
+                int[] target = GetComponent<AutoExplore>().GetDestination();
                 if (target != null)
                 {
                     GetComponent<IMove>().MoveGameObject(target);
