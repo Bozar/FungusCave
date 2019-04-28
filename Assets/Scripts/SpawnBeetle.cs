@@ -8,6 +8,7 @@ namespace Fungus.GameSystem.Progress
         {
             Debug.Log(e.ActorTag);
             Debug.Log(e.Position[0]);
+            Debug.Log(e.Position[1]);
         }
 
         private void Start()
