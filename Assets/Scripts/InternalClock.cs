@@ -2,6 +2,13 @@
 
 namespace Fungus.Actor.Turn
 {
+    public interface IInternalClock
+    {
+        void EndTurn();
+
+        void StartTurn();
+    }
+
     public interface ITurnCounter
     {
         void Count();
@@ -13,13 +20,15 @@ namespace Fungus.Actor.Turn
     {
         public void EndTurn()
         {
+            GetComponent<IInternalClock>().EndTurn();
+
             GetComponent<Infection>().Count();
-            GetComponent<TurnIndicator>()?.Count();
-            GetComponent<TurnIndicator>()?.Trigger();
         }
 
         public void StartTurn()
         {
+            GetComponent<IInternalClock>().StartTurn();
+
             GetComponent<Energy>().Trigger();
             GetComponent<IHP>().Trigger();
         }

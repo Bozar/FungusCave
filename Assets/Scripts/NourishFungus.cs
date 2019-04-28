@@ -3,25 +3,25 @@ using System;
 
 namespace Fungus.GameSystem.Progress
 {
-    public class NourishFungus
-    {
-        public static EventHandler<TagPositionEventArgs> CountDeath;
-
-        protected virtual void OnCountDeath(TagPositionEventArgs e)
-        {
-            CountDeath?.Invoke(this, e);
-        }
-    }
-
-    public class TagPositionEventArgs : EventArgs
+    public class ActorInfoEventArgs : EventArgs
     {
         public readonly SubObjectTag ActorTag;
         public readonly int[] Position;
 
-        public TagPositionEventArgs(SubObjectTag actorTag, int[] position)
+        public ActorInfoEventArgs(SubObjectTag actorTag, int[] position)
         {
             ActorTag = actorTag;
             Position = position;
+        }
+    }
+
+    public class NourishFungus
+    {
+        public static EventHandler<ActorInfoEventArgs> CountDeath;
+
+        protected virtual void OnCountDeath(ActorInfoEventArgs e)
+        {
+            CountDeath?.Invoke(this, e);
         }
     }
 }

@@ -108,6 +108,7 @@ namespace Fungus.GameSystem
                     go.AddComponent<PCEnergy>();
                     go.AddComponent<PCHP>();
                     go.AddComponent<PCInfection>();
+                    go.AddComponent<PCInternalClock>();
                     go.AddComponent<PCMessage>();
 
                     go.AddComponent<PlayerInput>();
@@ -127,6 +128,7 @@ namespace Fungus.GameSystem
                     go.AddComponent<NPCEnergy>();
                     go.AddComponent<NPCHP>();
                     go.AddComponent<NPCInfection>();
+                    go.AddComponent<NPCInternalClock>();
                     go.AddComponent<NPCMessage>();
                     //go.AddComponent<NPCMemory>();
 

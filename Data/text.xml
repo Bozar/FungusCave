@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SpawnBeetle>
+    <Warning>
+      <English>Beetles are devouring the corpse.</English>
+      <Chinese>甲虫正在吞噬尸体。</Chinese>
+    </Warning>
+    <Emerge>
+      <English>Beetles emerge from pool.</English>
+      <Chinese>甲虫涌出了水池。</Chinese>
+    </Emerge>
+  </SpawnBeetle>
   <AutoExplore>
     <Enemy>
       <English>You see an enemy.</English>

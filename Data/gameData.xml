@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SpawnBeetle>
+    <Death>1</Death>
+    <Fungus>1</Fungus>
+    <Warning>1</Warning>
+    <MaxCount>3</MaxCount>
+    <!--<MaxCount>15</MaxCount>-->
+  </SpawnBeetle>
   <Dungeon>
     <StartLevel>DL2</StartLevel>
     <MaxLevel>DL3</MaxLevel>
