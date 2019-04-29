@@ -104,7 +104,7 @@ namespace Fungus.Actor
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            ResetInfection();
         }
 
         public void ResetInfection()

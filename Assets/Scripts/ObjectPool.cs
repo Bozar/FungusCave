@@ -73,11 +73,17 @@ namespace Fungus.GameSystem
         {
             GameObject go;
 
-            if (pool[tag].Count > 0)
+            if ((pool[tag].Count > 0) && (tag != SubObjectTag.PC))
             {
-                // TODO: Refresh the actor.
                 go = pool[tag].Pop();
+
+                go.GetComponent<Energy>().Reset();
+                go.GetComponent<HP>().Reset();
+                go.GetComponent<Infection>().Reset();
+                go.GetComponent<Stress>().Reset();
+
                 go.SetActive(true);
+                go.GetComponent<NPCAction>().enabled = false;
             }
             else
             {

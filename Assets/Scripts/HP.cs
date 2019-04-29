@@ -47,14 +47,14 @@ namespace Fungus.Actor
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            CurrentHP = MaxHP;
         }
 
         private void Start()
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
 
-            CurrentHP = MaxHP;
+            Reset();
         }
     }
 }

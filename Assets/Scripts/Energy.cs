@@ -104,7 +104,7 @@ namespace Fungus.Actor
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            CurrentEnergy = energyData.ActionThreshold;
         }
 
         public void Trigger()
@@ -137,7 +137,7 @@ namespace Fungus.Actor
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
 
-            CurrentEnergy = energyData.ActionThreshold;
+            Reset();
         }
     }
 }
