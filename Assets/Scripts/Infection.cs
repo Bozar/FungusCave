@@ -24,7 +24,7 @@ namespace Fungus.Actor
         int Recovery { get; }
     }
 
-    public class Infection : MonoBehaviour, ITurnCounter
+    public class Infection : MonoBehaviour, ITurnCounter, IResetData
     {
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionDict;
@@ -102,6 +102,11 @@ namespace Fungus.Actor
             return infectionDict[tag] > 0;
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ResetInfection()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
@@ -137,7 +142,6 @@ namespace Fungus.Actor
             // The same infection should not appear 3 times (maxRepeat) in a row.
             do
             {
-                repeat = false;
                 newInfection = candidates[random.Next(SeedTag.Infection,
                     0, candidates.Length)];
 

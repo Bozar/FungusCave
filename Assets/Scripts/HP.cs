@@ -11,7 +11,7 @@ namespace Fungus.Actor
         void RestoreAfterKill();
     }
 
-    public class HP : MonoBehaviour
+    public class HP : MonoBehaviour, IResetData
     {
         private ActorData actorData;
 
@@ -43,6 +43,11 @@ namespace Fungus.Actor
             {
                 GetComponent<IDeath>().BurySelf();
             }
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
 
         private void Start()

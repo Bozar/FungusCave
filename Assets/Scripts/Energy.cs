@@ -16,7 +16,7 @@ namespace Fungus.Actor
         int RestoreTurn { get; }
     }
 
-    public class Energy : MonoBehaviour, ITurnCounter
+    public class Energy : MonoBehaviour, ITurnCounter, IResetData
     {
         private DungeonBoard board;
         private Direction direction;
@@ -100,6 +100,11 @@ namespace Fungus.Actor
 
             FindObjects.GameLogic.GetComponent<UIMessage>().StoreText(
                 printText.ToString());
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
 
         public void Trigger()

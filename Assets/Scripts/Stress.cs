@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Stress : MonoBehaviour
+    public class Stress : MonoBehaviour, IResetData
     {
         private ActorData actorData;
 
@@ -43,6 +43,11 @@ namespace Fungus.Actor
         public void LoseStress(int stress)
         {
             CurrentStress = Math.Max(0, CurrentStress - stress);
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
 
         private void Start()

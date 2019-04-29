@@ -11,6 +11,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Fungus.Actor
+{
+    public interface IResetData
+    {
+        void Reset();
+    }
+}
+
 namespace Fungus.GameSystem
 {
     public class ObjectPool : MonoBehaviour
