@@ -9,11 +9,12 @@ namespace Fungus.Actor
     public class NPCDeath : MonoBehaviour, IDeath
     {
         private ConvertCoordinates coord;
+        private NourishFungus fungus;
         private ObjectPool pool;
 
         public void BurySelf()
         {
-            NourishFungus.CountDeath(this, new ActorInfoEventArgs(
+            fungus.CountDeath(this, new ActorInfoEventArgs(
                 GetComponent<MetaInfo>().SubTag,
                 coord.Convert(transform.position)));
             pool.StoreObject(gameObject);
@@ -33,6 +34,7 @@ namespace Fungus.Actor
         {
             pool = FindObjects.GameLogic.GetComponent<ObjectPool>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            fungus = FindObjects.GameLogic.GetComponent<NourishFungus>();
         }
     }
 }

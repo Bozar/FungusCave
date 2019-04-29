@@ -23,6 +23,7 @@ namespace Fungus.Actor
         private ActorData actorData;
         private GameColor color;
         private ConvertCoordinates coord;
+        private NourishFungus fungus;
         private StaticActor getActor;
         private UIMessage message;
         private UIModeline modeline;
@@ -74,7 +75,7 @@ namespace Fungus.Actor
 
         public void ReviveSelf()
         {
-            NourishFungus.CountDeath(this, new ActorInfoEventArgs(
+            fungus.CountDeath(this, new ActorInfoEventArgs(
                 GetComponent<MetaInfo>().SubTag,
                 coord.Convert(transform.position)));
             GetComponent<Potion>().DrinkPotion();
@@ -90,6 +91,7 @@ namespace Fungus.Actor
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
+            fungus = FindObjects.GameLogic.GetComponent<NourishFungus>();
 
             getActor = FindObjects.GetStaticActor;
         }

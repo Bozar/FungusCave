@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem.Data;
 using System;
+using UnityEngine;
 
 namespace Fungus.GameSystem.Progress
 {
@@ -15,9 +16,9 @@ namespace Fungus.GameSystem.Progress
         }
     }
 
-    public class NourishFungus
+    public class NourishFungus : MonoBehaviour
     {
-        public static EventHandler<ActorInfoEventArgs> CountDeath;
+        public EventHandler<ActorInfoEventArgs> CountDeath;
 
         protected virtual void OnCountDeath(ActorInfoEventArgs e)
         {

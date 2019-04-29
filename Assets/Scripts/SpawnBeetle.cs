@@ -69,7 +69,7 @@ namespace Fungus.GameSystem.Progress
 
         private void Start()
         {
-            NourishFungus.CountDeath += SpawnCountDown;
+            GetComponent<NourishFungus>().CountDeath += SpawnCountDown;
 
             max = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
             count = max;
