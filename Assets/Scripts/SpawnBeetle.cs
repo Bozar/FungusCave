@@ -1,5 +1,7 @@
 ﻿using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.Progress
@@ -31,6 +33,23 @@ namespace Fungus.GameSystem.Progress
             }
         }
 
+        private bool HasFungus(int[] position)
+        {
+            List<int[]> neighbor = GetComponent<ConvertCoordinates>()
+                 .SurroundCoord(Surround.Diagonal, position);
+            neighbor = GetComponent<DungeonBoard>().FilterPositions(neighbor);
+
+            foreach (int[] n in neighbor)
+            {
+                if (GetComponent<DungeonBoard>().CheckBlock(
+                    SubObjectTag.Fungus, n))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void SpawnCountDown(object sender, ActorInfoEventArgs e)
         {
             int potion = GetComponent<ActorData>().GetIntData(e.ActorTag,
@@ -41,7 +60,11 @@ namespace Fungus.GameSystem.Progress
             }
             count--;
 
-            // TODO: check surrounding.
+            if (HasFungus(e.Position))
+            {
+                count--;
+            }
+            return;
         }
 
         private void Start()
