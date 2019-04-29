@@ -2,6 +2,7 @@
 using Fungus.Actor.FOV;
 using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
+using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
@@ -134,6 +135,8 @@ namespace Fungus.Actor.Turn
                 switch (input.GameCommand())
                 {
                     case Command.Initialize:
+                        // TODO: Reset event handlers.
+                        NourishFungus.CountDeath = null;
                         wizard.Initialize();
                         return;
 
