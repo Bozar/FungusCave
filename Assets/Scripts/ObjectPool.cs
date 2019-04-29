@@ -141,11 +141,11 @@ namespace Fungus.GameSystem
                 }
             }
 
-            // ObjectPool is attached to GameLogic.
             go.transform.position
                 = GetComponent<ConvertCoordinates>().Convert(x, y);
 
             GetComponent<ActorBoard>().AddActor(go, x, y);
+            GetComponent<DungeonTerrain>().ChangeStatus(false, x, y);
             GetComponent<SchedulingSystem>().AddActor(go);
 
             return go;
