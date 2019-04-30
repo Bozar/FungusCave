@@ -15,6 +15,8 @@ namespace Fungus.GameSystem.Turn
         private LinkedListNode<GameObject> nextNode;
         private LinkedList<GameObject> schedule;
 
+        public int CountActor { get { return schedule.Count; } }
+
         public GameObject CurrentActor
         {
             get { return currentNode.Value; }

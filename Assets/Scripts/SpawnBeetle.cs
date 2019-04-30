@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace Fungus.GameSystem.Progress
         private readonly string textNode = "SpawnBeetle";
         private int count;
         private int distance;
-        private int max;
+        private int maxBeetle;
+        private int maxCount;
         private bool notWarned;
 
         public void BeetleEmerge()
@@ -29,7 +31,7 @@ namespace Fungus.GameSystem.Progress
                 StoreMessage("Emerge");
                 CreateBeetle();
 
-                count = max;
+                count = maxCount;
                 notWarned = true;
             }
         }
@@ -37,11 +39,16 @@ namespace Fungus.GameSystem.Progress
         private void CreateBeetle()
         {
             int[][] position = GetPosition();
-            position = FilterPosition(position);
-            if (position == null)
+
+            int actor = GetComponent<SchedulingSystem>().CountActor;
+            int maxActor = GetComponent<GameData>().GetIntData("Dungeon",
+                "MaxActor");
+
+            if ((position.Length < maxBeetle) || (actor > maxActor))
             {
                 return;
             }
+            position = FilterPosition(position);
 
             DungeonLevel dl = GetComponent<DungeonProgressData>()
                 .GetDungeonLevel();
@@ -59,14 +66,6 @@ namespace Fungus.GameSystem.Progress
 
         private int[][] FilterPosition(int[][] position)
         {
-            int maxBeetle = GetComponent<GameData>().GetIntData(dataNode,
-                "Beetle");
-            // TODO: Count remaining enemies.
-            if (position.Length < maxBeetle)
-            {
-                return null;
-            }
-
             SeedTag seed = GetComponent<DungeonProgressData>().GetDungeonSeed();
             int[][] randomized = position.OrderBy(
                 p => GetComponent<RandomNumber>().Next(seed))
@@ -141,10 +140,11 @@ namespace Fungus.GameSystem.Progress
         {
             GetComponent<NourishFungus>().CountDeath += SpawnCountDown;
 
-            max = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
+            maxCount = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
             distance = GetComponent<GameData>().GetIntData(dataNode, "Distance");
+            maxBeetle = GetComponent<GameData>().GetIntData(dataNode, "Beetle");
 
-            count = max;
+            count = maxCount;
             notWarned = true;
         }
 
