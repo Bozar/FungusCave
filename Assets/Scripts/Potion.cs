@@ -8,6 +8,7 @@ namespace Fungus.Actor
 {
     public class Potion : MonoBehaviour
     {
+        private GameColor color;
         private UIMessage message;
         private PotionData potionData;
         private GameText text;
@@ -31,7 +32,9 @@ namespace Fungus.Actor
             GetComponent<Energy>().GainEnergy(potionData.RestoreEnergy);
             LosePotion(1);
 
-            message.StoreText(text.GetStringData("Combat", "Potion"));
+            string drink = text.GetStringData("Combat", "Potion");
+            drink = color.GetColorfulText(drink, ColorName.Green);
+            message.StoreText(drink);
             return;
         }
 
@@ -51,6 +54,7 @@ namespace Fungus.Actor
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             text = FindObjects.GameLogic.GetComponent<GameText>();
+            color = FindObjects.GameLogic.GetComponent<GameColor>();
 
             CurrentPotion = potionData.StartPotion;
         }
