@@ -71,13 +71,25 @@
     </NPCStress>
   </Combat>
   <EnterExit>
+    <Win>
+      <English>You win!</English>
+      <Chinese>你赢了！</Chinese>
+    </Win>
+    <Continue>
+      <English>Press Space to continue.</English>
+      <Chinese>按 空格键 继续游戏。</Chinese>
+    </Continue>
+    <Level>
+      <English>Level cleared!</English>
+      <Chinese>本层敌人已消灭！</Chinese>
+    </Level>
     <Reload>
       <English>Press Space to reload.</English>
       <Chinese>按 空格键 重新载入游戏。</Chinese>
     </Reload>
     <Welcome>
       <English>Welcome to Cave %num%！</English>
-      <Chinese>欢迎来到洞窟 %num%。</Chinese>
+      <Chinese>欢迎来到洞窟 %num%！</Chinese>
     </Welcome>
   </EnterExit>
   <BuyPower>

@@ -20,6 +20,8 @@ namespace Fungus.Actor
 
     public class PCDeath : MonoBehaviour, IDeath
     {
+        private readonly string node = "EnterExit";
+
         private ActorData actorData;
         private GameColor color;
         private ConvertCoordinates coord;
@@ -30,6 +32,7 @@ namespace Fungus.Actor
         private PotionData potionData;
         private DungeonProgress progress;
         private SchedulingSystem schedule;
+        private GameText text;
 
         private delegate GameObject StaticActor(SubObjectTag tag);
 
@@ -48,6 +51,7 @@ namespace Fungus.Actor
             int potion = actorData.GetIntData(tag, DataTag.Potion);
             int bonusPotion = target.GetComponent<Infection>().HasInfection(
                 InfectionTag.Mutated) ? potionData.BonusPotion : 0;
+            string victory;
 
             GetComponent<Potion>().GainPotion(potion + bonusPotion);
             GetComponent<IHP>().RestoreAfterKill();
@@ -59,8 +63,10 @@ namespace Fungus.Actor
                 color.ChangeObjectColor(getActor(SubObjectTag.Guide),
                     ColorName.Orange);
 
-                message.StoreText("You win.");
-                modeline.PrintStaticText("Press Space to reload.");
+                victory = text.GetStringData(node, "Win");
+                victory = color.GetColorfulText(victory, ColorName.Green);
+                message.StoreText(victory);
+                modeline.PrintStaticText(text.GetStringData(node, "Reload"));
             }
             else if (progress.LevelCleared())
             {
@@ -68,8 +74,10 @@ namespace Fungus.Actor
                 color.ChangeObjectColor(getActor(SubObjectTag.Guide),
                     ColorName.Orange);
 
-                message.StoreText("Level cleared.");
-                modeline.PrintStaticText("Press Space to continue.");
+                victory = text.GetStringData(node, "Level");
+                victory = color.GetColorfulText(victory, ColorName.Green);
+                message.StoreText(victory);
+                modeline.PrintStaticText(text.GetStringData(node, "Continue"));
             }
         }
 
@@ -92,6 +100,7 @@ namespace Fungus.Actor
             potionData = FindObjects.GameLogic.GetComponent<PotionData>();
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             fungus = FindObjects.GameLogic.GetComponent<NourishFungus>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
 
             getActor = FindObjects.GetStaticActor;
         }

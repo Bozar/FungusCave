@@ -20,6 +20,7 @@ namespace Fungus.Actor
 
     public class PCMessage : MonoBehaviour, ICombatMessage
     {
+        private GameColor color;
         private ConvertCoordinates coord;
         private UIMessage message;
         private UIModeline modeline;
@@ -47,7 +48,9 @@ namespace Fungus.Actor
         // NPC kills PC.
         public void IsKilled(GameObject attacker)
         {
-            message.StoreText(text.GetStringData(node, "PCKill"));
+            string kill = text.GetStringData(node, "PCKill");
+            kill = color.GetColorfulText(kill, ColorName.Orange);
+            message.StoreText(kill);
             modeline.PrintStaticText(text.GetStringData("EnterExit", "Reload"));
         }
 
@@ -72,6 +75,7 @@ namespace Fungus.Actor
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             text = FindObjects.GameLogic.GetComponent<GameText>();
+            color = FindObjects.GameLogic.GetComponent<GameColor>();
         }
     }
 }
