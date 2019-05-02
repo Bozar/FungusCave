@@ -107,7 +107,7 @@ namespace Fungus.GameSystem
 
             if (!switchOn && status.IsModified)
             {
-                GetComponent<GameSetting>().Save();
+                GetComponent<GameSetting>().SaveXML();
             }
 
             getActor(SubObjectTag.Setting).GetComponent<SettingStatus>()

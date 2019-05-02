@@ -23,11 +23,11 @@ namespace Fungus.GameSystem.SaveLoadData
                 switch (dt.DTTag)
                 {
                     case DataTemplateTag.Seed:
-                        GetComponent<RandomNumber>().Load(dt);
+                        GetComponent<RandomNumber>().LoadBinary(dt);
                         break;
 
                     case DataTemplateTag.Progress:
-                        GetComponent<DungeonProgressData>().Load(dt);
+                        GetComponent<DungeonProgressData>().LoadBinary(dt);
                         break;
 
                     default:
@@ -48,7 +48,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
             foreach (ISaveLoadBinary slb in saveLevel)
             {
-                slb.Save(out IDataTemplate data);
+                slb.SaveBinary(out IDataTemplate data);
                 dt.Push(data);
             }
             GetComponent<SaveLoadFile>().SaveBinary(dt.ToArray(), DungeonFile);

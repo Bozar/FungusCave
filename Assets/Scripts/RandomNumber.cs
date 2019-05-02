@@ -35,14 +35,14 @@ namespace Fungus.GameSystem
         public void Initialize()
         {
             // Load a root seed from an external source.
-            Load();
+            LoadXML();
             // Use the root seed to create an RNG.
             InitializeRootRNG();
             // Use the RNG to generate leaf seeds for the first time.
             InitializeSeedInt();
         }
 
-        public void Load(IDataTemplate data)
+        public void LoadBinary(IDataTemplate data)
         {
             DTSeed value = data as DTSeed;
 
@@ -51,7 +51,7 @@ namespace Fungus.GameSystem
             RootSeed = seedInt[SeedTag.Root];
         }
 
-        public void Load()
+        public void LoadXML()
         {
             RootSeed = GetComponent<GameSetting>().Seed;
         }
@@ -80,7 +80,7 @@ namespace Fungus.GameSystem
             return DequeInt(tag, min, max);
         }
 
-        public void Save(out IDataTemplate data)
+        public void SaveBinary(out IDataTemplate data)
         {
             data = new DTSeed
             {
@@ -89,7 +89,7 @@ namespace Fungus.GameSystem
             };
         }
 
-        public void Save()
+        public void SaveXML()
         {
             throw new NotImplementedException();
         }

@@ -52,12 +52,12 @@ namespace Fungus.GameSystem.Data
             return UserLanguage;
         }
 
-        public void Load()
+        public void LoadXML()
         {
             xFile = GetComponent<SaveLoadFile>().LoadXML(fileName);
         }
 
-        public void Save()
+        public void SaveXML()
         {
             GetComponent<SaveLoadFile>().SaveXML(xFile, fileName);
         }
@@ -65,7 +65,7 @@ namespace Fungus.GameSystem.Data
         private void Start()
         {
             fileName = "setting.xml";
-            Load();
+            LoadXML();
         }
     }
 }

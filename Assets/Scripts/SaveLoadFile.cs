@@ -8,16 +8,16 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public interface ISaveLoadBinary
     {
-        void Load(IDataTemplate data);
+        void LoadBinary(IDataTemplate data);
 
-        void Save(out IDataTemplate data);
+        void SaveBinary(out IDataTemplate data);
     }
 
     public interface ISaveLoadXML
     {
-        void Load();
+        void LoadXML();
 
-        void Save();
+        void SaveXML();
     }
 
     public class SaveLoadFile : MonoBehaviour

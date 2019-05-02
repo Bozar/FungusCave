@@ -31,7 +31,7 @@ namespace Fungus.GameSystem.Progress
 
         public DungeonLevel GetDungeonLevel()
         {
-            Load();
+            LoadXML();
             return GetDungeonLevel(dungeonLevel);
         }
 
@@ -42,7 +42,7 @@ namespace Fungus.GameSystem.Progress
 
         public SeedTag GetDungeonSeed()
         {
-            Load();
+            LoadXML();
             return (SeedTag)Enum.Parse(typeof(SeedTag), dungeonLevel);
         }
 
@@ -56,13 +56,13 @@ namespace Fungus.GameSystem.Progress
             return (DungeonLevel)level;
         }
 
-        public void Load(IDataTemplate data)
+        public void LoadBinary(IDataTemplate data)
         {
             DTProgress value = data as DTProgress;
             dungeonLevel = value.Progress;
         }
 
-        public void Load()
+        public void LoadXML()
         {
             if (dungeonLevel == null)
             {
@@ -71,12 +71,12 @@ namespace Fungus.GameSystem.Progress
             }
         }
 
-        public void Save(out IDataTemplate data)
+        public void SaveBinary(out IDataTemplate data)
         {
             data = new DTProgress { Progress = GetNextLevel().ToString() };
         }
 
-        public void Save()
+        public void SaveXML()
         {
             throw new NotImplementedException();
         }
