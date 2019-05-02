@@ -1,6 +1,7 @@
 ﻿using Fungus.GameSystem.Data;
 using Fungus.GameSystem.SaveLoadData;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.Progress
@@ -71,9 +72,13 @@ namespace Fungus.GameSystem.Progress
             }
         }
 
-        public void SaveBinary(out IDataTemplate data)
+        public void SaveBinary(Stack<IDataTemplate> dt)
         {
-            data = new DTProgress { Progress = GetNextLevel().ToString() };
+            DTProgress data = new DTProgress
+            {
+                Progress = GetNextLevel().ToString()
+            };
+            dt.Push(data);
         }
 
         public void SaveXML()
@@ -81,9 +86,17 @@ namespace Fungus.GameSystem.Progress
             throw new NotImplementedException();
         }
 
+        private void DungeonProgressData_SavingDungeon(object sender,
+            SaveLoadEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
         private void Start()
         {
             node = "Dungeon";
+            GetComponent<SaveLoadGame>().SavingDungeon
+                += DungeonProgressData_SavingDungeon;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Fungus.GameSystem;
 using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.SaveLoadData;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,8 @@ namespace Fungus.Actor.Turn
             // progress.LevelCleared() is a sub condition of progress.IsWin().
             else if (progress.LevelCleared())
             {
-                saveLoad.SaveDungeonLevel();
+                Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
+                saveLoad.SaveDungeonLevel(new SaveLoadEventArgs(dt));
                 SceneManager.LoadSceneAsync(0);
             }
         }

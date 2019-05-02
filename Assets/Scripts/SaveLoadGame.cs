@@ -1,13 +1,23 @@
 ﻿using Fungus.GameSystem.Progress;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
+    public class SaveLoadEventArgs : EventArgs
+    {
+        public Stack<IDataTemplate> GameData;
+
+        public SaveLoadEventArgs(Stack<IDataTemplate> gameData)
+        {
+            GameData = gameData;
+        }
+    }
+
     public class SaveLoadGame : MonoBehaviour
     {
-        private ISaveLoadBinary[] saveGame;
-        private ISaveLoadBinary[] saveLevel;
+        public event EventHandler<SaveLoadEventArgs> SavingDungeon;
 
         public string DungeonFile { get; private set; }
 
@@ -42,31 +52,22 @@ namespace Fungus.GameSystem.SaveLoadData
             GetComponent<SaveLoadFile>().DeleteBinary(DungeonFile);
         }
 
-        public void SaveDungeonLevel()
+        public void SaveDungeonLevel(SaveLoadEventArgs e)
         {
-            Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
+            OnSavingDungeon(e);
+            GetComponent<SaveLoadFile>().SaveBinary(e.GameData.ToArray(),
+                DungeonFile);
+        }
 
-            foreach (ISaveLoadBinary slb in saveLevel)
-            {
-                slb.SaveBinary(out IDataTemplate data);
-                dt.Push(data);
-            }
-            GetComponent<SaveLoadFile>().SaveBinary(dt.ToArray(), DungeonFile);
+        protected virtual void OnSavingDungeon(SaveLoadEventArgs e)
+        {
+            SavingDungeon?.Invoke(this, e);
         }
 
         private void Awake()
         {
             DungeonFile = "dungeon.bin";
             GameFile = "save.bin";
-        }
-
-        private void Start()
-        {
-            saveLevel = new ISaveLoadBinary[]
-            {
-                GetComponent<DungeonProgressData>(),
-                GetComponent<RandomNumber>(),
-            };
         }
     }
 }

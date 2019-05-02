@@ -80,13 +80,14 @@ namespace Fungus.GameSystem
             return DequeInt(tag, min, max);
         }
 
-        public void SaveBinary(out IDataTemplate data)
+        public void SaveBinary(Stack<IDataTemplate> dt)
         {
-            data = new DTSeed
+            DTSeed data = new DTSeed
             {
                 SeedInt = seedInt,
                 SeedIntQueue = seedIntQueue
             };
+            dt.Push(data);
         }
 
         public void SaveXML()
@@ -175,6 +176,12 @@ namespace Fungus.GameSystem
             return (int)(result * Math.Pow(10, 9));
         }
 
+        private void RandomNumber_SavingDungeon(object sender,
+            SaveLoadEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
         private void ReplenishSeedIntQueue(SeedTag seed)
         {
             if (IsRoot(seed))
@@ -203,6 +210,12 @@ namespace Fungus.GameSystem
                 seedIntQueue[seed].Enqueue(RandomInteger(false, rng));
             }
             seedInt[seed] = RandomInteger(false, rng);
+        }
+
+        private void Start()
+        {
+            GetComponent<SaveLoadGame>().SavingDungeon
+                += RandomNumber_SavingDungeon;
         }
     }
 }

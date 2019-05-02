@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Linq;
@@ -10,7 +11,7 @@ namespace Fungus.GameSystem.SaveLoadData
     {
         void LoadBinary(IDataTemplate data);
 
-        void SaveBinary(out IDataTemplate data);
+        void SaveBinary(Stack<IDataTemplate> dt);
     }
 
     public interface ISaveLoadXML
