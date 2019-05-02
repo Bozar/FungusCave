@@ -14,7 +14,7 @@ namespace Fungus.Actor
 
         public void BurySelf()
         {
-            fungus.NourishFungus_CountDeath(new ActorInfoEventArgs(
+            fungus.CountDown(new ActorInfoEventArgs(
                 GetComponent<MetaInfo>().SubTag,
                 coord.Convert(transform.position)));
             pool.StoreObject(gameObject);

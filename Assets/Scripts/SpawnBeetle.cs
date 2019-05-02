@@ -119,26 +119,21 @@ namespace Fungus.GameSystem.Progress
             return false;
         }
 
-        private void SpawnCountDown(object sender, ActorInfoEventArgs e)
+        private void NourishFungus_SpawnCountDown(object sender,
+            ActorInfoEventArgs e)
         {
-            int potion = GetComponent<ActorData>().GetIntData(e.ActorTag,
-                DataTag.Potion);
-            if (potion == 0)
-            {
-                return;
-            }
             count--;
 
             if (HasFungus(e.Position))
             {
                 count--;
             }
-            return;
         }
 
         private void Start()
         {
-            GetComponent<NourishFungus>().CountDeath += SpawnCountDown;
+            GetComponent<NourishFungus>().SpawnCountDown
+                += NourishFungus_SpawnCountDown;
 
             maxCount = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
             distance = GetComponent<GameData>().GetIntData(dataNode, "Distance");

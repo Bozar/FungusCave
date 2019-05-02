@@ -83,7 +83,7 @@ namespace Fungus.Actor
 
         public void ReviveSelf()
         {
-            fungus.NourishFungus_CountDeath(new ActorInfoEventArgs(
+            fungus.CountDown(new ActorInfoEventArgs(
                 GetComponent<MetaInfo>().SubTag,
                 coord.Convert(transform.position)));
             GetComponent<Potion>().DrinkPotion();

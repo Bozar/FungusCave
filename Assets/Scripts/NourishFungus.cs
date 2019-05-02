@@ -18,16 +18,22 @@ namespace Fungus.GameSystem.Progress
 
     public class NourishFungus : MonoBehaviour
     {
-        public event EventHandler<ActorInfoEventArgs> CountDeath;
+        public event EventHandler<ActorInfoEventArgs> SpawnCountDown;
 
-        public void NourishFungus_CountDeath(ActorInfoEventArgs e)
+        public void CountDown(ActorInfoEventArgs e)
         {
-            OnCountDeath(e);
+            int potion = GetComponent<ActorData>().GetIntData(e.ActorTag,
+               DataTag.Potion);
+            if (potion == 0)
+            {
+                return;
+            }
+            OnSpawnCountDown(e);
         }
 
-        protected virtual void OnCountDeath(ActorInfoEventArgs e)
+        protected virtual void OnSpawnCountDown(ActorInfoEventArgs e)
         {
-            CountDeath?.Invoke(this, e);
+            SpawnCountDown?.Invoke(this, e);
         }
     }
 }
