@@ -86,6 +86,19 @@ namespace Fungus.GameSystem.Progress
             throw new NotImplementedException();
         }
 
+        private void DungeonProgressData_LoadingDungeon(object sender,
+            LoadEventArgs e)
+        {
+            foreach (IDataTemplate dt in e.GameData)
+            {
+                if (dt.DTTag == DataTemplateTag.Progress)
+                {
+                    LoadBinary(dt);
+                    return;
+                }
+            }
+        }
+
         private void DungeonProgressData_SavingDungeon(object sender,
             SaveEventArgs e)
         {
@@ -97,6 +110,8 @@ namespace Fungus.GameSystem.Progress
             node = "Dungeon";
             GetComponent<SaveLoadGame>().SavingDungeon
                 += DungeonProgressData_SavingDungeon;
+            GetComponent<SaveLoadGame>().LoadingDungeon
+                += DungeonProgressData_LoadingDungeon;
         }
     }
 }

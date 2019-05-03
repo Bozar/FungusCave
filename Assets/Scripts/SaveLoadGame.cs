@@ -1,10 +1,19 @@
-﻿using Fungus.GameSystem.Progress;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
+    public class LoadEventArgs : EventArgs
+    {
+        public IDataTemplate[] GameData;
+
+        public LoadEventArgs(IDataTemplate[] gameData)
+        {
+            GameData = gameData;
+        }
+    }
+
     public class SaveEventArgs : EventArgs
     {
         public Stack<IDataTemplate> GameData;
@@ -17,34 +26,17 @@ namespace Fungus.GameSystem.SaveLoadData
 
     public class SaveLoadGame : MonoBehaviour
     {
+        public event EventHandler<LoadEventArgs> LoadingDungeon;
+
         public event EventHandler<SaveEventArgs> SavingDungeon;
 
         public string DungeonFile { get; private set; }
 
         public string GameFile { get; private set; }
 
-        public void LoadDungeonLevel()
+        public void LoadDungeonLevel(LoadEventArgs e)
         {
-            IDataTemplate[] data
-                = GetComponent<SaveLoadFile>().LoadBinary(DungeonFile);
-
-            foreach (IDataTemplate dt in data)
-            {
-                switch (dt.DTTag)
-                {
-                    case DataTemplateTag.Seed:
-                        GetComponent<RandomNumber>().LoadBinary(dt);
-                        break;
-
-                    case DataTemplateTag.Progress:
-                        GetComponent<DungeonProgressData>().LoadBinary(dt);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
+            OnLoadingDungeon(e);
             if (GetComponent<WizardMode>().IsWizardMode)
             {
                 GetComponent<SaveLoadFile>().BackupBinary(DungeonFile);
@@ -57,6 +49,11 @@ namespace Fungus.GameSystem.SaveLoadData
             OnSavingDungeon(e);
             GetComponent<SaveLoadFile>().SaveBinary(e.GameData.ToArray(),
                 DungeonFile);
+        }
+
+        protected virtual void OnLoadingDungeon(LoadEventArgs e)
+        {
+            LoadingDungeon?.Invoke(this, e);
         }
 
         protected virtual void OnSavingDungeon(SaveEventArgs e)

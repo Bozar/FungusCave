@@ -27,7 +27,10 @@ namespace Fungus.GameSystem
 
         private void InitializeDungeonLevel()
         {
-            GetComponent<SaveLoadGame>().LoadDungeonLevel();
+            IDataTemplate[] data = GetComponent<SaveLoadFile>().LoadBinary(
+                GetComponent<SaveLoadGame>().DungeonFile);
+            GetComponent<SaveLoadGame>().LoadDungeonLevel(
+                new LoadEventArgs(data));
 
             InitBlueprint();
             InitWorld();
