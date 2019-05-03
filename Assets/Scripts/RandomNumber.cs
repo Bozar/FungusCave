@@ -176,8 +176,7 @@ namespace Fungus.GameSystem
             return (int)(result * Math.Pow(10, 9));
         }
 
-        private void RandomNumber_SavingDungeon(object sender,
-            SaveLoadEventArgs e)
+        private void RandomNumber_SavingDungeon(object sender, SaveEventArgs e)
         {
             SaveBinary(e.GameData);
         }

@@ -87,7 +87,7 @@ namespace Fungus.GameSystem.Progress
         }
 
         private void DungeonProgressData_SavingDungeon(object sender,
-            SaveLoadEventArgs e)
+            SaveEventArgs e)
         {
             SaveBinary(e.GameData);
         }

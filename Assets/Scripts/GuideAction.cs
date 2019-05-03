@@ -24,7 +24,7 @@ namespace Fungus.Actor.Turn
             else if (progress.LevelCleared())
             {
                 Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
-                saveLoad.SaveDungeonLevel(new SaveLoadEventArgs(dt));
+                saveLoad.SaveDungeonLevel(new SaveEventArgs(dt));
                 SceneManager.LoadSceneAsync(0);
             }
         }

@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public class SaveLoadEventArgs : EventArgs
+    public class SaveEventArgs : EventArgs
     {
         public Stack<IDataTemplate> GameData;
 
-        public SaveLoadEventArgs(Stack<IDataTemplate> gameData)
+        public SaveEventArgs(Stack<IDataTemplate> gameData)
         {
             GameData = gameData;
         }
@@ -17,7 +17,7 @@ namespace Fungus.GameSystem.SaveLoadData
 
     public class SaveLoadGame : MonoBehaviour
     {
-        public event EventHandler<SaveLoadEventArgs> SavingDungeon;
+        public event EventHandler<SaveEventArgs> SavingDungeon;
 
         public string DungeonFile { get; private set; }
 
@@ -52,14 +52,14 @@ namespace Fungus.GameSystem.SaveLoadData
             GetComponent<SaveLoadFile>().DeleteBinary(DungeonFile);
         }
 
-        public void SaveDungeonLevel(SaveLoadEventArgs e)
+        public void SaveDungeonLevel(SaveEventArgs e)
         {
             OnSavingDungeon(e);
             GetComponent<SaveLoadFile>().SaveBinary(e.GameData.ToArray(),
                 DungeonFile);
         }
 
-        protected virtual void OnSavingDungeon(SaveLoadEventArgs e)
+        protected virtual void OnSavingDungeon(SaveEventArgs e)
         {
             SavingDungeon?.Invoke(this, e);
         }
