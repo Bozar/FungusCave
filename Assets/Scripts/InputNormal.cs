@@ -18,6 +18,15 @@ namespace Fungus.Actor.InputManager
             bool log = Input.GetKeyDown(KeyCode.V)
                 || Input.GetKeyDown(KeyCode.M);
 
+            if (Input.GetKey(KeyCode.LeftControl)
+                || Input.GetKey(KeyCode.RightControl))
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    return Command.Save;
+                }
+            }
+
             if (wait)
             {
                 return Command.Wait;
@@ -45,13 +54,16 @@ namespace Fungus.Actor.InputManager
 
             if (wizard.IsWizardMode)
             {
-                // Test key combinations.
-                if (Input.GetKey(KeyCode.LeftControl)
-                   && Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKey(KeyCode.LeftShift)
+                    || Input.GetKey(KeyCode.RightShift))
                 {
-                    return Command.Up;
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        return Command.Save;
+                    }
                 }
-                else if (Input.GetKeyDown(KeyCode.Space))
+
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     return Command.Initialize;
                 }

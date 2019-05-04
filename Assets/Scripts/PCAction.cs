@@ -126,6 +126,12 @@ namespace Fungus.Actor.Turn
                 case Command.ViewHelp:
                     gameMode.SwitchModeHelp(true);
                     return;
+
+                // TODO: Call a method.
+                case Command.Save:
+                    Debug.Log("Save");
+                    //Application.Quit();
+                    return;
             }
 
             // Test commands.

@@ -10,6 +10,7 @@ namespace Fungus.Actor.InputManager
         Wait, AutoExplore, Examine, ViewHelp, BuyPower, ViewLog,
         Confirm, Cancel,
         Next, Previous,
+        Save,
 
         // NPC actions:
 
