@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Fungus.GameSystem.WorldBuilding
     public enum FOVShape { Rhombus, Square };
 
     // Create a 2D array. Provide methods to inspect and change its content.
-    public class DungeonBoard : MonoBehaviour
+    public class DungeonBoard : MonoBehaviour, ISaveLoadBinary
     {
         private GameObject[,] blocks;
         private SubObjectTag[,] blueprint;
@@ -159,10 +160,42 @@ namespace Fungus.GameSystem.WorldBuilding
             return distance <= maxRange;
         }
 
+        public void LoadBinary(IDataTemplate[] dt)
+        {
+            foreach (IDataTemplate d in dt)
+            {
+                if (d.DTTag == DataTemplateTag.Dungeon)
+                {
+                    DTDungeonBoard value = d as DTDungeonBoard;
+                    blueprint = value.Blueprint;
+                    return;
+                }
+            }
+        }
+
+        public void SaveBinary(Stack<IDataTemplate> dt)
+        {
+            DTDungeonBoard data = new DTDungeonBoard
+            {
+                Blueprint = blueprint
+            };
+            dt.Push(data);
+        }
+
         private void Awake()
         {
             Height = 17;
             Width = 24;
+        }
+
+        private void DungeonBoard_LoadingGame(object sender, LoadEventArgs e)
+        {
+            LoadBinary(e.GameData);
+        }
+
+        private void DungeonBoard_SavingGame(object sender, SaveEventArgs e)
+        {
+            SaveBinary(e.GameData);
         }
 
         private void Start()
@@ -179,6 +212,9 @@ namespace Fungus.GameSystem.WorldBuilding
                     blueprint[i, j] = SubObjectTag.Floor;
                 }
             }
+
+            GetComponent<SaveLoadGame>().SavingGame += DungeonBoard_SavingGame;
+            GetComponent<SaveLoadGame>().LoadingGame += DungeonBoard_LoadingGame;
         }
     }
 }

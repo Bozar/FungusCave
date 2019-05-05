@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fungus.GameSystem.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,14 @@ namespace Fungus.GameSystem.SaveLoadData
 
     public class DataTemplate : MonoBehaviour
     {
+    }
+
+    [Serializable]
+    public class DTDungeonBoard : IDataTemplate
+    {
+        public SubObjectTag[,] Blueprint;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Dungeon; } }
     }
 
     [Serializable]
