@@ -99,7 +99,19 @@ namespace Fungus.GameSystem.Progress
             LoadBinary(e.GameData);
         }
 
+        private void DungeonProgressData_LoadingGame(object sender,
+            LoadEventArgs e)
+        {
+            LoadBinary(e.GameData);
+        }
+
         private void DungeonProgressData_SavingDungeon(object sender,
+            SaveEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
+        private void DungeonProgressData_SavingGame(object sender,
             SaveEventArgs e)
         {
             SaveBinary(e.GameData);
@@ -112,6 +124,11 @@ namespace Fungus.GameSystem.Progress
                 += DungeonProgressData_SavingDungeon;
             GetComponent<SaveLoadGame>().LoadingDungeon
                 += DungeonProgressData_LoadingDungeon;
+
+            GetComponent<SaveLoadGame>().SavingGame
+                += DungeonProgressData_SavingGame;
+            GetComponent<SaveLoadGame>().LoadingGame
+                += DungeonProgressData_LoadingGame;
         }
     }
 }

@@ -187,9 +187,18 @@ namespace Fungus.GameSystem
         {
             LoadBinary(e.GameData);
         }
+
+        private void RandomNumber_LoadingGame(object sender, LoadEventArgs e)
+        {
+            LoadBinary(e.GameData);
         }
 
         private void RandomNumber_SavingDungeon(object sender, SaveEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
+        private void RandomNumber_SavingGame(object sender, SaveEventArgs e)
         {
             SaveBinary(e.GameData);
         }
@@ -230,6 +239,9 @@ namespace Fungus.GameSystem
                 += RandomNumber_SavingDungeon;
             GetComponent<SaveLoadGame>().LoadingDungeon
                 += RandomNumber_LoadingDungeon;
+
+            GetComponent<SaveLoadGame>().SavingGame += RandomNumber_SavingGame;
+            GetComponent<SaveLoadGame>().LoadingGame += RandomNumber_LoadingGame;
         }
     }
 }

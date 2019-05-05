@@ -28,7 +28,11 @@ namespace Fungus.GameSystem.SaveLoadData
     {
         public event EventHandler<LoadEventArgs> LoadingDungeon;
 
+        public event EventHandler<LoadEventArgs> LoadingGame;
+
         public event EventHandler<SaveEventArgs> SavingDungeon;
+
+        public event EventHandler<SaveEventArgs> SavingGame;
 
         public string DungeonFile { get; private set; }
 
@@ -44,6 +48,16 @@ namespace Fungus.GameSystem.SaveLoadData
             GetComponent<SaveLoadFile>().DeleteBinary(DungeonFile);
         }
 
+        public void LoadGame(LoadEventArgs e)
+        {
+            OnLoadingGame(e);
+            if (GetComponent<WizardMode>().IsWizardMode)
+            {
+                GetComponent<SaveLoadFile>().BackupBinary(GameFile);
+            }
+            GetComponent<SaveLoadFile>().DeleteBinary(GameFile);
+        }
+
         public void SaveDungeonLevel(SaveEventArgs e)
         {
             OnSavingDungeon(e);
@@ -51,14 +65,31 @@ namespace Fungus.GameSystem.SaveLoadData
                 DungeonFile);
         }
 
+        public void SaveGame(SaveEventArgs e)
+        {
+            OnSavingGame(e);
+            GetComponent<SaveLoadFile>().SaveBinary(e.GameData.ToArray(),
+                GameFile);
+        }
+
         protected virtual void OnLoadingDungeon(LoadEventArgs e)
         {
             LoadingDungeon?.Invoke(this, e);
         }
 
+        protected virtual void OnLoadingGame(LoadEventArgs e)
+        {
+            LoadingGame?.Invoke(this, e);
+        }
+
         protected virtual void OnSavingDungeon(SaveEventArgs e)
         {
             SavingDungeon?.Invoke(this, e);
+        }
+
+        protected virtual void OnSavingGame(SaveEventArgs e)
+        {
+            SavingGame?.Invoke(this, e);
         }
 
         private void Awake()
