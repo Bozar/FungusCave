@@ -63,7 +63,7 @@ namespace Fungus.GameSystem.Progress
             {
                 if (d.DTTag == DataTemplateTag.Progress)
                 {
-                    DTProgress value = d as DTProgress;
+                    DTDungeonProgressData value = d as DTDungeonProgressData;
                     dungeonLevel = value.Progress;
                     return;
                 }
@@ -81,7 +81,7 @@ namespace Fungus.GameSystem.Progress
 
         public void SaveBinary(Stack<IDataTemplate> dt)
         {
-            DTProgress data = new DTProgress
+            DTDungeonProgressData data = new DTDungeonProgressData
             {
                 Progress = GetNextLevel().ToString()
             };

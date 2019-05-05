@@ -48,7 +48,7 @@ namespace Fungus.GameSystem
             {
                 if (d.DTTag == DataTemplateTag.Seed)
                 {
-                    DTSeed value = d as DTSeed;
+                    DTRandomNumber value = d as DTRandomNumber;
 
                     seedInt = value.SeedInt;
                     seedIntQueue = value.SeedIntQueue;
@@ -89,7 +89,7 @@ namespace Fungus.GameSystem
 
         public void SaveBinary(Stack<IDataTemplate> dt)
         {
-            DTSeed data = new DTSeed
+            DTRandomNumber data = new DTRandomNumber
             {
                 SeedInt = seedInt,
                 SeedIntQueue = seedIntQueue

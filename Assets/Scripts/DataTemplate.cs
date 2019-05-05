@@ -19,7 +19,7 @@ namespace Fungus.GameSystem.SaveLoadData
     }
 
     [Serializable]
-    public class DTProgress : IDataTemplate
+    public class DTDungeonProgressData : IDataTemplate
     {
         public string Progress;
 
@@ -27,7 +27,7 @@ namespace Fungus.GameSystem.SaveLoadData
     }
 
     [Serializable]
-    public class DTSeed : IDataTemplate
+    public class DTRandomNumber : IDataTemplate
     {
         public Dictionary<SeedTag, int> SeedInt;
         public Dictionary<SeedTag, Queue<int>> SeedIntQueue;
@@ -36,7 +36,7 @@ namespace Fungus.GameSystem.SaveLoadData
     }
 
     [Serializable]
-    public class DTSpawn : IDataTemplate
+    public class DTSpawnBeetle : IDataTemplate
     {
         public int Count;
 

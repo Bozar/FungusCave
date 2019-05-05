@@ -43,7 +43,7 @@ namespace Fungus.GameSystem.Progress
             {
                 if (d.DTTag == DataTemplateTag.Spawn)
                 {
-                    DTSpawn value = d as DTSpawn;
+                    DTSpawnBeetle value = d as DTSpawnBeetle;
                     count = value.Count;
                     return;
                 }
@@ -52,7 +52,7 @@ namespace Fungus.GameSystem.Progress
 
         public void SaveBinary(Stack<IDataTemplate> dt)
         {
-            DTSpawn data = new DTSpawn
+            DTSpawnBeetle data = new DTSpawnBeetle
             {
                 Count = count
             };
