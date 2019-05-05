@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.SaveLoadData
 {
-    public enum DataTemplateTag { INVALID, Seed, Progress, Dungeon, Actor };
+    public enum DataTemplateTag
+    {
+        INVALID, Seed, Progress, Spawn, Dungeon, Actor
+    };
 
     public interface IDataTemplate
     {
@@ -30,5 +33,13 @@ namespace Fungus.GameSystem.SaveLoadData
         public Dictionary<SeedTag, Queue<int>> SeedIntQueue;
 
         public DataTemplateTag DTTag { get { return DataTemplateTag.Seed; } }
+    }
+
+    [Serializable]
+    public class DTSpawn : IDataTemplate
+    {
+        public int Count;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Spawn; } }
     }
 }

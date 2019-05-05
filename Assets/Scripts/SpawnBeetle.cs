@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.Turn;
 using Fungus.GameSystem.WorldBuilding;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.Progress
 {
-    public class SpawnBeetle : MonoBehaviour
+    public class SpawnBeetle : MonoBehaviour, ISaveLoadBinary
     {
         private readonly string dataNode = "SpawnBeetle";
         private readonly string textNode = "SpawnBeetle";
@@ -34,6 +35,28 @@ namespace Fungus.GameSystem.Progress
                 count = maxCount;
                 notWarned = true;
             }
+        }
+
+        public void LoadBinary(IDataTemplate[] dt)
+        {
+            foreach (IDataTemplate d in dt)
+            {
+                if (d.DTTag == DataTemplateTag.Spawn)
+                {
+                    DTSpawn value = d as DTSpawn;
+                    count = value.Count;
+                    return;
+                }
+            }
+        }
+
+        public void SaveBinary(Stack<IDataTemplate> dt)
+        {
+            DTSpawn data = new DTSpawn
+            {
+                Count = count
+            };
+            dt.Push(data);
         }
 
         private void CreateBeetle()
@@ -130,10 +153,22 @@ namespace Fungus.GameSystem.Progress
             }
         }
 
+        private void SpawnBeetle_LoadingGame(object sender, LoadEventArgs e)
+        {
+            LoadBinary(e.GameData);
+        }
+
+        private void SpawnBeetle_SavingGame(object sender, SaveEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
         private void Start()
         {
             GetComponent<NourishFungus>().SpawnCountDown
                 += NourishFungus_SpawnCountDown;
+            GetComponent<SaveLoadGame>().SavingGame += SpawnBeetle_SavingGame;
+            GetComponent<SaveLoadGame>().LoadingGame += SpawnBeetle_LoadingGame;
 
             maxCount = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
             distance = GetComponent<GameData>().GetIntData(dataNode, "Distance");
