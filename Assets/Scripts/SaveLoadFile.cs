@@ -9,7 +9,7 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public interface ISaveLoadBinary
     {
-        void LoadBinary(IDataTemplate data);
+        void LoadBinary(IDataTemplate[] dt);
 
         void SaveBinary(Stack<IDataTemplate> dt);
     }

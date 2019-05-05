@@ -8,8 +8,8 @@ namespace Fungus.GameSystem.Progress
 {
     public enum DungeonLevel { DL1, DL2, DL3, DL4, DL5 };
 
-    public class DungeonProgressData : MonoBehaviour, ISaveLoadBinary,
-        ISaveLoadXML
+    public class DungeonProgressData : MonoBehaviour,
+        ISaveLoadBinary, ISaveLoadXML
     {
         private string dungeonLevel;
         private string node;
@@ -57,10 +57,17 @@ namespace Fungus.GameSystem.Progress
             return (DungeonLevel)level;
         }
 
-        public void LoadBinary(IDataTemplate data)
+        public void LoadBinary(IDataTemplate[] dt)
         {
-            DTProgress value = data as DTProgress;
-            dungeonLevel = value.Progress;
+            foreach (IDataTemplate d in dt)
+            {
+                if (d.DTTag == DataTemplateTag.Progress)
+                {
+                    DTProgress value = d as DTProgress;
+                    dungeonLevel = value.Progress;
+                    return;
+                }
+            }
         }
 
         public void LoadXML()
@@ -89,14 +96,7 @@ namespace Fungus.GameSystem.Progress
         private void DungeonProgressData_LoadingDungeon(object sender,
             LoadEventArgs e)
         {
-            foreach (IDataTemplate dt in e.GameData)
-            {
-                if (dt.DTTag == DataTemplateTag.Progress)
-                {
-                    LoadBinary(dt);
-                    return;
-                }
-            }
+            LoadBinary(e.GameData);
         }
 
         private void DungeonProgressData_SavingDungeon(object sender,

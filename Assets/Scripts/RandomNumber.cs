@@ -42,13 +42,20 @@ namespace Fungus.GameSystem
             InitializeSeedInt();
         }
 
-        public void LoadBinary(IDataTemplate data)
+        public void LoadBinary(IDataTemplate[] dt)
         {
-            DTSeed value = data as DTSeed;
+            foreach (IDataTemplate d in dt)
+            {
+                if (d.DTTag == DataTemplateTag.Seed)
+                {
+                    DTSeed value = d as DTSeed;
 
-            seedInt = value.SeedInt;
-            seedIntQueue = value.SeedIntQueue;
-            RootSeed = seedInt[SeedTag.Root];
+                    seedInt = value.SeedInt;
+                    seedIntQueue = value.SeedIntQueue;
+                    RootSeed = seedInt[SeedTag.Root];
+                    return;
+                }
+            }
         }
 
         public void LoadXML()
@@ -178,14 +185,8 @@ namespace Fungus.GameSystem
 
         private void RandomNumber_LoadingDungeon(object sender, LoadEventArgs e)
         {
-            foreach (IDataTemplate dt in e.GameData)
-            {
-                if (dt.DTTag == DataTemplateTag.Seed)
-                {
-                    LoadBinary(dt);
-                    return;
-                }
-            }
+            LoadBinary(e.GameData);
+        }
         }
 
         private void RandomNumber_SavingDungeon(object sender, SaveEventArgs e)
