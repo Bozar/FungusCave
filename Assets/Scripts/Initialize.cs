@@ -2,6 +2,7 @@
 using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -15,8 +16,16 @@ namespace Fungus.GameSystem
     public class Initialize : MonoBehaviour
     {
         private string dungeon;
+        private string game;
 
         public bool Initialized { get; private set; }
+
+        public void SaveAndQuit()
+        {
+            GetComponent<SaveLoadGame>().SaveGame(
+                new SaveEventArgs(new Stack<IDataTemplate>()));
+            Application.Quit();
+        }
 
         private void InitBlueprint()
         {
@@ -47,7 +56,7 @@ namespace Fungus.GameSystem
             PrintWelcomeMessage();
         }
 
-        private void LoadDungeonLevel()
+        private void LoadDungeon()
         {
             IDataTemplate[] data = GetComponent<SaveLoadFile>().LoadBinary(
                 GetComponent<SaveLoadGame>().DungeonFile);
@@ -55,6 +64,16 @@ namespace Fungus.GameSystem
                 new LoadEventArgs(data));
 
             InitBlueprint();
+            InitWorld();
+        }
+
+        private void LoadGame()
+        {
+            IDataTemplate[] data = GetComponent<SaveLoadFile>().LoadBinary(
+                GetComponent<SaveLoadGame>().GameFile);
+            GetComponent<SaveLoadGame>().LoadGame(
+                new LoadEventArgs(data));
+
             InitWorld();
         }
 
@@ -75,15 +94,22 @@ namespace Fungus.GameSystem
             dungeon = Path.Combine(
                 GetComponent<SaveLoadFile>().BinaryDirectory,
                 GetComponent<SaveLoadGame>().DungeonFile);
+            game = Path.Combine(
+                GetComponent<SaveLoadFile>().BinaryDirectory,
+                GetComponent<SaveLoadGame>().GameFile);
         }
 
         private void Update()
         {
             if (!Initialized)
             {
-                if (File.Exists(dungeon))
+                if (File.Exists(game))
                 {
-                    LoadDungeonLevel();
+                    LoadGame();
+                }
+                else if (File.Exists(dungeon))
+                {
+                    LoadDungeon();
                 }
                 else
                 {

@@ -129,10 +129,7 @@ namespace Fungus.Actor.Turn
 
                 // TODO: Call a method.
                 case Command.Save:
-                    Debug.Log("Save");
-                    //FindObjects.GameLogic.GetComponent<SaveLoadGame>()
-                    //    .SaveGame(new SaveEventArgs(new Stack<IDataTemplate>()));
-                    //Application.Quit();
+                    init.SaveAndQuit();
                     return;
             }
 
