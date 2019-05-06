@@ -180,6 +180,24 @@ namespace Fungus.GameSystem.Turn
             UpdateCurrentNode();
         }
 
+        private void SchedulingSystem_LoadingGame(object sender, LoadEventArgs e)
+        {
+            LoadBinary(e.GameData);
+        }
+
+        private void SchedulingSystem_SavingGame(object sender, SaveEventArgs e)
+        {
+            SaveBinary(e.GameData);
+        }
+
+        private void Start()
+        {
+            GetComponent<SaveLoadGame>().SavingGame
+                += SchedulingSystem_SavingGame;
+            GetComponent<SaveLoadGame>().LoadingGame
+                += SchedulingSystem_LoadingGame;
+        }
+
         private void UpdateCurrentNode()
         {
             currentNode = nextNode ?? firstNode;
