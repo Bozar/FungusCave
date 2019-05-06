@@ -24,6 +24,15 @@ namespace Fungus.Actor
             GameObject target = actorBoard.GetActor(x, y);
             target.GetComponent<ICombatMessage>().IsHit(gameObject);
 
+            int drain = GetComponent<IEnergy>().Drain;
+            if (drain > 0)
+            {
+                target.GetComponent<ICombatMessage>().IsExhausted();
+                target.GetComponent<Energy>().LoseEnergy(drain);
+            }
+
+            target.GetComponent<Infection>().GainInfection(gameObject);
+
             target.GetComponent<HP>().LoseHP(
                 GetComponent<IDamage>().CurrentDamage);
 
@@ -31,17 +40,6 @@ namespace Fungus.Actor
             {
                 target.GetComponent<ICombatMessage>().IsKilled(gameObject);
                 GetComponent<IDeath>().DefeatTarget(target);
-            }
-            else
-            {
-                int drain = GetComponent<IEnergy>().Drain;
-                if (drain > 0)
-                {
-                    target.GetComponent<ICombatMessage>().IsExhausted();
-                    target.GetComponent<Energy>().LoseEnergy(drain);
-                }
-
-                target.GetComponent<Infection>().GainInfection(gameObject);
             }
         }
 
