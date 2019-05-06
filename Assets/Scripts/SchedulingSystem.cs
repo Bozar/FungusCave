@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.Turn
 {
-    public class SchedulingSystem : MonoBehaviour
+    public class SchedulingSystem : MonoBehaviour, ISaveLoadBinary
     {
         private LinkedListNode<GameObject> currentNode;
         private LinkedListNode<GameObject> firstNode;
@@ -36,6 +37,11 @@ namespace Fungus.GameSystem.Turn
         public bool IsCurrentActor(GameObject actor)
         {
             return actor == CurrentActor;
+        }
+
+        public void LoadBinary(IDataTemplate[] dt)
+        {
+            throw new NotImplementedException();
         }
 
         public void NextActor()
@@ -109,6 +115,11 @@ namespace Fungus.GameSystem.Turn
             return actorIsRemoved;
         }
 
+        public void SaveBinary(Stack<IDataTemplate> dt)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Awake()
         {
             schedule = new LinkedList<GameObject>();
@@ -131,7 +142,6 @@ namespace Fungus.GameSystem.Turn
 
         private void EnableComponent(bool enable)
         {
-            // TODO: Update after Unity 2018.3.
             if (CurrentActor.GetComponent<PCAction>() != null)
             {
                 CurrentActor.GetComponent<PCAction>().enabled = enable;

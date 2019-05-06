@@ -1,4 +1,5 @@
-﻿using Fungus.GameSystem.Data;
+﻿using Fungus.Actor;
+using Fungus.GameSystem.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public enum DataTemplateTag
     {
-        INVALID, Seed, Progress, Spawn, Dungeon, Actor
+        INVALID, Seed, Progress, Schedule, Spawn, Dungeon, Actor
     };
 
     public interface IDataTemplate
@@ -17,6 +18,21 @@ namespace Fungus.GameSystem.SaveLoadData
 
     public class DataTemplate : MonoBehaviour
     {
+    }
+
+    [Serializable]
+    public class DTActor : IDataTemplate
+    {
+        public SubObjectTag ActorTag;
+        public int Energy;
+        public int HP;
+        public Dictionary<InfectionTag, int> Infection;
+        public int[] Position;
+        public int Potion;
+        public Dictionary<PowerSlotTag, PowerTag> Power;
+        public int Stress;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Actor; } }
     }
 
     [Serializable]
@@ -42,6 +58,14 @@ namespace Fungus.GameSystem.SaveLoadData
         public Dictionary<SeedTag, Queue<int>> SeedIntQueue;
 
         public DataTemplateTag DTTag { get { return DataTemplateTag.Seed; } }
+    }
+
+    [Serializable]
+    public class DTSchedulingSystem : IDataTemplate
+    {
+        public DTActor[] Actors;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Schedule; } }
     }
 
     [Serializable]
