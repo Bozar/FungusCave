@@ -2,6 +2,7 @@
 using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Fungus.Actor
         int RestoreTurn { get; }
     }
 
-    public class Energy : MonoBehaviour, ITurnCounter, IResetData
+    public class Energy : MonoBehaviour, ITurnCounter, IResetData, ILoadActorData
     {
         private DungeonBoard board;
         private Direction direction;
@@ -74,6 +75,11 @@ namespace Fungus.Actor
         public bool HasEnoughEnergy()
         {
             return CurrentEnergy >= energyData.ActionThreshold;
+        }
+
+        public void Load(DTActor data)
+        {
+            CurrentEnergy = data.Energy;
         }
 
         public void LoseEnergy(int energy)

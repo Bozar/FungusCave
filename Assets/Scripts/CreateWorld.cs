@@ -1,8 +1,15 @@
 ﻿using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.Turn;
 using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
+    public interface ILoadActorData
+    {
+        void Load(DTActor data);
+    }
+
     public class CreateWorld : MonoBehaviour, IInitialize
     {
         private ActorBoard actor;
@@ -15,11 +22,18 @@ namespace Fungus.GameSystem.WorldBuilding
         public void Initialize()
         {
             CreateBuilding();
-            CreatePC();
             CreateDoppleganger();
 
-            countNPC = 0;
-            CreateNPC();
+            if (GetComponent<SchedulingSystem>().ActorData == null)
+            {
+                countNPC = 0;
+                CreatePC();
+                CreateNPC();
+            }
+            else
+            {
+                LoadActor(GetComponent<SchedulingSystem>().ActorData);
+            }
         }
 
         private void CreateBuilding()
@@ -106,6 +120,24 @@ namespace Fungus.GameSystem.WorldBuilding
                 return countNPC > maxNPC;
             }
             return false;
+        }
+
+        private void LoadActor(DTActor[] data)
+        {
+            GameObject go;
+            ILoadActorData[] lad;
+
+            foreach (DTActor a in data)
+            {
+                go = oPool.CreateObject(MainObjectTag.Actor,
+                    a.ActorTag, a.Position);
+
+                lad = go.GetComponents<ILoadActorData>();
+                foreach (ILoadActorData l in lad)
+                {
+                    l.Load(a);
+                }
+            }
         }
 
         private void Start()

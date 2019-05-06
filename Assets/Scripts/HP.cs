@@ -1,6 +1,8 @@
 ﻿using Fungus.Actor.Turn;
 using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using UnityEngine;
 
@@ -11,7 +13,7 @@ namespace Fungus.Actor
         void RestoreAfterKill();
     }
 
-    public class HP : MonoBehaviour, IResetData
+    public class HP : MonoBehaviour, IResetData, ILoadActorData
     {
         private ActorData actorData;
 
@@ -29,6 +31,11 @@ namespace Fungus.Actor
         public void GainHP(int hp)
         {
             CurrentHP = Math.Min(MaxHP, CurrentHP + hp);
+        }
+
+        public void Load(DTActor data)
+        {
+            CurrentHP = data.HP;
         }
 
         public void LoseHP(int hp)

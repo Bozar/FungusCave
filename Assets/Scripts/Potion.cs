@@ -1,12 +1,14 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Potion : MonoBehaviour
+    public class Potion : MonoBehaviour, ILoadActorData
     {
         private GameColor color;
         private UIMessage message;
@@ -42,6 +44,11 @@ namespace Fungus.Actor
         {
             CurrentPotion = Math.Min(
                 potionData.MaxPotion, CurrentPotion + potion);
+        }
+
+        public void Load(DTActor data)
+        {
+            CurrentPotion = data.Potion;
         }
 
         public void LosePotion(int potion)

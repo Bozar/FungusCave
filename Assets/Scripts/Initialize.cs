@@ -25,17 +25,6 @@ namespace Fungus.GameSystem
             GetComponent<BlueprintFungus>().DrawBlueprint();
         }
 
-        private void InitializeDungeonLevel()
-        {
-            IDataTemplate[] data = GetComponent<SaveLoadFile>().LoadBinary(
-                GetComponent<SaveLoadGame>().DungeonFile);
-            GetComponent<SaveLoadGame>().LoadDungeonLevel(
-                new LoadEventArgs(data));
-
-            InitBlueprint();
-            InitWorld();
-        }
-
         private void InitializeGame()
         {
             GetComponent<RandomNumber>().Initialize();
@@ -56,6 +45,17 @@ namespace Fungus.GameSystem
             GetComponent<SubMode>().SwitchModeOpening(show);
 
             PrintWelcomeMessage();
+        }
+
+        private void LoadDungeonLevel()
+        {
+            IDataTemplate[] data = GetComponent<SaveLoadFile>().LoadBinary(
+                GetComponent<SaveLoadGame>().DungeonFile);
+            GetComponent<SaveLoadGame>().LoadDungeonLevel(
+                new LoadEventArgs(data));
+
+            InitBlueprint();
+            InitWorld();
         }
 
         private void PrintWelcomeMessage()
@@ -83,7 +83,7 @@ namespace Fungus.GameSystem
             {
                 if (File.Exists(dungeon))
                 {
-                    InitializeDungeonLevel();
+                    LoadDungeonLevel();
                 }
                 else
                 {

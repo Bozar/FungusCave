@@ -1,11 +1,13 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Stress : MonoBehaviour, IResetData
+    public class Stress : MonoBehaviour, IResetData, ILoadActorData
     {
         private ActorData actorData;
 
@@ -38,6 +40,11 @@ namespace Fungus.Actor
         public bool HasMaxStress()
         {
             return CurrentStress == MaxStress;
+        }
+
+        public void Load(DTActor data)
+        {
+            CurrentStress = data.Stress;
         }
 
         public void LoseStress(int stress)

@@ -1,6 +1,8 @@
 ﻿using Fungus.Actor.Turn;
 using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +26,8 @@ namespace Fungus.Actor
         int Recovery { get; }
     }
 
-    public class Infection : MonoBehaviour, ITurnCounter, IResetData
+    public class Infection : MonoBehaviour, ITurnCounter, IResetData,
+        ILoadActorData
     {
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionDict;
@@ -108,6 +111,11 @@ namespace Fungus.Actor
         public bool HasInfection(InfectionTag tag)
         {
             return infectionDict[tag] > 0;
+        }
+
+        public void Load(DTActor data)
+        {
+            infectionDict = new Dictionary<InfectionTag, int>(data.Infection);
         }
 
         public void Reset()

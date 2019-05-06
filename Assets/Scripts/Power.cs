@@ -1,12 +1,14 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
+using Fungus.GameSystem.WorldBuilding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Power : MonoBehaviour
+    public class Power : MonoBehaviour, ILoadActorData
     {
         private PowerData powerData;
         private Dictionary<PowerSlotTag, PowerTag> powerDict;
@@ -124,6 +126,11 @@ namespace Fungus.Actor
             }
 
             return true;
+        }
+
+        public void Load(DTActor data)
+        {
+            powerDict = new Dictionary<PowerSlotTag, PowerTag>(data.Power);
         }
 
         private void Start()

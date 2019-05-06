@@ -16,6 +16,8 @@ namespace Fungus.GameSystem.Turn
         private LinkedListNode<GameObject> nextNode;
         private LinkedList<GameObject> schedule;
 
+        public DTActor[] ActorData { get; private set; }
+
         public int CountActor { get { return schedule.Count; } }
 
         public GameObject CurrentActor
@@ -41,7 +43,15 @@ namespace Fungus.GameSystem.Turn
 
         public void LoadBinary(IDataTemplate[] dt)
         {
-            throw new NotImplementedException();
+            foreach (IDataTemplate d in dt)
+            {
+                if (d.DTTag == DataTemplateTag.Schedule)
+                {
+                    DTSchedulingSystem value = d as DTSchedulingSystem;
+                    ActorData = value.Actors;
+                    return;
+                }
+            }
         }
 
         public void NextActor()
@@ -196,6 +206,8 @@ namespace Fungus.GameSystem.Turn
                 += SchedulingSystem_SavingGame;
             GetComponent<SaveLoadGame>().LoadingGame
                 += SchedulingSystem_LoadingGame;
+
+            ActorData = null;
         }
 
         private void UpdateCurrentNode()
