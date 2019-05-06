@@ -11,6 +11,14 @@ namespace Fungus.Actor
         private PowerData powerData;
         private Dictionary<PowerSlotTag, PowerTag> powerDict;
 
+        public Dictionary<PowerSlotTag, PowerTag> PowerDict
+        {
+            get
+            {
+                return new Dictionary<PowerSlotTag, PowerTag>(powerDict);
+            }
+        }
+
         public void BuyPower(PowerTag power)
         {
             if (IsBuyable(power, out PowerSlotTag slot, out int potion))

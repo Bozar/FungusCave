@@ -34,6 +34,14 @@ namespace Fungus.Actor
         private Stack<InfectionTag> previousInfection;
         private RandomNumber random;
 
+        public Dictionary<InfectionTag, int> InfectionDict
+        {
+            get
+            {
+                return new Dictionary<InfectionTag, int>(infectionDict);
+            }
+        }
+
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))
