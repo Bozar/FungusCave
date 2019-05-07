@@ -98,9 +98,10 @@ namespace Fungus.GameSystem.Turn
                 position = GetComponent<ConvertCoordinates>().Convert(
                     actor.transform.position);
 
-                Debug.Log(actorIndex
-                    + ": [" + position[0] + "," + position[1] + "] "
-                    + actor.GetComponent<MetaInfo>().SubTag);
+                Debug.Log($"{actorIndex}: [{position[0]}, {position[1]}], "
+                    + $"{actor.GetComponent<MetaInfo>().SubTag}, "
+                    + $"HP: {actor.GetComponent<HP>().CurrentHP}, "
+                    + $"Energy: {actor.GetComponent<Energy>().CurrentEnergy}");
 
                 actorIndex++;
             }
