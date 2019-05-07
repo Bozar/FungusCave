@@ -13,6 +13,8 @@ namespace Fungus.Actor
 
         public int CurrentStress { get; private set; }
 
+        public bool LoadedActorData { get; private set; }
+
         public int MaxStress
         {
             get

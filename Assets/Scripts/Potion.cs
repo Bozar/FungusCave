@@ -17,6 +17,8 @@ namespace Fungus.Actor
 
         public int CurrentPotion { get; private set; }
 
+        public bool LoadedActorData { get; private set; }
+
         public void DrinkPotion()
         {
             if (CurrentPotion < 1)

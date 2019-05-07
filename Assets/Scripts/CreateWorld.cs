@@ -7,6 +7,8 @@ namespace Fungus.GameSystem.WorldBuilding
 {
     public interface ILoadActorData
     {
+        bool LoadedActorData { get; }
+
         void Load(DTActor data);
     }
 

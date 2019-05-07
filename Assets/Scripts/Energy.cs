@@ -27,6 +27,8 @@ namespace Fungus.Actor
 
         public int CurrentEnergy { get; private set; }
 
+        public bool LoadedActorData { get; private set; }
+
         public void Count()
         {
             throw new NotImplementedException();

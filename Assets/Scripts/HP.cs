@@ -19,6 +19,8 @@ namespace Fungus.Actor
 
         public int CurrentHP { get; private set; }
 
+        public bool LoadedActorData { get; private set; }
+
         public int MaxHP
         {
             get
@@ -36,6 +38,12 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             CurrentHP = data.HP;
+            LoadedActorData = true;
+            if (GetComponent<MetaInfo>().SubTag == SubObjectTag.PC)
+            {
+                Debug.Log("Load HP: " + data.HP);
+                Debug.Log("Current HP: " + CurrentHP);
+            }
         }
 
         public void LoseHP(int hp)
@@ -61,7 +69,14 @@ namespace Fungus.Actor
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
 
-            Reset();
+            if (!LoadedActorData)
+            {
+                Reset();
+            }
+            if (GetComponent<MetaInfo>().SubTag == SubObjectTag.PC)
+            {
+                Debug.Log("Start HP");
+            }
         }
     }
 }

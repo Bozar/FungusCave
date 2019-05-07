@@ -45,6 +45,8 @@ namespace Fungus.Actor
             }
         }
 
+        public bool LoadedActorData { get; private set; }
+
         public void Count()
         {
             foreach (InfectionTag tag in Enum.GetValues(typeof(InfectionTag)))

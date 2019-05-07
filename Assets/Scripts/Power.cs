@@ -13,6 +13,8 @@ namespace Fungus.Actor
         private PowerData powerData;
         private Dictionary<PowerSlotTag, PowerTag> powerDict;
 
+        public bool LoadedActorData { get; private set; }
+
         public Dictionary<PowerSlotTag, PowerTag> PowerDict
         {
             get
