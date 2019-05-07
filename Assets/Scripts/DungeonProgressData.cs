@@ -57,6 +57,11 @@ namespace Fungus.GameSystem.Progress
             return (DungeonLevel)level;
         }
 
+        public void GotoNextLevel()
+        {
+            dungeonLevel = GetNextLevel().ToString();
+        }
+
         public void LoadBinary(IDataTemplate[] dt)
         {
             foreach (IDataTemplate d in dt)
@@ -83,7 +88,7 @@ namespace Fungus.GameSystem.Progress
         {
             DTDungeonProgressData data = new DTDungeonProgressData
             {
-                Progress = GetNextLevel().ToString()
+                Progress = GetDungeonLevel().ToString()
             };
             dt.Push(data);
         }

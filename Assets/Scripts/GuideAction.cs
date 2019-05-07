@@ -11,6 +11,7 @@ namespace Fungus.Actor.Turn
     public class GuideAction : MonoBehaviour
     {
         private DungeonProgress progress;
+        private DungeonProgressData progressData;
         private SaveLoadGame saveLoad;
 
         private void Reload()
@@ -23,6 +24,8 @@ namespace Fungus.Actor.Turn
             // progress.LevelCleared() is a sub condition of progress.IsWin().
             else if (progress.LevelCleared())
             {
+                progressData.GotoNextLevel();
+
                 Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
                 saveLoad.SaveDungeonLevel(new SaveEventArgs(dt));
                 SceneManager.LoadSceneAsync(0);
@@ -32,6 +35,8 @@ namespace Fungus.Actor.Turn
         private void Start()
         {
             progress = FindObjects.GameLogic.GetComponent<DungeonProgress>();
+            progressData = FindObjects.GameLogic
+                .GetComponent<DungeonProgressData>();
             saveLoad = FindObjects.GameLogic.GetComponent<SaveLoadGame>();
         }
 
