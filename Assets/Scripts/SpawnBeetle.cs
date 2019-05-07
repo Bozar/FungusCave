@@ -20,6 +20,9 @@ namespace Fungus.GameSystem.Progress
         private bool notWarned;
         private int warning;
 
+        // NOTE: For testing only.
+        public int Count { get { return count; } }
+
         public void BeetleEmerge()
         {
             if ((count <= warning) && notWarned)
