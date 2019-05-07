@@ -18,10 +18,11 @@ namespace Fungus.GameSystem.Progress
         private int maxBeetle;
         private int maxCount;
         private bool notWarned;
+        private int warning;
 
         public void BeetleEmerge()
         {
-            if ((count == 1) && notWarned)
+            if ((count <= warning) && notWarned)
             {
                 StoreMessage("Warning");
 
@@ -173,6 +174,7 @@ namespace Fungus.GameSystem.Progress
             maxCount = GetComponent<GameData>().GetIntData(dataNode, "MaxCount");
             distance = GetComponent<GameData>().GetIntData(dataNode, "Distance");
             maxBeetle = GetComponent<GameData>().GetIntData(dataNode, "Beetle");
+            warning = GetComponent<GameSetting>().BeetleWarning;
 
             count = maxCount;
             notWarned = true;

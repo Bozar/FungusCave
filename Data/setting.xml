@@ -8,6 +8,9 @@
   <AutoExploreStep>5</AutoExploreStep>
   <!-- Change UI color when PC's HP is lower than threshold. -->
   <LowHP>5</LowHP>
+  <!-- Display a warning message when beetles will appear after X kills. -->
+  <!-- Set a number between 1 to 10. -->
+  <BeetleWarning>3</BeetleWarning>
   <Language>
     <!-- Options: English, Chinese. -->
     <User>English</User>

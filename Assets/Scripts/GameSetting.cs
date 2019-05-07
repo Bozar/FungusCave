@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem.SaveLoadData;
+using System;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -12,6 +13,18 @@ namespace Fungus.GameSystem.Data
         public int AutoExploreStep
         {
             get { return (int)xFile.Element("AutoExploreStep"); }
+        }
+
+        public int BeetleWarning
+        {
+            get
+            {
+                int warning = (int)xFile.Element("BeetleWarning");
+                warning = Math.Min(10, warning);
+                warning = Math.Max(1, warning);
+
+                return warning;
+            }
         }
 
         public string DefaultLanguage
