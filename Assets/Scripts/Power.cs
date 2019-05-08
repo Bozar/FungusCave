@@ -8,20 +8,12 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Power : MonoBehaviour, ILoadActorData
+    public class Power : MonoBehaviour, ISaveLoadActorData
     {
         private PowerData powerData;
         private Dictionary<PowerSlotTag, PowerTag> powerDict;
 
         public bool LoadedActorData { get; private set; }
-
-        public Dictionary<PowerSlotTag, PowerTag> PowerDict
-        {
-            get
-            {
-                return new Dictionary<PowerSlotTag, PowerTag>(powerDict);
-            }
-        }
 
         public void BuyPower(PowerTag power)
         {
@@ -134,6 +126,11 @@ namespace Fungus.Actor
         {
             powerDict = new Dictionary<PowerSlotTag, PowerTag>(data.Power);
             LoadedActorData = true;
+        }
+
+        public void Save(DTActor data)
+        {
+            data.Power = new Dictionary<PowerSlotTag, PowerTag>(powerDict);
         }
 
         private void Start()

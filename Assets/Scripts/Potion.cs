@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Potion : MonoBehaviour, ILoadActorData
+    public class Potion : MonoBehaviour, ISaveLoadActorData
     {
         private GameColor color;
         private UIMessage message;
@@ -57,6 +57,11 @@ namespace Fungus.Actor
         public void LosePotion(int potion)
         {
             CurrentPotion = Math.Max(0, CurrentPotion - potion);
+        }
+
+        public void Save(DTActor data)
+        {
+            data.Potion = CurrentPotion;
         }
 
         private void Start()

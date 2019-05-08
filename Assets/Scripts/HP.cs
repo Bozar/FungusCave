@@ -13,7 +13,7 @@ namespace Fungus.Actor
         void RestoreAfterKill();
     }
 
-    public class HP : MonoBehaviour, IResetData, ILoadActorData
+    public class HP : MonoBehaviour, IResetData, ISaveLoadActorData
     {
         private ActorData actorData;
 
@@ -58,6 +58,11 @@ namespace Fungus.Actor
         public void Reset()
         {
             CurrentHP = MaxHP;
+        }
+
+        public void Save(DTActor data)
+        {
+            data.HP = CurrentHP;
         }
 
         private void Start()

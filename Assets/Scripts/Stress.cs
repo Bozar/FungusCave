@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public class Stress : MonoBehaviour, IResetData, ILoadActorData
+    public class Stress : MonoBehaviour, IResetData, ISaveLoadActorData
     {
         private ActorData actorData;
 
@@ -58,6 +58,11 @@ namespace Fungus.Actor
         public void Reset()
         {
             CurrentStress = 0;
+        }
+
+        public void Save(DTActor data)
+        {
+            data.Stress = CurrentStress;
         }
 
         private void Start()

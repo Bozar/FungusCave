@@ -5,11 +5,13 @@ using UnityEngine;
 
 namespace Fungus.GameSystem.WorldBuilding
 {
-    public interface ILoadActorData
+    public interface ISaveLoadActorData
     {
         bool LoadedActorData { get; }
 
         void Load(DTActor data);
+
+        void Save(DTActor data);
     }
 
     public class CreateWorld : MonoBehaviour, IInitialize
@@ -127,15 +129,15 @@ namespace Fungus.GameSystem.WorldBuilding
         private void LoadActor(DTActor[] data)
         {
             GameObject go;
-            ILoadActorData[] lad;
+            ISaveLoadActorData[] lad;
 
             foreach (DTActor a in data)
             {
                 go = oPool.CreateObject(MainObjectTag.Actor,
                     a.ActorTag, a.Position);
 
-                lad = go.GetComponents<ILoadActorData>();
-                foreach (ILoadActorData l in lad)
+                lad = go.GetComponents<ISaveLoadActorData>();
+                foreach (ISaveLoadActorData l in lad)
                 {
                     l.Load(a);
                 }

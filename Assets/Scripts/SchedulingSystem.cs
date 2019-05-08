@@ -131,22 +131,19 @@ namespace Fungus.GameSystem.Turn
         public void SaveBinary(Stack<IDataTemplate> dt)
         {
             Queue<DTActor> actors = new Queue<DTActor>();
+            ISaveLoadActorData[] actorComponents;
+            DTActor saveData;
 
             foreach (GameObject go in schedule)
             {
-                actors.Enqueue(new DTActor
-                {
-                    ActorTag = go.GetComponent<MetaInfo>().SubTag,
-                    Energy = go.GetComponent<Energy>().CurrentEnergy,
-                    HP = go.GetComponent<HP>().CurrentHP,
-                    Infection = go.GetComponent<Infection>().InfectionDict,
-                    Position = GetComponent<ConvertCoordinates>().Convert(
-                        go.transform.position),
-                    Stress = go.GetComponent<Stress>().CurrentStress,
+                actorComponents = go.GetComponents<ISaveLoadActorData>();
+                saveData = new DTActor();
 
-                    Potion = go.GetComponent<Potion>()?.CurrentPotion ?? -1,
-                    Power = go.GetComponent<Power>()?.PowerDict
-                });
+                foreach (ISaveLoadActorData islad in actorComponents)
+                {
+                    islad.Save(saveData);
+                }
+                actors.Enqueue(saveData);
             }
 
             var data = new DTSchedulingSystem { Actors = actors.ToArray() };

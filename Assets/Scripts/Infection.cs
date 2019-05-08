@@ -27,7 +27,7 @@ namespace Fungus.Actor
     }
 
     public class Infection : MonoBehaviour, ITurnCounter, IResetData,
-        ILoadActorData
+        ISaveLoadActorData
     {
         private InfectionData infectionData;
         private Dictionary<InfectionTag, int> infectionDict;
@@ -36,14 +36,6 @@ namespace Fungus.Actor
         private int maxRepeat;
         private Stack<InfectionTag> previousInfection;
         private RandomNumber random;
-
-        public Dictionary<InfectionTag, int> InfectionDict
-        {
-            get
-            {
-                return new Dictionary<InfectionTag, int>(infectionDict);
-            }
-        }
 
         public bool LoadedActorData { get; private set; }
 
@@ -132,6 +124,11 @@ namespace Fungus.Actor
             {
                 infectionDict[tag] = 0;
             }
+        }
+
+        public void Save(DTActor data)
+        {
+            data.Infection = new Dictionary<InfectionTag, int>(infectionDict);
         }
 
         public void Trigger()

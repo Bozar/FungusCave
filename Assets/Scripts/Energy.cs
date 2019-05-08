@@ -17,7 +17,8 @@ namespace Fungus.Actor
         int RestoreTurn { get; }
     }
 
-    public class Energy : MonoBehaviour, ITurnCounter, IResetData, ILoadActorData
+    public class Energy : MonoBehaviour, ITurnCounter, IResetData,
+        ISaveLoadActorData
     {
         private DungeonBoard board;
         private Direction direction;
@@ -114,6 +115,11 @@ namespace Fungus.Actor
         public void Reset()
         {
             CurrentEnergy = energyData.ActionThreshold;
+        }
+
+        public void Save(DTActor data)
+        {
+            data.Energy = CurrentEnergy;
         }
 
         public void Trigger()
