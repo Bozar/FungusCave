@@ -51,6 +51,7 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             CurrentPotion = data.Potion;
+            LoadedActorData = true;
         }
 
         public void LosePotion(int potion)
@@ -65,7 +66,10 @@ namespace Fungus.Actor
             text = FindObjects.GameLogic.GetComponent<GameText>();
             color = FindObjects.GameLogic.GetComponent<GameColor>();
 
-            CurrentPotion = potionData.StartPotion;
+            if (!LoadedActorData)
+            {
+                CurrentPotion = potionData.StartPotion;
+            }
         }
     }
 }

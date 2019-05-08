@@ -47,6 +47,7 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             CurrentStress = data.Stress;
+            LoadedActorData = true;
         }
 
         public void LoseStress(int stress)
@@ -63,7 +64,10 @@ namespace Fungus.Actor
         {
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
 
-            Reset();
+            if (!LoadedActorData)
+            {
+                Reset();
+            }
         }
     }
 }

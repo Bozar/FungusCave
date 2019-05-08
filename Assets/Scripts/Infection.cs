@@ -118,6 +118,7 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             infectionDict = new Dictionary<InfectionTag, int>(data.Infection);
+            LoadedActorData = true;
         }
 
         public void Reset()

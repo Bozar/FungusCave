@@ -82,6 +82,7 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             CurrentEnergy = data.Energy;
+            LoadedActorData = true;
         }
 
         public void LoseEnergy(int energy)
@@ -145,7 +146,10 @@ namespace Fungus.Actor
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             wizard = FindObjects.GameLogic.GetComponent<WizardMode>();
 
-            Reset();
+            if (!LoadedActorData)
+            {
+                Reset();
+            }
         }
     }
 }

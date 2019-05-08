@@ -133,20 +133,21 @@ namespace Fungus.Actor
         public void Load(DTActor data)
         {
             powerDict = new Dictionary<PowerSlotTag, PowerTag>(data.Power);
+            LoadedActorData = true;
         }
 
         private void Start()
         {
-            powerDict = new Dictionary<PowerSlotTag, PowerTag>();
-            foreach (PowerSlotTag slot in Enum.GetValues(typeof(PowerSlotTag)))
-            {
-                powerDict.Add(slot, PowerTag.INVALID);
-            }
-
             powerData = FindObjects.GameLogic.GetComponent<PowerData>();
 
-            // TODO: Delete these lines.
-            //GainPower(PowerSlotTag.Slot1, PowerTag.DefEnergy1);
+            if (!LoadedActorData)
+            {
+                powerDict = new Dictionary<PowerSlotTag, PowerTag>();
+                foreach (PowerSlotTag slot in Enum.GetValues(typeof(PowerSlotTag)))
+                {
+                    powerDict.Add(slot, PowerTag.INVALID);
+                }
+            }
         }
     }
 }

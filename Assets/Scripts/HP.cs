@@ -39,11 +39,6 @@ namespace Fungus.Actor
         {
             CurrentHP = data.HP;
             LoadedActorData = true;
-            if (GetComponent<MetaInfo>().SubTag == SubObjectTag.PC)
-            {
-                Debug.Log("Load HP: " + data.HP);
-                Debug.Log("Current HP: " + CurrentHP);
-            }
         }
 
         public void LoseHP(int hp)
@@ -72,10 +67,6 @@ namespace Fungus.Actor
             if (!LoadedActorData)
             {
                 Reset();
-            }
-            if (GetComponent<MetaInfo>().SubTag == SubObjectTag.PC)
-            {
-                Debug.Log("Start HP");
             }
         }
     }
