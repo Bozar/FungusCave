@@ -51,7 +51,7 @@ namespace Fungus.Actor
             string kill = text.GetStringData(node, "PCKill");
             kill = color.GetColorfulText(kill, ColorName.Orange);
             message.StoreText(kill);
-            modeline.PrintStaticText(text.GetStringData("EnterExit", "Reload"));
+            modeline.PrintStaticText(text.GetStringData("EnterExit", "ReloadDie"));
         }
 
         public void IsStressed()

@@ -8,7 +8,7 @@ namespace Fungus.Actor.InputManager
         Left, Right, Up, Down,
         UpLeft, UpRight, DownLeft, DownRight,
         Wait, AutoExplore, Examine, ViewHelp, BuyPower, ViewLog,
-        Confirm, Cancel,
+        Confirm, Cancel, Reload,
         Next, Previous,
         Save,
 

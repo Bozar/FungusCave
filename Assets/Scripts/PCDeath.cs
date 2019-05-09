@@ -66,7 +66,7 @@ namespace Fungus.Actor
                 victory = text.GetStringData(node, "Win");
                 victory = color.GetColorfulText(victory, ColorName.Green);
                 message.StoreText(victory);
-                modeline.PrintStaticText(text.GetStringData(node, "Reload"));
+                modeline.PrintStaticText(text.GetStringData(node, "ReloadWin"));
             }
             else if (progress.LevelCleared())
             {

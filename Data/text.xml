@@ -87,10 +87,14 @@
       <English>Level cleared!</English>
       <Chinese>本层敌人已消灭！</Chinese>
     </Level>
-    <Reload>
+    <ReloadDie>
       <English>Press Space to reload.</English>
       <Chinese>按 空格键 重新载入游戏。</Chinese>
-    </Reload>
+    </ReloadDie>
+    <ReloadWin>
+      <English>Press [ Ctrl + R ] to reload.</English>
+      <Chinese>按 [ Ctrl + R ] 重新载入游戏。</Chinese>
+    </ReloadWin>
     <Welcome>
       <English>Welcome to Cave %num%！</English>
       <Chinese>欢迎来到洞窟 %num%！</Chinese>

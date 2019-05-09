@@ -6,6 +6,14 @@ namespace Fungus.Actor.InputManager
     {
         public Command Input2Command()
         {
+            if (Input.GetKey(KeyCode.LeftControl)
+                || Input.GetKey(KeyCode.RightControl))
+            {
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    return Command.Reload;
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 return Command.Confirm;

@@ -14,10 +14,14 @@ namespace Fungus.Actor.Turn
         private DungeonProgressData progressData;
         private SaveLoadGame saveLoad;
 
-        private void Reload()
+        private void ReloadDieNextLevel()
         {
-            if ((FindObjects.PC.GetComponent<HP>().CurrentHP < 1)
-                || progress.IsWin())
+            if (progress.IsWin())
+            {
+                return;
+            }
+
+            if (FindObjects.PC.GetComponent<HP>().CurrentHP < 1)
             {
                 SceneManager.LoadSceneAsync(0);
             }
@@ -28,6 +32,14 @@ namespace Fungus.Actor.Turn
 
                 Stack<IDataTemplate> dt = new Stack<IDataTemplate>();
                 saveLoad.SaveDungeonLevel(new SaveEventArgs(dt));
+                SceneManager.LoadSceneAsync(0);
+            }
+        }
+
+        private void ReloadWin()
+        {
+            if (progress.IsWin())
+            {
                 SceneManager.LoadSceneAsync(0);
             }
         }
@@ -45,7 +57,11 @@ namespace Fungus.Actor.Turn
             switch (GetComponent<PlayerInput>().GameCommand())
             {
                 case Command.Confirm:
-                    Reload();
+                    ReloadDieNextLevel();
+                    break;
+
+                case Command.Reload:
+                    ReloadWin();
                     break;
             }
         }
