@@ -4,13 +4,13 @@
     <!-- Spawning count down -->
     <Death>1</Death>
     <Fungus>1</Fungus>
-    <MaxCount>15</MaxCount>
+    <MaxCount>30</MaxCount>
     <!-- Spawn beetles -->
-    <Distance>4</Distance>
+    <Distance>6</Distance>
     <Beetle>4</Beetle>
   </SpawnBeetle>
   <Dungeon>
-    <StartLevel>DL2</StartLevel>
+    <StartLevel>DL1</StartLevel>
     <MaxLevel>DL3</MaxLevel>
     <MaxActor>50</MaxActor>
     <MaxSoldier>40</MaxSoldier>
