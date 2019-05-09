@@ -15,6 +15,7 @@ namespace Fungus.GameSystem
 
     public class Initialize : MonoBehaviour
     {
+        private readonly string node = "EnterExit";
         private string dungeon;
         private string game;
 
@@ -79,14 +80,20 @@ namespace Fungus.GameSystem
 
         private void PrintWelcomeMessage()
         {
-            string welcome = GetComponent<GameText>().GetStringData("EnterExit",
+            string welcome = GetComponent<GameText>().GetStringData(node,
                 "Welcome");
             string level = GetComponent<DungeonProgressData>().GetDungeonLevel()
                 .ToString();
             level = level.Replace("DL", "");
             welcome = welcome.Replace("%num%", level);
+            string help = GetComponent<GameText>().GetStringData(node, "Help");
 
             GetComponent<CombatMessage>().StoreText(welcome);
+            if (GetComponent<DungeonProgressData>().GetDungeonLevel()
+                == DungeonLevel.DL1)
+            {
+                GetComponent<CombatMessage>().StoreText(help);
+            }
         }
 
         private void Start()

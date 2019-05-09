@@ -71,6 +71,10 @@
     </NPCStress>
   </Combat>
   <EnterExit>
+    <Help>
+      <English>Press ? to view help.</English>
+      <Chinese>按 ? 显示帮助。</Chinese>
+    </Help>
     <Win>
       <English>You win!</English>
       <Chinese>你赢了！</Chinese>
