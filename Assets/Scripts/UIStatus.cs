@@ -69,6 +69,28 @@ namespace Fungus.GameSystem.Render
             return text;
         }
 
+        private string ColorfulPotion(int current, int max)
+        {
+            string text = JoinCurrentMax(current, max);
+
+            if (current == max)
+            {
+                text = GetComponent<GameColor>().GetColorfulText(text,
+                    ColorName.Green);
+            }
+            else if (current <= GetComponent<GameSetting>().LowPotion)
+            {
+                text = GetComponent<GameColor>().GetColorfulText(text,
+                    ColorName.Orange);
+            }
+            else
+            {
+                text = GetComponent<GameColor>().GetColorfulText(text,
+                    ColorName.White);
+            }
+            return text;
+        }
+
         private string JoinCurrentMax(int current, int max)
         {
             return current + " / " + max;
@@ -194,7 +216,7 @@ namespace Fungus.GameSystem.Render
 
             getText(UITag.PotionLabel).text
                = GetComponent<GameText>().GetStringData(node, "Potion");
-            getText(UITag.PotionData).text = JoinCurrentMax(current, max);
+            getText(UITag.PotionData).text = ColorfulPotion(current, max);
         }
 
         private void UpdatePower()

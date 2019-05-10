@@ -39,6 +39,8 @@ namespace Fungus.GameSystem.Data
 
         public int LowHP { get { return (int)xFile.Element("LowHP"); } }
 
+        public int LowPotion { get { return (int)xFile.Element("LowPotion"); } }
+
         public int Seed
         {
             get { return (int)xFile.Element("Seed"); }
