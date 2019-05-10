@@ -8,7 +8,7 @@ namespace Fungus.GameSystem.SaveLoadData
 {
     public enum DataTemplateTag
     {
-        INVALID, Seed, Progress, Schedule, Spawn, Dungeon, Actor
+        INVALID, Seed, Progress, Kill, Schedule, Spawn, Dungeon, Actor
     };
 
     public interface IDataTemplate
@@ -41,6 +41,14 @@ namespace Fungus.GameSystem.SaveLoadData
         public SubObjectTag[,] Blueprint;
 
         public DataTemplateTag DTTag { get { return DataTemplateTag.Dungeon; } }
+    }
+
+    [Serializable]
+    public class DTDungeonProgress : IDataTemplate
+    {
+        public int KillCount;
+
+        public DataTemplateTag DTTag { get { return DataTemplateTag.Kill; } }
     }
 
     [Serializable]
