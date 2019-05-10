@@ -41,20 +41,17 @@ namespace Fungus.GameSystem
 
             InitBlueprint();
             InitWorld();
+
+            bool show = GetComponent<GameSetting>().ShowOpening;
+            GetComponent<SubMode>().SwitchModeOpening(show);
+
+            PrintMessageNewGame();
         }
 
         private void InitWorld()
         {
             GetComponent<CreateWorld>().Initialize();
             GetComponent<DungeonTerrain>().Initialize();
-
-            bool show = (GetComponent<DungeonProgressData>().GetDungeonLevel()
-                == DungeonLevel.DL1)
-                ? GetComponent<GameSetting>().ShowOpening
-                : false;
-            GetComponent<SubMode>().SwitchModeOpening(show);
-
-            PrintWelcomeMessage();
         }
 
         private void LoadDungeon()
@@ -66,6 +63,7 @@ namespace Fungus.GameSystem
 
             InitBlueprint();
             InitWorld();
+            PrintMessageNewGame();
         }
 
         private void LoadGame()
@@ -76,19 +74,33 @@ namespace Fungus.GameSystem
                 new LoadEventArgs(data));
 
             InitWorld();
+            PrintMessageLoadGame();
         }
 
-        private void PrintWelcomeMessage()
+        private void PrintMessage(string welcome)
         {
-            string welcome = GetComponent<GameText>().GetStringData(node,
-                "Welcome");
             string level = GetComponent<DungeonProgressData>().GetDungeonLevel()
                 .ToString();
             level = level.Replace("DL", "");
             welcome = welcome.Replace("%num%", level);
-            string help = GetComponent<GameText>().GetStringData(node, "Help");
 
             GetComponent<CombatMessage>().StoreText(welcome);
+        }
+
+        private void PrintMessageLoadGame()
+        {
+            string welcome = GetComponent<GameText>().GetStringData(node,
+               "LoadGame");
+            PrintMessage(welcome);
+        }
+
+        private void PrintMessageNewGame()
+        {
+            string welcome = GetComponent<GameText>().GetStringData(node,
+                "Welcome");
+            PrintMessage(welcome);
+
+            string help = GetComponent<GameText>().GetStringData(node, "Help");
             if (GetComponent<DungeonProgressData>().GetDungeonLevel()
                 == DungeonLevel.DL1)
             {

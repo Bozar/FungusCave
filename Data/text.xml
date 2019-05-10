@@ -96,9 +96,13 @@
       <Chinese>按 [ Ctrl + R ] 重新载入游戏。</Chinese>
     </ReloadWin>
     <Welcome>
-      <English>Welcome to Cave %num%！</English>
+      <English>Welcome to Cave %num%!</English>
       <Chinese>欢迎来到洞窟 %num%！</Chinese>
     </Welcome>
+    <LoadGame>
+      <English>Welcome back to Cave %num%!</English>
+      <Chinese>欢迎返回洞窟 %num%！</Chinese>
+    </LoadGame>
   </EnterExit>
   <BuyPower>
     <Confirm>
