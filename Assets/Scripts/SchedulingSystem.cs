@@ -1,7 +1,6 @@
 ﻿using Fungus.Actor;
 using Fungus.Actor.Turn;
 using Fungus.GameSystem.Data;
-using Fungus.GameSystem.Progress;
 using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
 using System;
@@ -90,7 +89,6 @@ namespace Fungus.GameSystem.Turn
             int[] position;
 
             Debug.Log("==========");
-            Debug.Log("Beetle: " + GetComponent<SpawnBeetle>().Count);
             Debug.Log("Total actors: " + schedule.Count);
             Debug.Log("Current actor: "
                 + CurrentActor.GetComponent<MetaInfo>().SubTag);

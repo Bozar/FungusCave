@@ -80,6 +80,7 @@ namespace Fungus.GameSystem.SaveLoadData
     public class DTSpawnBeetle : IDataTemplate
     {
         public int Count;
+        public bool NotWarned;
 
         public DataTemplateTag DTTag { get { return DataTemplateTag.Spawn; } }
     }

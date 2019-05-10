@@ -20,9 +20,6 @@ namespace Fungus.GameSystem.Progress
         private bool notWarned;
         private int warning;
 
-        // NOTE: For testing only.
-        public int Count { get { return count; } }
-
         public void BeetleEmerge()
         {
             if ((count <= warning) && notWarned)
@@ -49,6 +46,7 @@ namespace Fungus.GameSystem.Progress
                 {
                     DTSpawnBeetle value = d as DTSpawnBeetle;
                     count = value.Count;
+                    notWarned = value.NotWarned;
                     return;
                 }
             }
@@ -58,7 +56,8 @@ namespace Fungus.GameSystem.Progress
         {
             DTSpawnBeetle data = new DTSpawnBeetle
             {
-                Count = count
+                Count = count,
+                NotWarned = notWarned
             };
             dt.Push(data);
         }
