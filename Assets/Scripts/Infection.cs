@@ -65,7 +65,6 @@ namespace Fungus.Actor
                     continue;
                 }
 
-                GetComponent<ICombatMessage>().IsInfected();
                 if (HasInfection(out InfectionTag tag, out _))
                 {
                     infectionDict[tag]
@@ -76,6 +75,7 @@ namespace Fungus.Actor
                 {
                     ChooseInfection();
                 }
+                GetComponent<ICombatMessage>().IsInfected();
             }
             return;
         }

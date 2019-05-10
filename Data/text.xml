@@ -38,8 +38,8 @@
       <Chinese>%str% 攻击了你。</Chinese>
     </PCHit>
     <PCInfect>
-      <English>You are infected.</English>
-      <Chinese>你被感染了。</Chinese>
+      <English>You are infected: [ %str% ].</English>
+      <Chinese>你被感染了：[ %str% ]。</Chinese>
     </PCInfect>
     <PCKill>
       <English>You are dead.</English>
@@ -58,8 +58,8 @@
       <Chinese>你攻击了 %str%。</Chinese>
     </NPCHit>
     <NPCInfect>
-      <English>%str% is infected.</English>
-      <Chinese>%str% 被感染了。</Chinese>
+      <English>%str1% is infected: [ %str2% ].</English>
+      <Chinese>%str1% 被感染了：[ %str2% ]。</Chinese>
     </NPCInfect>
     <NPCKill>
       <English>%str% is dead.</English>

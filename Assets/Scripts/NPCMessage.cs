@@ -7,7 +7,9 @@ namespace Fungus.Actor
 {
     public class NPCMessage : MonoBehaviour, ICombatMessage
     {
+        private GameColor color;
         private ConvertCoordinates coord;
+        private InfectionData data;
         private UIMessage message;
         private string node;
         private GameText text;
@@ -29,9 +31,16 @@ namespace Fungus.Actor
 
         public void IsInfected()
         {
-            string infect = text.GetStringData(node, "NPCInfect");
-            infect = infect.Replace("%str%", GetDefenderName());
-            message.StoreText(infect);
+            // %str1% is infected: [ %str2% ].
+            string infection = text.GetStringData(node, "NPCInfect");
+            GetComponent<Infection>().HasInfection(out InfectionTag tag, out _);
+            string name = data.GetInfectionName(tag);
+
+            infection = infection.Replace("%str1%", GetDefenderName());
+            infection = infection.Replace("%str2%", name);
+            infection = color.GetColorfulText(infection, ColorName.Green);
+
+            message.StoreText(infection);
         }
 
         // PC kills NPC.
@@ -64,6 +73,8 @@ namespace Fungus.Actor
             coord = FindObjects.GameLogic.GetComponent<ConvertCoordinates>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
             text = FindObjects.GameLogic.GetComponent<GameText>();
+            color = FindObjects.GameLogic.GetComponent<GameColor>();
+            data = FindObjects.GameLogic.GetComponent<InfectionData>();
         }
     }
 }

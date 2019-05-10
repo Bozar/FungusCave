@@ -22,6 +22,7 @@ namespace Fungus.Actor
     {
         private GameColor color;
         private ConvertCoordinates coord;
+        private InfectionData data;
         private UIMessage message;
         private UIModeline modeline;
         private string node;
@@ -42,7 +43,15 @@ namespace Fungus.Actor
 
         public void IsInfected()
         {
-            message.StoreText(text.GetStringData(node, "PCInfect"));
+            // You are infected: [ %str% ].
+            string infection = text.GetStringData(node, "PCInfect");
+            GetComponent<Infection>().HasInfection(out InfectionTag tag, out _);
+            string name = data.GetInfectionName(tag);
+
+            infection = infection.Replace("%str%", name);
+            infection = color.GetColorfulText(infection, ColorName.Orange);
+
+            message.StoreText(infection);
         }
 
         // NPC kills PC.
@@ -50,6 +59,7 @@ namespace Fungus.Actor
         {
             string kill = text.GetStringData(node, "PCKill");
             kill = color.GetColorfulText(kill, ColorName.Orange);
+
             message.StoreText(kill);
             modeline.PrintStaticText(text.GetStringData("EnterExit", "ReloadDie"));
         }
@@ -76,6 +86,7 @@ namespace Fungus.Actor
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             text = FindObjects.GameLogic.GetComponent<GameText>();
             color = FindObjects.GameLogic.GetComponent<GameColor>();
+            data = FindObjects.GameLogic.GetComponent<InfectionData>();
         }
     }
 }

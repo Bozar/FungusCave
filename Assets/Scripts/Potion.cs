@@ -37,7 +37,7 @@ namespace Fungus.Actor
             LosePotion(1);
 
             string drink = text.GetStringData("Combat", "Potion");
-            drink = color.GetColorfulText(drink, ColorName.Green);
+            drink = color.GetColorfulText(drink, ColorName.Orange);
             message.StoreText(drink);
             return;
         }
