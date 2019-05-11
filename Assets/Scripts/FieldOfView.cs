@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.SaveLoadData;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
 
@@ -9,13 +10,22 @@ namespace Fungus.Actor.FOV
 
     public interface IFOVAlgorithm { void UpdateFOV(); }
 
-    public class FieldOfView : MonoBehaviour
+    public class FieldOfView : MonoBehaviour, IResetData, ISaveLoadActorData
     {
         private ActorData actorData;
         private DungeonBoard board;
         private FOVStatus[,] fovBoard;
 
-        public int MaxRange { get; private set; }
+        public bool LoadedActorData { get; private set; }
+
+        public int MaxRange
+        {
+            get
+            {
+                return actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
+                    DataTag.SightRange);
+            }
+        }
 
         public void ChangeFOVBoard(FOVStatus status, int[] position)
         {
@@ -60,6 +70,36 @@ namespace Fungus.Actor.FOV
             return fovBoard[x, y];
         }
 
+        public void Load(DTActor data)
+        {
+            if (GetComponent<MetaInfo>().IsPC)
+            {
+                fovBoard = data.FovBoard;
+                LoadedActorData = true;
+            }
+        }
+
+        public void Reset()
+        {
+            fovBoard = new FOVStatus[board.Width, board.Height];
+
+            for (int i = 0; i < board.Width; i++)
+            {
+                for (int j = 0; j < board.Height; j++)
+                {
+                    ChangeFOVBoard(FOVStatus.Unknown, i, j);
+                }
+            }
+        }
+
+        public void Save(DTActor data)
+        {
+            if (GetComponent<MetaInfo>().IsPC)
+            {
+                data.FovBoard = fovBoard;
+            }
+        }
+
         public void UpdateFOV()
         {
             UpdateMemory();
@@ -80,18 +120,11 @@ namespace Fungus.Actor.FOV
         {
             board = FindObjects.GameLogic.GetComponent<DungeonBoard>();
             actorData = FindObjects.GameLogic.GetComponent<ActorData>();
-            fovBoard = new FOVStatus[board.Width, board.Height];
 
-            for (int i = 0; i < board.Width; i++)
+            if (!LoadedActorData)
             {
-                for (int j = 0; j < board.Height; j++)
-                {
-                    ChangeFOVBoard(FOVStatus.Unknown, i, j);
-                }
+                Reset();
             }
-
-            MaxRange = actorData.GetIntData(GetComponent<MetaInfo>().SubTag,
-                DataTag.SightRange);
         }
 
         private void UpdateMemory()

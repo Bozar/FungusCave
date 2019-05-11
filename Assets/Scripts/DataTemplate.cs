@@ -1,4 +1,5 @@
 ﻿using Fungus.Actor;
+using Fungus.Actor.FOV;
 using Fungus.GameSystem.Data;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace Fungus.GameSystem.SaveLoadData
     {
         public SubObjectTag ActorTag;
         public int Energy;
+        public FOVStatus[,] FovBoard;
         public int HP;
         public Dictionary<InfectionTag, int> Infection;
         public int[] Position;
