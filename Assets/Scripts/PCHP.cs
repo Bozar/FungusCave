@@ -9,33 +9,28 @@ namespace Fungus.Actor
     {
         private ActorData actorData;
         private int hpRestore;
-        private int hpThreshold;
 
         public void Count()
         {
             throw new NotImplementedException();
         }
 
-        //public void RestoreAfterKill()
-        //{
-        //    if (GetComponent<Power>().IsActive(PowerTag.DefHP2))
-        //    {
-        //        GetComponent<HP>().GainHP(hpRestore);
-        //    }
-        //}
-
         public void Trigger()
         {
-            if ((GetComponent<HP>().CurrentHP < hpThreshold)
+            if ((GetComponent<HP>().CurrentHP
+                < (int)Math.Floor(0.5 * GetComponent<HP>().MaxHP))
                 && GetComponent<Power>().IsActive(PowerTag.DefHP1))
             {
                 GetComponent<HP>().GainHP(hpRestore);
             }
-        }
 
-        private void Awake()
-        {
-            hpThreshold = 5;
+            if ((GetComponent<HP>().CurrentHP
+                < (int)Math.Floor(0.8 * GetComponent<HP>().MaxHP))
+                && GetComponent<Infection>().HasInfection(out _, out _)
+                && GetComponent<Power>().IsActive(PowerTag.DefHP2))
+            {
+                GetComponent<HP>().GainHP(hpRestore);
+            }
         }
 
         private void Start()
