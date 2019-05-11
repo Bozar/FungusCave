@@ -14,11 +14,6 @@ namespace Fungus.Actor
             throw new NotImplementedException();
         }
 
-        public void RestoreAfterKill()
-        {
-            return;
-        }
-
         public void Trigger()
         {
             GetComponent<HP>().GainHP(actorData.GetIntData(

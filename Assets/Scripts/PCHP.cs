@@ -16,13 +16,13 @@ namespace Fungus.Actor
             throw new NotImplementedException();
         }
 
-        public void RestoreAfterKill()
-        {
-            if (GetComponent<Power>().IsActive(PowerTag.DefHP2))
-            {
-                GetComponent<HP>().GainHP(hpRestore);
-            }
-        }
+        //public void RestoreAfterKill()
+        //{
+        //    if (GetComponent<Power>().IsActive(PowerTag.DefHP2))
+        //    {
+        //        GetComponent<HP>().GainHP(hpRestore);
+        //    }
+        //}
 
         public void Trigger()
         {

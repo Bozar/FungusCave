@@ -8,10 +8,7 @@ using UnityEngine;
 
 namespace Fungus.Actor
 {
-    public interface IHP : ITurnCounter
-    {
-        void RestoreAfterKill();
-    }
+    public interface IHP : ITurnCounter { }
 
     public class HP : MonoBehaviour, IResetData, ISaveLoadActorData
     {

@@ -54,7 +54,6 @@ namespace Fungus.Actor
             string victory;
 
             GetComponent<Potion>().GainPotion(potion + bonusPotion);
-            GetComponent<IHP>().RestoreAfterKill();
 
             progress.CountKill(target);
             if (progress.IsWin())
