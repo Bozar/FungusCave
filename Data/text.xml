@@ -258,8 +258,8 @@
       <Chinese>急救</Chinese>
     </DefHP1>
     <DefHP2>
-      <English>Reaper</English>
-      <Chinese>死神</Chinese>
+      <English>Patient Zero</English>
+      <Chinese>零号病人</Chinese>
     </DefHP2>
     <AttEnergy1>
       <English>Siphon</English>
@@ -306,12 +306,12 @@
       <Chinese>感染的持续时间每轮减少 2 点（而不是 1 点）。\n\n需要 免疫。</Chinese>
     </DefInfection2>
     <DefHP1>
-      <English>Restore 1 HP every turn when your current HP is less than 5.</English>
+      <English>Restore 1 HP every turn if your current HP is less than 5.</English>
       <Chinese>当你的生命值低于 5 时，每轮回复 1 点生命值。</Chinese>
     </DefHP1>
     <DefHP2>
-      <English>Restore 1 HP when you kill an enemy.\n\nRequires First Aid.</English>
-      <Chinese>每次击杀敌人时回复 1 点生命值。\n\n需要 急救。</Chinese>
+      <English>Restore 1 HP every turn if you are infected and your current HP is less than 8.\n\n Requires First Aid.</English>
+      <Chinese>当你被感染并且生命值低于 8 时，每轮回复 1 点生命值。\n\n需要 急救。</Chinese>
     </DefHP2>
     <AttEnergy1>
       <English>Your target loses energy, which increases with your damage, when being hit.</English>
