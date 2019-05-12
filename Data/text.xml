@@ -25,6 +25,10 @@
     </End>
   </AutoExplore>
   <Combat>
+    <Blocked>
+      <English>You are blocked.</English>
+      <Chinese>你被挡住了。</Chinese>
+    </Blocked>
     <Potion>
       <English>You inject yourself with a blood potion.</English>
       <Chinese>你给自己注射了一瓶血液。</Chinese>

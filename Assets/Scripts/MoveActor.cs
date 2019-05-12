@@ -1,4 +1,5 @@
 ﻿using Fungus.GameSystem;
+using Fungus.GameSystem.Data;
 using Fungus.GameSystem.Render;
 using Fungus.GameSystem.WorldBuilding;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Fungus.Actor
         private ConvertCoordinates coord;
         private UIModeline modeline;
         private DungeonTerrain terrain;
+        private GameText text;
 
         public void MoveGameObject(int[] position)
         {
@@ -40,7 +42,8 @@ namespace Fungus.Actor
                 // error message for NPC.
                 if (GetComponent<MetaInfo>().IsPC)
                 {
-                    modeline.PrintStaticText("You are blocked");
+                    modeline.PrintStaticText(
+                        text.GetStringData("Combat", "Blocked"));
                 }
                 return;
             }
@@ -64,6 +67,7 @@ namespace Fungus.Actor
             actor = FindObjects.GameLogic.GetComponent<ActorBoard>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             terrain = FindObjects.GameLogic.GetComponent<DungeonTerrain>();
+            text = FindObjects.GameLogic.GetComponent<GameText>();
         }
     }
 }
