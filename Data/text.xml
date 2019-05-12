@@ -25,6 +25,10 @@
     </End>
   </AutoExplore>
   <Combat>
+    <MaxPotion>
+      <English>Your potion bag is full.</English>
+      <Chinese>你的药剂包满了。</Chinese>
+    </MaxPotion>
     <Blocked>
       <English>You are blocked.</English>
       <Chinese>你被挡住了。</Chinese>

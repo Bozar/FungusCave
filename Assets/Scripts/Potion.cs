@@ -10,6 +10,7 @@ namespace Fungus.Actor
 {
     public class Potion : MonoBehaviour, ISaveLoadActorData
     {
+        private readonly string node = "Combat";
         private GameColor color;
         private UIMessage message;
         private PotionData potionData;
@@ -36,7 +37,7 @@ namespace Fungus.Actor
             GetComponent<Energy>().GainEnergy(potionData.RestoreEnergy);
             LosePotion(1);
 
-            string drink = text.GetStringData("Combat", "Potion");
+            string drink = text.GetStringData(node, "Potion");
             drink = color.GetColorfulText(drink, ColorName.Orange);
             message.StoreText(drink);
             return;
@@ -46,6 +47,13 @@ namespace Fungus.Actor
         {
             CurrentPotion = Math.Min(
                 potionData.MaxPotion, CurrentPotion + potion);
+
+            if (CurrentPotion == potionData.MaxPotion)
+            {
+                string full = text.GetStringData(node, "MaxPotion");
+                full = color.GetColorfulText(full, ColorName.Green);
+                message.StoreText(full);
+            }
         }
 
         public void Load(DTActor data)
