@@ -14,6 +14,8 @@ namespace Fungus.GameSystem.Progress
         private string dungeonLevel;
         private string node;
 
+        public bool IsRushMode { get; private set; }
+
         public int MaxActor
         {
             get
@@ -38,12 +40,18 @@ namespace Fungus.GameSystem.Progress
 
         public DungeonLevel GetDungeonLevel(string level)
         {
+            LoadXML();
             return (DungeonLevel)Enum.Parse(typeof(DungeonLevel), level);
         }
 
         public SeedTag GetDungeonSeed()
         {
             LoadXML();
+
+            if (IsRushMode)
+            {
+                return SeedTag.Rush;
+            }
             return (SeedTag)Enum.Parse(typeof(SeedTag), dungeonLevel);
         }
 
@@ -77,7 +85,18 @@ namespace Fungus.GameSystem.Progress
 
         public void LoadXML()
         {
-            if (dungeonLevel == null)
+            if (dungeonLevel != null)
+            {
+                return;
+            }
+
+            IsRushMode = GetComponent<GameSetting>().IsRushMode;
+            if (IsRushMode)
+            {
+                dungeonLevel = GetComponent<GameData>().GetStringData(node,
+                    "MaxLevel");
+            }
+            else
             {
                 dungeonLevel = GetComponent<GameData>().GetStringData(node,
                     "StartLevel");

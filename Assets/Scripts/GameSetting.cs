@@ -32,6 +32,11 @@ namespace Fungus.GameSystem.Data
             get { return (string)xFile.Element("Language").Element("Default"); }
         }
 
+        public bool IsRushMode
+        {
+            get { return (bool)xFile.Element("IsRushMode"); }
+        }
+
         public bool IsWizard
         {
             get { return (bool)xFile.Element("IsWizard"); }

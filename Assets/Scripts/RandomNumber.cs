@@ -12,7 +12,7 @@ namespace Fungus.GameSystem
         Root,
 
         // Leaf seeds
-        DL1, DL2, DL3, DL4, DL5,
+        DL1, DL2, DL3, DL4, DL5, Rush,
 
         AutoExplore, Infection, NPCAction
     }

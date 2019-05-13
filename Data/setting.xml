@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- NOT FOR YOU, HARRY! -->
   <IsWizard>true</IsWizard>
+  <!-- Beat one Level 3 dungeon. -->
+  <IsRushMode>false</IsRushMode>
+  <!-- Skip the opening scene. -->
   <ShowOpening>false</ShowOpening>
-  <!-- 0 means generating a random number as the seed. -->
+  <!-- The default seed is 0. -->
+  <!-- It means to generate a random number as the seed. -->
   <Seed>0</Seed>
   <!-- Move at most X steps when auto exploring. -->
   <AutoExploreStep>5</AutoExploreStep>
