@@ -78,6 +78,7 @@ namespace Fungus.GameSystem.Progress
                 {
                     DTDungeonProgressData value = d as DTDungeonProgressData;
                     dungeonLevel = value.Progress;
+                    IsRushMode = value.IsRushMode;
                     return;
                 }
             }
@@ -107,7 +108,8 @@ namespace Fungus.GameSystem.Progress
         {
             DTDungeonProgressData data = new DTDungeonProgressData
             {
-                Progress = GetDungeonLevel().ToString()
+                Progress = GetDungeonLevel().ToString(),
+                IsRushMode = IsRushMode
             };
             dt.Push(data);
         }

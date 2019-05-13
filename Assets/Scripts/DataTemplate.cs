@@ -56,6 +56,7 @@ namespace Fungus.GameSystem.SaveLoadData
     [Serializable]
     public class DTDungeonProgressData : IDataTemplate
     {
+        public bool IsRushMode;
         public string Progress;
 
         public DataTemplateTag DTTag { get { return DataTemplateTag.Progress; } }
