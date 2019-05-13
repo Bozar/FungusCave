@@ -12,9 +12,13 @@ namespace Fungus.GameSystem.Render
         private int cursorPosition;
         private UIText getUI;
         private UITag[] orderedCursor;
-        private UITag[] orderedOption;
 
         private delegate Text UIText(UITag tag);
+
+        public UITag HighlightedSetting
+        {
+            get { return orderedCursor[cursorPosition]; }
+        }
 
         public void PrintStaticText()
         {
@@ -92,8 +96,6 @@ namespace Fungus.GameSystem.Render
 
             orderedCursor = new UITag[]
             { UITag.SettingCursor1, UITag.SettingCursor2 };
-            orderedOption = new UITag[]
-            { UITag.SettingOption1, UITag.SettingOption2 };
         }
 
         private void UISetting_MovingCursor(object sender, MoveCursorEventArgs e)

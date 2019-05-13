@@ -35,6 +35,8 @@ namespace Fungus.GameSystem.Data
         public bool IsRushMode
         {
             get { return (bool)xFile.Element("IsRushMode"); }
+
+            set { xFile.Element("IsRushMode").SetValue(value); }
         }
 
         public bool IsWizard

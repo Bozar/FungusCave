@@ -12,6 +12,7 @@ namespace Fungus.Actor.Turn
         private SubMode mode;
         private GameSetting setting;
         private UserInterface ui;
+        private UISetting uiSetting;
 
         private void Start()
         {
@@ -19,11 +20,21 @@ namespace Fungus.Actor.Turn
             header = FindObjects.GameLogic.GetComponent<HeaderAction>();
             setting = FindObjects.GameLogic.GetComponent<GameSetting>();
             ui = FindObjects.GameLogic.GetComponent<UserInterface>();
+            uiSetting = FindObjects.GameLogic.GetComponent<UISetting>();
         }
 
         private void SwitchSetting()
         {
-            setting.ShowOpening = !setting.ShowOpening;
+            switch (uiSetting.HighlightedSetting)
+            {
+                case UITag.SettingCursor1:
+                    setting.ShowOpening = !setting.ShowOpening;
+                    break;
+
+                case UITag.SettingCursor2:
+                    setting.IsRushMode = !setting.IsRushMode;
+                    break;
+            }
         }
 
         private void Update()
