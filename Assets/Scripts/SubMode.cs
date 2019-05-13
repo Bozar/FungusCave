@@ -138,15 +138,13 @@ namespace Fungus.GameSystem
         private void SwitchModeNormal(bool switchOn)
         {
             SwitchUINormal(switchOn);
-
             GetComponent<SchedulingSystem>().PauseTurn(!switchOn);
         }
 
         private void SwitchUIBuyPower(bool switchOn)
         {
             getUI(UITag.BuyPowerSlotLabel).SetActive(switchOn);
-
-            GetComponent<UIBuyPower>().ResetCursorPosition();
+            GetComponent<UIBuyPower>().Reset();
         }
 
         private void SwitchUIHeader(bool switchOn)
@@ -191,6 +189,7 @@ namespace Fungus.GameSystem
         private void SwitchUISetting(bool switchOn)
         {
             getUI(UITag.SettingCursor1).SetActive(switchOn);
+            GetComponent<UISetting>().Reset();
         }
     }
 }

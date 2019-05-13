@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
 {
-    public class UIBuyPower : MonoBehaviour, IUpdateUI
+    public class UIBuyPower : MonoBehaviour, IUpdateUI, IResetData
     {
         private int cursorPosition;
         private UIText getUI;
@@ -40,7 +40,7 @@ namespace Fungus.GameSystem.Render
             PrintPowerDescription();
         }
 
-        public void ResetCursorPosition()
+        public void Reset()
         {
             cursorPosition = 0;
         }
