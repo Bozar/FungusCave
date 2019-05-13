@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Fungus.Actor.InputManager;
+using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fungus.GameSystem.Render
@@ -52,6 +54,12 @@ namespace Fungus.GameSystem.Render
         void PrintText();
     }
 
+    public class MoveCursorEventArgs : EventArgs
+    {
+        public CommanderTag Commander;
+        public Command Direction;
+    }
+
     public class UserInterface : MonoBehaviour
     {
         private UIObject getUI;
@@ -59,6 +67,45 @@ namespace Fungus.GameSystem.Render
         private delegate GameObject UIObject(UITag tag);
 
         private delegate Text UIText(UITag tag);
+
+        public event EventHandler<MoveCursorEventArgs> MovingCursor;
+
+        public void CommanderMoveCursor(MoveCursorEventArgs e)
+        {
+            OnMovingCursor(e);
+        }
+
+        public int MoveCursorUpDown(Command direction, int currentIndex,
+            int maxIndex)
+        {
+            int minIndex = 0;
+
+            switch (direction)
+            {
+                case Command.Up:
+                    currentIndex -= 1;
+                    break;
+
+                case Command.Down:
+                    currentIndex += 1;
+                    break;
+            }
+
+            if (currentIndex > maxIndex)
+            {
+                currentIndex = minIndex;
+            }
+            else if (currentIndex < minIndex)
+            {
+                currentIndex = maxIndex;
+            }
+            return currentIndex;
+        }
+
+        protected virtual void OnMovingCursor(MoveCursorEventArgs e)
+        {
+            MovingCursor?.Invoke(this, e);
+        }
 
         private void LateUpdate()
         {

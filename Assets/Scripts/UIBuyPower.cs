@@ -23,32 +23,6 @@ namespace Fungus.GameSystem.Render
             get { return orderedPower[cursorPosition]; }
         }
 
-        public void MoveBracket(Command direction)
-        {
-            int min = 0;
-            int max = orderedPower.Length - 1;
-
-            switch (direction)
-            {
-                case Command.Up:
-                    cursorPosition -= 1;
-                    break;
-
-                case Command.Down:
-                    cursorPosition += 1;
-                    break;
-            }
-
-            if (cursorPosition > max)
-            {
-                cursorPosition = min;
-            }
-            else if (cursorPosition < min)
-            {
-                cursorPosition = max;
-            }
-        }
-
         public void PrintStaticText()
         {
             return;
@@ -212,6 +186,7 @@ namespace Fungus.GameSystem.Render
         private void Start()
         {
             getUI = FindObjects.GetUIText;
+            GetComponent<UserInterface>().MovingCursor += UIBuyPower_MovingCursor;
 
             slotTagUI = new Dictionary<PowerSlotTag, UITag>
             {
@@ -242,6 +217,16 @@ namespace Fungus.GameSystem.Render
                 PowerTag.AttEnergy1,
                 PowerTag.AttInfection1
             };
+        }
+
+        private void UIBuyPower_MovingCursor(object sender, MoveCursorEventArgs e)
+        {
+            if (e.Commander != CommanderTag.UIBuyPower)
+            {
+                return;
+            }
+            cursorPosition = GetComponent<UserInterface>().MoveCursorUpDown(
+                e.Direction, cursorPosition, orderedPower.Length - 1);
         }
 
         private void WrapPowerName(int index)

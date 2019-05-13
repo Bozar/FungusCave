@@ -8,12 +8,13 @@ namespace Fungus.Actor.Turn
 {
     public class BuyPowerAction : MonoBehaviour
     {
+        private UIBuyPower buyPower;
         private bool confirmToBuy;
         private HeaderAction header;
         private SubMode mode;
         private Power pcPower;
         private GameText text;
-        private UIBuyPower ui;
+        private UserInterface ui;
 
         private void Awake()
         {
@@ -32,7 +33,8 @@ namespace Fungus.Actor.Turn
         private void Start()
         {
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
-            ui = FindObjects.GameLogic.GetComponent<UIBuyPower>();
+            buyPower = FindObjects.GameLogic.GetComponent<UIBuyPower>();
+            ui = FindObjects.GameLogic.GetComponent<UserInterface>();
             pcPower = FindObjects.PC.GetComponent<Power>();
             header = FindObjects.GameLogic.GetComponent<HeaderAction>();
             text = FindObjects.GameLogic.GetComponent<GameText>();
@@ -40,7 +42,7 @@ namespace Fungus.Actor.Turn
 
         private void TryBuyPower()
         {
-            PowerTag power = ui.HighlightedPower;
+            PowerTag power = buyPower.HighlightedPower;
 
             if (pcPower.IsBuyable(power) && !pcPower.HasPower(power))
             {
@@ -69,7 +71,11 @@ namespace Fungus.Actor.Turn
 
                 case Command.Down:
                 case Command.Up:
-                    ui.MoveBracket(cmd);
+                    ui.CommanderMoveCursor(new MoveCursorEventArgs
+                    {
+                        Commander = CommanderTag.UIBuyPower,
+                        Direction = cmd
+                    });
                     break;
 
                 case Command.Confirm:

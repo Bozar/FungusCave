@@ -12,7 +12,7 @@
   <!-- Move at most X steps when auto exploring. -->
   <AutoExploreStep>5</AutoExploreStep>
   <!-- Change UI color when PC's HP or Potion is lower than threshold. -->
-  <LowHP>5</LowHP>
+  <LowHP>6</LowHP>
   <LowPotion>2</LowPotion>
   <!-- Display a warning message when beetles will appear after X kills. -->
   <!-- Set a number between 1 to 10. -->

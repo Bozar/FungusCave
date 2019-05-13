@@ -22,6 +22,11 @@ namespace Fungus.Actor.InputManager
         GainHP, LoseHP, DrinkPotion, PrintEnergyCost
     };
 
+    public enum CommanderTag
+    {
+        INVALID, UIBuyPower, UISetting
+    }
+
     public interface IConvertInput { Command Input2Command(); }
 
     //* PlayerInput
