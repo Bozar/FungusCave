@@ -83,10 +83,14 @@
       <English>Press ? to view help.</English>
       <Chinese>按 ? 显示帮助。</Chinese>
     </Help>
-    <Win>
-      <English>You win!</English>
-      <Chinese>你赢了！</Chinese>
-    </Win>
+    <WinNormal>
+      <English>You beat the Normal Mode!</English>
+      <Chinese>你打通了普通模式！</Chinese>
+    </WinNormal>
+    <WinRush>
+      <English>You beat the Rush Mode!</English>
+      <Chinese>你打通了冲刺模式！</Chinese>
+    </WinRush>
     <Continue>
       <English>Press Space to continue.</English>
       <Chinese>按 空格键 继续游戏。</Chinese>
@@ -231,6 +235,10 @@
       <English>Cave - %num%</English>
       <Chinese>洞窟 - %num%</Chinese>
     </DungeonLevel>
+    <RushMode>
+      <English>Rush Mode</English>
+      <Chinese>冲刺模式</Chinese>
+    </RushMode>
     <EnemyIcon>
       <English>@</English>
     </EnemyIcon>

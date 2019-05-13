@@ -117,10 +117,18 @@ namespace Fungus.GameSystem.Render
             string level = GetComponent<DungeonProgressData>().GetDungeonLevel()
                 .ToString();
 
-            // DL1
-            level = level.Replace("DL", "");
-            // Cave - %num%
-            dungeon = dungeon.Replace("%num%", level);
+            if (GetComponent<DungeonProgressData>().IsRushMode)
+            {
+                dungeon = GetComponent<GameText>().GetStringData(node,
+                    "RushMode");
+            }
+            else
+            {
+                // DL1
+                level = level.Replace("DL", "");
+                // Cave - %num%
+                dungeon = dungeon.Replace("%num%", level);
+            }
 
             getText(UITag.DungeonLevel).text = dungeon;
         }

@@ -31,6 +31,7 @@ namespace Fungus.Actor
         private UIModeline modeline;
         private PotionData potionData;
         private DungeonProgress progress;
+        private DungeonProgressData progressData;
         private SchedulingSystem schedule;
         private GameText text;
 
@@ -62,7 +63,14 @@ namespace Fungus.Actor
                 color.ChangeObjectColor(getActor(SubObjectTag.Guide),
                     ColorName.Orange);
 
-                victory = text.GetStringData(node, "Win");
+                if (progressData.IsRushMode)
+                {
+                    victory = text.GetStringData(node, "WinRush");
+                }
+                else
+                {
+                    victory = text.GetStringData(node, "WinNormal");
+                }
                 victory = color.GetColorfulText(victory, ColorName.Green);
                 message.StoreText(victory);
                 modeline.PrintStaticText(text.GetStringData(node, "ReloadWin"));
@@ -92,6 +100,8 @@ namespace Fungus.Actor
         {
             schedule = FindObjects.GameLogic.GetComponent<SchedulingSystem>();
             progress = FindObjects.GameLogic.GetComponent<DungeonProgress>();
+            progressData
+                = FindObjects.GameLogic.GetComponent<DungeonProgressData>();
             color = FindObjects.GameLogic.GetComponent<GameColor>();
             modeline = FindObjects.GameLogic.GetComponent<UIModeline>();
             message = FindObjects.GameLogic.GetComponent<UIMessage>();
