@@ -384,6 +384,10 @@
       <English>Show opening scene.</English>
       <Chinese>显示开场文本。</Chinese>
     </ShowOpening>
+    <RushMode>
+      <English>Enable Rush Mode.</English>
+      <Chinese>开启冲刺模式。</Chinese>
+    </RushMode>
   </Setting>
   <!--- vim: set lbr sts=2 sw=2: -->
 </GameText>

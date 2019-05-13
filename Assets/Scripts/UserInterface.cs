@@ -34,6 +34,7 @@ namespace Fungus.GameSystem.Render
         Log11, Log12, Log13, Log14, Log15, Log16,
 
         SettingCursor1, SettingOption1, SettingText1,
+        SettingCursor2, SettingOption2, SettingText2,
 
         ExamineMessage, ExamineModeline, ExamineName,
         ExamineHPLabel, ExamineHPData,

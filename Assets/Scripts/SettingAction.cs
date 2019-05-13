@@ -1,6 +1,7 @@
 ﻿using Fungus.Actor.InputManager;
 using Fungus.GameSystem;
 using Fungus.GameSystem.Data;
+using Fungus.GameSystem.Render;
 using UnityEngine;
 
 namespace Fungus.Actor.Turn
@@ -10,12 +11,14 @@ namespace Fungus.Actor.Turn
         private HeaderAction header;
         private SubMode mode;
         private GameSetting setting;
+        private UserInterface ui;
 
         private void Start()
         {
             mode = FindObjects.GameLogic.GetComponent<SubMode>();
             header = FindObjects.GameLogic.GetComponent<HeaderAction>();
             setting = FindObjects.GameLogic.GetComponent<GameSetting>();
+            ui = FindObjects.GameLogic.GetComponent<UserInterface>();
         }
 
         private void SwitchSetting()
@@ -35,6 +38,15 @@ namespace Fungus.Actor.Turn
 
                 case Command.Cancel:
                     mode.SwitchModeSetting(false);
+                    break;
+
+                case Command.Down:
+                case Command.Up:
+                    ui.CommanderMoveCursor(new MoveCursorEventArgs
+                    {
+                        Commander = CommanderTag.UISetting,
+                        Direction = cmd
+                    });
                     break;
 
                 case Command.Next:
