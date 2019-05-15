@@ -120,6 +120,7 @@ Wizard mode:
 
 * Save potions for later use. Do not use potions to buy a new power unless you are adjacent to an enemy and you can kill the target in one hit.
 * Enemies can see 1 grid further than PC. Wait 1 turn before venturing into unexplored area.
+* Move 1 step at a time. Do not rely too much on auto exploration.
 * Always make sure there is a clear path for retreat. By clear, I mean you can move in a straight line and there is no pool in the way.
 * Avoid the pool at all costs.
 * Try not to move or attack diagonally.
