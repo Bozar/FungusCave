@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!-- NOT FOR YOU, HARRY! -->
-  <IsWizard>false</IsWizard>
+  <IsWizard>true</IsWizard>
   <!-- The default seed is 0. -->
   <!-- It means to generate a random number as the seed. -->
   <Seed>0</Seed>
@@ -20,8 +20,8 @@
     <Default>English</Default>
   </Language>
   <!-- Beat one Level 3 dungeon. -->
-  <IsRushMode>false</IsRushMode>
+  <IsRushMode>true</IsRushMode>
   <!-- Show the opening scene. -->
-  <ShowOpening>true</ShowOpening>
+  <ShowOpening>false</ShowOpening>
   <!-- vim: set lbr sts=2 sw=2: -->
 </GameSetting>

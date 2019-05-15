@@ -1,5 +1,6 @@
 ﻿using Fungus.GameSystem.SaveLoadData;
 using System;
+using System.IO;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -76,12 +77,19 @@ namespace Fungus.GameSystem.Data
 
         public void LoadXML()
         {
-            xFile = GetComponent<SaveLoadFile>().LoadXML(fileName);
+            if (File.Exists(fileName))
+            {
+                xFile = GetComponent<SaveLoadFile>().LoadXML("", fileName);
+            }
+            else
+            {
+                xFile = GetComponent<SaveLoadFile>().LoadXML(fileName);
+            }
         }
 
         public void SaveXML()
         {
-            GetComponent<SaveLoadFile>().SaveXML(xFile, fileName);
+            GetComponent<SaveLoadFile>().SaveXML(xFile, fileName, "");
         }
 
         private void Start()
