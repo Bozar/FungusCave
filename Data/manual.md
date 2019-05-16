@@ -60,8 +60,8 @@ Defense, Infection:
 
 Defense, HP:
 
-* First Aid: Restore 1 HP every turn when your current HP is less than 5.
-* Reaper: Restore 1 HP when you kill an enemy. Requires First Aid.
+* First Aid: Restore 1 HP every turn if your current HP is less than 5.
+* Patient Zero: Restore 1 HP every turn if you are infected and your current HP is less than 8. Requires First Aid.
 
 Attack:
 
