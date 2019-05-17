@@ -2,7 +2,7 @@
 
 ## Summary
 
-Fungus Cave is a coffee break Roguelike game. A successful run takes about fifteen minutes. Your goal is to fight through three dungeon levels and kill all enemies that carries potion. The game is made with C# and Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino for [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0). The color theme, `One Dark Pro`, is created by binaryify for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
+Fungus Cave ([demo](https://imgur.com/yWLq39t)) is a coffee break Roguelike game. A successful run takes about fifteen minutes. Your goal is to fight through three dungeon levels and kill all enemies that carries potion. The game is made with C# and Unity. The ☼masterful☼ tileset, `curses_vector`, is created by DragonDePlatino for [Dwarf Fortress](http://www.bay12forums.com/smf/index.php?topic=161328.0). The color theme, `One Dark Pro`, is created by binaryify for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
 
 This readme serves as a quick start guide to the game. Please refer to `manual.md`, which is in the same place as `FungusCave.exe`, for more information. You might be interested in [other games](https://github.com/Bozar/DevBlog/wiki/GameList) made by me.
 
